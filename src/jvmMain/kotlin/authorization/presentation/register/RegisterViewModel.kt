@@ -6,13 +6,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import authorization.data.model.User
 import authorization.domain.repository.AuthenticationRepository
+import authorization.domain.usecase.SignupUseCase
 
-class RegisterViewModel(private val authenticationRepository: AuthenticationRepository) {
-    val currentUser = mutableStateOf<User?>(null)
-    fun addUser(user: User){
+class RegisterViewModel(private val signupUseCase: SignupUseCase) {
+    fun signup(user: User){
         runBlocking {
             launch {
-                authenticationRepository.add(user)
+                signupUseCase(user)
             }
         }
     }

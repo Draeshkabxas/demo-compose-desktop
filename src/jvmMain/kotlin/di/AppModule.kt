@@ -8,7 +8,7 @@ import authorization.data.repository.AppCloseImpl
 import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
 import authorization.data.repository.MangodbAuthenticationImpl
-import authorization.domain.usecase.IsUserUseCase
+import authorization.domain.usecase.LoginUseCase
 import authorization.presentation.login.LoginViewModel
 
 val appModule = module {
@@ -18,5 +18,5 @@ val appModule = module {
      }
      single <AppCloseRepository>{ AppCloseImpl() }
      single <AuthenticationRepository>{ MangodbAuthenticationImpl(get(),get()) }
-     single <LoginViewModel>{ LoginViewModel(IsUserUseCase(get())) }
+     single <LoginViewModel>{ LoginViewModel(LoginUseCase(get())) }
 }

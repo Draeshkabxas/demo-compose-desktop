@@ -1,16 +1,24 @@
 package authorization.presentation.login
 
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import authorization.data.model.User
-import authorization.domain.repository.AuthenticationRepository
-import authorization.domain.usecase.IsUserUseCase
+import authorization.domain.usecase.LoginUseCase
+import common.Resource
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
 
 class LoginViewModel(
-    val isUserUseCase: IsUserUseCase
+    val loginUseCase: LoginUseCase
 ) {
-    fun isUser(user: User) = isUserUseCase(user)
+    val isLogin = mutableStateOf(false)
+    fun login(user: User) {
+        loginUseCase(user).onEach {
+            when(it){
+                is Resource.Error -> println(it.message)
+                is Resource.Loading -> println("Loading...")
+                is Resource.Success -> isLogin.value = false
+            }
+        }
+    }
 
 }

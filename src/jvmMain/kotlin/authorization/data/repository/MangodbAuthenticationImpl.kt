@@ -20,7 +20,7 @@ class MangodbAuthenticationImpl(private val realm:Realm,private val app: AppClos
         return realm.query<User>().asFlow().map { it.list }
     }
 
-    override suspend fun add(user: User) {
+    override suspend fun add(user: User):User {
          realm.writeBlocking {
             try {
                 copyToRealm(user)
@@ -28,6 +28,7 @@ class MangodbAuthenticationImpl(private val realm:Realm,private val app: AppClos
                 return@writeBlocking false
             }
         }
+        return user
     }
 
     override fun getUser(user: User): Flow<User?> {

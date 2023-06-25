@@ -7,7 +7,7 @@ interface AuthenticationRepository {
 
 
     fun getAllUsers():Flow<List<User>>
-    suspend fun add(user: User)
+    suspend fun add(user: User):User
      fun isUser(user: User): Flow<Boolean>
      fun getUser(user: User):Flow<User?>
     suspend fun updatePassword(userUpdate: User, newPassword:String)

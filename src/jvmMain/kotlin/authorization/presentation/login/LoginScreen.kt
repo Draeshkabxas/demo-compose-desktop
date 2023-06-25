@@ -19,7 +19,6 @@ import authorization.presentation.component.UserNameTextField
 import authorization.data.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
-import authorization.presentation.register.RegisterViewModel
 import styles.CairoTypography
 import styles.Colors.background
 
@@ -30,13 +29,8 @@ fun LoginScreen(
 ) {
     val userName = mutableStateOf<String>("")
     val password = mutableStateOf<String>("")
-    val user = mutableStateOf(User())
-    viewModel.isUser(user.value).collectAsState(false).let {
-        if(it.value){
-            println("I'll navigate")
-        }else{
-            println("not working")
-        }
+    if(viewModel.isLogin.value){
+        println("navigate")
     }
     Surface(
         modifier = Modifier
@@ -82,7 +76,7 @@ fun LoginScreen(
                         val newUser = User()
                         newUser.name = userName.value
                         newUser.password = password.value
-                        user.value = newUser
+                        viewModel.login(newUser)
                     }, "تسجيل الدخول")
                     OutlineRoundedButton({appClose.close()}, "خروج")
                 }

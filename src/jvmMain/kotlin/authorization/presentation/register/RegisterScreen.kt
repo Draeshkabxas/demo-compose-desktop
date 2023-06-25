@@ -74,7 +74,7 @@ fun RegisterScreen(
                         user.name = userName.value
                         user.password = password.value
 
-                    }, "تسجيل الدخول")
+                    }, "إنشاء حساب")
                     OutlineRoundedButton({appClose.close()}, "خروج")
                 }
             }

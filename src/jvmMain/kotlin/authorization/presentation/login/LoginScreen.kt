@@ -9,8 +9,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.input.key.Key.Companion.Window
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.*
 import common.component.OutlineRoundedButton
 import common.component.RoundedButton
 import common.component.RoundedImage
@@ -19,26 +22,30 @@ import authorization.presentation.component.UserNameTextField
 import authorization.data.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
+import common.component.RoundedCornerWindow
+import navcontroller.NavController
 import styles.CairoTypography
 import styles.Colors.background
 
 @Composable
 fun LoginScreen(
-    viewModel:  LoginViewModel= koinInject(),
+    navController: NavController,
+    viewModel: LoginViewModel = koinInject(),
     appClose: AppCloseRepository = koinInject(),
 ) {
     val userName = mutableStateOf<String>("")
     val password = mutableStateOf<String>("")
-    if(viewModel.isLogin.value){
+    if (viewModel.isLogin.value) {
         println("navigate")
     }
     Surface(
         modifier = Modifier
-            .size(1000.dp, 700.dp)
+            .size(1000.dp)
             .padding(5.dp)
             .shadow(3.dp, RoundedCornerShape(20.dp)),
         color = background,
-        shape = RoundedCornerShape(20.dp) //window has round corners now
+        shape = RoundedCornerShape(20.dp), //window has round corners now
+        elevation = 40.dp
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -63,7 +70,8 @@ fun LoginScreen(
                     { name -> userName.value = name },
                     errorMessage = "",
                     onNextChange = { print(it) })
-                PasswordTextField("",
+                PasswordTextField(
+                    "",
                     { passwordText -> password.value = passwordText },
                     errorMessage = "",
                     onNextChange = { print(it) },
@@ -78,7 +86,9 @@ fun LoginScreen(
                         newUser.password = password.value
                         viewModel.login(newUser)
                     }, "تسجيل الدخول")
-                    OutlineRoundedButton({appClose.close()}, "خروج")
+                    OutlineRoundedButton({
+                        navController.navigate(Screen.SignupScreen.name)
+                    }, "إنشاء حساب")
                 }
             }
             RoundedImage("images/login-image.png", modifier = Modifier.padding(horizontal = 35.dp))
@@ -90,5 +100,5 @@ fun LoginScreen(
 @Preview
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    //LoginScreen()
 }

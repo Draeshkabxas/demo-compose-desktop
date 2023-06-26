@@ -10,11 +10,13 @@ import kotlinx.coroutines.flow.flow
 
 class SignupUseCase(private val auth: AuthenticationRepository) {
     operator fun invoke(user: User): Flow<Resource<User>> = flow {
+        println("Signup working")
         emit(Resource.Loading())
         val isUser = auth.isUser(user).first()
-        if (isUser) {
+        if (!isUser) {
              auth.add(user)
             emit(Resource.Success(user))
+            println(auth.getUser(user).first().toString())
         } else {
             emit(Resource.Error("User Already exists"))
         }

@@ -9,7 +9,9 @@ import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
 import authorization.data.repository.MangodbAuthenticationImpl
 import authorization.domain.usecase.LoginUseCase
+import authorization.domain.usecase.SignupUseCase
 import authorization.presentation.login.LoginViewModel
+import authorization.presentation.register.RegisterViewModel
 
 val appModule = module {
      single<Realm> { Realm.open(
@@ -19,4 +21,5 @@ val appModule = module {
      single <AppCloseRepository>{ AppCloseImpl() }
      single <AuthenticationRepository>{ MangodbAuthenticationImpl(get(),get()) }
      single <LoginViewModel>{ LoginViewModel(LoginUseCase(get())) }
+     single <RegisterViewModel>{ RegisterViewModel(SignupUseCase(get())) }
 }

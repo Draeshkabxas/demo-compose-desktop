@@ -31,7 +31,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-
+                implementation(compose.materialIconsExtended)
                 //Koin Dependency injection
                 implementation("io.insert-koin:koin-core:$koin_core_version")
                 implementation("io.insert-koin:koin-androidx-compose:$koin_androidx_compose_version")

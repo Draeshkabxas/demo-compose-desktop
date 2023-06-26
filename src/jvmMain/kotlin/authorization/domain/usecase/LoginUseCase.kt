@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.*
 class LoginUseCase(private val auth: AuthenticationRepository){
     operator fun invoke(user: User): Flow<Resource<Boolean>> = flow{
         emit(Resource.Loading())
+        println("login state is  loading..")
         val auth=auth.isUser(user)
+        println("login state is  "+auth.first())
         emit(Resource.Success(auth.first()))
     }.catch { emit(Resource.Error("Cloud Not login")) }
 }

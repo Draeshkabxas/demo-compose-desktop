@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import common.component.OutlineRoundedButton
 import common.component.RoundedButton
@@ -19,11 +20,14 @@ import authorization.presentation.component.UserNameTextField
 import authorization.data.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
+import common.component.RoundedCornerWindow
+import navcontroller.NavController
 import styles.CairoTypography
 import styles.Colors.background
 
 @Composable
 fun RegisterScreen(
+    navController: NavController,
     viewModel: RegisterViewModel = koinInject(),
     appClose: AppCloseRepository = koinInject(),
 ) {
@@ -31,7 +35,6 @@ fun RegisterScreen(
     val password = mutableStateOf<String>("")
     Surface(
         modifier = Modifier
-            .size(1000.dp, 700.dp)
             .padding(5.dp)
             .shadow(3.dp, RoundedCornerShape(20.dp)),
         color = background,
@@ -60,7 +63,8 @@ fun RegisterScreen(
                     { name -> userName.value = name },
                     errorMessage = "",
                     onNextChange = { print(it) })
-                PasswordTextField("",
+                PasswordTextField(
+                    "",
                     { passwordText -> password.value = passwordText },
                     errorMessage = "",
                     onNextChange = { print(it) },
@@ -73,9 +77,10 @@ fun RegisterScreen(
                         val user = User()
                         user.name = userName.value
                         user.password = password.value
-
+                        viewModel.signup(user)
+                        navController.navigate(Screen.LoginScreen.name)
                     }, "إنشاء حساب")
-                    OutlineRoundedButton({appClose.close()}, "خروج")
+                    OutlineRoundedButton({ appClose.close() }, "خروج")
                 }
             }
             RoundedImage("images/login-image.png", modifier = Modifier.padding(horizontal = 35.dp))
@@ -87,5 +92,5 @@ fun RegisterScreen(
 @Preview
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen()
+   // RegisterScreen()
 }

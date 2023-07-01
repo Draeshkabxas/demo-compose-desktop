@@ -3,6 +3,8 @@ package authorization.presentation.register
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -10,29 +12,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import authorization.domain.model.Jobs
 import common.component.OutlineRoundedButton
 import common.component.RoundedButton
 import common.component.RoundedImage
 import authorization.presentation.component.PasswordTextField
 import authorization.presentation.component.UserNameTextField
-import authorization.data.model.User
 import org.koin.compose.koinInject
-import authorization.domain.repository.AppCloseRepository
-import common.component.RoundedCornerWindow
+import common.component.RoundedDropdownMenu
 import navcontroller.NavController
 import styles.CairoTypography
-import styles.Colors.background
+import styles.AppColors.background
 
 @Composable
 fun RegisterScreen(
     navController: NavController,
     viewModel: RegisterViewModel = koinInject(),
-    appClose: AppCloseRepository = koinInject(),
 ) {
-    val userName = mutableStateOf<String>("")
-    val password = mutableStateOf<String>("")
+    val state = viewModel.state
+    LaunchedEffect(key1 = true) {
+        viewModel.validationEvents.collect { event ->
+            when (event) {
+                RegisterViewModel.ValidationEvent.Success -> {
+                    navController.navigate(AuthScreen.SystemScreen.name)
+                }
+            }
+        }
+    }
     Surface(
         modifier = Modifier
             .padding(5.dp)
@@ -58,29 +65,64 @@ fun RegisterScreen(
                     "الرجاء ادخال اسم المستخدم\n" +
                             "و كلمة السر", style = CairoTypography.body1
                 )
-                UserNameTextField(
-                    "",
-                    { name -> userName.value = name },
-                    errorMessage = "",
-                    onNextChange = { print(it) })
-                PasswordTextField(
-                    "",
-                    { passwordText -> password.value = passwordText },
-                    errorMessage = "",
-                    onNextChange = { print(it) },
-                    modifier = Modifier.padding(vertical = 25.dp)
-                )
+                LazyVerticalGrid(
+                    modifier = Modifier.sizeIn(maxWidth = 530.dp, minHeight = 250.dp),
+                    columns = GridCells.Fixed(2),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    item {
+                        UserNameTextField(
+                            "",
+                            { name -> viewModel.onEvent(RegistrationFormEvent.UsernameChanged(name)) },
+                            isError = state.usernameError != null,
+                            errorMessage = state.usernameError.toString(),
+                            onNextChange = { print(it) })
+                    }
+                    item {
+                        RoundedDropdownMenu(
+                            items= Jobs.values().toList(),
+                            onSelectItem = {},
+                            label = { Text(it.name) },
+                        ){
+                            Text(it.name)
+                        }
+                    }
+                    item {
+                        PasswordTextField(
+                            "",
+                            { password -> viewModel.onEvent(RegistrationFormEvent.PasswordChanged(password)) },
+                            isError = state.passwordError != null,
+                            errorMessage = state.passwordError.toString(),
+                            onNextChange = { print(it) },
+                            modifier = Modifier.padding(vertical = 25.dp)
+                        )
+                    }
+                    item {
+                        PasswordTextField(
+                            "",
+                            { repeatedPassword ->
+                                viewModel.onEvent(
+                                    RegistrationFormEvent.RepeatedPasswordChanged(
+                                        repeatedPassword
+                                    )
+                                )
+                            },
+                            isError = state.repeatedPasswordError != null,
+                            errorMessage = state.repeatedPasswordError.toString(),
+                            hint = "تكرار كلمة السر",
+                            onNextChange = { print(it) },
+                            modifier = Modifier.padding(vertical = 25.dp)
+                        )
+                    }
+                }
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     RoundedButton({
-                        val user = User()
-                        user.name = userName.value
-                        user.password = password.value
-                        viewModel.signup(user)
-                        navController.navigate(Screen.LoginScreen.name)
+                        viewModel.onEvent(RegistrationFormEvent.AcceptTerms(true))
+                        viewModel.onEvent(RegistrationFormEvent.Submit)
                     }, "إنشاء حساب")
-                    OutlineRoundedButton({ appClose.close() }, "خروج")
+                    OutlineRoundedButton({ viewModel.closeApp() }, "خروج")
                 }
             }
             RoundedImage("images/login-image.png", modifier = Modifier.padding(horizontal = 35.dp))
@@ -89,8 +131,12 @@ fun RegisterScreen(
 }
 
 
+
+
 @Preview
 @Composable
 fun RegisterScreenPreview() {
-   // RegisterScreen()
+    RegisterScreen(
+        NavController(AuthScreen.LoginAuthScreen.name)
+    )
 }

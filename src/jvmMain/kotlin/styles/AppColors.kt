@@ -3,7 +3,7 @@ package styles
 import androidx.compose.ui.graphics.Color
 import common.toColor
 
-object Colors {
+object AppColors {
     val primary: Color = "#0AAE8F".toColor()
     val secondary:Color = "#9747FF".toColor()
     val background:Color = "#F5F5F5".toColor()

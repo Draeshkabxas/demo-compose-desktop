@@ -1,6 +1,7 @@
 package authorization.domain.usecase
 
-import authorization.data.model.User
+import authorization.data.model.UserRealm
+import authorization.domain.model.User
 import authorization.domain.repository.AuthenticationRepository
 import common.Resource
 import kotlinx.coroutines.flow.Flow
@@ -12,13 +13,8 @@ class SignupUseCase(private val auth: AuthenticationRepository) {
     operator fun invoke(user: User): Flow<Resource<User>> = flow {
         println("Signup working")
         emit(Resource.Loading())
-        val isUser = auth.isUser(user).first()
-        if (!isUser) {
-             auth.add(user)
-            emit(Resource.Success(user))
-            println(auth.getUser(user).first().toString())
-        } else {
-            emit(Resource.Error("User Already exists"))
-        }
+        auth.add(user)
+        emit(Resource.Success(user))
+        println(auth.getUser(user).first().toString())
     }.catch { emit(Resource.Error("Cloud Not login")) }
 }

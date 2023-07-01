@@ -9,23 +9,25 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.input.key.Key.Companion.Window
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.*
 import common.component.OutlineRoundedButton
 import common.component.RoundedButton
 import common.component.RoundedImage
 import authorization.presentation.component.PasswordTextField
 import authorization.presentation.component.UserNameTextField
-import authorization.data.model.User
+import authorization.domain.model.Jobs
+import authorization.domain.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
-import common.component.RoundedCornerWindow
+import common.Resource
 import navcontroller.NavController
 import styles.CairoTypography
-import styles.Colors.background
+import styles.AppColors.background
+import styles.AppColors.primary
+import styles.AppColors.white
 
 @Composable
 fun LoginScreen(
@@ -35,9 +37,6 @@ fun LoginScreen(
 ) {
     val userName = mutableStateOf<String>("")
     val password = mutableStateOf<String>("")
-    if (viewModel.isLogin.value) {
-        println("navigate")
-    }
     Surface(
         modifier = Modifier
             .size(1000.dp)
@@ -47,6 +46,23 @@ fun LoginScreen(
         shape = RoundedCornerShape(20.dp), //window has round corners now
         elevation = 40.dp
     ) {
+        val state=viewModel.loginState.value
+        when(state) {
+            is Resource.Error -> {
+                println("error: ${state.message}")
+            }
+            is Resource.Loading -> {
+                if(state.data == true){
+                    LoadingDialog{
+                        Text("Loading... ")
+                    }
+                }
+            }
+            is Resource.Success -> {
+                navController.navigate(AuthScreen.SystemScreen.name)
+            }
+            else -> {}
+        }
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -81,13 +97,10 @@ fun LoginScreen(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     RoundedButton({
-                        val newUser = User()
-                        newUser.name = userName.value
-                        newUser.password = password.value
-                        viewModel.login(newUser)
+                        viewModel.login(User("",userName.value,password.value, Jobs.Viewer))
                     }, "تسجيل الدخول")
                     OutlineRoundedButton({
-                        navController.navigate(Screen.SignupScreen.name)
+                        navController.navigate(AuthScreen.SignupAuthScreen.name)
                     }, "إنشاء حساب")
                 }
             }
@@ -96,9 +109,44 @@ fun LoginScreen(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun LoadingDialog(
+    size: DpSize= DpSize(400.dp, 320.dp),
+    content: @Composable() () -> Unit,
+) {
+    AlertDialog(
+        modifier = Modifier.size(size),
+        shape = RoundedCornerShape(20.dp),
+        backgroundColor = Color.Transparent,
+       onDismissRequest = {},
+        buttons={
+           Card(
+               modifier = Modifier.size(size),
+             shape = RoundedCornerShape(20.dp),
+             elevation = 5.dp,
+               backgroundColor = white,
+           ) {
+               Column(
+                   verticalArrangement = Arrangement.SpaceAround,
+                   horizontalAlignment = Alignment.CenterHorizontally
+               ) {
+                   println("loading dialog show")
+                   CircularProgressIndicator(
+                       modifier = Modifier.size(size.width/4, size.height/4),
+                       color = primary,
+                       strokeWidth = 4.dp
+                   )
+                  content()
+               }
+           }
+       }
+    )
+}
 
 @Preview
 @Composable
 fun LoginScreenPreview() {
     //LoginScreen()
+    LoadingDialog {  }
 }

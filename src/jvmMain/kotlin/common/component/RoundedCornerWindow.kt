@@ -11,20 +11,16 @@ import androidx.compose.ui.window.*
 
 @Composable
 fun RoundedCornerWindow(
-    size: DpSize,
+    state: WindowState,
     onClose: () -> Unit,
     icon: String = "images/logo.svg",
     content: @Composable() (FrameWindowScope.(MutableState<DpSize>) -> Unit),
 ) {
-    val windowSize= mutableStateOf(size)
+    val windowSize= mutableStateOf(state.size)
     Window(
         icon = painterResource(icon),
         onCloseRequest = { onClose() },
-        state = WindowState(
-            placement = WindowPlacement.Floating,
-            position = WindowPosition(Alignment.Center),
-            size = windowSize.value
-        ),
+        state = state,
         transparent = true,
         undecorated = true, //transparent window must be undecorated
     ) {

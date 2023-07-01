@@ -1,19 +1,86 @@
 package authorization.presentation.register
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.flow.Flow
-import authorization.data.model.User
-import authorization.domain.repository.AuthenticationRepository
-import authorization.domain.usecase.SignupUseCase
-import io.realm.kotlin.internal.util.CoroutineDispatcherFactory
+import androidx.compose.runtime.setValue
+import authorization.data.model.UserRealm
+import authorization.domain.model.Jobs
+import authorization.domain.model.User
+import authorization.domain.usecase.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 
-class RegisterViewModel(private val signupUseCase: SignupUseCase) {
-    fun signup(user: User){
-        println("sign up work")
-        signupUseCase.invoke(user).onEach {
+class RegisterViewModel(
+    private val signupUseCase: SignupUseCase,
+    private val validateEmail: ValidateUsername,
+    private val validatePassword: ValidatePassword = ValidatePassword(),
+    private val validateRepeatedPassword: ValidateRepeatedPassword = ValidateRepeatedPassword(),
+    private val validateTerms: ValidateTerms = ValidateTerms(),
+    private val closeApplication: CloseApplication
+) {
+    var state by mutableStateOf(RegistrationFormState())
+
+    private val validationEventChannel = Channel<ValidationEvent>()
+    val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun closeApp(){
+        closeApplication()
+    }
+
+    fun onEvent(event: RegistrationFormEvent){
+        when(event){
+            is RegistrationFormEvent.UsernameChanged -> {
+                state = state.copy(username = event.username)
+            }
+            is RegistrationFormEvent.PasswordChanged -> {
+                state = state.copy(password = event.password)
+            }
+            is RegistrationFormEvent.RepeatedPasswordChanged -> {
+                state = state.copy(repeatedPassword = event.repeatedPassword)
+            }
+            is RegistrationFormEvent.AcceptTerms -> {
+                state = state.copy(acceptedTerms = event.isAccepted)
+            }
+            RegistrationFormEvent.Submit -> {
+                submitData()
+            }
+        }
+    }
+
+
+    private fun submitData() {
+        val userResult = validateEmail.execute(state.username)
+        val passwordResult = validatePassword.execute(state.password)
+        val repeatedPasswordResult = validateRepeatedPassword.execute(
+            state.password, state.repeatedPassword
+        )
+        val termsResult = validateTerms.execute(state.acceptedTerms)
+
+        val hasError = listOf(
+            userResult,
+            passwordResult,
+            repeatedPasswordResult,
+            termsResult
+        ).any { !it.successful }
+
+        if(hasError) {
+            state = state.copy(
+                usernameError = userResult.errorMessage,
+                passwordError = passwordResult.errorMessage,
+                repeatedPasswordError = repeatedPasswordResult.errorMessage,
+                termsError = termsResult.errorMessage
+            )
+            return
+        }
+        signupUseCase.invoke(User("",state.username,state.password, Jobs.Viewer)).onEach {
+            validationEventChannel.send(ValidationEvent.Success)
         }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+    sealed class ValidationEvent {
+        object Success: ValidationEvent()
     }
 }

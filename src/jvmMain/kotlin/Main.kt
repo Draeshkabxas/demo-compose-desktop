@@ -1,19 +1,15 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
-import androidx.compose.foundation.window.WindowDraggableArea
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.VerifiedUser
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
@@ -27,20 +23,37 @@ import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
 import navcontroller.rememberNavController
-import java.awt.Toolkit
+import styles.AppColors
+import styles.AppColors.background
+import styles.AppColors.primary
+import styles.AppColors.secondary
+import styles.AppColors.white
+import system.presentation.common.component.NavigationWindow
 
 
 @Composable
 @Preview
 fun App(appClose: AppCloseRepository = koinInject()) {
-    val navController by rememberNavController(Screen.LoginScreen.name)
-    val windowState = rememberWindowState(size = DpSize(1000.dp,700.dp))
-    MaterialTheme {
+    val navController by rememberNavController(AuthScreen.SystemScreen.name)
+    val windowState = rememberWindowState(
+        size = DpSize(1000.dp,700.dp),
+        placement = WindowPlacement.Floating,
+        position = WindowPosition(Alignment.Center),
+    )
+    MaterialTheme(
+       colors= MaterialTheme.colors.copy(primary = primary,
+           secondary = secondary,
+           background = background,
+           surface = white,
+           error = Red,
+           isLight = true,
+       )
+    ) {
         RoundedCornerWindow(
-            size= windowState.size,
+            state= windowState,
             onClose = {appClose.close()}
         ){
-            CustomNavigationHost(navController = navController,windowState)
+            AuthNavigationHost(navController = navController,windowState)
         }
     }
 }
@@ -52,43 +65,44 @@ fun main() = application {
 }
 
 
-enum class Screen(
+enum class AuthScreen(
     val label: String,
     val icon: ImageVector
 ) {
-    LoginScreen(
+    LoginAuthScreen(
         label = "Home",
         icon = Icons.Filled.Home
     ),
-    SignupScreen(
+    SignupAuthScreen(
         label = "Notifications",
         icon = Icons.Filled.Notifications
     ),
-    SettingsScreen(
-        label = "Settings",
-        icon = Icons.Filled.Settings
-    ),
-    ProfileScreens(
-        label = "User Profile",
-        icon = Icons.Filled.VerifiedUser
+    SystemScreen(
+        label = "System",
+        icon = Icons.Filled.Notifications
     )
 }
 
 
 @Composable
-fun CustomNavigationHost(
+fun AuthNavigationHost(
     navController: NavController,
     windowState:WindowState
 ) {
     NavigationHost(navController) {
-        composable(Screen.LoginScreen.name) {
+        composable(AuthScreen.LoginAuthScreen.name) {
             LoginScreen(navController)
         }
 
-        composable(Screen.SignupScreen.name) {
+        composable(AuthScreen.SignupAuthScreen.name) {
+            windowState.size= DpSize(1100.dp,750.dp)
             RegisterScreen(navController)
         }
 
+        composable(AuthScreen.SystemScreen.name) {
+            windowState.size= DpSize(1100.dp,750.dp)
+            NavigationWindow(navController,windowState)
+        }
     }.build()
 }
 

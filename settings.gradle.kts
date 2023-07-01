@@ -15,4 +15,3 @@ pluginManagement {
 }
 
 rootProject.name = "demo"
-

@@ -17,12 +17,6 @@ class ValidateLibyaId {
                 errorMessage = "The libya id should its characters be all digits"
             )
         }
-        if (libyaId.first() != '1'){
-            return ValidationResult(
-                successful = false,
-                errorMessage = "The libya id of a man should start with number 1"
-            )
-        }
         return ValidationResult(
             successful = true
         )

@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import authorization.presentation.register.RegisterViewModel
 import common.component.*
+import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel.ValidationEvent
 import navcontroller.NavController
 import features.sons_of_officers.presentation.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
@@ -22,9 +23,10 @@ fun AddSonsOfOfficersScreen(
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
             when (event) {
-                RegisterViewModel.ValidationEvent.Success -> {
-                    navController.navigate(SystemScreen.HomeScreen.name)
+                ValidationEvent.Success -> {
+                    navController.navigateBack()
                 }
+                else -> {}
             }
         }
     }

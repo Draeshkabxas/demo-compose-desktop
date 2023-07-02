@@ -25,7 +25,7 @@ class AddSonsOfOfficersViewModel(
 
     var state by mutableStateOf(PersonalInfoFormState())
 
-    private val validationEventChannel = Channel<RegisterViewModel.ValidationEvent>()
+    private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
     val personalInputsNameAndValue = listOf(
@@ -166,10 +166,23 @@ class AddSonsOfOfficersViewModel(
                     }
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
-            validationEventChannel.send(RegisterViewModel.ValidationEvent.Success)
-
-
-
+            validationEventChannel.send(ValidationEvent.Success)
+            state = state.copy(
+                name = "",
+                motherName = "",
+                fileNumber = "",
+                libyaid = "",
+                phoneNumber = "",
+                educationLevel = "",
+                recruiter = "",
+                city = ""
+            )
+            validationEventChannel.send(ValidationEvent.New)
         }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+    sealed class ValidationEvent {
+        object Success: ValidationEvent()
+        object New: ValidationEvent()
     }
 }

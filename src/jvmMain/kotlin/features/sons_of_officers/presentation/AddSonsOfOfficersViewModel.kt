@@ -1,0 +1,163 @@
+package features.sons_of_officers.presentation
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import authorization.domain.model.Jobs
+import authorization.domain.model.User
+import authorization.domain.model.ValidationResult
+import authorization.presentation.register.RegisterViewModel
+import authorization.presentation.register.RegistrationFormEvent
+import authorization.presentation.register.RegistrationFormState
+import features.sons_of_officers.data.PersonalItemInfo
+import features.sons_of_officers.domain.usecases.ValidateLibyaId
+import features.sons_of_officers.domain.usecases.ValidatePhoneNumber
+import features.sons_of_officers.domain.usecases.ValidateQuadrupleName
+import features.sons_of_officers.domain.usecases.ValidateTextInputs
+import features.sons_of_officers.presentation.PersonalInfoFormEvent.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
+
+class AddSonsOfOfficersViewModel(
+    private val validateLibyaId: ValidateLibyaId =ValidateLibyaId(),
+    private val validatePhoneNumber: ValidatePhoneNumber = ValidatePhoneNumber(),
+    private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
+    private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName()
+) {
+
+    var state by mutableStateOf(PersonalInfoFormState())
+
+    private val validationEventChannel = Channel<RegisterViewModel.ValidationEvent>()
+    val validationEvents = validationEventChannel.receiveAsFlow()
+
+    val personalInputsNameAndValue = listOf(
+        "الاسم رباعي",
+        "اسم الام",
+        "رقم الملف",
+        "الرقم الوطني",
+        "رقم الهاتف",
+        "المؤهل العلمي",
+        "القائم بالتجنيد",
+        "المدينة",
+    )
+    val justificationsRequiredInputsNameAndValue = mapOf(
+        "ملف" to mutableStateOf(false),
+        "السيرة الذاتية" to mutableStateOf(false),
+        "عدد 8 صور " to mutableStateOf(false),
+        "شهادة الخلو من السوابق الجنائية" to mutableStateOf(false),
+        "شهادة الوضع العائلي" to mutableStateOf(false),
+        "افادة بعدم الارتباط بعمل" to mutableStateOf(false),
+        "شهادة بعدم الجواز باجنبية" to mutableStateOf(false),
+        "شهادة بالاقامة من المجلس المحلي" to mutableStateOf(false),
+        "تصوير كتيب العائلة بتالكامل" to mutableStateOf(false),
+        "المؤهل العلمي (افادة + كشف درجات الاصلي ) معتمد" to mutableStateOf(false),
+        "طلب كتابي" to mutableStateOf(false),
+        "موافقة ولي الامر" to mutableStateOf(false),
+        "شهادة الجنسية" to mutableStateOf(false),
+        "شهادة الدرن" to mutableStateOf(false),
+        "الرقم الوطني" to mutableStateOf(false)
+    )
+    val proceduresInputNameAndValues = mapOf(
+        "تحاليل" to mutableStateOf(false),
+        "كشف طبي" to mutableStateOf(false),
+        "مقابلة شخصية" to mutableStateOf(false),
+        "إحالة لتدريب" to mutableStateOf(false),
+    )
+
+    fun getEvent(index:Int,value:String):PersonalInfoFormEvent{
+        return  when(index){
+            0 -> NameChanged(value)
+            1 -> MotherNameChanged(value)
+            2 -> FileNumberChanged(value)
+            3 -> LibyaIdChanged(value)
+            4 -> PhoneNumberChanged(value)
+            5 -> EducationLevelChanged(value)
+            6 -> RecruiterChanged(value)
+            7 -> CityChanged(value)
+            else -> Submit
+        }
+    }
+
+    fun onEvent(event: PersonalInfoFormEvent){
+        when(event){
+            is NameChanged -> {
+                state = state.copy(name = event.name)
+            }
+            is MotherNameChanged -> {
+                state = state.copy(motherName =  event.name)
+            }
+            is FileNumberChanged ->{
+                state = state.copy(fileNumber =  event.fileNumber)
+            }
+            is LibyaIdChanged -> {
+                state = state.copy(libyaid = event.libyaId)
+            }
+            is PhoneNumberChanged -> {
+                state = state.copy(phoneNumber = event.phone)
+            }
+            is EducationLevelChanged ->{
+                state = state.copy(educationLevel = event.educationLevel)
+            }
+            is RecruiterChanged -> {
+                state = state.copy(recruiter = event.recruiter)
+            }
+            is CityChanged ->{
+                state = state.copy(city = event.city)
+            }
+            Submit -> {
+                submitData()
+            }
+        }
+    }
+
+
+    private fun submitData() {
+        val nameResult = validateQuadrupleName.execute(state.name)
+        val motherResult = validateTextInputs.execute(state.motherName,"mother name")
+        val fileNumberResult = validateTextInputs.execute(state.fileNumber,"file number")
+        val libyaIdResult = validateLibyaId.execute(state.libyaid)
+        val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
+        val educationLevelResult= validateTextInputs.execute(state.educationLevel,"education level")
+        val recruiterResult = validateTextInputs.execute(state.recruiter,"recruiter")
+        val cityResult = validateTextInputs.execute(state.city,"city")
+
+        val hasError = listOf(
+            nameResult,
+            motherResult,
+            fileNumberResult,
+            libyaIdResult,
+            phoneNumberResult,
+            educationLevelResult,
+            recruiterResult,
+            cityResult
+        ).any { !it.successful }
+
+        if(hasError) {
+            state = state.copy(
+                nameError = nameResult.errorMessage,
+                motherNameError = motherResult.errorMessage,
+                fileNumberError = fileNumberResult.errorMessage,
+                libyaidError = libyaIdResult.errorMessage,
+                phoneNumberError = phoneNumberResult.errorMessage,
+                educationLevelError = educationLevelResult.errorMessage,
+                recruiterError = recruiterResult.errorMessage,
+                cityError = cityResult.errorMessage
+            )
+            return
+        }
+        println("البيانات الشخصية")
+        personalInputsNameAndValue.forEach { item ->
+            println(state)
+        }
+
+        println("المسوغات المطلوبة")
+        justificationsRequiredInputsNameAndValue.forEach { name, value -> println("$name: ${value.value}") }
+
+        println("الاجراءات")
+        proceduresInputNameAndValues.forEach { name, value -> println("$name: ${value.value}") }
+    }
+}

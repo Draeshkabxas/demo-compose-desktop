@@ -1,4 +1,4 @@
-package system.presentation.common.component
+package common.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.desktop.ui.tooling.preview.Preview

@@ -14,6 +14,8 @@ import authorization.domain.usecase.SignupUseCase
 import authorization.domain.usecase.ValidateUsername
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
+import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
+import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel
 
 val appModule = module {
      single<Realm> { Realm.open(
@@ -24,4 +26,5 @@ val appModule = module {
      single <AuthenticationRepository>{ MangodbAuthenticationImpl(get(),get()) }
      single <LoginViewModel>{ LoginViewModel(LoginUseCase(get())) }
      single <RegisterViewModel>{ RegisterViewModel(SignupUseCase(get()), ValidateUsername(get()), closeApplication = CloseApplication(get())) }
+     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel() }
 }

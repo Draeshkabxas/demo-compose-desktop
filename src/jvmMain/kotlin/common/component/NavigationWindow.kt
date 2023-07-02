@@ -1,4 +1,4 @@
-package system.presentation.common.component
+package common.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -18,15 +18,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
-import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
 import navcontroller.rememberNavController
 import styles.AppColors.background
-import system.presentation.home.HomeScreen
-import system.presentation.sons_of_officers.AddSonsOfOfficersScreen
+import features.home.presentation.HomeScreen
+import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
 
 @Composable
 fun NavigationWindow(

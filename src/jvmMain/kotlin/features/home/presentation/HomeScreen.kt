@@ -1,4 +1,4 @@
-package system.presentation.home
+package features.home.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import navcontroller.NavController
-import system.presentation.common.component.SystemScreen
+import common.component.SystemScreen
 
 @Composable
 fun HomeScreen(

@@ -3,17 +3,9 @@ package features.sons_of_officers.presentation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import authorization.domain.model.Jobs
-import authorization.domain.model.User
-import authorization.domain.model.ValidationResult
 import authorization.presentation.register.RegisterViewModel
-import authorization.presentation.register.RegistrationFormEvent
-import authorization.presentation.register.RegistrationFormState
-import features.sons_of_officers.data.PersonalItemInfo
-import features.sons_of_officers.domain.usecases.ValidateLibyaId
-import features.sons_of_officers.domain.usecases.ValidatePhoneNumber
-import features.sons_of_officers.domain.usecases.ValidateQuadrupleName
-import features.sons_of_officers.domain.usecases.ValidateTextInputs
+import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.PersonalInfoFormEvent.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +18,8 @@ class AddSonsOfOfficersViewModel(
     private val validateLibyaId: ValidateLibyaId =ValidateLibyaId(),
     private val validatePhoneNumber: ValidatePhoneNumber = ValidatePhoneNumber(),
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
-    private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName()
+    private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
+    private val addPersonUseCase: AddPersonUseCase
 ) {
 
     var state by mutableStateOf(PersonalInfoFormState())
@@ -68,19 +61,6 @@ class AddSonsOfOfficersViewModel(
         "إحالة لتدريب" to mutableStateOf(false),
     )
 
-    fun getEvent(index:Int,value:String):PersonalInfoFormEvent{
-        return  when(index){
-            0 -> NameChanged(value)
-            1 -> MotherNameChanged(value)
-            2 -> FileNumberChanged(value)
-            3 -> LibyaIdChanged(value)
-            4 -> PhoneNumberChanged(value)
-            5 -> EducationLevelChanged(value)
-            6 -> RecruiterChanged(value)
-            7 -> CityChanged(value)
-            else -> Submit
-        }
-    }
 
     fun onEvent(event: PersonalInfoFormEvent){
         when(event){
@@ -108,7 +88,7 @@ class AddSonsOfOfficersViewModel(
             is CityChanged ->{
                 state = state.copy(city = event.city)
             }
-            Submit -> {
+            is Submit -> {
                 submitData()
             }
         }
@@ -118,7 +98,7 @@ class AddSonsOfOfficersViewModel(
     private fun submitData() {
         val nameResult = validateQuadrupleName.execute(state.name)
         val motherResult = validateTextInputs.execute(state.motherName,"mother name")
-        val fileNumberResult = validateTextInputs.execute(state.fileNumber,"file number")
+        val fileNumberResult = validateTextInputs.execute(state.fileNumber,"file number",true)
         val libyaIdResult = validateLibyaId.execute(state.libyaid)
         val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
         val educationLevelResult= validateTextInputs.execute(state.educationLevel,"education level")
@@ -149,15 +129,36 @@ class AddSonsOfOfficersViewModel(
             )
             return
         }
-        println("البيانات الشخصية")
-        personalInputsNameAndValue.forEach { item ->
+        val justification = justificationsRequiredInputsNameAndValue.map {name ->
+            name.key to name.value.value
+        }.toMap()
+
+        val procedures = proceduresInputNameAndValues.map {name ->
+            name.key to name.value.value
+        }.toMap()
+        val newPerson= Person(
+            id = "",
+            name = state.name,
+            motherName = state.motherName,
+            fileNUmber = state.fileNumber,
+            libyaId = state.libyaid,
+            phoneNUmber = state.phoneNumber,
+            educationLevel = state.educationLevel,
+            recruiter = state.recruiter,
+            city = state.city,
+            justificationsRequire = justification,
+            procedures = procedures
+        )
+
+        addPersonUseCase.invoke(newPerson).onEach {
+            println("البيانات الشخصية")
             println(state)
-        }
+            println("المسوغات المطلوبة")
+            justificationsRequiredInputsNameAndValue.forEach { (name, value) -> println("$name: ${value.value}") }
 
-        println("المسوغات المطلوبة")
-        justificationsRequiredInputsNameAndValue.forEach { name, value -> println("$name: ${value.value}") }
-
-        println("الاجراءات")
-        proceduresInputNameAndValues.forEach { name, value -> println("$name: ${value.value}") }
+            println("الاجراءات")
+            proceduresInputNameAndValues.forEach { (name, value) -> println("$name: ${value.value}") }
+            validationEventChannel.send(RegisterViewModel.ValidationEvent.Success)
+        }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 }

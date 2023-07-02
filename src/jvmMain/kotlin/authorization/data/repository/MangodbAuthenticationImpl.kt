@@ -16,9 +16,9 @@ import kotlinx.coroutines.flow.flow
 class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCloseRepository) :
     AuthenticationRepository {
     init {
-        app.addToCloseList {
+        Runtime.getRuntime().addShutdownHook(Thread {
             realm.close()
-        }
+        })
     }
 
     override fun getAllUsers(): Flow<List<User>> {

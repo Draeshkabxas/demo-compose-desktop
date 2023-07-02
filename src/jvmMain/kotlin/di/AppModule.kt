@@ -14,6 +14,12 @@ import authorization.domain.usecase.SignupUseCase
 import authorization.domain.usecase.ValidateUsername
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
+import features.sons_of_officers.data.model.Justification
+import features.sons_of_officers.data.model.Procedure
+import features.sons_of_officers.data.model.RealmPerson
+import features.sons_of_officers.data.repository.RealmPersonImpl
+import features.sons_of_officers.domain.repository.PersonRepository
+import features.sons_of_officers.domain.usecases.AddPersonUseCase
 import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
 import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel
 
@@ -26,5 +32,10 @@ val appModule = module {
      single <AuthenticationRepository>{ MangodbAuthenticationImpl(get(),get()) }
      single <LoginViewModel>{ LoginViewModel(LoginUseCase(get())) }
      single <RegisterViewModel>{ RegisterViewModel(SignupUseCase(get()), ValidateUsername(get()), closeApplication = CloseApplication(get())) }
-     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel() }
+     single <PersonRepository> { RealmPersonImpl(
+          Realm.open(
+               RealmConfiguration.create(schema = setOf(RealmPerson::class,Justification::class, Procedure::class))
+          )
+     ) }
+     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel(addPersonUseCase =  AddPersonUseCase(get())) }
 }

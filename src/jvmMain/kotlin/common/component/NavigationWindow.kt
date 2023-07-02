@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
@@ -26,6 +27,7 @@ import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
 import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
+import kotlin.system.exitProcess
 
 @Composable
 fun NavigationWindow(
@@ -101,7 +103,7 @@ fun NavigationWindow(
                         }
 
                     ) {
-                        val iconPath = if(isWindowInFullScreen) "floating.svg" else "maximize.svg"
+                        val iconPath = if (isWindowInFullScreen) "floating.svg" else "maximize.svg"
                         Icon(
                             painter = painterResource("images/$iconPath"),
                             contentDescription = "Full Screen Application",
@@ -109,7 +111,7 @@ fun NavigationWindow(
                             modifier = Modifier.size(22.dp)
                         )
                     }
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { exitProcess(0) }) {
                         Image(
                             painter = painterResource("images/exit.svg"),
                             contentDescription = "Exit Application",
@@ -149,6 +151,7 @@ fun SystemNavigationHost(
         }
 
         composable(SystemScreen.AddSonsOfOfficersScreen.name) {
+            windowState.size = DpSize(1100.dp, 950.dp)
             AddSonsOfOfficersScreen(navController)
         }
 

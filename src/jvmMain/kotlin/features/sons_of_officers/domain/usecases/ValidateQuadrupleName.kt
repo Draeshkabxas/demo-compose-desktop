@@ -11,11 +11,11 @@ class ValidateQuadrupleName {
                 errorMessage = "The name needs to be 4 words"
             )
         }
-        val containsJustDigits = name.all { it.isLetter() }
+        val containsJustDigits = name.all { it.isLetter() || it==' ' }
         if(!containsJustDigits) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The phone number should its characters be all in letters"
+                errorMessage = "The name should its characters be all in letters"
             )
         }
         return ValidationResult(

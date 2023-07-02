@@ -1,0 +1,12 @@
+package features.sons_of_officers.domain.repository
+
+import features.sons_of_officers.domain.model.Person
+import kotlinx.coroutines.flow.Flow
+
+interface PersonRepository {
+
+    fun addPerson(person:Person): Flow<Boolean>
+    fun getAllPeople():Flow<List<Person>>
+     fun getPerson(id:String):Flow<Person?>
+     fun updatePerson(person: Person):Flow<Boolean>
+}

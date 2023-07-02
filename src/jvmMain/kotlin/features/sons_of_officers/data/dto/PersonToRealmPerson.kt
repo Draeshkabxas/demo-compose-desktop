@@ -24,7 +24,7 @@ fun Person.toRealmPerson(): RealmPerson {
     }) }
 
     return RealmPerson().apply {
-        id = ObjectId(person.id)
+        id = if (person.id.isNotEmpty()) ObjectId(person.id) else ObjectId()
         name = person.name
         motherName = person.motherName
         fileNUmber = person.fileNUmber

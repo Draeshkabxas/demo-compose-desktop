@@ -7,7 +7,7 @@ import org.mongodb.kbson.ObjectId
 class UserToUserRealmDto {
     fun convert(user: User): UserRealm {
         return UserRealm().apply {
-            id = ObjectId(user.id)
+            id = if (user.id.isEmpty()) ObjectId() else ObjectId(user.id)
             name = user.name
             password = user.password
             job = user.job.name

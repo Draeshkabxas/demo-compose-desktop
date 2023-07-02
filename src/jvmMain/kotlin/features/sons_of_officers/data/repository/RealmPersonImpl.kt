@@ -34,6 +34,7 @@ class RealmPersonImpl(private val realm: Realm) :
             try {
                 copyToRealm(person.toRealmPerson())
             } catch (e: Exception) {
+                println(e.localizedMessage)
                 result = false
             }
         }

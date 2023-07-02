@@ -20,6 +20,7 @@ import features.sons_of_officers.data.model.RealmPerson
 import features.sons_of_officers.data.repository.RealmPersonImpl
 import features.sons_of_officers.domain.repository.PersonRepository
 import features.sons_of_officers.domain.usecases.AddPersonUseCase
+import features.sons_of_officers.domain.usecases.GetAllPeopleUseCase
 import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
 import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel
 
@@ -37,5 +38,5 @@ val appModule = module {
                RealmConfiguration.create(schema = setOf(RealmPerson::class,Justification::class, Procedure::class))
           )
      ) }
-     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel(addPersonUseCase =  AddPersonUseCase(get())) }
+     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel(addPersonUseCase =  AddPersonUseCase(get()), getAllPeopleUseCase = GetAllPeopleUseCase(get())) }
 }

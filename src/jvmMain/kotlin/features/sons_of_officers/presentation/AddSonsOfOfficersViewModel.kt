@@ -19,7 +19,8 @@ class AddSonsOfOfficersViewModel(
     private val validatePhoneNumber: ValidatePhoneNumber = ValidatePhoneNumber(),
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
-    private val addPersonUseCase: AddPersonUseCase
+    private val addPersonUseCase: AddPersonUseCase,
+    private val getAllPeopleUseCase: GetAllPeopleUseCase
 ) {
 
     var state by mutableStateOf(PersonalInfoFormState())
@@ -37,6 +38,7 @@ class AddSonsOfOfficersViewModel(
         "القائم بالتجنيد",
         "المدينة",
     )
+
     val justificationsRequiredInputsNameAndValue = mapOf(
         "ملف" to mutableStateOf(false),
         "السيرة الذاتية" to mutableStateOf(false),
@@ -149,16 +151,25 @@ class AddSonsOfOfficersViewModel(
             justificationsRequire = justification,
             procedures = procedures
         )
-
         addPersonUseCase.invoke(newPerson).onEach {
-            println("البيانات الشخصية")
-            println(state)
-            println("المسوغات المطلوبة")
-            justificationsRequiredInputsNameAndValue.forEach { (name, value) -> println("$name: ${value.value}") }
-
-            println("الاجراءات")
-            proceduresInputNameAndValues.forEach { (name, value) -> println("$name: ${value.value}") }
+//            println("البيانات الشخصية")
+//            println(state)
+//            println("المسوغات المطلوبة")
+//            justificationsRequiredInputsNameAndValue.forEach { (name, value) -> println("$name: ${value.value}") }
+//            println("الاجراءات")
+//            proceduresInputNameAndValues.forEach { (name, value) -> println("$name: ${value.value}") }
+            getAllPeopleUseCase.invoke().onEach {
+                println("People in db data")
+                it.data?.let { list->
+                    list.forEach {person->
+                        println(person)
+                    }
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
             validationEventChannel.send(RegisterViewModel.ValidationEvent.Success)
+
+
+
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 }

@@ -5,7 +5,7 @@ import features.sons_of_officers.domain.model.Person
 
 fun RealmPerson.toPersonDTO(): Person {
     return Person(
-        id=this.id.toString(),
+        id=this.id.toHexString(),
         name = this.name,
         motherName = this.motherName,
         fileNUmber = this.fileNUmber,

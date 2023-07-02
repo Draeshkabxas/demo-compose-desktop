@@ -5,26 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="Add add sons of officers screen and its backend work">
-      <change afterPath="$PROJECT_DIR$/.idea/ChatGPTCopilotChannelManager.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/PersonToRealmPerson.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/RealmPersonToPerson.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/model/RealmPerson.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPersonUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/GetAllPeopleUseCase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserToUserRealmDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserToUserRealmDto.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/PersonalItemInfo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/PersonToRealmPerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/PersonToRealmPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/RealmPersonToPerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/RealmPersonToPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,6 +120,7 @@
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainKt" />
       <module name="demo.jvmMain" />
+      <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -179,7 +168,15 @@
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL؜-٠٠٠٠٥" summary="Add add sons of officers screen and its backend work">
+      <option name="closed" value="true" />
+      <created>1688336446258</created>
+      <option name="number" value="٠٠٠٠٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1688336446259</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

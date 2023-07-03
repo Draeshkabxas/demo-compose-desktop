@@ -48,12 +48,38 @@ fun SonsOfOfficersScreen(
         listOf("1", "John", "Doe", "25", "Male", "USA", "BSc", "New York", "Single", "Yes", "$1000"),
         listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000"),
         listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        //
+
         // Add more rows here...
     )
 
     val headers = listOf(
          "التسلسل",  "رقم الملف", "الإسم رباعي", "الرقم الوطني","إسم الأم",  "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "إحالة لتدريب"
+        "القائم بالتجنيد" , "إحالة لتدريب","حالة الملف","النواقص"
     )
 
 //    val headers = listOf("Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6", "Header 7", "Header 8", "Header 9", "Header 10", "Header 11")
@@ -152,29 +178,33 @@ fun SonsOfOfficersScreen(
     }
 
 //        table
-        LazyColumn(Modifier.padding(16.dp)) {
-            item {
-                MaterialTheme {
-                    Surface(modifier = Modifier.size(1400.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center) {
+            LazyColumn(Modifier.padding(16.dp)) {
+                item {
+                    MaterialTheme {
+                        Surface(modifier = Modifier.size(1400.dp)) {
 //                        Table(
 //                            columns = headers,
 //                            rows = data
 //                        )
-                        Table(
-                            modifier = Modifier.fillMaxSize(),
-                            headers = headers,
-                            data = data,
-                            cellContent = { columnIndex, rowIndex ->
-                                Text(
-                                    text = data[rowIndex][columnIndex],
-                                    style = MaterialTheme.typography.body1,
-                                    modifier = Modifier.padding(8.dp)
-                                )
-                            }
-                        )
+                            Table(
+                                modifier = Modifier.fillMaxSize(),
+                                headers = headers,
+                                data = data,
+                                cellContent = { columnIndex, rowIndex ->
+                                    Text(
+                                        text = data[rowIndex][columnIndex],
+                                        style = MaterialTheme.typography.body1,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }
+
         }
     }
 }

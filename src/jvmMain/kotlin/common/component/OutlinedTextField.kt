@@ -59,7 +59,7 @@ fun CustomOutlinedTextField(
                 modifier = Modifier.padding(vertical = 5.dp),
                 text = errorMessage,
                 color = Color.Red,
-                style = CairoTypography.h3
+                style = CairoTypography.body2
             )
         }
 

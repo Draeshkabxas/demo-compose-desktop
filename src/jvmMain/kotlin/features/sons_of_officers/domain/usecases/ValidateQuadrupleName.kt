@@ -8,14 +8,14 @@ class ValidateQuadrupleName {
         if(name.split(" ").size < 4) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The name needs to be 4 words"
+                errorMessage = "يجب ان يكون الإسم رباعي"
             )
         }
         val containsJustDigits = name.all { it.isLetter() || it==' ' }
         if(!containsJustDigits) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The name should its characters be all in letters"
+                errorMessage = "لايمكن ان يحتوي الاسم على ارقام"
             )
         }
         return ValidationResult(

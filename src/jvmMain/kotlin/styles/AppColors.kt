@@ -4,9 +4,9 @@ import androidx.compose.ui.graphics.Color
 import common.toColor
 
 object AppColors {
-    val primary: Color = "#0AAE8F".toColor()
+    val primary: Color = "#3B5EA1".toColor()
     val secondary:Color = "#9747FF".toColor()
-    val background:Color = "#F5F5F5".toColor()
+    val background:Color = "#FFFFFF".toColor()
     val hintText:Color = "#B8B8B8".toColor()
     val white:Color = "#ffffff".toColor()
 }

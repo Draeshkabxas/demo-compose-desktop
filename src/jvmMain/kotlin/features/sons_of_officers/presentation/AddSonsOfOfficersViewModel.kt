@@ -46,14 +46,14 @@ class AddSonsOfOfficersViewModel(
         "شهادة الخلو من السوابق الجنائية" to mutableStateOf(false),
         "شهادة الوضع العائلي" to mutableStateOf(false),
         "افادة بعدم الارتباط بعمل" to mutableStateOf(false),
-        "شهادة بعدم الجواز باجنبية" to mutableStateOf(false),
+        "شهادة بعدم الجواز بأجنبية" to mutableStateOf(false),
         "شهادة بالاقامة من المجلس المحلي" to mutableStateOf(false),
-        "تصوير كتيب العائلة بتالكامل" to mutableStateOf(false),
+        "تصوير كتيب العائلة بالكامل" to mutableStateOf(false),
         "المؤهل العلمي (افادة + كشف درجات الاصلي ) معتمد" to mutableStateOf(false),
         "طلب كتابي" to mutableStateOf(false),
         "موافقة ولي الامر" to mutableStateOf(false),
         "شهادة الجنسية" to mutableStateOf(false),
-        "شهادة الدرن" to mutableStateOf(false),
+        " شهادة الدرن" to mutableStateOf(false),
         "الرقم الوطني" to mutableStateOf(false)
     )
     val proceduresInputNameAndValues = mapOf(
@@ -99,13 +99,13 @@ class AddSonsOfOfficersViewModel(
 
     private fun submitData() {
         val nameResult = validateQuadrupleName.execute(state.name)
-        val motherResult = validateTextInputs.execute(state.motherName,"mother name")
-        val fileNumberResult = validateTextInputs.execute(state.fileNumber,"file number",true)
+        val motherResult = validateTextInputs.execute(state.motherName,"اسم الأم")
+        val fileNumberResult = validateTextInputs.execute(state.fileNumber,"رقم الملف",true)
         val libyaIdResult = validateLibyaId.execute(state.libyaid)
         val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
-        val educationLevelResult= validateTextInputs.execute(state.educationLevel,"education level")
-        val recruiterResult = validateTextInputs.execute(state.recruiter,"recruiter")
-        val cityResult = validateTextInputs.execute(state.city,"city")
+        val educationLevelResult= validateTextInputs.execute(state.educationLevel,"المؤهل العلمي")
+        val recruiterResult = validateTextInputs.execute(state.recruiter,"القائم بالتجنيد")
+        val cityResult = validateTextInputs.execute(state.city,"المدينة ")
 
         val hasError = listOf(
             nameResult,

@@ -9,14 +9,14 @@ class ValidateTextInputs {
         if(text.isEmpty()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The $name can not be empty"
+                errorMessage = " $name لا يمكن ان يكون فارغا "
             )
         }
         val containsJustDigits = text.all { it ==' ' || if(canHaveNumbers)  it.isLetterOrDigit() else it.isLetter()  }
         if(!containsJustDigits) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The $name should its characters be all in letters"
+                errorMessage = " $name يجب ان يحتوي على حروف فقط "
             )
         }
         return ValidationResult(

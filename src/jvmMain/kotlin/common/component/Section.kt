@@ -19,7 +19,7 @@ fun Section(
     gridContent: LazyGridScope.() -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(vertical = 16.dp),
+        modifier = Modifier.padding(vertical = 6.dp),
     ) {
         Text(
             text = label,
@@ -28,8 +28,8 @@ fun Section(
         )
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
-            columns = GridCells.Adaptive(200.dp),
-            contentPadding = PaddingValues(3.dp)
+            columns = GridCells.Adaptive(250.dp),
+            contentPadding = PaddingValues(10.dp)
         ){
             gridContent()
         }

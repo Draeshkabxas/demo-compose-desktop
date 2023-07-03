@@ -7,7 +7,7 @@ class ValidateLibyaId {
         if(libyaId.length != 12) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The libya id needs to be 12 digits"
+                errorMessage = "الرقم الوطني يجب ان يحتوي على 13 رقم"
             )
         }
         val containsJustDigits = libyaId.all { it.isDigit() }

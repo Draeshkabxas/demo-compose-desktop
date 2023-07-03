@@ -4,10 +4,12 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import styles.CairoTypography
 
@@ -23,13 +25,19 @@ fun CheckBoxWithLabel(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color(0xff3B5EA1),
+                uncheckedColor = Color.Gray,
+                checkmarkColor = Color.White,
+                disabledColor = Color.LightGray,
+            ),
             checked = checked,
             onCheckedChange = onCheckedChange,
         )
         Text(
             label,
-            style = CairoTypography.body1,
-            modifier = Modifier.padding(horizontal = 5.dp),
+            style = CairoTypography.h4,
+            modifier = Modifier.padding(horizontal = 8.dp),
         )
     }
 }

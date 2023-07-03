@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,8 +16,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
@@ -27,6 +30,7 @@ import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
 import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
+import features.sons_of_officers.presentation.SonsOfOfficersScreen
 import kotlin.system.exitProcess
 
 @Composable
@@ -49,6 +53,9 @@ fun NavigationWindow(
         shape = RoundedCornerShape(20.dp), //window has round corners now
         elevation = 40.dp
     ) {
+        CompositionLocalProvider(
+            LocalLayoutDirection provides LayoutDirection.Rtl // Set layout direction to RTL
+        ) {
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
@@ -56,7 +63,8 @@ fun NavigationWindow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             NavigationRail(
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier.fillMaxHeight().width(140.dp)
+
             ) {
                 screens.forEach {
                     NavigationRailItem(
@@ -120,7 +128,7 @@ fun NavigationWindow(
                     }
                 }
             }
-        }
+        }}
     }
 }
 
@@ -134,6 +142,10 @@ enum class SystemScreen(
         icon = Icons.Filled.Home
     ),
     AddSonsOfOfficersScreen(
+        label = "منظومة ابناء الضباط",
+        icon = Icons.Filled.PersonAdd
+    ),
+    SonsOfOfficersScreen(
         label = "منظومة ابناء الضباط",
         icon = Icons.Filled.PersonAdd
     ),
@@ -153,6 +165,10 @@ fun SystemNavigationHost(
         composable(SystemScreen.AddSonsOfOfficersScreen.name) {
             windowState.size = DpSize(1100.dp, 950.dp)
             AddSonsOfOfficersScreen(navController)
+        }
+        composable(SystemScreen.SonsOfOfficersScreen.name) {
+            windowState.size = DpSize(1100.dp, 950.dp)
+            SonsOfOfficersScreen(navController)
         }
 
     }.build()

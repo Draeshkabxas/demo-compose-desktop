@@ -8,7 +8,7 @@ class ValidatePhoneNumber {
         if(phoneNumber.length != 10) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The phone number needs to be 9 digits"
+                errorMessage = "رقم الهاتف يجب ان يحتوي على 10 ارقام"
             )
         }
         val containsJustDigits = phoneNumber.all { it.isDigit() }
@@ -21,7 +21,7 @@ class ValidatePhoneNumber {
         if (!phoneNumber.startsWith("09")){
             return ValidationResult(
                 successful = false,
-                errorMessage = "The phone number should start with 09"
+                errorMessage = "رقم الهاتف يجب ان يبدأ ب 09"
             )
         }
         return ValidationResult(

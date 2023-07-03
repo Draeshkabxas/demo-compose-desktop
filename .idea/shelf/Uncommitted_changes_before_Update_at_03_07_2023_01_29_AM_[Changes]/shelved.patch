@@ -1,0 +1,108 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"c6736f7d-985e-4736-82d6-9d867ca65fb9\" name=\"Changes\" comment=\"Add add sons of officers screen and its backend work\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/ChatGPTCopilotChannelManager.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/PersonToRealmPerson.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/RealmPersonToPerson.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/model/RealmPerson.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPersonUseCase.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/default.realm.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/default.realm.lock\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/PersonalItemInfo.kt\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n    <projectState path=\"$PROJECT_DIR$/app\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <task path=\"$PROJECT_DIR$/app\">\r\n          <activation />\r\n        </task>\r\n        <task path=\"$PROJECT_DIR$\">\r\n          <activation />\r\n        </task>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"ComposeComponent\" />\r\n        <option value=\"Kotlin Object\" />\r\n        <option value=\"Kotlin Interface\" />\r\n        <option value=\"Kotlin Data Class\" />\r\n        <option value=\"Kotlin File\" />\r\n        <option value=\"Kotlin Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"jar://$USER_HOME$/.gradle/caches/jars-9/b77f80709d6a9e24deb7ad7c0b9da20f/compose-gradle-plugin-1.3.0.jar!/org/jetbrains/compose/ComposePlugin.class\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.ui/ui-desktop/1.3.0/7404cc4b2e648a1f56da4e67be5ff26fe50bf0af/ui-desktop-1.3.0-sources.jar!/desktopMain/androidx/compose/ui/window/Window.desktop.kt\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt\" root0=\"SKIP_INSPECTION\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2ROkHrM9BOBe7WXoTaZz1ozTcgC\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/sabar/IdeaProjects/demo-compose-desktop/src/jvmMain/kotlin/features/sons_of_officers&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\sabar\\IdeaProjects\\demo-compose-desktop\\src\\jvmMain\\kotlin\\features\\sons_of_officers\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\\system\\presentation\\home\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\\system\\presentation\\contracts\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\\system\\presentation\\courses\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\sabar\\IdeaProjects\\demo-compose-desktop\\src\\jvmMain\\kotlin\\features\\sons_of_officers\\presentation\" />\r\n      <recent name=\"C:\\Users\\sabar\\IdeaProjects\\demo-compose-desktop\\src\\jvmMain\\kotlin\\features\\home\\presentation\" />\r\n      <recent name=\"C:\\Users\\sabar\\IdeaProjects\\demo-compose-desktop\\src\\jvmMain\\kotlin\\common\\component\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\\authorization\\presentation\\login\" />\r\n      <recent name=\"C:\\development\\demo\\src\\jvmMain\\kotlin\\presentation\" />\r\n    </key>\r\n    <key name=\"MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY\">\r\n      <recent name=\"features.sons_of_officers.domain.model\" />\r\n      <recent name=\"authorization.data.model\" />\r\n      <recent name=\"authorization.presentation.register\" />\r\n      <recent name=\"authorization.domain.model\" />\r\n      <recent name=\"authorization.presentation.login\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"\" />\r\n    </key>\r\n    <key name=\"CopyKotlinDeclarationDialog.RECENTS_KEY\">\r\n      <recent name=\"features.sons_of_officers.presentation\" />\r\n      <recent name=\"features.sons_of_officers.domain.usecases\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainKt\" />\r\n      <module name=\"demo.jvmMain\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Kotlin.MainKt\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"c6736f7d-985e-4736-82d6-9d867ca65fb9\" name=\"Changes\" comment=\"\" />\r\n      <created>1687128431921</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1687128431921</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u061C-٠٠٠٠١\" summary=\"first commit\">\r\n      <created>1687703003581</created>\r\n      <option name=\"number\" value=\"٠٠٠٠١\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u061C-٠٠٠٠١\" />\r\n      <option name=\"project\" value=\"LOCAL\u061C\" />\r\n      <updated>1687703003581</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u061C-٠٠٠٠٢\" summary=\"first commit\">\r\n      <created>1687703017937</created>\r\n      <option name=\"number\" value=\"٠٠٠٠٢\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u061C-٠٠٠٠٢\" />\r\n      <option name=\"project\" value=\"LOCAL\u061C\" />\r\n      <updated>1687703017937</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u061C-٠٠٠٠٣\" summary=\"first commit\">\r\n      <created>1687729129517</created>\r\n      <option name=\"number\" value=\"٠٠٠٠٣\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u061C-٠٠٠٠٣\" />\r\n      <option name=\"project\" value=\"LOCAL\u061C\" />\r\n      <updated>1687729129517</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u061C-٠٠٠٠٤\" summary=\"add navigation to the project\">\r\n      <created>1687765134659</created>\r\n      <option name=\"number\" value=\"٠٠٠٠٤\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u061C-٠٠٠٠٤\" />\r\n      <option name=\"project\" value=\"LOCAL\u061C\" />\r\n      <updated>1687765134659</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"first commit\" />\r\n    <MESSAGE value=\"add navigation to the project\" />\r\n    <MESSAGE value=\"Add add sons of officers screen and its backend work\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Add add sons of officers screen and its backend work\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 65f910a7f15feb9ee057d7e7f4aeaa5cc64a360b)
++++ b/.idea/workspace.xml	(date 1688340548782)
+@@ -5,27 +5,9 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="Add add sons of officers screen and its backend work">
+-      <change afterPath="$PROJECT_DIR$/.idea/ChatGPTCopilotChannelManager.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/PersonToRealmPerson.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/dto/RealmPersonToPerson.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/model/RealmPerson.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPersonUseCase.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/PersonalItemInfo.kt" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidatePhoneNumber.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateQuadrupleName.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/ValidateTextInputs.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -95,7 +77,8 @@
+     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
++    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+   }
+ }</component>
+   <component name="RecentsManager">
+@@ -128,21 +111,36 @@
+       <recent name="features.sons_of_officers.domain.usecases" />
+     </key>
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Kotlin.MainKt (1)">
++    <configuration name="MainKt (1)" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="MainKt" />
++      <module name="demo.jvmMain" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="MainKt" />
+-      <module name="demo.jvmMain" />
++      <shortenClasspath name="NONE" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Kotlin.MainKt (1)" />
+         <item itemvalue="Kotlin.MainKt" />
+       </list>
+     </recent_temporary>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="StandaloneScriptsStorage">
++    <option name="files">
++      <set>
++        <option value="$PROJECT_DIR$/build.gradle.kts" />
++      </set>
++    </option>
++  </component>
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+       <changelist id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="" />
+Index: .idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"ArtifactManager\">\r\n  <artifact type=\"jar\" name=\"demo-jvm-1.0-SNAPSHOT\">\r\n    <output-path>$PROJECT_DIR$/build/libs</output-path>\r\n    <root id=\"archive\" name=\"demo-jvm-1.0-SNAPSHOT.jar\">\r\n      <element id=\"module-output\" name=\"demo.jvmMain\" />\r\n    </root>\r\n  </artifact>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml b/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml
+--- a/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml	(revision 65f910a7f15feb9ee057d7e7f4aeaa5cc64a360b)
++++ b/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml	(date 1688339632949)
+@@ -1,8 +1,6 @@
+ <component name="ArtifactManager">
+   <artifact type="jar" name="demo-jvm-1.0-SNAPSHOT">
+     <output-path>$PROJECT_DIR$/build/libs</output-path>
+-    <root id="archive" name="demo-jvm-1.0-SNAPSHOT.jar">
+-      <element id="module-output" name="demo.jvmMain" />
+-    </root>
++    <root id="archive" name="demo-jvm-1.0-SNAPSHOT.jar" />
+   </artifact>
+ </component>
+\ No newline at end of file

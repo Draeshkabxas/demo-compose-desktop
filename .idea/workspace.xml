@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add ui for add sons and sons home">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add test table2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -186,7 +187,31 @@
       <option name="project" value="LOCAL" />
       <updated>1688349624836</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add test table">
+      <option name="closed" value="true" />
+      <created>1688391974612</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1688391974612</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add test table">
+      <option name="closed" value="true" />
+      <created>1688392014811</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1688392014811</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add test table2">
+      <option name="closed" value="true" />
+      <created>1688393010107</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1688393010107</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,6 +231,8 @@
     <MESSAGE value="Add add sons of officers screen and its backend work" />
     <MESSAGE value="make add person usecase work and add get all poeple usecase" />
     <MESSAGE value="add ui for add sons and sons home" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ui for add sons and sons home" />
+    <MESSAGE value="add test table" />
+    <MESSAGE value="add test table2" />
+    <option name="LAST_COMMIT_MESSAGE" value="add test table2" />
   </component>
 </project>

@@ -45,33 +45,33 @@ fun SonsOfOfficersScreen(
     var isRowVisible by remember { mutableStateOf(false) }
 //    for table
     val data = listOf(
-        listOf("1", "John", "Doe", "25", "Male", "USA", "BSc", "New York", "Single", "Yes", "$1000"),
-        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000"),
+        listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "بكالوريوس", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "غير مستوفي","إضافة"),
+        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
         //
 
         // Add more rows here...
@@ -82,32 +82,14 @@ fun SonsOfOfficersScreen(
         "القائم بالتجنيد" , "إحالة لتدريب","حالة الملف","النواقص"
     )
 
-//    val headers = listOf("Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6", "Header 7", "Header 8", "Header 9", "Header 10", "Header 11")
-//    val data = listOf(
-//        ("Cell 1,1", "Cell 1,2", "Cell 1,3", "Cell 1,4", "Cell 1,5", "Cell 1,6", "Cell 1,7", "Cell 1,8", "Cell 1,9", "Cell 1,10", "Cell 1,11"),
-//    // add more rows as needed
-//    )
-
-//    val headers = listOf("Name", "Email", "Phone", "Active")
-//    val data = mutableStateListOf(
-//        listOf("John Doe", "john.doe@example.com", "(123) 456-7890", true),
-//        listOf("Jane Doe", "jane.doe@example.com", "(234) 567-8901", false),
-//        listOf("Bob Smith", "bob.smith@example.com", "(345) 678-9012", false),
-//    )
-
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.Start,
+//        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Top
 
-        ) {
+    ) {
         HeadLineWithDate(text = "منظومة أبناء الضباط ", date = "1/7/2023  1:30:36 PM")
-//        Section("البيانات الشخصية",3){
-//            repeat(10){
-//                item {
-////                    CustomOutlinedTextField(errorMessage = "")
-//                }
-//            }
-//        }
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -179,7 +161,9 @@ fun SonsOfOfficersScreen(
 
 //        table
         Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center) {
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Top,
+        ) {
             LazyColumn(Modifier.padding(16.dp)) {
                 item {
                     MaterialTheme {
@@ -251,7 +235,11 @@ fun Table(
     val columnCount = headers.size
     val columnWidths = remember { mutableStateMapOf<Int, Int>() }
 
-    Box(modifier = modifier.then(Modifier.horizontalScroll(horizontalScrollState))) {
+    // Add a border to the table
+    Box(
+        modifier = modifier.border(1.dp, Color(0xff3B5EA1))
+            .then(Modifier.horizontalScroll(horizontalScrollState))
+    ) {
         Column {
             Row(modifier = rowModifier) {
                 headers.forEachIndexed { columnIndex, header ->
@@ -277,7 +265,7 @@ fun Table(
                             text = header,
                             style = MaterialTheme.typography.h5,
                             color = Color.White,
-                            modifier = Modifier.padding(16.dp)
+                            modifier = Modifier.padding(13.dp)
                         )
                     }
                 }
@@ -285,7 +273,12 @@ fun Table(
 
             LazyColumn(state = verticalLazyListState) {
                 items(count = rowCount, key = { rowIndex -> rowIndex }) { rowIndex ->
-                    Row(modifier = rowModifier) {
+                    // Add a border to every row
+                    Row(
+                        modifier = rowModifier.border(
+                            1.dp, Color(0xff3B5EA1)
+                        ).background(Color.White),
+                    ) {
                         data[rowIndex].forEachIndexed { columnIndex, cellData ->
                             Box(
                                 modifier = Modifier

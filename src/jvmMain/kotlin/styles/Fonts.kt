@@ -53,7 +53,7 @@ val CairoTypography = Typography(
     h5 = TextStyle(
         fontFamily = CairoFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 10.sp
     )
 
     // Add more text styles as needed

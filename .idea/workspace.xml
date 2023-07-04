@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add test table2">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="Add filter mechanism to sons of officers">
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterEvent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_37_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_37_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_47_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_47_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPersonUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/GetAllPeopleUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/GetAllPeople.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/AddSonsOfOfficersViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/PersonalInfoFormEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/PersonalInfoFormEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/PersonalInfoFormState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/PersonalInfoFormState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +64,11 @@
         <option value="Kotlin Interface" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin File" />
+        <option value="ComposeContract" />
+        <option value="ComposeScreen" />
+        <option value="ComposeViewModel" />
+        <option value="ComposeCoordinator" />
+        <option value="ComposeRoute" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -77,7 +98,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
@@ -90,11 +111,11 @@
       <recent name="C:\development\demo\src\jvmMain\kotlin\system\presentation\contracts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\development\demo\src\jvmMain\kotlin\features\sons_of_officers\presentation\sons_of_officers" />
+      <recent name="C:\development\demo\src\jvmMain\kotlin\features\sons_of_officers\presentation\add_sons_of_officers" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\features\sons_of_officers\presentation" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\features\home\presentation" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\common\component" />
-      <recent name="C:\development\demo\src\jvmMain\kotlin\authorization\presentation\login" />
-      <recent name="C:\development\demo\src\jvmMain\kotlin\presentation" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="features.sons_of_officers.domain.model" />
@@ -211,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688393010107</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL؜-٠٠٠١١" summary="add simple data table that derar built">
+      <option name="closed" value="true" />
+      <created>1688444206729</created>
+      <option name="number" value="٠٠٠١١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1688444206729</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,6 +262,8 @@
     <MESSAGE value="add ui for add sons and sons home" />
     <MESSAGE value="add test table" />
     <MESSAGE value="add test table2" />
-    <option name="LAST_COMMIT_MESSAGE" value="add test table2" />
+    <MESSAGE value="add simple data table that derar built" />
+    <MESSAGE value="Add filter mechanism to sons of officers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add filter mechanism to sons of officers" />
   </component>
 </project>

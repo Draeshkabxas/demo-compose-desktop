@@ -1,7 +1,6 @@
-package features.sons_of_officers.presentation
+package features.sons_of_officers.presentation.add_sons_of_officers
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -10,11 +9,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import authorization.presentation.register.RegisterViewModel
 import common.component.*
-import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel.ValidationEvent
+import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
 import navcontroller.NavController
-import features.sons_of_officers.presentation.PersonalInfoFormEvent.*
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
 import styles.CairoTypography
 

@@ -1,10 +1,9 @@
-package features.sons_of_officers.presentation
+package features.sons_of_officers.presentation.sons_of_officers
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -13,10 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import navcontroller.NavController
-import styles.CairoTypography
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
@@ -25,14 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import common.component.*
 import common.component.simpledatatable.*
+import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
+import org.koin.compose.koinInject
 
 
 @Composable
 fun SonsOfOfficersScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: SonsOfOfficersScreenViewModel= koinInject()
 ) {
     //   for select input
-    var selectedCountry by remember { mutableStateOf("إختر المدينة") }
+    var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
@@ -97,9 +97,16 @@ fun SonsOfOfficersScreen(
             horizontalArrangement = Arrangement.Start
         ) {
 
-            CustomOutlinedTextField(hint = "إبحث بالرقم الوطني ", errorMessage = "")
+            CustomOutlinedTextField(
+                hint = "إبحث بالرقم الوطني ",
+                errorMessage = "",
+                onValueChange = { viewModel.onEvent(FilterLibyaId(it))},
+                onNextChange = { viewModel.onEvent(FilterLibyaId(it))},
+                )
             CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = { /* Do something */ },
+                text = "إبحث", icon = Icons.Default.Search, onClick = {
+                 viewModel.onEvent(Submit)
+                },
                 buttonColor = Color(0xff3B5EA1)
             )
             CustomButton(
@@ -127,34 +134,55 @@ fun SonsOfOfficersScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            CustomOutlinedTextField(hint = "إبحث برقم الملف", errorMessage = "")
+            CustomOutlinedTextField(
+                hint = "إبحث برقم الملف",
+                errorMessage = "",
+                onValueChange = { viewModel.onEvent(FilterFileNumber(it))},
+                onNextChange = { viewModel.onEvent(FilterFileNumber(it))},
+            )
             SelectorWithLabel(
                 label = "المؤهل العلمي : ",
                 items = educations,
                 selectedItem = selectededucation,
-                onItemSelected = { education -> selectededucation = education }
+                onItemSelected = { education ->
+                    selectededucation = education
+                    viewModel.onEvent(FilterEducationLevel(education))
+                }
             )
 
             SelectorWithLabel(
                 label = "المدينة : ",
                 items = countries,
-                selectedItem = selectedCountry,
-                onItemSelected = { country -> selectedCountry = country }
+                selectedItem = selectedCity,
+                onItemSelected = { city -> selectedCity = city
+                    viewModel.onEvent(FilterCity(city))
+                }
             )
             SelectorWithLabel(
                 label = "حالة الملف : ",
                 items = fileState,
                 selectedItem = selectedFileState,
-                onItemSelected = { file -> selectedFileState = file }
+                onItemSelected = { file ->
+                    selectedFileState = file
+                    viewModel.onEvent(FilterFileState(
+                        file == fileState[0]
+                    ))
+                }
             )
             SelectorWithLabel(
                 label = "إحالة للتدريب : ",
                 items = trainerState,
                 selectedItem = selectedTrainer,
-                onItemSelected = { trainer -> selectedTrainer = trainer }
+                onItemSelected = { trainer ->
+                    selectedTrainer = trainer
+                    viewModel.onEvent(FilterReferralForTraining(
+                        trainer == trainerState[0]
+                    )) }
             )
             CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = { /* Do something */ },
+                text = "إبحث", icon = Icons.Default.Search, onClick = {
+                    viewModel.onEvent(Submit)
+                },
                 buttonColor = Color(0xff3B5EA1)
             )
         }

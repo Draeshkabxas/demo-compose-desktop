@@ -19,10 +19,10 @@ import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
 import features.sons_of_officers.data.repository.RealmPersonImpl
 import features.sons_of_officers.domain.repository.PersonRepository
-import features.sons_of_officers.domain.usecases.AddPersonUseCase
-import features.sons_of_officers.domain.usecases.GetAllPeopleUseCase
-import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
-import features.sons_of_officers.presentation.AddSonsOfOfficersViewModel
+import features.sons_of_officers.domain.usecases.AddPerson
+import features.sons_of_officers.domain.usecases.GetAllPeople
+import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 
 val appModule = module {
      single<Realm> { Realm.open(
@@ -38,5 +38,7 @@ val appModule = module {
                RealmConfiguration.create(schema = setOf(RealmPerson::class,Justification::class, Procedure::class))
           )
      ) }
-     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel(addPersonUseCase =  AddPersonUseCase(get()), getAllPeopleUseCase = GetAllPeopleUseCase(get())) }
+     single <GetAllPeople>{ GetAllPeople(get())  }
+     single <AddSonsOfOfficersViewModel>{ AddSonsOfOfficersViewModel(addPerson =  AddPerson(get())) }
+     single <SonsOfOfficersScreenViewModel> {SonsOfOfficersScreenViewModel(get())  }
 }

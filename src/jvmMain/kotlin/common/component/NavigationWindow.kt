@@ -29,8 +29,8 @@ import navcontroller.composable
 import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
-import features.sons_of_officers.presentation.AddSonsOfOfficersScreen
-import features.sons_of_officers.presentation.SonsOfOfficersScreen
+import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import kotlin.system.exitProcess
 
 @Composable

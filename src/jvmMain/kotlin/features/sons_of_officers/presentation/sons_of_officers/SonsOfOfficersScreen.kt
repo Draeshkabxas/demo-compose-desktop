@@ -23,13 +23,20 @@ import androidx.compose.ui.layout.layout
 import common.component.*
 import common.component.simpledatatable.*
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import java.awt.Desktop
+import java.awt.FileDialog
+import java.awt.Frame
+import java.io.File
+import java.lang.reflect.Method
+import javax.swing.JFileChooser
 
 
 @Composable
 fun SonsOfOfficersScreen(
     navController: NavController,
-    viewModel: SonsOfOfficersScreenViewModel= koinInject()
+    viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
     //   for select input
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
@@ -38,49 +45,63 @@ fun SonsOfOfficersScreen(
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
 
     val countries = listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
-    val educations = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
-    val fileState = listOf("مستوفي", "نواقص" )
-    val trainerState = listOf("نعم", "لا" )
+    val educations =
+        listOf("ماجستير", "بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
+    val fileState = listOf("مستوفي", "نواقص")
+    val trainerState = listOf("نعم", "لا")
 
 // for row visibility
     var isRowVisible by remember { mutableStateOf(false) }
 //    for table
     val data = listOf(
-        listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "بكالوريوس", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "غير مستوفي","إضافة"),
-        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf(
+            "1",
+            "222",
+            " احمد محمد احمد محمود",
+            "1199911111111",
+            "عائشة محمد عبدالله",
+            "بكالوريوس",
+            "طرابلس",
+            "0910000000",
+            "احمد محمد احمد",
+            "لا",
+            "غير مستوفي",
+            "إضافة"
+        ),
+        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
         //
 
         // Add more rows here...
     )
 
     val headers = listOf(
-         "التسلسل",  "رقم الملف", "الإسم رباعي", "الرقم الوطني","إسم الأم",  "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد" , "إحالة لتدريب","حالة الملف","النواقص"
+        "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
+        "القائم بالتجنيد", "إحالة لتدريب", "حالة الملف", "النواقص"
     )
 
     Column(
@@ -100,12 +121,12 @@ fun SonsOfOfficersScreen(
             CustomOutlinedTextField(
                 hint = "إبحث بالرقم الوطني ",
                 errorMessage = "",
-                onValueChange = { viewModel.onEvent(FilterLibyaId(it))},
-                onNextChange = { viewModel.onEvent(FilterLibyaId(it))},
-                )
+                onValueChange = { viewModel.onEvent(FilterLibyaId(it)) },
+                onNextChange = { viewModel.onEvent(FilterLibyaId(it)) },
+            )
             CustomButton(
                 text = "إبحث", icon = Icons.Default.Search, onClick = {
-                 viewModel.onEvent(Submit)
+                    viewModel.onEvent(Submit)
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
@@ -123,75 +144,105 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
+            val scope = rememberCoroutineScope()
+            val fileDialog = remember { FileDialog(Frame()) }
+            val selectedDirectory = remember { mutableStateOf<String?>(null) }
             CustomButton(
-                text = "طباعة", icon = Icons.Default.Print, onClick = { /* Do something */ },
+                text = "طباعة",
+                icon = Icons.Default.Print,
+                onClick = {
+                    scope.launch {
+                        val osName = System.getProperty("os.name")
+                        val homeDir = System.getProperty("user.home")
+                        val selectedPath = null
+                        if (osName.equals("Mac OS X")) {
+                            System.setProperty("apple.awt.fileDialogForDirectories", "true")
+                            val fd =  FileDialog( Frame(), "Choose a file", FileDialog.LOAD)
+                            fd.setDirectory(homeDir)
+                            fd.setVisible(true)
+                            String fileName = fd.getFile()
+                            System.out.println(fileName)
+                            File file = new File(fd.getDirectory() + fileName)
+                            System.out.println("You selected "+file.getAbsolutePath())
+                        } else {
+                            System.out.println("You haven't selected anything")
+                        }
+                    }
+                },
                 buttonColor = Color(0xff3F6F52)
             )
         }
         if (isRowVisible) {
-        Row(
-            modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            CustomOutlinedTextField(
-                hint = "إبحث برقم الملف",
-                errorMessage = "",
-                onValueChange = { viewModel.onEvent(FilterFileNumber(it))},
-                onNextChange = { viewModel.onEvent(FilterFileNumber(it))},
-            )
-            SelectorWithLabel(
-                label = "المؤهل العلمي : ",
-                items = educations,
-                selectedItem = selectededucation,
-                onItemSelected = { education ->
-                    selectededucation = education
-                    viewModel.onEvent(FilterEducationLevel(education))
-                }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                CustomOutlinedTextField(
+                    hint = "إبحث برقم الملف",
+                    errorMessage = "",
+                    onValueChange = { viewModel.onEvent(FilterFileNumber(it)) },
+                    onNextChange = { viewModel.onEvent(FilterFileNumber(it)) },
+                )
+                SelectorWithLabel(
+                    label = "المؤهل العلمي : ",
+                    items = educations,
+                    selectedItem = selectededucation,
+                    onItemSelected = { education ->
+                        selectededucation = education
+                        viewModel.onEvent(FilterEducationLevel(education))
+                    }
+                )
 
-            SelectorWithLabel(
-                label = "المدينة : ",
-                items = countries,
-                selectedItem = selectedCity,
-                onItemSelected = { city -> selectedCity = city
-                    viewModel.onEvent(FilterCity(city))
-                }
-            )
-            SelectorWithLabel(
-                label = "حالة الملف : ",
-                items = fileState,
-                selectedItem = selectedFileState,
-                onItemSelected = { file ->
-                    selectedFileState = file
-                    viewModel.onEvent(FilterFileState(
-                        file == fileState[0]
-                    ))
-                }
-            )
-            SelectorWithLabel(
-                label = "إحالة للتدريب : ",
-                items = trainerState,
-                selectedItem = selectedTrainer,
-                onItemSelected = { trainer ->
-                    selectedTrainer = trainer
-                    viewModel.onEvent(FilterReferralForTraining(
-                        trainer == trainerState[0]
-                    )) }
-            )
-            CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = {
-                    viewModel.onEvent(Submit)
-                },
-                buttonColor = Color(0xff3B5EA1)
-            )
+                SelectorWithLabel(
+                    label = "المدينة : ",
+                    items = countries,
+                    selectedItem = selectedCity,
+                    onItemSelected = { city ->
+                        selectedCity = city
+                        viewModel.onEvent(FilterCity(city))
+                    }
+                )
+                SelectorWithLabel(
+                    label = "حالة الملف : ",
+                    items = fileState,
+                    selectedItem = selectedFileState,
+                    onItemSelected = { file ->
+                        selectedFileState = file
+                        viewModel.onEvent(
+                            FilterFileState(
+                                file == fileState[0]
+                            )
+                        )
+                    }
+                )
+                SelectorWithLabel(
+                    label = "إحالة للتدريب : ",
+                    items = trainerState,
+                    selectedItem = selectedTrainer,
+                    onItemSelected = { trainer ->
+                        selectedTrainer = trainer
+                        viewModel.onEvent(
+                            FilterReferralForTraining(
+                                trainer == trainerState[0]
+                            )
+                        )
+                    }
+                )
+                CustomButton(
+                    text = "إبحث", icon = Icons.Default.Search, onClick = {
+                        viewModel.onEvent(Submit)
+                    },
+                    buttonColor = Color(0xff3B5EA1)
+                )
+            }
         }
-    }
 
 //        table
         SimpleDataTableScreenPreview()
     }
 }
+
 //@Composable
 //fun Table() {
 //    val data = listOf(

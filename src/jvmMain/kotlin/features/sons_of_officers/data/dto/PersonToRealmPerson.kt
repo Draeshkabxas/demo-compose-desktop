@@ -5,9 +5,6 @@ import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
 import features.sons_of_officers.domain.model.Person
 import io.realm.kotlin.ext.realmListOf
-import io.realm.kotlin.types.RealmList
-import org.mongodb.kbson.BsonObjectId
-import org.mongodb.kbson.ObjectId
 
 fun Person.toRealmPerson(): RealmPerson {
     val person=this
@@ -27,9 +24,9 @@ fun Person.toRealmPerson(): RealmPerson {
         id = if (person.id.isNotEmpty()) ObjectId(person.id) else ObjectId()
         name = person.name
         motherName = person.motherName
-        fileNUmber = person.fileNUmber
+        fileNUmber = person.fileNumber
         libyaId = person.libyaId
-        phoneNUmber = person.phoneNUmber
+        phoneNUmber = person.phoneNumber
         educationLevel = person.educationLevel
         recruiter = person.recruiter
         city = person.city

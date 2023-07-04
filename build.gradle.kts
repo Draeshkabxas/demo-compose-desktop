@@ -37,6 +37,10 @@ kotlin {
                 implementation("io.insert-koin:koin-core:$koin_core_version")
                 implementation("io.insert-koin:koin-androidx-compose:$koin_androidx_compose_version")
 
+                //Apache POI library to work with Xlsx files
+                implementation("org.apache.poi:poi:4.1.2")
+                implementation("org.apache.poi:poi-ooxml:4.1.2")
+
                 //Realm Mongodb Database
                 implementation("io.realm.kotlin:library-base:$realm_version") // Add to use local realm (no sync)
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version") // Add to use coroutines with the SDK

@@ -15,8 +15,8 @@ fun Person.toRealmPerson(): RealmPerson {
         value = it.value
     }) }
 
-    var procedures = realmListOf<Procedure>()
-    this.procedures.forEach { procedures.add(Procedure().apply {
+    var proceduresRealm = realmListOf<Procedure>()
+    this.procedures.forEach { proceduresRealm.add(Procedure().apply {
         name = it.key
         value = it.value
     }) }
@@ -32,7 +32,7 @@ fun Person.toRealmPerson(): RealmPerson {
         recruiter = person.recruiter
         city = person.city
         justificationsRequire = justifications
-        procedures=procedures
+        procedures=proceduresRealm
     }
 
 }

@@ -35,6 +35,7 @@ import java.awt.Frame
 import java.io.File
 import java.lang.reflect.Method
 import javax.swing.JFileChooser
+import javax.swing.UIManager
 
 
 @Composable
@@ -136,16 +137,26 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
-            val scope = rememberCoroutineScope()
             CustomButton(
                 text = "طباعة",
                 icon = Icons.Default.Print,
                 onClick = {
-                    scope.launch {
-                        val fileDialog = FileDialog(Frame(), "Choose a file", FileDialog.LOAD)
-                        fileDialog.isVisible = true
-                        val file = File(fileDialog.directory, fileDialog.file)
-                        println("File path: ${file.absolutePath}")                    }
+                   DirectoryDialog(
+                      onApproved = {filePath->
+                          viewModel.printToXlsxFile(
+                              filePath,
+                              onError = {},
+                              onLoading = {},
+                              onSuccess = { println("print xlsx is success")}
+                          )
+                      },
+                       onCanceled = {
+                         println("on canceled")
+                       },
+                       onError = {
+                           println("on onError")
+                       }
+                   )
                 },
                 buttonColor = Color(0xff3F6F52)
             )

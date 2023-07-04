@@ -101,13 +101,13 @@ fun NavigationWindow(
                             modifier = Modifier.size(18.dp)
                         )
                     }
-                    val isWindowInFullScreen = windowState.placement == WindowPlacement.Maximized
+                    val isWindowInFullScreen = windowState.placement == WindowPlacement.Fullscreen
                     IconButton(
                         onClick = {
                             if (isWindowInFullScreen)
                                 windowState.placement = WindowPlacement.Floating
                             else
-                                windowState.placement = WindowPlacement.Maximized
+                                windowState.placement = WindowPlacement.Fullscreen
                         }
 
                     ) {

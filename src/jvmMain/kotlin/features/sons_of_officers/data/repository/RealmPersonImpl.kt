@@ -23,7 +23,7 @@ class RealmPersonImpl(private val realm: Realm) :
     }
 
     override fun getAllPeople(filterQuery: String): Flow<List<Person>> {
-        return realm.query<RealmPerson>(filterQuery).asFlow()
+        return realm.query<RealmPerson>().asFlow()
             .map {
                 it.list.map { realmPerson -> realmPerson.toPersonDTO() }
             }

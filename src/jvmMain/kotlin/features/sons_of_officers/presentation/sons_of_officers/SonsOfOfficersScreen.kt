@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.layout
 import common.component.*
 import common.component.simpledatatable.*
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import java.awt.Desktop
@@ -135,27 +136,16 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
+            val scope = rememberCoroutineScope()
             CustomButton(
                 text = "طباعة",
                 icon = Icons.Default.Print,
                 onClick = {
                     scope.launch {
-                        val osName = System.getProperty("os.name")
-                        val homeDir = System.getProperty("user.home")
-                        val selectedPath = null
-                        if (osName.equals("Mac OS X")) {
-                            System.setProperty("apple.awt.fileDialogForDirectories", "true")
-                            val fd =  FileDialog( Frame(), "Choose a file", FileDialog.LOAD)
-                            fd.setDirectory(homeDir)
-                            fd.setVisible(true)
-                            String fileName = fd.getFile()
-                            System.out.println(fileName)
-                            File file = new File(fd.getDirectory() + fileName)
-                            System.out.println("You selected "+file.getAbsolutePath())
-                        } else {
-                            System.out.println("You haven't selected anything")
-                        }
-                    }
+                        val fileDialog = FileDialog(Frame(), "Choose a file", FileDialog.LOAD)
+                        fileDialog.isVisible = true
+                        val file = File(fileDialog.directory, fileDialog.file)
+                        println("File path: ${file.absolutePath}")                    }
                 },
                 buttonColor = Color(0xff3F6F52)
             )

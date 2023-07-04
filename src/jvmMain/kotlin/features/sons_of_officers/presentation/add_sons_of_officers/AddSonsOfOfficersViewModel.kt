@@ -1,12 +1,11 @@
-package features.sons_of_officers.presentation
+package features.sons_of_officers.presentation.add_sons_of_officers
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import authorization.presentation.register.RegisterViewModel
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
-import features.sons_of_officers.presentation.PersonalInfoFormEvent.*
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -19,8 +18,7 @@ class AddSonsOfOfficersViewModel(
     private val validatePhoneNumber: ValidatePhoneNumber = ValidatePhoneNumber(),
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
-    private val addPersonUseCase: AddPersonUseCase,
-    private val getAllPeopleUseCase: GetAllPeopleUseCase
+    private val addPerson: AddPerson,
 ) {
 
     var state by mutableStateOf(PersonalInfoFormState())
@@ -142,30 +140,22 @@ class AddSonsOfOfficersViewModel(
             id = "",
             name = state.name,
             motherName = state.motherName,
-            fileNUmber = state.fileNumber,
+            fileNumber = state.fileNumber,
             libyaId = state.libyaid,
-            phoneNUmber = state.phoneNumber,
+            phoneNumber = state.phoneNumber,
             educationLevel = state.educationLevel,
             recruiter = state.recruiter,
             city = state.city,
             justificationsRequire = justification,
             procedures = procedures
         )
-        addPersonUseCase.invoke(newPerson).onEach {
+        addPerson.invoke(newPerson).onEach {
 //            println("البيانات الشخصية")
 //            println(state)
 //            println("المسوغات المطلوبة")
 //            justificationsRequiredInputsNameAndValue.forEach { (name, value) -> println("$name: ${value.value}") }
 //            println("الاجراءات")
 //            proceduresInputNameAndValues.forEach { (name, value) -> println("$name: ${value.value}") }
-            getAllPeopleUseCase.invoke().onEach {
-                println("People in db data")
-                it.data?.let { list->
-                    list.forEach {person->
-                        println(person)
-                    }
-                }
-            }.launchIn(CoroutineScope(Dispatchers.IO))
             validationEventChannel.send(ValidationEvent.Success)
             state = state.copy(
                 name = "",

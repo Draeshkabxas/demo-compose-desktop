@@ -24,51 +24,38 @@ import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.layout.layout
 import common.component.*
-import features.sons_of_officers.domain.model.Person
+import common.component.simpledatatable.*
+import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
+import java.awt.Desktop
+import java.awt.FileDialog
+import java.awt.Frame
+import java.io.File
+import java.lang.reflect.Method
+import javax.swing.JFileChooser
 
 
 @Composable
 fun SonsOfOfficersScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
     //   for select input
-    var selectedCountry by remember { mutableStateOf("إختر المدينة") }
+    var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
 
     val countries = listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
-    val educations = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
-    val fileState = listOf("مستوفي", "نواقص" )
-    val trainerState = listOf("نعم", "لا" )
+    val educations =
+        listOf("ماجستير", "بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
+    val fileState = listOf("مستوفي", "نواقص")
+    val trainerState = listOf("نعم", "لا")
 
 // for row visibility
     var isRowVisible by remember { mutableStateOf(false) }
-
-    val person = Person(
-        id = "1",
-        name = " احمد محمد احمد محمود",
-        motherName = "عائشة محمد عبدالله",
-        fileNUmber = "222",
-        libyaId = "1199911111111",
-        phoneNUmber = "0910000000",
-        educationLevel = "Bachelor's degree",
-        recruiter = "احمد محمد احمد",
-        city = "طرابلس",
-        justificationsRequire = mapOf(
-            "reference letter" to true,
-            "criminal record check" to false,
-            "medical certificate" to true
-        ),
-        procedures = mapOf(
-            "interview" to true,
-            "background check" to true,
-            "training" to false
-        )
-    )
-
-    val personList = mutableListOf<Person>()
-    personList.add(person)
 //    for table
     val data = listOf(
         listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "شهادة اعدادية", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "نواقص","إضافة"),
@@ -123,9 +110,16 @@ fun SonsOfOfficersScreen(
             horizontalArrangement = Arrangement.Start
         ) {
 
-            CustomOutlinedTextField(hint = "إبحث بالرقم الوطني ", errorMessage = "")
+            CustomOutlinedTextField(
+                hint = "إبحث بالرقم الوطني ",
+                errorMessage = "",
+                onValueChange = { viewModel.onEvent(FilterLibyaId(it)) },
+                onNextChange = { viewModel.onEvent(FilterLibyaId(it)) },
+            )
             CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = { /* Do something */ },
+                text = "إبحث", icon = Icons.Default.Search, onClick = {
+                    viewModel.onEvent(Submit)
+                },
                 buttonColor = Color(0xff3B5EA1)
             )
             CustomButton(
@@ -142,8 +136,17 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
+            val scope = rememberCoroutineScope()
             CustomButton(
-                text = "طباعة", icon = Icons.Default.Print, onClick = { /* Do something */ },
+                text = "طباعة",
+                icon = Icons.Default.Print,
+                onClick = {
+                    scope.launch {
+                        val fileDialog = FileDialog(Frame(), "Choose a file", FileDialog.LOAD)
+                        fileDialog.isVisible = true
+                        val file = File(fileDialog.directory, fileDialog.file)
+                        println("File path: ${file.absolutePath}")                    }
+                },
                 buttonColor = Color(0xff3F6F52)
             )
         }
@@ -161,30 +164,49 @@ fun SonsOfOfficersScreen(
                 onItemSelected = { education -> selectededucation = education }
             )
 
-            SelectorWithLabel(
-                label = "المدينة : ",
-                items = countries,
-                selectedItem = selectedCountry,
-                onItemSelected = { country -> selectedCountry = country }
-            )
-            SelectorWithLabel(
-                label = "حالة الملف : ",
-                items = fileState,
-                selectedItem = selectedFileState,
-                onItemSelected = { file -> selectedFileState = file }
-            )
-            SelectorWithLabel(
-                label = "إحالة للتدريب : ",
-                items = trainerState,
-                selectedItem = selectedTrainer,
-                onItemSelected = { trainer -> selectedTrainer = trainer }
-            )
-            CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = { /* Do something */ },
-                buttonColor = Color(0xff3B5EA1)
-            )
+                SelectorWithLabel(
+                    label = "المدينة : ",
+                    items = countries,
+                    selectedItem = selectedCity,
+                    onItemSelected = { city ->
+                        selectedCity = city
+                        viewModel.onEvent(FilterCity(city))
+                    }
+                )
+                SelectorWithLabel(
+                    label = "حالة الملف : ",
+                    items = fileState,
+                    selectedItem = selectedFileState,
+                    onItemSelected = { file ->
+                        selectedFileState = file
+                        viewModel.onEvent(
+                            FilterFileState(
+                                file == fileState[0]
+                            )
+                        )
+                    }
+                )
+                SelectorWithLabel(
+                    label = "إحالة للتدريب : ",
+                    items = trainerState,
+                    selectedItem = selectedTrainer,
+                    onItemSelected = { trainer ->
+                        selectedTrainer = trainer
+                        viewModel.onEvent(
+                            FilterReferralForTraining(
+                                trainer == trainerState[0]
+                            )
+                        )
+                    }
+                )
+                CustomButton(
+                    text = "إبحث", icon = Icons.Default.Search, onClick = {
+                        viewModel.onEvent(Submit)
+                    },
+                    buttonColor = Color(0xff3B5EA1)
+                )
+            }
         }
-    }
 
 //        table
         Row(modifier = Modifier.fillMaxWidth(),
@@ -211,7 +233,7 @@ fun SonsOfOfficersScreen(
 //                                    )
 //                                }
 //                            )
-                            PaginatedTable(headers,personList,13,widths)
+                            PaginatedTable(headers,data,13,widths)
                         }
                     }
                 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 
-class AddPersonUseCase(
+class AddPerson(
   private val personRepository: PersonRepository
 ) {
     operator fun invoke(person: Person): Flow<Resource<Boolean>> = flow{

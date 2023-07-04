@@ -1,4 +1,4 @@
-package features.sons_of_officers.presentation
+package features.sons_of_officers.presentation.add_sons_of_officers
 
 sealed class PersonalInfoFormEvent {
     data class NameChanged(val name: String) : PersonalInfoFormEvent()

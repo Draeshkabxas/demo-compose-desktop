@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface PersonRepository {
 
     fun addPerson(person:Person): Flow<Boolean>
-    fun getAllPeople():Flow<List<Person>>
+    fun getAllPeople(filterQuery:String):Flow<List<Person>>
      fun getPerson(id:String):Flow<Person?>
      fun updatePerson(person: Person):Flow<Boolean>
 }

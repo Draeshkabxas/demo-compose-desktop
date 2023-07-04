@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add test table&#10;4">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add detailes table">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/SonsOfOfficersScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +259,31 @@
       <option name="project" value="LOCAL" />
       <updated>1688465606343</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add test table&#10;4">
+      <option name="closed" value="true" />
+      <created>1688470929091</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1688470929091</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add test table&#10;4">
+      <option name="closed" value="true" />
+      <created>1688471108030</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1688471108030</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add detailes table">
+      <option name="closed" value="true" />
+      <created>1688474134910</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1688474134910</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -281,7 +306,9 @@
     <MESSAGE value="add test table" />
     <MESSAGE value="add test table2" />
     <MESSAGE value="add test table&#10;3" />
+    <MESSAGE value="add persons list to table" />
     <MESSAGE value="add test table&#10;4" />
-    <option name="LAST_COMMIT_MESSAGE" value="add test table&#10;4" />
+    <MESSAGE value="add detailes table" />
+    <option name="LAST_COMMIT_MESSAGE" value="add detailes table" />
   </component>
 </project>

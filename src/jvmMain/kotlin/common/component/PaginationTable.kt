@@ -32,6 +32,9 @@ fun PaginatedTable(
 ) {
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
     var currentPage by remember { mutableStateOf(0) }
+    //btn check
+    var isButtonVisible by remember { mutableStateOf(false) }
+
 
     Column() {
         Row {
@@ -121,7 +124,6 @@ fun PaginatedTable(
                             .width(columnWidths[9])
                             .padding(8.dp)
                     )
-                    val justifications = person.justificationsRequire.filterValues { it }.keys
                     Text(
                         text = if (person.justificationsRequire.values.all { it }) {
                             "مستوفي"
@@ -132,6 +134,15 @@ fun PaginatedTable(
                             .width(columnWidths[10])
                             .padding(8.dp)
                     )
+                    val justifications = person.justificationsRequire.filterValues { it }.keys
+                    isButtonVisible = !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
+                    if (isButtonVisible) {
+                        Button(
+                            onClick = { /* handle button click */ }
+                        ) {
+                            Text("إضافة")
+                        }
+                    }
                 }
             }
         }

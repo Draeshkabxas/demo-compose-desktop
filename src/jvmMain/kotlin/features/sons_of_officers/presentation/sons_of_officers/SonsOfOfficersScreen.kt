@@ -1,9 +1,10 @@
-package features.sons_of_officers.presentation.sons_of_officers
+package features.sons_of_officers.presentation
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -12,8 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import navcontroller.NavController
+import styles.CairoTypography
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
@@ -54,54 +57,42 @@ fun SonsOfOfficersScreen(
     var isRowVisible by remember { mutableStateOf(false) }
 //    for table
     val data = listOf(
-        listOf(
-            "1",
-            "222",
-            " احمد محمد احمد محمود",
-            "1199911111111",
-            "عائشة محمد عبدالله",
-            "بكالوريوس",
-            "طرابلس",
-            "0910000000",
-            "احمد محمد احمد",
-            "لا",
-            "غير مستوفي",
-            "إضافة"
-        ),
-        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000", "ediet"),
+        listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "شهادة اعدادية", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "نواقص","إضافة"),
+        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000","ediet"),
+        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("4", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("5", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("6", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("7", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("8", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("9", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("10", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("11", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("12", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("13", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("14", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("15", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("16", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("17", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("18", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("19", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("20", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("21", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("22", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("23", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("24", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("25", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("26", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
+        listOf("27", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
         //
 
         // Add more rows here...
     )
+  val widths = listOf(70.dp, 82.dp,200.dp, 130.dp, 150.dp, 115.dp,100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
 
     val headers = listOf(
-        "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "إحالة لتدريب", "حالة الملف", "النواقص"
+         "التسلسل",  "رقم الملف", "الإسم رباعي", "الرقم الوطني","إسم الأم",  "المؤهل العلمي", "المدينة", "رقم الهاتف",
+        "القائم بالتجنيد" , "إحالة لتدريب","حالة الملف","النواقص"
     )
 
     Column(
@@ -144,9 +135,6 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
-            val scope = rememberCoroutineScope()
-            val fileDialog = remember { FileDialog(Frame()) }
-            val selectedDirectory = remember { mutableStateOf<String?>(null) }
             CustomButton(
                 text = "طباعة",
                 icon = Icons.Default.Print,
@@ -173,26 +161,18 @@ fun SonsOfOfficersScreen(
             )
         }
         if (isRowVisible) {
-            Row(
-                modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                CustomOutlinedTextField(
-                    hint = "إبحث برقم الملف",
-                    errorMessage = "",
-                    onValueChange = { viewModel.onEvent(FilterFileNumber(it)) },
-                    onNextChange = { viewModel.onEvent(FilterFileNumber(it)) },
-                )
-                SelectorWithLabel(
-                    label = "المؤهل العلمي : ",
-                    items = educations,
-                    selectedItem = selectededucation,
-                    onItemSelected = { education ->
-                        selectededucation = education
-                        viewModel.onEvent(FilterEducationLevel(education))
-                    }
-                )
+        Row(
+            modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            CustomOutlinedTextField(hint = "إبحث برقم الملف", errorMessage = "")
+            SelectorWithLabel(
+                label = "المؤهل العلمي : ",
+                items = educations,
+                selectedItem = selectededucation,
+                onItemSelected = { education -> selectededucation = education }
+            )
 
                 SelectorWithLabel(
                     label = "المدينة : ",
@@ -239,10 +219,39 @@ fun SonsOfOfficersScreen(
         }
 
 //        table
-        SimpleDataTableScreenPreview()
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Top,
+        ) {
+            LazyColumn(Modifier.padding(10.dp)) {
+                item {
+                    MaterialTheme {
+                        Surface(modifier = Modifier.size(1400.dp)) {
+//                        Table(
+//                            columns = headers,
+//                            rows = data
+//                        )
+//                            Table(
+//                                modifier = Modifier.fillMaxSize(),
+//                                headers = headers,
+//                                data = data,
+//                                cellContent = { columnIndex, rowIndex ->
+//                                    Text(
+//                                        text = data[rowIndex][columnIndex],
+//                                        style = MaterialTheme.typography.body1,
+//                                        modifier = Modifier.padding(8.dp)
+//                                    )
+//                                }
+//                            )
+                            PaginatedTable(headers,data,13,widths)
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }
-
 //@Composable
 //fun Table() {
 //    val data = listOf(
@@ -270,91 +279,5 @@ fun SonsOfOfficersScreen(
 //        }
 //    }
 //}
-@Composable
-fun Table(
-    modifier: Modifier = Modifier,
-    rowModifier: Modifier = Modifier,
-    verticalLazyListState: LazyListState = rememberLazyListState(),
-    horizontalScrollState: ScrollState = rememberScrollState(),
-    headers: List<String>,
-    data: List<List<String>>,
-    beforeRow: (@Composable (rowIndex: Int) -> Unit)? = null,
-    afterRow: (@Composable (rowIndex: Int) -> Unit)? = null,
-    cellContent: @Composable (columnIndex: Int, rowIndex: Int) -> Unit
-) {
-    val rowCount = data.size
-    val columnCount = headers.size
-    val columnWidths = remember { mutableStateMapOf<Int, Int>() }
 
-    // Add a border to the table
-    Box(
-        modifier = modifier.border(1.dp, Color(0xff3B5EA1))
-            .then(Modifier.horizontalScroll(horizontalScrollState))
-    ) {
-        Column {
-            Row(modifier = rowModifier) {
-                headers.forEachIndexed { columnIndex, header ->
-                    Box(
-                        modifier = Modifier
-                            .layout { measurable, constraints ->
-                                val placeable = measurable.measure(constraints)
-
-                                val existingWidth = columnWidths[columnIndex] ?: 0
-                                val maxWidth = maxOf(existingWidth, placeable.width)
-
-                                if (maxWidth > existingWidth) {
-                                    columnWidths[columnIndex] = maxWidth
-                                }
-
-                                layout(width = maxWidth, height = placeable.height) {
-                                    placeable.placeRelative(0, 0)
-                                }
-                            }
-                            .background(Color(0xff3B5EA1))
-                    ) {
-                        Text(
-                            text = header,
-                            style = MaterialTheme.typography.h5,
-                            color = Color.White,
-                            modifier = Modifier.padding(13.dp)
-                        )
-                    }
-                }
-            }
-
-            LazyColumn(state = verticalLazyListState) {
-                items(count = rowCount, key = { rowIndex -> rowIndex }) { rowIndex ->
-                    // Add a border to every row
-                    Row(
-                        modifier = rowModifier.border(
-                            1.dp, Color(0xff3B5EA1)
-                        ).background(Color.White),
-                    ) {
-                        data[rowIndex].forEachIndexed { columnIndex, cellData ->
-                            Box(
-                                modifier = Modifier
-                                    .layout { measurable, constraints ->
-                                        val placeable = measurable.measure(constraints)
-
-                                        val existingWidth = columnWidths[columnIndex] ?: 0
-                                        val maxWidth = maxOf(existingWidth, placeable.width)
-
-                                        if (maxWidth > existingWidth) {
-                                            columnWidths[columnIndex] = maxWidth
-                                        }
-
-                                        layout(width = maxWidth, height = placeable.height) {
-                                            placeable.placeRelative(0, 0)
-                                        }
-                                    }
-                            ) {
-                                cellContent(columnIndex, rowIndex)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 

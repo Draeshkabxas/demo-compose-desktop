@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 
 import androidx.compose.ui.layout.layout
 import common.component.*
+import common.component.simpledatatable.*
 
 
 @Composable
@@ -122,7 +123,7 @@ fun SonsOfOfficersScreen(
         }
         if (isRowVisible) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -160,36 +161,7 @@ fun SonsOfOfficersScreen(
     }
 
 //        table
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.Top,
-        ) {
-            LazyColumn(Modifier.padding(16.dp)) {
-                item {
-                    MaterialTheme {
-                        Surface(modifier = Modifier.size(1400.dp)) {
-//                        Table(
-//                            columns = headers,
-//                            rows = data
-//                        )
-                            Table(
-                                modifier = Modifier.fillMaxSize(),
-                                headers = headers,
-                                data = data,
-                                cellContent = { columnIndex, rowIndex ->
-                                    Text(
-                                        text = data[rowIndex][columnIndex],
-                                        style = MaterialTheme.typography.body1,
-                                        modifier = Modifier.padding(8.dp)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-
-        }
+        SimpleDataTableScreenPreview()
     }
 }
 //@Composable

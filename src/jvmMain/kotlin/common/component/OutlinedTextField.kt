@@ -24,21 +24,24 @@ fun CustomOutlinedTextField(
     hint:String ="إسم المستخدم",
     isError: Boolean = false,
     errorMessage: String,
+    valueState: MutableState<String>? =null,
     modifier:Modifier = Modifier
 ) {
-    var textValue by remember { mutableStateOf(value) }
-
+    var textValue = remember { mutableStateOf(value) }
+    if (valueState != null) {
+        textValue = valueState
+    }
     Column(modifier.padding(5.dp)) {
         OutlinedTextField(
-            value = textValue,
+            value = textValue.value,
             onValueChange = {
                 onValueChange(it)
-                textValue = it
+                textValue.value = it
             },
             shape= RoundedCornerShape(16.dp),
             textStyle = CairoTypography.body1 ,
             keyboardActions = KeyboardActions(onNext = {
-                onNextChange(textValue)
+                onNextChange(textValue.value)
             }),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             label = { Text(

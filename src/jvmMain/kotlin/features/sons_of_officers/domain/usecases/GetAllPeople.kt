@@ -3,29 +3,39 @@ package features.sons_of_officers.domain.usecases
 import common.Resource
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.repository.PersonRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
+import features.sons_of_officers.presentation.sons_of_officers.FilterState
+import kotlinx.coroutines.flow.*
 
 class GetAllPeople(
     private val personRepository: PersonRepository
 ) {
-    operator fun invoke(filters:Map<String,String>): Flow<Resource<List<Person>>> = flow{
+    operator fun invoke(filters: FilterState): Flow<Resource<List<Person>>> = flow{
         emit(Resource.Loading(data = emptyList()))
-        var filterQuery=""
-        filters.toList().forEachIndexed { index, (filterName,filterValue) ->
-            if (filterValue.isEmpty()) {
-                return@forEachIndexed
-            }
-            filterQuery += if (index == filters.size-1){
-                "$filterName == $filterValue"
-            }else{
-                "$filterName == $filterValue && "
+        println(filters)
+        val result=personRepository.getAllPeople("")
+
+        var resultAfterFiltered = result.first().filter {
+            println(it)
+            it.libyaId.contains(filters.libyaId) &&
+            it.fileNumber.contains(filters.fileNumber) &&
+            it.educationLevel.contains(filters.educationLevel) &&
+            it.city.contains(filters.city)
+        }
+        if (filters.referralForTraining.isNotEmpty()) {
+           resultAfterFiltered = resultAfterFiltered.filter {
+                if (it.procedures["إحالة لتدريب"] == null) {
+                    return@filter false
+                }
+                println(it.procedures["إحالة لتدريب"] )
+                println(filters.referralForTraining.toBooleanStrict())
+                it.procedures["إحالة لتدريب"] == filters.referralForTraining.toBooleanStrict()
             }
         }
-
-        val result=personRepository.getAllPeople(filterQuery)
-        emit(Resource.Success(result.first()))
+        if (filters.fileState.isNotEmpty()) {
+         resultAfterFiltered = resultAfterFiltered.filter {
+                filters.fileState.toBooleanStrict() == it.justificationsRequire.all { requireValue-> requireValue.value }
+            }
+        }
+        emit(Resource.Success(resultAfterFiltered))
     }.catch { emit(Resource.Error("Cloud Not add new person")) }
 }

@@ -9,6 +9,7 @@ import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.copyFromRealm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.query.RealmQuery
+import io.realm.kotlin.query.find
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -23,7 +24,7 @@ class RealmPersonImpl(private val realm: Realm) :
     }
 
     override fun getAllPeople(filterQuery: String): Flow<List<Person>> {
-        return realm.query<RealmPerson>(filterQuery).asFlow()
+        return realm.query<RealmPerson>().asFlow()
             .map {
                 it.list.map { realmPerson -> realmPerson.toPersonDTO() }
             }

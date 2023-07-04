@@ -3,21 +3,28 @@ package features.sons_of_officers.presentation.sons_of_officers
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import common.Resource
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople
-import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent
-import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.forEach
+import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class SonsOfOfficersScreenViewModel(
-private val getAllPeople: GetAllPeople
+private val getAllPeople: GetAllPeople,
+private val printPersonsListToXlsxFile: PrintPersonsListToXlsxFile
 ) {
     var state by mutableStateOf(FilterState())
-    var peopleData by mutableStateOf<List<Person>>(emptyList())
+     var peopleData by mutableStateOf<List<Person>>(emptyList())
+
+    init {
+        CoroutineScope(Dispatchers.Default).launch{
+            delay(timeMillis = 1000)
+            getFilterData()
+        }
+    }
+
 
 
     fun onEvent(event: FilterEvent){
@@ -42,17 +49,36 @@ private val getAllPeople: GetAllPeople
             }
             is FilterEvent.Reset ->{
               state = FilterState()
+                getFilterData()
             }
-            FilterEvent.Submit -> {
-                filterData()
+            is FilterEvent.Submit -> {
+                getFilterData()
             }
+            else -> {}
         }
     }
 
-    private fun filterData() {
-        getAllPeople.invoke(state.getFilterStateVariablesNamesAndValues()).onEach {
-            it.data?.let {people->
-                peopleData = people
+     fun printToXlsxFile(filePath:String,onError:(String)->Unit,onLoading:() -> Unit,onSuccess:(Boolean)->Unit){
+        printPersonsListToXlsxFile.invoke(peopleData,filePath).onEach {
+            when(it){
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> it.data?.let(onSuccess)
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+
+    private fun getFilterData() {
+        getAllPeople.invoke(state).onEach {
+            when(it){
+                is Resource.Error -> {}
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    it.data?.let {people->
+                            peopleData = people
+                    }
+                }
             }
         }.launchIn(CoroutineScope(Dispatchers.IO))
 

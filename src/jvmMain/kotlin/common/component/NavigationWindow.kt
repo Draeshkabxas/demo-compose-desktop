@@ -29,7 +29,7 @@ import navcontroller.composable
 import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
-import features.sons_of_officers.presentation.SonsOfOfficersScreen
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
 import kotlin.system.exitProcess
 
@@ -101,13 +101,13 @@ fun NavigationWindow(
                             modifier = Modifier.size(18.dp)
                         )
                     }
-                    val isWindowInFullScreen = windowState.placement == WindowPlacement.Maximized
+                    val isWindowInFullScreen = windowState.placement == WindowPlacement.Fullscreen
                     IconButton(
                         onClick = {
                             if (isWindowInFullScreen)
                                 windowState.placement = WindowPlacement.Floating
                             else
-                                windowState.placement = WindowPlacement.Maximized
+                                windowState.placement = WindowPlacement.Fullscreen
                         }
 
                     ) {

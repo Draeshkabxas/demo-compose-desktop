@@ -1,11 +1,7 @@
-package features.sons_of_officers.presentation
+package features.sons_of_officers.presentation.sons_of_officers
 
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
@@ -13,29 +9,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import navcontroller.NavController
-import styles.CairoTypography
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
 
-import androidx.compose.ui.layout.layout
 import common.component.*
-import common.component.simpledatatable.*
+import common.toColor
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
-import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
-import java.awt.Desktop
-import java.awt.FileDialog
-import java.awt.Frame
-import java.io.File
-import java.lang.reflect.Method
-import javax.swing.JFileChooser
+import styles.AppColors
+import styles.AppColors.secondary
 
 
 @Composable
@@ -48,6 +35,9 @@ fun SonsOfOfficersScreen(
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
+    var libyaIdState = remember { mutableStateOf("") }
+    var fileNumberState = remember { mutableStateOf("") }
+
 
     val countries = listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
     val educations =
@@ -79,8 +69,6 @@ fun SonsOfOfficersScreen(
         )
     )
 
-    val personList = mutableListOf<Person>()
-    personList.add(person)
 
 //    for table
     val data = listOf(
@@ -135,13 +123,13 @@ fun SonsOfOfficersScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-
-            CustomOutlinedTextField(
-                hint = "إبحث بالرقم الوطني ",
-                errorMessage = "",
-                onValueChange = { viewModel.onEvent(FilterLibyaId(it)) },
-                onNextChange = { viewModel.onEvent(FilterLibyaId(it)) },
-            )
+                CustomOutlinedTextField(
+                    valueState = libyaIdState,
+                    hint = "إبحث بالرقم الوطني ",
+                    errorMessage = "",
+                    onValueChange = { viewModel.onEvent(FilterLibyaId(it)) },
+                    onNextChange = { viewModel.onEvent(FilterLibyaId(it)) },
+                )
             CustomButton(
                 text = "إبحث", icon = Icons.Default.Search, onClick = {
                     viewModel.onEvent(Submit)
@@ -162,75 +150,118 @@ fun SonsOfOfficersScreen(
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
-            val scope = rememberCoroutineScope()
             CustomButton(
                 text = "طباعة",
                 icon = Icons.Default.Print,
                 onClick = {
-                    scope.launch {
-                        val fileDialog = FileDialog(Frame(), "Choose a file", FileDialog.LOAD)
-                        fileDialog.isVisible = true
-                        val file = File(fileDialog.directory, fileDialog.file)
-                        println("File path: ${file.absolutePath}")                    }
+                   DirectoryDialog(
+                      onApproved = {filePath->
+                          viewModel.printToXlsxFile(
+                              filePath,
+                              onError = {},
+                              onLoading = {},
+                              onSuccess = { println("print xlsx is success")}
+                          )
+                      },
+                       onCanceled = {
+                         println("on canceled")
+                       },
+                       onError = {
+                           println("on onError")
+                       }
+                   )
                 },
                 buttonColor = Color(0xff3F6F52)
             )
         }
         if (isRowVisible) {
-        Row(
-            modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            CustomOutlinedTextField(hint = "إبحث برقم الملف", errorMessage = "")
-            SelectorWithLabel(
-                label = "المؤهل العلمي : ",
-                items = educations,
-                selectedItem = selectededucation,
-                onItemSelected = { education -> selectededucation = education }
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    CustomOutlinedTextField(
+                        valueState = fileNumberState,
+                        hint = "إبحث برقم الملف",
+                        errorMessage = "",
+                        onValueChange = { viewModel.onEvent(FilterFileNumber(it)) },
+                        onNextChange = { viewModel.onEvent(FilterFileNumber(it)) },
+                    )
+                    SelectorWithLabel(
+                        label = "المؤهل العلمي : ",
+                        items = educations,
+                        selectedItem = selectededucation,
+                        onItemSelected = { education ->
+                            selectededucation = education
+                            viewModel.onEvent(FilterEducationLevel(education))
+                        }
+                    )
 
-                SelectorWithLabel(
-                    label = "المدينة : ",
-                    items = countries,
-                    selectedItem = selectedCity,
-                    onItemSelected = { city ->
-                        selectedCity = city
-                        viewModel.onEvent(FilterCity(city))
-                    }
-                )
-                SelectorWithLabel(
-                    label = "حالة الملف : ",
-                    items = fileState,
-                    selectedItem = selectedFileState,
-                    onItemSelected = { file ->
-                        selectedFileState = file
-                        viewModel.onEvent(
-                            FilterFileState(
-                                file == fileState[0]
+                    SelectorWithLabel(
+                        label = "المدينة : ",
+                        items = countries,
+                        selectedItem = selectedCity,
+                        onItemSelected = { city ->
+                            selectedCity = city
+                            viewModel.onEvent(FilterCity(city))
+                        }
+                    )
+                    SelectorWithLabel(
+                        label = "حالة الملف : ",
+                        items = fileState,
+                        selectedItem = selectedFileState,
+                        onItemSelected = { file ->
+                            selectedFileState = file
+                            viewModel.onEvent(
+                                FilterFileState(
+                                    file == fileState[0]
+                                )
                             )
-                        )
-                    }
-                )
-                SelectorWithLabel(
-                    label = "إحالة للتدريب : ",
-                    items = trainerState,
-                    selectedItem = selectedTrainer,
-                    onItemSelected = { trainer ->
-                        selectedTrainer = trainer
-                        viewModel.onEvent(
-                            FilterReferralForTraining(
-                                trainer == trainerState[0]
+                        }
+                    )
+                    SelectorWithLabel(
+                        label = "إحالة للتدريب : ",
+                        items = trainerState,
+                        selectedItem = selectedTrainer,
+                        onItemSelected = { trainer ->
+                            selectedTrainer = trainer
+                            viewModel.onEvent(
+                                FilterReferralForTraining(
+                                    trainer == trainerState[0]
+                                )
                             )
-                        )
-                    }
-                )
-                CustomButton(
-                    text = "إبحث", icon = Icons.Default.Search, onClick = {
-                        viewModel.onEvent(Submit)
-                    },
-                    buttonColor = Color(0xff3B5EA1)
-                )
+                        }
+                    )
+
+
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    CustomButton(
+                        text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
+                            viewModel.onEvent(Reset)
+                            selectedCity = "إختر المدينة"
+                            selectededucation = "إختر المؤهل"
+                            selectedFileState = "إختر حالة الملف"
+                            selectedTrainer = "إختر  نعم او لا"
+                            libyaIdState.value = ""
+                            fileNumberState.value = ""
+                        },
+                        buttonColor = "#5180f3".toColor()
+                    )
+                    CustomButton(
+                        text = "إبحث", icon = Icons.Default.Search, onClick = {
+                            viewModel.onEvent(Submit)
+                        },
+                        buttonColor = Color(0xff3B5EA1)
+                    )
+                }
             }
         }
 
@@ -259,7 +290,7 @@ fun SonsOfOfficersScreen(
 //                                    )
 //                                }
 //                            )
-                            PaginatedTable(headers,personList,13,widths)
+                            PaginatedTable(headers,viewModel.peopleData,13,widths)
                         }
                     }
                 }

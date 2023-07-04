@@ -30,6 +30,7 @@ fun PaginatedTable(
     itemsPerPage: Int,
     columnWidths: List<Dp>
 ) {
+    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
     var currentPage by remember { mutableStateOf(0) }
     //btn check
@@ -51,6 +52,7 @@ fun PaginatedTable(
                 )
             }
         }
+
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(

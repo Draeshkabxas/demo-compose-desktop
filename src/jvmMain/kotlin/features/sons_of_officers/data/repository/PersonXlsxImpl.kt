@@ -12,8 +12,8 @@ import java.io.FileOutputStream
 class PersonXlsxImpl: PersonXlsxRepository {
 
     override fun printPersonsToXlsxFile(persons: List<Person>,filePath:String): Flow<Boolean> = flow {
+        val workbook = XSSFWorkbook()
         try {
-            val workbook = XSSFWorkbook()
             val sheet = workbook.createSheet("Persons")
             val headerRow = sheet.createRow(0)
             headerRow.createCell(0).setCellValue("الرقم التسلسلي")
@@ -21,33 +21,56 @@ class PersonXlsxImpl: PersonXlsxRepository {
             headerRow.createCell(2).setCellValue("اسم الام")
 
 
-            headerRow.createCell(1).setCellValue("رقم الملف")
-            headerRow.createCell(2).setCellValue("الرقم الوطني")
+            headerRow.createCell(3).setCellValue("رقم الملف")
+            headerRow.createCell(4).setCellValue("الرقم الوطني")
 
-            headerRow.createCell(1).setCellValue("رقم الهاتف")
-            headerRow.createCell(2).setCellValue("المؤهل العلمي")
+            headerRow.createCell(5).setCellValue("رقم الهاتف")
+            headerRow.createCell(6).setCellValue("المؤهل العلمي")
 
-            headerRow.createCell(1).setCellValue("القائم بالتجنيد")
-            headerRow.createCell(2).setCellValue("المدينة")
+            headerRow.createCell(7).setCellValue("القائم بالتجنيد")
+            headerRow.createCell(8).setCellValue("المدينة")
 
-            headerRow.createCell(1).setCellValue("المصوغات المطلوبة")
-            headerRow.createCell(2).setCellValue("الاجراءات")
+            headerRow.createCell(9).setCellValue("المصوغات المطلوبة")
+            headerRow.createCell(10).setCellValue("الاجراءات")
 
             // ... create other header cells
 
             persons.forEachIndexed { index, person ->
                 val row = sheet.createRow(index + 1)
-                row.createCell(0).setCellValue(person.id)
-                row.createCell(1).setCellValue(person.name)
-                row.createCell(2).setCellValue(person.motherName)
+                val properties = Person::class.java.declaredFields
+
+                val values = properties.map { field ->
+                    field.isAccessible = true
+                    field.get(person)
+                }
+
+                values.forEachIndexed { index, value ->
+                    row.createCell(index).setCellValue(value.toString())
+                }
+                row.createCell(9).setCellValue(person.justificationsRequire.filterValues { it }
+                    .keys.joinToString(
+                            separator = ", ",  // Delimiter between elements
+                            prefix = "",     // Prefix before the list
+                            postfix = ""     // Postfix after the list
+                        )
+                )
+                row.createCell(10).setCellValue(person.procedures.filterValues { it }
+                    .keys.joinToString(
+                    separator = ", ",  // Delimiter between elements
+                    prefix = "",     // Prefix before the list
+                    postfix = ""     // Postfix after the list
+                )
+                )
                 // ... set other cell values
             }
 
             FileOutputStream("$filePath/persons.xlsx").use { outputStream ->
                 workbook.write(outputStream)
+                workbook.close()
             }
             emit(true)
         } catch (e: Exception) {
+            workbook.close()
             emit(false)
         }
     }.flowOn(Dispatchers.IO)

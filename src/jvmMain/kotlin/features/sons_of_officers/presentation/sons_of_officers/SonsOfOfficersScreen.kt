@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import common.component.*
 import common.component.simpledatatable.*
+import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import kotlinx.coroutines.launch
@@ -56,6 +57,31 @@ fun SonsOfOfficersScreen(
 
 // for row visibility
     var isRowVisible by remember { mutableStateOf(false) }
+    val person = Person(
+        id = "1",
+        name = " احمد محمد احمد محمود",
+        motherName = "عائشة محمد عبدالله",
+        fileNumber = "222",
+        libyaId = "1199911111111",
+        phoneNumber = "0910000000",
+        educationLevel = "شهادة اعدادية",
+        recruiter = "احمد محمد احمد",
+        city = "طرابلس",
+        justificationsRequire = mapOf(
+            "reference letter" to true,
+            "criminal record check" to false,
+            "medical certificate" to true
+        ),
+        procedures = mapOf(
+            "interview" to true,
+            "background check" to true,
+            "training" to false
+        )
+    )
+
+    val personList = mutableListOf<Person>()
+    personList.add(person)
+
 //    for table
     val data = listOf(
         listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "شهادة اعدادية", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "نواقص","إضافة"),
@@ -233,7 +259,7 @@ fun SonsOfOfficersScreen(
 //                                    )
 //                                }
 //                            )
-                            PaginatedTable(headers,data,13,widths)
+                            PaginatedTable(headers,personList,13,widths)
                         }
                     }
                 }

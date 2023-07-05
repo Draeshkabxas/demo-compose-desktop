@@ -13,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.ui.Modifier
 
@@ -47,62 +48,8 @@ fun SonsOfOfficersScreen(
 
 // for row visibility
     var isRowVisible by remember { mutableStateOf(false) }
-    val person = Person(
-        id = "1",
-        name = " احمد محمد احمد محمود",
-        motherName = "عائشة محمد عبدالله",
-        fileNumber = "222",
-        libyaId = "1199911111111",
-        phoneNumber = "0910000000",
-        educationLevel = "شهادة اعدادية",
-        recruiter = "احمد محمد احمد",
-        city = "طرابلس",
-        justificationsRequire = mapOf(
-            "reference letter" to true,
-            "criminal record check" to false,
-            "medical certificate" to true
-        ),
-        procedures = mapOf(
-            "interview" to true,
-            "background check" to true,
-            "training" to false
-        )
-    )
+    var isCancelVisible by remember { mutableStateOf(false) }
 
-
-//    for table
-    val data = listOf(
-        listOf("1", "222", " احمد محمد احمد محمود", "1199911111111", "عائشة محمد عبدالله", "شهادة اعدادية", "طرابلس", "0910000000", "احمد محمد احمد", "لا", "نواقص","إضافة"),
-        listOf("2", "Jane", "Doe", "30", "Female", "Canada", "MSc", "Toronto", "Married", "No", "$2000","ediet"),
-        listOf("3", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("4", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("5", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("6", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("7", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("8", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("9", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("10", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("11", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("12", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("13", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("14", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("15", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("16", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("17", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("18", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("19", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("20", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("21", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("22", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("23", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("24", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("25", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("26", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        listOf("27", "Bob", "Smith", "40", "Male", "UK", "PhD", "London", "Married", "Yes", "$3000","ediet"),
-        //
-
-        // Add more rows here...
-    )
   val widths = listOf(70.dp, 82.dp,200.dp, 130.dp, 150.dp, 115.dp,100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
 
     val headers = listOf(
@@ -129,19 +76,50 @@ fun SonsOfOfficersScreen(
                     errorMessage = "",
                     onValueChange = { viewModel.onEvent(FilterLibyaId(it)) },
                     onNextChange = { viewModel.onEvent(FilterLibyaId(it)) },
+                    width = 200.dp
+
                 )
             CustomButton(
                 text = "إبحث", icon = Icons.Default.Search, onClick = {
                     viewModel.onEvent(Submit)
+                    isCancelVisible =!isCancelVisible
                 },
                 buttonColor = Color(0xff3B5EA1)
             )
-            CustomButton(
-                text = "فلتره", icon = Icons.Default.FilterList, onClick = { isRowVisible = !isRowVisible },
+            if (isCancelVisible) {
+                Button(
+                    shape = RoundedCornerShape(100.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                    modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
+
+                            onClick = {
+                        viewModel.onEvent(Reset)
+                        selectedCity = "إختر المدينة"
+                        selectededucation = "إختر المؤهل"
+                        selectedFileState = "إختر حالة الملف"
+                        selectedTrainer = "إختر  نعم او لا"
+                        libyaIdState.value = ""
+                        fileNumberState.value = ""
+                        isCancelVisible =!isCancelVisible
+
+                    },
+                ){
+                    Icon(
+                        imageVector = Icons.Default.Cancel,
+                        contentDescription = "",
+                        tint = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+
+                }
+
+            }
+                CustomButton(
+                text = "فلتره البحث ", icon = Icons.Default.FilterList, onClick = { isRowVisible = !isRowVisible },
 
                 buttonColor = Color(0xff3B5EA1)
             )
-            Spacer(modifier = Modifier.width(570.dp))
+            Spacer(modifier = Modifier.width(530.dp))
 
             CustomButton(
                 text = "إضافة ملف", icon = Icons.Default.AddTask,
@@ -189,6 +167,7 @@ fun SonsOfOfficersScreen(
                         errorMessage = "",
                         onValueChange = { viewModel.onEvent(FilterFileNumber(it)) },
                         onNextChange = { viewModel.onEvent(FilterFileNumber(it)) },
+                        width = 120.dp
                     )
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
@@ -235,14 +214,12 @@ fun SonsOfOfficersScreen(
                             )
                         }
                     )
-
-
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
+                    CustomButton(
+                        text = "إبحث", icon = Icons.Default.Search, onClick = {
+                            viewModel.onEvent(Submit)
+                        },
+                        buttonColor = Color(0xff3B5EA1)
+                    )
                     CustomButton(
                         text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
                             viewModel.onEvent(Reset)
@@ -253,15 +230,13 @@ fun SonsOfOfficersScreen(
                             libyaIdState.value = ""
                             fileNumberState.value = ""
                         },
-                        buttonColor = "#5180f3".toColor()
+                        buttonColor = Color.Red
                     )
-                    CustomButton(
-                        text = "إبحث", icon = Icons.Default.Search, onClick = {
-                            viewModel.onEvent(Submit)
-                        },
-                        buttonColor = Color(0xff3B5EA1)
-                    )
+
+
                 }
+
+
             }
         }
 
@@ -274,22 +249,6 @@ fun SonsOfOfficersScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-//                        Table(
-//                            columns = headers,
-//                            rows = data
-//                        )
-//                            Table(
-//                                modifier = Modifier.fillMaxSize(),
-//                                headers = headers,
-//                                data = data,
-//                                cellContent = { columnIndex, rowIndex ->
-//                                    Text(
-//                                        text = data[rowIndex][columnIndex],
-//                                        style = MaterialTheme.typography.body1,
-//                                        modifier = Modifier.padding(8.dp)
-//                                    )
-//                                }
-//                            )
                             PaginatedTable(headers,viewModel.peopleData,13,widths)
                         }
                     }

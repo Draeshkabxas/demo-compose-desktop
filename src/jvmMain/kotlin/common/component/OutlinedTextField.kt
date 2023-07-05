@@ -3,6 +3,7 @@ package common.component
 import androidx.compose.foundation.layout.padding
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import styles.CairoTypography
 import styles.AppColors.hintText
@@ -25,13 +27,14 @@ fun CustomOutlinedTextField(
     isError: Boolean = false,
     errorMessage: String,
     valueState: MutableState<String>? =null,
-    modifier:Modifier = Modifier
+    modifier:Modifier = Modifier,
+    width: Dp = 0.dp
 ) {
     var textValue = remember { mutableStateOf(value) }
     if (valueState != null) {
         textValue = valueState
     }
-    Column(modifier.padding(5.dp)) {
+    Column(modifier.padding(5.dp).sizeIn(maxWidth = width)) {
         OutlinedTextField(
             value = textValue.value,
             onValueChange = {

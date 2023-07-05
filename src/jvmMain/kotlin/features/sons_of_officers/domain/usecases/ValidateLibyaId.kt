@@ -4,7 +4,7 @@ import authorization.domain.model.ValidationResult
 
 class ValidateLibyaId {
     fun execute(libyaId: String): ValidationResult {
-        if(libyaId.length != 12) {
+        if(libyaId.length != 13) {
             return ValidationResult(
                 successful = false,
                 errorMessage = "الرقم الوطني يجب ان يحتوي على 13 رقم"

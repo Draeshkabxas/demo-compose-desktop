@@ -52,13 +52,18 @@ fun PaginatedTable(
                 )
             }
         }
-
+        if (personList.any { it == null }) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
+                Text(text = "No data")
+            }
+        } else {
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(
                     modifier = Modifier.background(
                         if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
-                            (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0))
+                            (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
+                        )
                             Color.LightGray else Color.White
                     )
                 ) {
@@ -137,7 +142,8 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     val justifications = person.justificationsRequire.filterValues { it }.keys
-                    isButtonVisible = !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
+                    isButtonVisible =
+                        !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
                     if (isButtonVisible) {
                         Button(
                             onClick = { /* handle button click */ }
@@ -148,6 +154,7 @@ fun PaginatedTable(
                 }
             }
         }
+    }
         Spacer(modifier = Modifier.height(10.dp))
         Row(
             horizontalArrangement = Arrangement.Center,

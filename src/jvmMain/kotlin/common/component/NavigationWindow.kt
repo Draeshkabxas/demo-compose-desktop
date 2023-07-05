@@ -167,7 +167,7 @@ fun SystemNavigationHost(
             AddSonsOfOfficersScreen(navController)
         }
         composable(SystemScreen.SonsOfOfficersScreen.name) {
-            windowState.size = DpSize(1100.dp, 950.dp)
+            windowState.placement = WindowPlacement.Fullscreen
             SonsOfOfficersScreen(navController)
         }
 

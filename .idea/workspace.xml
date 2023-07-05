@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add detailes table">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="ADD filter functionality and add reset but to sons of officers screen">
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/Education.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/LibyanCities.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +58,7 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Enum" />
       </list>
     </option>
   </component>
@@ -73,7 +83,7 @@
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/Desktop/newderar/src/jvmMain/kotlin/features/sons_of_officers/presentation&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/development/demo/src/jvmMain/resources&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -83,18 +93,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development\demo\src\jvmMain\resources" />
       <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\sons_of_officers\presentation" />
       <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\features\sons_of_officers" />
       <recent name="C:\development\demo\src\jvmMain\kotlin\system\presentation\home" />
-      <recent name="C:\development\demo\src\jvmMain\kotlin\system\presentation\contracts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\development\demo\src\jvmMain\kotlin\features\sons_of_officers\presentation\sons_of_officers\component" />
+      <recent name="C:\development\demo\src\jvmMain\resources\images" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\features\sons_of_officers\presentation" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\features\home\presentation" />
       <recent name="C:\Users\sabar\IdeaProjects\demo-compose-desktop\src\jvmMain\kotlin\common\component" />
-      <recent name="C:\development\demo\src\jvmMain\kotlin\authorization\presentation\login" />
-      <recent name="C:\development\demo\src\jvmMain\kotlin\presentation" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="features.sons_of_officers.domain.model" />
@@ -283,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1688474134910</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL؜-٠٠٠٢٠" summary="ADD filter functionality and add reset but to sons of officers screen">
+      <option name="closed" value="true" />
+      <created>1688504230402</created>
+      <option name="number" value="٠٠٠٢٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1688504230402</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -309,6 +327,7 @@
     <MESSAGE value="add persons list to table" />
     <MESSAGE value="add test table&#10;4" />
     <MESSAGE value="add detailes table" />
-    <option name="LAST_COMMIT_MESSAGE" value="add detailes table" />
+    <MESSAGE value="ADD filter functionality and add reset but to sons of officers screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="ADD filter functionality and add reset but to sons of officers screen" />
   </component>
 </project>

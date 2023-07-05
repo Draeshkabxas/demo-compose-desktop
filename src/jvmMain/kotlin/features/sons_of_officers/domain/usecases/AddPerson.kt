@@ -13,8 +13,9 @@ class AddPerson(
 ) {
     operator fun invoke(person: Person): Flow<Resource<Boolean>> = flow{
         emit(Resource.Loading(data = true))
-        val result=personRepository.addPerson(person)
-        println("adding new person state  "+result.first())
-        emit(Resource.Success(result.first()))
+        println("AddPersonUseCase is running")
+        val result=personRepository.addPerson(person).first()
+        println("AddPersonUseCase is after getting data $result")
+        emit(Resource.Success(result))
     }.catch { emit(Resource.Error("Cloud Not add new person")) }
 }

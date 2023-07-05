@@ -9,13 +9,13 @@ import org.mongodb.kbson.ObjectId
 
 fun Person.toRealmPerson(): RealmPerson {
     val person=this
-    var justifications = realmListOf<Justification>()
+    val justifications = realmListOf<Justification>()
     this.justificationsRequire.forEach { justifications.add(Justification().apply {
         name = it.key
         value = it.value
     }) }
 
-    var proceduresRealm = realmListOf<Procedure>()
+    val proceduresRealm = realmListOf<Procedure>()
     this.procedures.forEach { proceduresRealm.add(Procedure().apply {
         name = it.key
         value = it.value

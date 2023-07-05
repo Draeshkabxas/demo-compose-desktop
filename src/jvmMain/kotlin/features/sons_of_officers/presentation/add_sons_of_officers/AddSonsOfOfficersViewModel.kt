@@ -149,14 +149,10 @@ class AddSonsOfOfficersViewModel(
             justificationsRequire = justification,
             procedures = procedures
         )
+        println("submitData is running")
         addPerson.invoke(newPerson).onEach {
-//            println("البيانات الشخصية")
-//            println(state)
-//            println("المسوغات المطلوبة")
-//            justificationsRequiredInputsNameAndValue.forEach { (name, value) -> println("$name: ${value.value}") }
-//            println("الاجراءات")
-//            proceduresInputNameAndValues.forEach { (name, value) -> println("$name: ${value.value}") }
             validationEventChannel.send(ValidationEvent.Success)
+            println("submitData is getting data")
             state = state.copy(
                 name = "",
                 motherName = "",

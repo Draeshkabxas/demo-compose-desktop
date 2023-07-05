@@ -52,7 +52,7 @@ fun PaginatedTable(
                 )
             }
         }
-        if (personList.any { it == null }) {
+        if (personList.any { false }) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
                 Text(text = "No data")
             }
@@ -69,6 +69,7 @@ fun PaginatedTable(
                 ) {
                     Text(
                         text = person.id,
+                        maxLines = 1,
                         modifier = Modifier
                             .width(columnWidths[0])
                             .padding(8.dp)
@@ -122,7 +123,8 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     Text(
-                        text = if (person.procedures["training"] == true) {
+                        text = if (person.procedures["إحالة لتدريب"] != null &&
+                            person.procedures["إحالة لتدريب"] == true) {
                             "نعم"
                         } else {
                             "لا"
@@ -141,7 +143,7 @@ fun PaginatedTable(
                             .width(columnWidths[10])
                             .padding(8.dp)
                     )
-                    val justifications = person.justificationsRequire.filterValues { it }.keys
+                    //val justifications = person.justificationsRequire.filterValues { it }.keys
                     isButtonVisible =
                         !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
                     if (isButtonVisible) {

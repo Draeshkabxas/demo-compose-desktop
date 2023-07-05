@@ -31,11 +31,14 @@ class RealmPersonImpl(private val realm: Realm) :
     }
 
     override fun addPerson(person: Person): Flow<Boolean> = flow {
+        println("AddPersonImpl is running")
         var result = true
        realm.writeBlocking {
             try {
+                println("AddPersonImpl in try catch")
                 copyToRealm(person.toRealmPerson())
             } catch (e: Exception) {
+                println("AddPersonImpl in error catch")
                 println(e.localizedMessage)
                 result = false
             }

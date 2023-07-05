@@ -14,6 +14,8 @@ import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOffi
 import navcontroller.NavController
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
+import styles.AppColors
+import styles.AppColors.blue
 import styles.CairoTypography
 
 @Composable
@@ -100,13 +102,6 @@ fun AddSonsOfOfficersScreen(
             val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
             item {
                 Column {
-//                    RoundedDropdownMenu(
-//                        items = educationLevel,
-//                        onSelectItem = { viewModel.onEvent(EducationLevelChanged(it))},
-//                        label = { Text("المؤهل العلمي") }
-//                    ){
-//                        Text(it)
-//                    }
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
@@ -124,13 +119,6 @@ fun AddSonsOfOfficersScreen(
             val  cities= listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
             item{
                 Column {
-//                    RoundedDropdownMenu(
-//                        items = cities,
-//                        onSelectItem = { viewModel.onEvent(CityChanged(it)) },
-//                        label = { Text("المدينة") }
-//                    ) {
-//                        Text(it)
-//                    }
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,
@@ -158,7 +146,7 @@ fun AddSonsOfOfficersScreen(
             }
         }
         Section("الاجراءات",3){
-            viewModel.proceduresInputNameAndValues.forEach { name,valueState->
+            viewModel.proceduresInputNameAndValues.forEach { (name, valueState) ->
                 item{
                     CheckBoxWithLabel(
                         name,
@@ -173,7 +161,7 @@ fun AddSonsOfOfficersScreen(
                     text = "حفظ",
                     icon = Icons.Default.Save,
                     onClick = {  viewModel.onEvent(Submit) },
-                    buttonColor = Color(0xff3B5EA1)
+                    buttonColor = blue
                 )
     }
 }

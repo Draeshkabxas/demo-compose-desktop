@@ -14,7 +14,7 @@ fun RealmPerson.toPersonDTO(): Person {
         educationLevel = this.educationLevel,
         recruiter = this.recruiter,
         city = this.city,
-        justificationsRequire = this.justificationsRequire.map { it.name to  it.value }.toMap(),
-        procedures = this.procedures.map { it.name to it.value }.toMap()
+        justificationsRequire = this.justificationsRequire.associate { it.name to it.value },
+        procedures = this.procedures.associate { it.name to it.value }
     )
 }

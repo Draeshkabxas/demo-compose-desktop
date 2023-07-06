@@ -70,8 +70,9 @@ fun Filters(
                 errorMessage = "",
                 onValueChange = { onFilterLibyaId(it) },
                 onNextChange = { onFilterLibyaId(it) },
-                width = 200.dp
-
+                width = 200.dp,
+                inputType = InputType.NUMBER,
+//                maxLength = 12 // Set the maximum length to N characters
             )
             CustomButton(
                 text = "إبحث", icon = Icons.Default.Search, onClick = {
@@ -127,7 +128,11 @@ fun Filters(
                             errorMessage = "",
                             onValueChange = { onFilterFileNumber(it) },
                             onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp
+                            width = 120.dp,
+                            inputType = InputType.NUMBER,
+//                            maxLength = 5 // Set the maximum length to N characters
+
+
                         )
                         CustomOutlinedTextField(
                             valueState = personNameState,
@@ -135,7 +140,9 @@ fun Filters(
                             errorMessage = "",
                             onValueChange = { onFilterFileNumber(it) },
                             onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp
+                            width = 120.dp,
+                            inputType = InputType.TEXT
+
                         )
                         CustomOutlinedTextField(
                                 valueState = motherNameState,
@@ -143,7 +150,9 @@ fun Filters(
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 120.dp
+                        width = 120.dp,
+                            inputType = InputType.TEXT
+
                         )
                         SelectorWithLabel(
                             label = "المؤهل العلمي : ",

@@ -57,7 +57,8 @@ fun AddContractsScreen(
 
 
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
-        Section("البيانات الشخصية",3){
+        Section("البيانات الشخصية",
+            3){
             val personalInputsName= viewModel.personalInputsNameAndValue
             val state = viewModel.state
             item {
@@ -67,6 +68,8 @@ fun AddContractsScreen(
                     isError = state.nameError!=null,
                     hint = personalInputsNameAndValue[0],
                     errorMessage = state.nameError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
                 )
             }
             item {
@@ -75,7 +78,10 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(MotherNameChanged(it)) },
                     hint = personalInputsNameAndValue[1],
                     isError = state.motherNameError!=null,
-                    errorMessage = state.motherNameError.toString()
+                    errorMessage = state.motherNameError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
+
                 )
             }
             item {
@@ -84,7 +90,9 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     hint = personalInputsNameAndValue[2],
                     isError = state.fileNumberError!=null,
-                    errorMessage = state.fileNumberError.toString()
+                    errorMessage = state.fileNumberError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
                 )
             }
             item {
@@ -93,7 +101,11 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     hint = personalInputsNameAndValue[3],
                     isError = state.libyaidError!=null,
-                    errorMessage = state.libyaidError.toString()
+                    errorMessage = state.libyaidError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.NUMBER,
+                    maxLength = 5 // Set the maximum length to N characters
+
                 )
             }
             item {
@@ -102,7 +114,12 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
                     hint = personalInputsNameAndValue[4],
                     isError = state.phoneNumberError!=null,
-                    errorMessage = state.phoneNumberError.toString()
+                    errorMessage = state.phoneNumberError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.NUMBER,
+                    maxLength = 12 // Set the maximum length to N characters
+
+
                 )
             }
             item {
@@ -111,7 +128,11 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsNameAndValue[5],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.NUMBER,
+                    maxLength = 10 // Set the maximum length to N characters
+
                 )
             }
             item {
@@ -120,7 +141,9 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsNameAndValue[7],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
                 )
             }
             item {
@@ -129,7 +152,10 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsNameAndValue[8],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
+
                 )
             }
             item {
@@ -138,7 +164,10 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsNameAndValue[9],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.NUMBER
+
                 )
             }
             val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
@@ -181,7 +210,10 @@ fun AddContractsScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsNameAndValue[10],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    width = 50.dp,
+                    inputType = InputType.TEXT
+
                 )
             }
         }

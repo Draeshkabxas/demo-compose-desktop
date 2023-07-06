@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
+import features.contracts.presentation.add_contracts.AddContractsScreen
+import features.contracts.presentation.contracts.ContractsScreen
 import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
@@ -78,7 +80,7 @@ fun NavigationWindow(
                         label = {
                             Text(it.label)
                         },
-                        alwaysShowLabel = false,
+                        alwaysShowLabel = true,
                         onClick = {
                             navController.navigate(it.name)
                         }
@@ -149,6 +151,14 @@ enum class SystemScreen(
         label = "منظومة ابناء الضباط",
         icon = Icons.Filled.PersonAdd
     ),
+    AddContractsScreen(
+        label = "منظومة  العقود/اضافه",
+        icon = Icons.Filled.PersonAdd
+    ),
+    ContractsScreen(
+        label = "منظومة  العقود",
+        icon = Icons.Filled.PersonAdd
+    ),
 }
 
 
@@ -169,6 +179,14 @@ fun SystemNavigationHost(
         composable(SystemScreen.SonsOfOfficersScreen.name) {
             windowState.placement = WindowPlacement.Fullscreen
             SonsOfOfficersScreen(navController)
+        }
+        composable(SystemScreen.AddContractsScreen.name) {
+            windowState.placement = WindowPlacement.Fullscreen
+            AddContractsScreen(navController)
+        }
+        composable(SystemScreen.ContractsScreen.name) {
+            windowState.placement = WindowPlacement.Fullscreen
+            ContractsScreen(navController)
         }
 
     }.build()

@@ -52,11 +52,12 @@ fun PaginatedTable(
                 )
             }
         }
-        if (personList.any { false }) {
+        if (personList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
                 Text(text = "No data")
             }
         } else {
+            var counter = 0 // initialize counter based on current page and items per page
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(
@@ -68,7 +69,7 @@ fun PaginatedTable(
                     )
                 ) {
                     Text(
-                        text = person.id,
+                        text = (personList.indexOf(person) + 1).toString(), // display counter value as text
                         maxLines = 1,
                         modifier = Modifier
                             .width(columnWidths[0])
@@ -153,6 +154,7 @@ fun PaginatedTable(
                             Text("إضافة")
                         }
                     }
+//                    counter++
                 }
             }
         }

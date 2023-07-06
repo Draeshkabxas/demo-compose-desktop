@@ -38,6 +38,7 @@ fun Filters(
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
+    var selectedAge by remember { mutableStateOf("إختر الفئة العمرية") }
     val libyaIdState = remember { mutableStateOf("") }
     val fileNumberState = remember { mutableStateOf("") }
 
@@ -187,8 +188,23 @@ fun Filters(
                         )
 
 
-                    }
 
+                    }
+                     Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
+                     ) {
+                         val ageValues = listOf("+18", "18 إلى 30","+30")
+                         SelectorWithLabel(
+                             label = " الفئة العمرية : ",
+                             items = ageValues,
+                             selectedItem = selectedAge,
+                             onItemSelected = { trainer ->
+                                 selectedAge = trainer
+//                                 onFilterReferralForTraining(
+////                                     trainer == trainerValues[0]
+//                                 )
+                             }
+                         )
+                     }
 
                 }
             }

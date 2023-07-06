@@ -11,7 +11,7 @@ import java.io.FileOutputStream
 
 class PersonXlsxImpl: PersonXlsxRepository {
 
-    override fun printPersonsToXlsxFile(persons: List<Person>,filePath:String): Flow<Boolean> = flow {
+    override fun printPersonsToXlsxFile(persons: List<Person>, filePath:String): Flow<Boolean> = flow {
         val workbook = XSSFWorkbook()
         try {
             val sheet = workbook.createSheet("Persons")

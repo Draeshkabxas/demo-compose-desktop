@@ -7,17 +7,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import navcontroller.NavController
 import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.ui.Modifier
-import authorization.presentation.register.RegisterViewModel
 
 import common.component.*
 import features.sons_of_officers.domain.model.Person
@@ -25,10 +22,8 @@ import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
-import styles.AppColors
 import styles.AppColors.blue
 import styles.AppColors.green
-import styles.AppColors.secondary
 
 
 @Composable

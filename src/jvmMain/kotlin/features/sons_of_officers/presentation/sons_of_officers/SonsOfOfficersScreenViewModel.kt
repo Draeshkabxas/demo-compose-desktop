@@ -1,8 +1,5 @@
 package features.sons_of_officers.presentation.sons_of_officers
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import common.Resource
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople

@@ -1,0 +1,28 @@
+package features.contracts.presentation.add_contracts
+
+data class AddContractFormState(
+    val name: String = "",
+    val nameError: String? = null,
+    val motherName: String = "",
+    val motherNameError: String? = null,
+    val motherNationality: String = "",
+    val motherNationalityError: String? = null,
+    val fileNumber: String = "",
+    val fileNumberError: String? = null,
+    val libyaId: String = "",
+    val libyaIdError: String? = null,
+    val phoneNumber: String = "",
+    val phoneNumberError: String? = null,
+    val dependency:String ="",
+    val dependencyError:String? = null,
+    val bankName:String="",
+    val bankNameError:String? = null,
+    val accountNumber:String="",
+    val accountNumberError:String?=null,
+    val educationLevel: String = "",
+    val educationLevelError: String? = null,
+    val city: String = "",
+    val cityError: String? = null,
+    val notes: String = "",
+    val notesError: String? = null,
+)

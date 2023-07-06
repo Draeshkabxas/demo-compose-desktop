@@ -12,13 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import common.component.*
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
 import navcontroller.NavController
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
-import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 

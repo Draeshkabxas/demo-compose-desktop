@@ -11,7 +11,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import styles.CairoTypography
@@ -28,28 +29,43 @@ fun CustomOutlinedTextField(
     errorMessage: String,
     valueState: MutableState<String>? =null,
     modifier:Modifier = Modifier,
-    width: Dp = 0.dp
-) {
-    var textValue = remember { mutableStateOf(value) }
+    width: Dp = 0.dp,
+    inputType: InputType = InputType.TEXT,
+    maxLength: Int = Int.MAX_VALUE
+
+    ) {
+    var textValue by remember { mutableStateOf(value) }
     if (valueState != null) {
-        textValue = valueState
+        textValue = valueState.value
     }
+    val keyboardType = when (inputType) {
+        InputType.NUMBER -> KeyboardType.Number
+        InputType.TEXT -> KeyboardType.Text
+    }
+    val visualTransformation = when (inputType) {
+        InputType.NUMBER -> NumberInputTransformation()
+        InputType.TEXT -> TextInputTransformation()
+    }
+
     Column(modifier.padding(5.dp).sizeIn(maxWidth = width)) {
         OutlinedTextField(
-            value = textValue.value,
-            onValueChange = {
-                onValueChange(it)
-                textValue.value = it
-            },
+            value = textValue,
+                onValueChange = {
+                    onValueChange(it)
+                    textValue = it.take(maxLength)
+                },
             shape= RoundedCornerShape(16.dp),
             textStyle = CairoTypography.body1 ,
             keyboardActions = KeyboardActions(onNext = {
-                onNextChange(textValue.value)
+                onNextChange(textValue)
             }),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = keyboardType,
+            ),
             label = { Text(
                 hint,
-                style = CairoTypography.body2.copy(color = hintText)
+                style = CairoTypography.h4.copy(color = hintText)
             ) },
             singleLine = true,
             isError = isError,
@@ -58,7 +74,9 @@ fun CustomOutlinedTextField(
                 focusedIndicatorColor = primary,
                 unfocusedIndicatorColor = Color.Gray,
                 disabledIndicatorColor = Color.Transparent
-            )
+            ),
+            visualTransformation = visualTransformation
+
         )
         if (isError) {
             Text(
@@ -71,7 +89,44 @@ fun CustomOutlinedTextField(
 
     }
 }
+enum class InputType {
+    NUMBER, TEXT
+}
+class NumberInputTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val filtered = text.text.filter { it.isDigit() }
+        return TransformedText(
+            AnnotatedString(filtered),
+            object : OffsetMapping {
+                override fun originalToTransformed(offset: Int): Int {
+                    return filtered.indices.find { filtered.substring(0, it + 1).length == offset } ?: filtered.length
+                }
 
+                override fun transformedToOriginal(offset: Int): Int {
+                    return text.text.substring(0, offset).count { it.isDigit() }
+                }
+            }
+        )
+    }
+}
+
+class TextInputTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val filtered = text.text.filter { it.isLetter() }
+        return TransformedText(
+            AnnotatedString(filtered),
+            object : OffsetMapping {
+                override fun originalToTransformed(offset: Int): Int {
+                    return filtered.indices.find { filtered.substring(0, it + 1).length == offset } ?: filtered.length
+                }
+
+                override fun transformedToOriginal(offset: Int): Int {
+                    return text.text.substring(0, offset).count { it.isLetter() }
+                }
+            }
+        )
+    }
+}
 @Preview()
 @Composable
 fun PreviewOutlinedTextField() {

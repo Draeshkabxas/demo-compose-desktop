@@ -43,7 +43,7 @@ fun AddSonsOfOfficersScreen(
 
 
         HeadLineWithDate(text = "منظومة أبناء الضباط / إضافة طالب ", date ="1/7/2023  1:30:36 PM" )
-        Section("البيانات الشخصية",3){
+        Section("البيانات الشخصية",4){
             val personalInputsName= viewModel.personalInputsNameAndValue
             val state = viewModel.state
                     item {
@@ -53,6 +53,8 @@ fun AddSonsOfOfficersScreen(
                             isError = state.nameError!=null,
                             hint = personalInputsName[0],
                             errorMessage = state.nameError.toString(),
+                            inputType = InputType.TEXT
+
                         )
                     }
             item {
@@ -61,7 +63,9 @@ fun AddSonsOfOfficersScreen(
                     onNextChange = { viewModel.onEvent(MotherNameChanged(it)) },
                     hint = personalInputsName[1],
                     isError = state.motherNameError!=null,
-                    errorMessage = state.motherNameError.toString()
+                    errorMessage = state.motherNameError.toString(),
+                    inputType = InputType.TEXT
+
                 )
             }
             item {
@@ -70,7 +74,11 @@ fun AddSonsOfOfficersScreen(
                     onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     hint = personalInputsName[2],
                     isError = state.fileNumberError!=null,
-                    errorMessage = state.fileNumberError.toString()
+                    errorMessage = state.fileNumberError.toString(),
+                    inputType = InputType.NUMBER,
+                    maxLength = 5 // Set the maximum length to N characters
+
+
                 )
             }
             item {
@@ -79,7 +87,9 @@ fun AddSonsOfOfficersScreen(
                     onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     hint = personalInputsName[3],
                     isError = state.libyaidError!=null,
-                    errorMessage = state.libyaidError.toString()
+                    errorMessage = state.libyaidError.toString(),
+                    inputType = InputType.NUMBER,
+                    maxLength = 12 // Set the maximum length to N characters
                 )
             }
             item {
@@ -88,7 +98,10 @@ fun AddSonsOfOfficersScreen(
                     onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
                     hint = personalInputsName[4],
                     isError = state.phoneNumberError!=null,
-                    errorMessage = state.phoneNumberError.toString()
+                    errorMessage = state.phoneNumberError.toString(),
+                    inputType = InputType.NUMBER,
+                    maxLength = 10 // Set the maximum length to N characters
+
                 )
             }
             item {
@@ -97,7 +110,9 @@ fun AddSonsOfOfficersScreen(
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsName[6],
                     isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString()
+                    errorMessage = state.recruiterError.toString(),
+                    inputType = InputType.TEXT
+
                 )
             }
             val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
@@ -135,7 +150,7 @@ fun AddSonsOfOfficersScreen(
                 }
             }
         }
-        Section("المصوغات المطلوبة",3){
+        Section("المصوغات المطلوبة",4){
             viewModel.justificationsRequiredInputsNameAndValue.forEach{ name,valueState ->
                 item{
                     CheckBoxWithLabel(
@@ -146,7 +161,7 @@ fun AddSonsOfOfficersScreen(
                 }
             }
         }
-        Section("الاجراءات",3){
+        Section("الاجراءات",4){
             viewModel.proceduresInputNameAndValues.forEach { (name, valueState) ->
                 item{
                     CheckBoxWithLabel(

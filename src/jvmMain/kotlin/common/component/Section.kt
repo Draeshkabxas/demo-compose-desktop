@@ -28,7 +28,8 @@ fun Section(
         )
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
-            columns = GridCells.Adaptive(250.dp),
+            horizontalArrangement = Arrangement.Center,
+            columns = GridCells.Fixed(columns),
             contentPadding = PaddingValues(10.dp)
         ){
             gridContent()

@@ -70,7 +70,9 @@ fun Filters(
                 errorMessage = "",
                 onValueChange = { onFilterLibyaId(it) },
                 onNextChange = { onFilterLibyaId(it) },
-                width = 200.dp
+                width = 200.dp,
+                inputType = InputType.NUMBER,
+//                maxLength = 12 // Set the maximum length to N characters
 
             )
             CustomButton(
@@ -127,7 +129,10 @@ fun Filters(
                             errorMessage = "",
                             onValueChange = { onFilterFileNumber(it) },
                             onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp
+                            width = 120.dp,
+                            inputType = InputType.NUMBER,
+//                            maxLength = 5 // Set the maximum length to N characters
+
                         )
                         SelectorWithLabel(
                             label = "المؤهل العلمي : ",

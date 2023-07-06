@@ -16,7 +16,7 @@ open class RealmContract : RealmObject{
     var dependency: String = ""
     var bankName: String = ""
     var accountNumber: String = ""
-    var ageGroup:AgeGroup = AgeGroup.UnderEightTeen
+    var ageGroup:String = AgeGroup.UnderEightTeen.arabicName
     var educationLevel: String = ""
     var city: String = ""
     var notes: String = ""

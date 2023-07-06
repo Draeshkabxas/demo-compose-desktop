@@ -18,7 +18,7 @@ fun Contract.toRealmContractDto(): RealmContract {
         accountNumber = contract.accountNumber
         educationLevel = contract.educationLevel
         city = contract.city
-        ageGroup = contract.ageGroup
+        ageGroup = contract.ageGroup.arabicName
         notes = contract.notes
     }
 }

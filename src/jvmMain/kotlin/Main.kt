@@ -32,6 +32,7 @@ import common.component.NavigationWindow
 @Preview
 fun App(appClose: AppCloseRepository = koinInject()) {
     val navController by rememberNavController(AuthScreen.SystemScreen.name)
+
     val windowState = rememberWindowState(
         size = DpSize(1000.dp,700.dp),
         placement = WindowPlacement.Floating,

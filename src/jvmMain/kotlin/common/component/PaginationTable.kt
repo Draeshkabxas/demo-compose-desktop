@@ -26,7 +26,8 @@ fun PaginatedTable(
     headers: List<String>,
     personList: List<Person>,
     itemsPerPage: Int,
-    columnWidths: List<Dp>
+    columnWidths: List<Dp>,
+
 ) {
     if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage

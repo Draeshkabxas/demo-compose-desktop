@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,8 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import features.contracts.presentation.add_contracts.AddContractsScreen
 import features.contracts.presentation.contracts.ContractsScreen
+import features.courses.presentation.add_courses.AddCoursesScreen
+import features.courses.presentation.courses.CoursesScreen
 import navcontroller.NavController
 import navcontroller.NavigationHost
 import navcontroller.composable
@@ -33,6 +36,7 @@ import styles.AppColors.background
 import features.home.presentation.HomeScreen
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
+import styles.CairoTypography
 import kotlin.system.exitProcess
 
 @Composable
@@ -69,21 +73,23 @@ fun NavigationWindow(
 
             ) {
                 screens.forEach {
-                    NavigationRailItem(
+                    NavigationRailItem(modifier = Modifier.fillMaxWidth(),
                         selected = currentScreen == it.name,
+                        onClick = {
+                            navController.navigate(it.name)
+                        },
                         icon = {
                             Icon(
                                 imageVector = it.icon,
                                 contentDescription = it.label
                             )
                         },
+
+
                         label = {
-                            Text(it.label)
+                            Text(it.label, style = CairoTypography.body2, fontWeight = FontWeight.Bold)
                         },
                         alwaysShowLabel = true,
-                        onClick = {
-                            navController.navigate(it.name)
-                        }
                     )
                 }
             }
@@ -159,6 +165,14 @@ enum class SystemScreen(
         label = "منظومة  العقود",
         icon = Icons.Filled.PersonAdd
     ),
+    AddCoursesScreen(
+        label = "منظومة  الدورات-إضافة",
+        icon = Icons.Filled.PersonAdd
+    ),
+    CoursesScreen(
+        label = "منظومة  الدورات",
+        icon = Icons.Filled.PersonAdd
+    ),
 }
 
 
@@ -188,6 +202,13 @@ fun SystemNavigationHost(
             windowState.placement = WindowPlacement.Fullscreen
             ContractsScreen(navController)
         }
-
+        composable(SystemScreen.AddCoursesScreen.name) {
+            windowState.placement = WindowPlacement.Fullscreen
+            AddCoursesScreen(navController)
+        }
+        composable(SystemScreen.CoursesScreen.name) {
+            windowState.placement = WindowPlacement.Fullscreen
+            CoursesScreen(navController)
+        }
     }.build()
 }

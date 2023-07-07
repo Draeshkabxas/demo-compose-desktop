@@ -48,7 +48,7 @@ val CairoTypography = Typography(
     body2 = TextStyle(
         fontFamily = CairoFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 13.sp
     ),
     h5 = TextStyle(
         fontFamily = CairoFontFamily,

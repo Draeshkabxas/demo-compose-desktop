@@ -1,4 +1,4 @@
-package features.sons_of_officers.presentation.contracts.component
+package features.contracts.presentation.contracts.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,8 +29,9 @@ fun Filters(
     onFilterFileNumber:(String)->Unit,
     onFilterEducationLevel:(String)->Unit,
     onFilterCity:(String)->Unit,
-    onFilterFileState:(Boolean)->Unit,
-    onFilterReferralForTraining:(Boolean)->Unit,
+    onFilterMotherName:(String)->Unit,
+    onFilterName:(String)->Unit,
+    onFilterAgeGroup:(String)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){

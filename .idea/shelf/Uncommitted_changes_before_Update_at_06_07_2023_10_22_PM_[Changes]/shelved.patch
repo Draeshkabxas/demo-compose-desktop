@@ -1,0 +1,406 @@
+Index: src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsScreen.kt b/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsScreen.kt
+deleted file mode 100644
+--- a/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsScreen.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ /dev/null	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
+@@ -1,231 +0,0 @@
+-package features.contracts.presentation.add_contracts
+-
+-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+-
+-
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.material.Text
+-import androidx.compose.material.icons.Icons
+-import androidx.compose.material.icons.filled.Save
+-import androidx.compose.runtime.*
+-import androidx.compose.ui.Alignment
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.graphics.Color
+-import androidx.compose.ui.unit.dp
+-import common.component.*
+-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
+-import navcontroller.NavController
+-import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
+-import org.koin.compose.koinInject
+-import styles.AppColors
+-import styles.AppColors.blue
+-import styles.CairoTypography
+-
+-@Composable
+-fun AddContractsScreen(
+-    navController: NavController,
+-    viewModel: AddSonsOfOfficersViewModel = koinInject()
+-) {
+-    LaunchedEffect(key1 = true) {
+-        viewModel.validationEvents.collect { event ->
+-            when (event) {
+-                ValidationEvent.Success -> {
+-                    navController.navigateBack()
+-                }
+-                else -> {}
+-            }
+-        }
+-    }
+-    val personalInputsNameAndValue = listOf(
+-        "الاسم رباعي",
+-        "اسم الام",
+-        "جنسية الأم",
+-        "رقم الملف",
+-        "الرقم الوطني",
+-        "رقم الهاتف",
+-        "المؤهل العلمي",
+-        "التبعية",
+-        "إسم المصرف",
+-        "رقم الحساب",
+-        "ملاحظات"
+-        )
+-    Column(
+-        modifier = Modifier.fillMaxSize(),
+-        horizontalAlignment = Alignment.CenterHorizontally
+-    ) {
+-        var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+-        var selectedCity by remember { mutableStateOf("إختر المدينة") }
+-
+-
+-        HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
+-        Section("البيانات الشخصية",
+-            3){
+-            val personalInputsName= viewModel.personalInputsNameAndValue
+-            val state = viewModel.state
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(NameChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(NameChanged(it)) },
+-                    isError = state.nameError!=null,
+-                    hint = personalInputsNameAndValue[0],
+-                    errorMessage = state.nameError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.TEXT
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(MotherNameChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(MotherNameChanged(it)) },
+-                    hint = personalInputsNameAndValue[1],
+-                    isError = state.motherNameError!=null,
+-                    errorMessage = state.motherNameError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.TEXT
+-
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
+-                    hint = personalInputsNameAndValue[2],
+-                    isError = state.fileNumberError!=null,
+-                    errorMessage = state.fileNumberError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.TEXT
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
+-                    hint = personalInputsNameAndValue[3],
+-                    isError = state.libyaidError!=null,
+-                    errorMessage = state.libyaidError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.NUMBER,
+-                    maxLength = 5 // Set the maximum length to N characters
+-
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
+-                    hint = personalInputsNameAndValue[4],
+-                    isError = state.phoneNumberError!=null,
+-                    errorMessage = state.phoneNumberError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.NUMBER,
+-                    maxLength = 12 // Set the maximum length to N characters
+-
+-
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    hint = personalInputsNameAndValue[5],
+-                    isError = state.recruiterError!=null,
+-                    errorMessage = state.recruiterError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.NUMBER,
+-                    maxLength = 10 // Set the maximum length to N characters
+-
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    hint = personalInputsNameAndValue[7],
+-                    isError = state.recruiterError!=null,
+-                    errorMessage = state.recruiterError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.TEXT
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    hint = personalInputsNameAndValue[8],
+-                    isError = state.recruiterError!=null,
+-                    errorMessage = state.recruiterError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.TEXT
+-
+-                )
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    hint = personalInputsNameAndValue[9],
+-                    isError = state.recruiterError!=null,
+-                    errorMessage = state.recruiterError.toString(),
+-                    width = 150.dp,
+-                    inputType = InputType.NUMBER
+-
+-                )
+-            }
+-            val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
+-            item {
+-                Column {
+-                    SelectorWithLabel(
+-                        label = "المؤهل العلمي : ",
+-                        items = educationLevel,
+-                        selectedItem = selectededucation,
+-                        onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
+-                    )
+-
+-                    if (state.educationLevelError != null)
+-                        Text(state.educationLevelError.toString()
+-                            ,color = Color.Red,
+-                            style = CairoTypography.body2)
+-                }
+-            }
+-
+-            val  cities= listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
+-            item{
+-                Column {
+-                    SelectorWithLabel(
+-                        label = "المدينة : ",
+-                        items = cities,
+-                        selectedItem = selectedCity,
+-                        onItemSelected = { viewModel.onEvent(CityChanged(it)) }
+-                    )
+-                    if (state.cityError!=null)
+-                        Text(state.cityError.toString()
+-                            ,
+-                            color = Color.Red,
+-                            style = CairoTypography.body2
+-                        )
+-                }
+-            }
+-            item {
+-                CustomOutlinedTextField(
+-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+-                    hint = personalInputsNameAndValue[10],
+-                    isError = state.recruiterError!=null,
+-                    errorMessage = state.recruiterError.toString(),
+-                    width = 50.dp,
+-                    inputType = InputType.TEXT
+-
+-                )
+-            }
+-        }
+-
+-
+-        CustomButton(
+-            text = "حفظ",
+-            icon = Icons.Default.Save,
+-            onClick = {  viewModel.onEvent(Submit) },
+-            buttonColor = blue
+-        )
+-    }
+-}
+Index: src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreenViewModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreenViewModel.java b/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreenViewModel.java
+deleted file mode 100644
+--- a/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreenViewModel.java	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ /dev/null	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
+@@ -1,4 +0,0 @@
+-package features.contracts.presentation.contracts;
+-
+-public class ContractsScreenViewModel {
+-}
+Index: src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.sons_of_officers.domain.model\r\n\r\ndata class Person(\r\n    val id:String,\r\n    val name:String,\r\n    val motherName:String,\r\n    val fileNumber:String,\r\n    val libyaId:String,\r\n    val phoneNumber:String,\r\n    val educationLevel:String,\r\n    val recruiter:String,\r\n    val city:String,\r\n    val justificationsRequire:Map<String,Boolean>,\r\n    val procedures:Map<String,Boolean>\r\n)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt b/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt
+--- a/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/sons_of_officers/domain/model/Person.kt	(date 1688674913915)
+@@ -1,15 +1,14 @@
+ package features.sons_of_officers.domain.model
+ 
+ data class Person(
+-    val id:String,
+-    val name:String,
+-    val motherName:String,
+-    val fileNumber:String,
+-    val libyaId:String,
+-    val phoneNumber:String,
+-    val educationLevel:String,
+-    val recruiter:String,
+-    val city:String,
+-    val justificationsRequire:Map<String,Boolean>,
+-    val procedures:Map<String,Boolean>
+-)
++    val id: String,
++    val name: String,
++    val motherName: String,
++    val fileNumber: String,
++    val libyaId: String,
++    val phoneNumber: String,
++    val educationLevel: String,
++    val recruiter: String,
++    val city: String,
++    val justificationsRequire: Map<String, Boolean>,
++    val procedures: Map<String, 
+\ No newline at end of file
+Index: src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.sons_of_officers.domain.usecases\r\n\r\nimport common.Resource\r\nimport features.sons_of_officers.domain.model.Person\r\nimport features.sons_of_officers.domain.repository.PersonXlsxRepository\r\nimport kotlinx.coroutines.flow.Flow\r\nimport kotlinx.coroutines.flow.catch\r\nimport kotlinx.coroutines.flow.first\r\nimport kotlinx.coroutines.flow.flow\r\nimport org.koin.compose.getKoin\r\nimport org.koin.compose.koinInject\r\n\r\nclass PrintPersonsListToXlsxFile(\r\n    private val personXlsxRepository: PersonXlsxRepository\r\n) {\r\n\r\n    operator fun invoke(persons: List<Person>,filePath:String): Flow<Resource<Boolean>> = flow{\r\n        emit(Resource.Loading(data = true))\r\n        println(\"persons have data $persons\")\r\n        val result=personXlsxRepository.printPersonsToXlsxFile(persons,filePath)\r\n        println(\"print to xlsx state  \"+result.first())\r\n        emit(Resource.Success(result.first()))\r\n    }.catch { emit(Resource.Error(\"Cloud Not print to xlsx file\")) }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt b/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt
+--- a/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt	(date 1688674913917)
+@@ -7,14 +7,12 @@
+ import kotlinx.coroutines.flow.catch
+ import kotlinx.coroutines.flow.first
+ import kotlinx.coroutines.flow.flow
+-import org.koin.compose.getKoin
+-import org.koin.compose.koinInject
+ 
+ class PrintPersonsListToXlsxFile(
+     private val personXlsxRepository: PersonXlsxRepository
+ ) {
+ 
+-    operator fun invoke(persons: List<Person>,filePath:String): Flow<Resource<Boolean>> = flow{
++    operator fun invoke(persons: List<Person>, filePath:String): Flow<Resource<Boolean>> = flow{
+         emit(Resource.Loading(data = true))
+         println("persons have data $persons")
+         val result=personXlsxRepository.printPersonsToXlsxFile(persons,filePath)
+Index: src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonXlsxRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.sons_of_officers.domain.repository\r\n\r\nimport features.sons_of_officers.domain.model.Person\r\nimport kotlinx.coroutines.flow.Flow\r\n\r\ninterface PersonXlsxRepository {\r\n    fun printPersonsToXlsxFile(persons:List<Person>,filePath:String): Flow<Boolean>\r\n\r\n    fun getPersonsFromXlsxFile(path:String):Flow<List<Person>>\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonXlsxRepository.kt b/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonXlsxRepository.kt
+--- a/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonXlsxRepository.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonXlsxRepository.kt	(date 1688674913916)
+@@ -4,7 +4,6 @@
+ import kotlinx.coroutines.flow.Flow
+ 
+ interface PersonXlsxRepository {
+-    fun printPersonsToXlsxFile(persons:List<Person>,filePath:String): Flow<Boolean>
++    fun printPersonsToXlsxFile(persons:List<Person>, filePath:String): Flow<Boolean>
+ 
+     fun getPersonsFromXlsxFile(path:String):Flow<List<Person>>
+-}
+\ No newline at end of file
+Index: src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.contracts.presentation.contracts\r\n\r\n\r\nimport androidx.compose.foundation.layout.*\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.material.icons.Icons\r\nimport androidx.compose.material.icons.filled.*\r\nimport androidx.compose.runtime.*\r\nimport androidx.compose.ui.Alignment\r\nimport androidx.compose.ui.graphics.Color\r\nimport androidx.compose.ui.unit.dp\r\nimport navcontroller.NavController\r\nimport androidx.compose.material.*\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.padding\r\nimport androidx.compose.foundation.lazy.*\r\nimport androidx.compose.foundation.shape.RoundedCornerShape\r\n\r\nimport androidx.compose.ui.Modifier\r\nimport authorization.presentation.register.RegisterViewModel\r\n\r\nimport common.component.*\r\nimport features.sons_of_officers.domain.model.Person\r\nimport features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*\r\nimport features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel\r\nimport features.sons_of_officers.presentation.sons_of_officers.component.Filters\r\nimport org.koin.compose.koinInject\r\nimport styles.AppColors\r\nimport styles.AppColors.blue\r\nimport styles.AppColors.green\r\nimport styles.AppColors.secondary\r\n\r\n\r\n@Composable\r\nfun ContractsScreen(\r\n    navController: NavController,\r\n    viewModel: SonsOfOfficersScreenViewModel = koinInject()\r\n) {\r\n    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 130.dp,90.dp, 115.dp, 100.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp)\r\n    val headers = listOf(\r\n        \"التسلسل\", \"رقم الملف\", \"الإسم رباعي\", \"الرقم الوطني\", \"إسم الأم\",\"جنسية الأم\", \"المؤهل العلمي\", \"المدينة\", \"رقم الهاتف\",\r\n        \"التبعية\", \"إسم المصرف\", \"رقم الحساب\", \"الملاحظات\"\r\n    )\r\n\r\n    var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }\r\n\r\n    LaunchedEffect(key1 = true) {\r\n        viewModel.peopleDataFlow.collect { people ->\r\n            peopleData = people\r\n        }\r\n    }\r\n\r\n    Column(\r\n        modifier = Modifier.fillMaxSize(),\r\n        horizontalAlignment = Alignment.CenterHorizontally,\r\n    ) {\r\n        HeadLineWithDate(text = \"منظومة العقود \", date = \"1/7/2023  1:30:36 PM\")\r\n        Box {\r\n            Filters(\r\n                onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },\r\n                onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },\r\n                onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },\r\n                onFilterCity = { viewModel.onEvent(FilterCity(it)) },\r\n                onFilterFileState = { viewModel.onEvent(FilterFileState(it)) },\r\n                onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },\r\n                onReset = { viewModel.onEvent(Reset) },\r\n                onSubmit = { viewModel.onEvent(Submit) },\r\n            )\r\n            Row(\r\n                modifier = Modifier.align(Alignment.TopEnd),\r\n                verticalAlignment = Alignment.CenterVertically,\r\n                horizontalArrangement = Arrangement.Start\r\n            ) {\r\n                CustomButton(\r\n                    text = \"إضافة ملف\", icon = Icons.Default.AddTask,\r\n                    onClick = {\r\n                        navController.navigate(SystemScreen.AddSonsOfOfficersScreen.name)\r\n                    },\r\n                    buttonColor = blue\r\n                )\r\n                CustomButton(\r\n                    text = \"طباعة\",\r\n                    icon = Icons.Default.Print,\r\n                    onClick = {\r\n                        DirectoryDialog(\r\n                            onApproved = { filePath ->\r\n                                viewModel.printToXlsxFile(\r\n                                    filePath,\r\n                                    onError = {},\r\n                                    onLoading = {},\r\n                                    onSuccess = { println(\"print xlsx is success\") }\r\n                                )\r\n                            },\r\n                            onCanceled = {\r\n                                println(\"on canceled\")\r\n                            },\r\n                            onError = {\r\n                                println(\"on onError\")\r\n                            }\r\n                        )\r\n                    },\r\n                    buttonColor = green\r\n                )\r\n            }\r\n        }\r\n//        table\r\n\r\n        Row(\r\n            modifier = Modifier.fillMaxWidth(),\r\n            horizontalArrangement = Arrangement.Center,\r\n            verticalAlignment = Alignment.Top,\r\n        ) {\r\n            LazyColumn(Modifier.padding(10.dp)) {\r\n                item {\r\n                    MaterialTheme {\r\n                        Surface(modifier = Modifier.size(1400.dp)) {\r\n                            PaginatedTable(headers, peopleData, 13, widths)\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n\r\n        }\r\n    }\r\n}\r\n//@Composable\r\n//fun Table() {\r\n//    val data = listOf(\r\n//        listOf(\"Name\", \"Age\", \"Gender\"),\r\n//        listOf(\"John\", \"28\", \"Male\"),\r\n//        listOf(\"Jane\", \"32\", \"Female\"),\r\n//        listOf(\"Bob\", \"45\", \"Male\")\r\n//    )\r\n//\r\n//    LazyColumn(\r\n//        modifier = Modifier.fillMaxSize()\r\n//    ) {\r\n//        items(data.size) { index ->\r\n//            LazyRow(\r\n//                modifier = Modifier.fillParentMaxWidth(),\r\n//                horizontalArrangement = Arrangement.SpaceBetween\r\n//            ) {\r\n//                data[index].forEach { cell ->\r\n//                    Text(\r\n//                        text = cell,\r\n//                        modifier = Modifier.padding(16.dp)\r\n//                    )\r\n//                }\r\n//            }\r\n//        }\r\n//    }\r\n//}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt b/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt
+--- a/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt	(date 1688674913909)
+@@ -74,7 +74,7 @@
+                 CustomButton(
+                     text = "إضافة ملف", icon = Icons.Default.AddTask,
+                     onClick = {
+-                        navController.navigate(SystemScreen.AddSonsOfOfficersScreen.name)
++                        navController.navigate(SystemScreen.AddContractsScreen.name)
+                     },
+                     buttonColor = blue
+                 )
+Index: src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.sons_of_officers.data.repository\r\n\r\nimport features.sons_of_officers.data.dto.toPersonDTO\r\nimport features.sons_of_officers.data.dto.toRealmPerson\r\nimport features.sons_of_officers.data.model.RealmPerson\r\nimport features.sons_of_officers.domain.model.Person\r\nimport features.sons_of_officers.domain.repository.PersonRepository\r\nimport io.realm.kotlin.Realm\r\nimport io.realm.kotlin.ext.copyFromRealm\r\nimport io.realm.kotlin.ext.query\r\nimport io.realm.kotlin.query.RealmQuery\r\nimport io.realm.kotlin.query.find\r\nimport kotlinx.coroutines.flow.Flow\r\nimport kotlinx.coroutines.flow.first\r\nimport kotlinx.coroutines.flow.flow\r\nimport kotlinx.coroutines.flow.map\r\n\r\nclass RealmPersonImpl(private val realm: Realm) :\r\n    PersonRepository {\r\n    init {\r\n        Runtime.getRuntime().addShutdownHook(Thread {\r\n            realm.close()\r\n        })\r\n    }\r\n\r\n    override fun getAllPeople(filterQuery: String): Flow<List<Person>> {\r\n        return realm.query<RealmPerson>().asFlow()\r\n            .map {\r\n                it.list.map { realmPerson -> realmPerson.toPersonDTO() }\r\n            }\r\n    }\r\n\r\n    override fun addPerson(person: Person): Flow<Boolean> = flow {\r\n        println(\"AddPersonImpl is running\")\r\n        var result = true\r\n       realm.writeBlocking {\r\n            try {\r\n                println(\"AddPersonImpl in try catch\")\r\n                copyToRealm(person.toRealmPerson())\r\n            } catch (e: Exception) {\r\n                println(\"AddPersonImpl in error catch\")\r\n                println(e.localizedMessage)\r\n                result = false\r\n            }\r\n        }\r\n        emit(result)\r\n    }\r\n\r\n    override fun getPerson(id: String): Flow<Person?> = flow{\r\n        val data = realm.query<RealmPerson>(\"id == $0\",id).first().find()\r\n        if (data == null) {\r\n            emit(null)\r\n        } else {\r\n            emit(data.toPersonDTO())\r\n        }\r\n    }\r\n\r\n    override fun updatePerson(person: Person): Flow<Boolean> = flow{\r\n        val oldPerson:Person? = getPerson(person.id).first()\r\n        val updatedPerson = person.toRealmPerson()\r\n        var result = false\r\n        if (oldPerson == null) emit(false)\r\n        realm.writeBlocking {\r\n            oldPerson?.let {\r\n                findLatest(it.toRealmPerson())?.apply {\r\n                    name = updatedPerson.name\r\n                    motherName = updatedPerson.motherName\r\n                    fileNUmber= updatedPerson.phoneNUmber\r\n                    libyaId=updatedPerson.libyaId\r\n                    phoneNUmber=updatedPerson.phoneNUmber\r\n                    educationLevel = updatedPerson.educationLevel\r\n                    recruiter=updatedPerson.recruiter\r\n                    city= updatedPerson.city\r\n                    justificationsRequire = updatedPerson.justificationsRequire\r\n                    procedures = updatedPerson.procedures\r\n                }\r\n            }\r\n            result = true\r\n        }\r\n        emit(result)\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt b/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt
+--- a/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt	(date 1688674913914)
+@@ -6,10 +6,7 @@
+ import features.sons_of_officers.domain.model.Person
+ import features.sons_of_officers.domain.repository.PersonRepository
+ import io.realm.kotlin.Realm
+-import io.realm.kotlin.ext.copyFromRealm
+ import io.realm.kotlin.ext.query
+-import io.realm.kotlin.query.RealmQuery
+-import io.realm.kotlin.query.find
+ import kotlinx.coroutines.flow.Flow
+ import kotlinx.coroutines.flow.first
+ import kotlinx.coroutines.flow.flow
+Index: src/jvmMain/kotlin/features/sons_of_officers/data/repository/PersonXlsxImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package features.sons_of_officers.data.repository\r\n\r\nimport features.sons_of_officers.domain.model.Person\r\nimport features.sons_of_officers.domain.repository.PersonXlsxRepository\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.flow.Flow\r\nimport kotlinx.coroutines.flow.flow\r\nimport kotlinx.coroutines.flow.flowOn\r\nimport org.apache.poi.xssf.usermodel.XSSFWorkbook\r\nimport java.io.FileOutputStream\r\n\r\nclass PersonXlsxImpl: PersonXlsxRepository {\r\n\r\n    override fun printPersonsToXlsxFile(persons: List<Person>,filePath:String): Flow<Boolean> = flow {\r\n        val workbook = XSSFWorkbook()\r\n        try {\r\n            val sheet = workbook.createSheet(\"Persons\")\r\n            val headerRow = sheet.createRow(0)\r\n            headerRow.createCell(0).setCellValue(\"الرقم التسلسلي\")\r\n            headerRow.createCell(1).setCellValue(\"الاسم رباعي\")\r\n            headerRow.createCell(2).setCellValue(\"اسم الام\")\r\n\r\n\r\n            headerRow.createCell(3).setCellValue(\"رقم الملف\")\r\n            headerRow.createCell(4).setCellValue(\"الرقم الوطني\")\r\n\r\n            headerRow.createCell(5).setCellValue(\"رقم الهاتف\")\r\n            headerRow.createCell(6).setCellValue(\"المؤهل العلمي\")\r\n\r\n            headerRow.createCell(7).setCellValue(\"القائم بالتجنيد\")\r\n            headerRow.createCell(8).setCellValue(\"المدينة\")\r\n\r\n            headerRow.createCell(9).setCellValue(\"المصوغات المطلوبة\")\r\n            headerRow.createCell(10).setCellValue(\"الاجراءات\")\r\n\r\n            // ... create other header cells\r\n\r\n            persons.forEachIndexed { index, person ->\r\n                val row = sheet.createRow(index + 1)\r\n                val properties = Person::class.java.declaredFields\r\n\r\n                val values = properties.map { field ->\r\n                    field.isAccessible = true\r\n                    field.get(person)\r\n                }\r\n\r\n                values.forEachIndexed { index, value ->\r\n                    row.createCell(index).setCellValue(value.toString())\r\n                }\r\n                row.createCell(9).setCellValue(person.justificationsRequire.filterValues { it }\r\n                    .keys.joinToString(\r\n                            separator = \", \",  // Delimiter between elements\r\n                            prefix = \"\",     // Prefix before the list\r\n                            postfix = \"\"     // Postfix after the list\r\n                        )\r\n                )\r\n                row.createCell(10).setCellValue(person.procedures.filterValues { it }\r\n                    .keys.joinToString(\r\n                    separator = \", \",  // Delimiter between elements\r\n                    prefix = \"\",     // Prefix before the list\r\n                    postfix = \"\"     // Postfix after the list\r\n                )\r\n                )\r\n                // ... set other cell values\r\n            }\r\n\r\n            FileOutputStream(\"$filePath/persons.xlsx\").use { outputStream ->\r\n                workbook.write(outputStream)\r\n                workbook.close()\r\n            }\r\n            emit(true)\r\n        } catch (e: Exception) {\r\n            workbook.close()\r\n            emit(false)\r\n        }\r\n    }.flowOn(Dispatchers.IO)\r\n\r\n    override fun getPersonsFromXlsxFile(path: String): Flow<List<Person>> {\r\n        TODO(\"Not yet implemented\")\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/jvmMain/kotlin/features/sons_of_officers/data/repository/PersonXlsxImpl.kt b/src/jvmMain/kotlin/features/sons_of_officers/data/repository/PersonXlsxImpl.kt
+--- a/src/jvmMain/kotlin/features/sons_of_officers/data/repository/PersonXlsxImpl.kt	(revision 5b7ce04b8ea94a1a4f391f17e407e79a79165371)
++++ b/src/jvmMain/kotlin/features/sons_of_officers/data/repository/PersonXlsxImpl.kt	(date 1688674913913)
+@@ -11,7 +11,7 @@
+ 
+ class PersonXlsxImpl: PersonXlsxRepository {
+ 
+-    override fun printPersonsToXlsxFile(persons: List<Person>,filePath:String): Flow<Boolean> = flow {
++    override fun printPersonsToXlsxFile(persons: List<Person>, filePath:String): Flow<Boolean> = flow {
+         val workbook = XSSFWorkbook()
+         try {
+             val sheet = workbook.createSheet("Persons")
+@@ -78,4 +78,3 @@
+     override fun getPersonsFromXlsxFile(path: String): Flow<List<Person>> {
+         TODO("Not yet implemented")
+     }
+-}
+\ No newline at end of file
+diff --git a/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsViewModel.java b/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractsViewModel.java
+deleted file mode 100644

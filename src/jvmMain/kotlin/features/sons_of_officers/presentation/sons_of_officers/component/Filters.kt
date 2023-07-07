@@ -65,14 +65,14 @@ fun Filters(
             horizontalArrangement = Arrangement.Start
         ) {
             CustomOutlinedTextField(
-                valueState = libyaIdState,
+//                valueState = libyaIdState,
                 hint = "إبحث بالرقم الوطني ",
                 errorMessage = "",
                 onValueChange = { onFilterLibyaId(it) },
                 onNextChange = { onFilterLibyaId(it) },
                 width = 200.dp,
                 inputType = InputType.NUMBER,
-//                maxLength = 12 // Set the maximum length to N characters
+                maxLength = 12 // Set the maximum length to N characters
 
             )
             CustomButton(

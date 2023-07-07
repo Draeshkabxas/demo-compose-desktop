@@ -17,10 +17,10 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.ui.Modifier
 
 import common.component.*
-import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
-import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
-import features.sons_of_officers.presentation.sons_of_officers.component.Filters
+import features.contracts.domain.model.Contract
+import features.contracts.presentation.contracts.FilterEvent.*
+import features.contracts.presentation.contracts.component.Filters
+import features.contracts.presentation.contracts.component.PaginatedTable
 import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.AppColors.green
@@ -29,7 +29,7 @@ import styles.AppColors.green
 @Composable
 fun ContractsScreen(
     navController: NavController,
-    viewModel: SonsOfOfficersScreenViewModel = koinInject()
+    viewModel: ContractsScreenViewModel = koinInject()
 ) {
     val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 130.dp,90.dp, 115.dp, 100.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp)
     val headers = listOf(
@@ -37,11 +37,11 @@ fun ContractsScreen(
         "التبعية", "إسم المصرف", "رقم الحساب", "الملاحظات"
     )
 
-    var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
+    var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
 
     LaunchedEffect(key1 = true) {
-        viewModel.peopleDataFlow.collect { people ->
-            peopleData = people
+        viewModel.contractsDataFlow.collect { people ->
+            contractsData = people
         }
     }
 
@@ -56,8 +56,9 @@ fun ContractsScreen(
                 onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
                 onFilterCity = { viewModel.onEvent(FilterCity(it)) },
-                onFilterFileState = { viewModel.onEvent(FilterFileState(it)) },
-                onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },
+                onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
+                onFilterName = { viewModel.onEvent(FilterName(it)) },
+                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
                 onReset = { viewModel.onEvent(Reset) },
                 onSubmit = { viewModel.onEvent(Submit) },
             )
@@ -69,7 +70,7 @@ fun ContractsScreen(
                 CustomButton(
                     text = "إضافة ملف", icon = Icons.Default.AddTask,
                     onClick = {
-                        navController.navigate(SystemScreen.AddSonsOfOfficersScreen.name)
+                        navController.navigate(SystemScreen.AddContractsScreen.name)
                     },
                     buttonColor = blue
                 )
@@ -77,22 +78,22 @@ fun ContractsScreen(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        DirectoryDialog(
-                            onApproved = { filePath ->
-                                viewModel.printToXlsxFile(
-                                    filePath,
-                                    onError = {},
-                                    onLoading = {},
-                                    onSuccess = { println("print xlsx is success") }
-                                )
-                            },
-                            onCanceled = {
-                                println("on canceled")
-                            },
-                            onError = {
-                                println("on onError")
-                            }
-                        )
+//                        DirectoryDialog(
+//                            onApproved = { filePath ->
+//                                viewModel.printToXlsxFile(
+//                                    filePath,
+//                                    onError = {},
+//                                    onLoading = {},
+//                                    onSuccess = { println("print xlsx is success") }
+//                                )
+//                            },
+//                            onCanceled = {
+//                                println("on canceled")
+//                            },
+//                            onError = {
+//                                println("on onError")
+//                            }
+//                        )
                     },
                     buttonColor = green
                 )
@@ -109,7 +110,7 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, peopleData, 13, widths)
+//                            PaginatedTable(headers, contractsData, 13, widths)
                         }
                     }
                 }

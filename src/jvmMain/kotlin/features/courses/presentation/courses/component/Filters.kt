@@ -1,4 +1,4 @@
-package features.sons_of_officers.presentation.sons_of_officers.component
+package features.courses.presentation.courses.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

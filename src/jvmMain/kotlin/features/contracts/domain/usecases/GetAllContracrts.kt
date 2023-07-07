@@ -25,7 +25,7 @@ class GetAllContracts(
                     it.name.contains(filters.personName)&&
                     it.motherName.contains(filters.motherName)&&
                     it.libyaId.contains(filters.libyaId)&&
-                    it.ageGroup == filters.ageGroup
+                    if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }
         emit(Resource.Success(resultAfterFiltered))
     }.catch { emit(Resource.Error("Cloud Not add new person")) }

@@ -25,7 +25,7 @@ repositories {
 
 kotlin {
     jvm {
-        jvmToolchain(17)
+        jvmToolchain(15)
         withJava()
     }
     sourceSets {

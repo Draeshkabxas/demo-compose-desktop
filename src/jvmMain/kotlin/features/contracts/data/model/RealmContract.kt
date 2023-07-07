@@ -2,11 +2,12 @@ package features.contracts.data.model
 
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
+import org.mongodb.kbson.ObjectId
 import utils.AgeGroup
 
 open class RealmContract : RealmObject{
     @PrimaryKey
-    var id: String = ""
+    var id: ObjectId = ObjectId()
     var name: String = ""
     var motherName: String = ""
     var motherNationality: String = ""

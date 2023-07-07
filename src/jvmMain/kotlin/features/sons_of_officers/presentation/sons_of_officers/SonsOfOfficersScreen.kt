@@ -56,6 +56,7 @@ fun SonsOfOfficersScreen(
                 onFilterCity = { viewModel.onEvent(FilterCity(it)) },
                 onFilterFileState = { viewModel.onEvent(FilterFileState(it)) },
                 onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },
+                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
                 onReset = { viewModel.onEvent(Reset) },
                 onSubmit = { viewModel.onEvent(Submit) },
             )

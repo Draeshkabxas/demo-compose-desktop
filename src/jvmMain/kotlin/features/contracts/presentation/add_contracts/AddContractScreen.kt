@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
+import features.contracts.presentation.add_contracts.AddContractFormEvent.*
+import features.contracts.presentation.add_contracts.AddContractViewModel.ValidationEvent
 import navcontroller.NavController
-import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.CairoTypography
@@ -24,10 +24,10 @@ import styles.CairoTypography
 @Composable
 fun AddContractsScreen(
     navController: NavController,
-    viewModel: AddSonsOfOfficersViewModel = koinInject()
+    viewModel: AddContractViewModel = koinInject()
 ) {
     LaunchedEffect(key1 = true) {
-        viewModel.validationEvents.collect { event ->
+        viewModel.addContractEvent.collect { event ->
             when (event) {
                 ValidationEvent.Success -> {
                     navController.navigateBack()
@@ -60,7 +60,6 @@ fun AddContractsScreen(
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
         Section("البيانات الشخصية",
             3){
-            val personalInputsName= viewModel.personalInputsNameAndValue
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
@@ -87,8 +86,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
+                    onValueChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
+                    onNextChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
                     hint = personalInputsNameAndValue[2],
                     isError = state.fileNumberError!=null,
                     errorMessage = state.fileNumberError.toString(),
@@ -98,11 +97,11 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
-                    onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
+                    onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     hint = personalInputsNameAndValue[3],
-                    isError = state.libyaidError!=null,
-                    errorMessage = state.libyaidError.toString(),
+                    isError = state.libyaIdError!=null,
+                    errorMessage = state.libyaIdError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER,
                     maxLength = 5 // Set the maximum length to N characters
@@ -111,25 +110,23 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
+                    onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
+                    onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     hint = personalInputsNameAndValue[4],
                     isError = state.phoneNumberError!=null,
                     errorMessage = state.phoneNumberError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER,
                     maxLength = 12 // Set the maximum length to N characters
-
-
                 )
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+                    onValueChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
                     hint = personalInputsNameAndValue[5],
-                    isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString(),
+                    isError = state.phoneNumberError!=null,
+                    errorMessage = state.phoneNumberError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER,
                     maxLength = 10 // Set the maximum length to N characters
@@ -138,22 +135,22 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+                    onValueChange = { viewModel.onEvent(DependencyChanged(it)) },
+                    onNextChange = { viewModel.onEvent(DependencyChanged(it)) },
                     hint = personalInputsNameAndValue[7],
-                    isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString(),
+                    isError = state.dependencyError!=null,
+                    errorMessage = state.dependencyError.toString(),
                     width = 150.dp,
                     inputType = InputType.TEXT
                 )
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+                    onValueChange = { viewModel.onEvent(BankNameChanged(it)) },
+                    onNextChange = { viewModel.onEvent(BankNameChanged(it)) },
                     hint = personalInputsNameAndValue[8],
-                    isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString(),
+                    isError = state.bankNameError!=null,
+                    errorMessage = state.bankNameError.toString(),
                     width = 150.dp,
                     inputType = InputType.TEXT
 
@@ -161,11 +158,11 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+                    onValueChange = { viewModel.onEvent(AccountNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(AccountNumberChanged(it)) },
                     hint = personalInputsNameAndValue[9],
-                    isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString(),
+                    isError = state.accountNumberError!=null,
+                    errorMessage = state.accountNumberError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER
 
@@ -198,8 +195,7 @@ fun AddContractsScreen(
                         onItemSelected = { viewModel.onEvent(CityChanged(it)) }
                     )
                     if (state.cityError!=null)
-                        Text(state.cityError.toString()
-                            ,
+                        Text(state.cityError.toString(),
                             color = Color.Red,
                             style = CairoTypography.body2
                         )
@@ -207,14 +203,13 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
+                    onValueChange = { viewModel.onEvent(NotesChanged(it)) },
+                    onNextChange = { viewModel.onEvent(NotesChanged(it)) },
                     hint = personalInputsNameAndValue[10],
-                    isError = state.recruiterError!=null,
-                    errorMessage = state.recruiterError.toString(),
+                    isError = state.notesError!=null,
+                    errorMessage = state.notesError.toString(),
                     width = 50.dp,
                     inputType = InputType.TEXT
-
                 )
             }
         }

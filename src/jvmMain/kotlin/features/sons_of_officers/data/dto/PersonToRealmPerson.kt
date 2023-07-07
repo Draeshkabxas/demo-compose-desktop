@@ -31,6 +31,7 @@ fun Person.toRealmPerson(): RealmPerson {
         educationLevel = person.educationLevel
         recruiter = person.recruiter
         city = person.city
+        ageGroup = person.ageGroup.arabicName
         justificationsRequire = justifications
         procedures=proceduresRealm
     }

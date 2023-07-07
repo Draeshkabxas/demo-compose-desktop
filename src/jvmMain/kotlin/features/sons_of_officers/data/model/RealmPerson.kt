@@ -5,6 +5,7 @@ import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
 import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
+import utils.AgeGroup
 
 open class RealmPerson: RealmObject{
     @PrimaryKey
@@ -17,6 +18,7 @@ open class RealmPerson: RealmObject{
     var educationLevel: String = ""
     var recruiter: String = ""
     var city: String = ""
+    var ageGroup:String = AgeGroup.UnderEightTeen.arabicName
     var justificationsRequire: RealmList<Justification> = realmListOf()
     var procedures: RealmList<Procedure> = realmListOf()
 }

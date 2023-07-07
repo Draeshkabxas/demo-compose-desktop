@@ -2,11 +2,13 @@ package features.contracts.data.dto
 
 import features.contracts.data.model.RealmContract
 import features.contracts.domain.model.Contract
+import org.mongodb.kbson.BsonObjectId
+import org.mongodb.kbson.ObjectId
 
 fun Contract.toRealmContractDto(): RealmContract {
     val contract = this
     return RealmContract().apply {
-        id = contract.id
+        id = if (contract.id.isEmpty()) ObjectId() else ObjectId(contract.id)
         name = contract.name
         motherName = contract.motherName
         motherNationality = contract.motherNationality

@@ -11,10 +11,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.isSecondaryPressed
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import common.component.InputType.*
 import styles.CairoTypography
 import styles.AppColors.hintText
 import styles.AppColors.primary
@@ -30,34 +34,40 @@ fun CustomOutlinedTextField(
     valueState: MutableState<String>? =null,
     modifier:Modifier = Modifier,
     width: Dp = 0.dp,
-    inputType: InputType = InputType.TEXT,
+    inputType: InputType = TEXT,
     maxLength: Int = Int.MAX_VALUE
 
     ) {
-    var textValue by remember { mutableStateOf(value) }
+    var textValue = remember { mutableStateOf(value) }
     if (valueState != null) {
-        textValue = valueState.value
+        textValue = valueState
     }
     val keyboardType = when (inputType) {
-        InputType.NUMBER -> KeyboardType.Number
-        InputType.TEXT -> KeyboardType.Text
+        NUMBER -> KeyboardType.Number
+        TEXT -> KeyboardType.Text
+        All -> KeyboardType.Text
     }
-    val visualTransformation = when (inputType) {
-        InputType.NUMBER -> NumberInputTransformation()
-        InputType.TEXT -> TextInputTransformation()
+
+
+    val inputFilter:(String) -> String = when(inputType){
+        NUMBER -> { input: String ->  input.filter { it.isDigit() }  }
+        TEXT -> { input: String ->  input.filter { it.isLetter() || it == ' ' }  }
+        All -> {input:String -> input}
     }
 
     Column(modifier.padding(5.dp).sizeIn(maxWidth = width)) {
         OutlinedTextField(
-            value = textValue,
+            modifier = Modifier,
+            value = textValue.value,
                 onValueChange = {
-                    onValueChange(it)
-                    textValue = it.take(maxLength)
+                    val inputAfterFilter = inputFilter(it)
+                    onValueChange(inputAfterFilter)
+                    textValue.value = inputAfterFilter.take(maxLength)
                 },
             shape= RoundedCornerShape(16.dp),
             textStyle = CairoTypography.body1 ,
             keyboardActions = KeyboardActions(onNext = {
-                onNextChange(textValue)
+                onNextChange(textValue.value)
             }),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
@@ -75,8 +85,6 @@ fun CustomOutlinedTextField(
                 unfocusedIndicatorColor = Color.Gray,
                 disabledIndicatorColor = Color.Transparent
             ),
-            visualTransformation = visualTransformation
-
         )
         if (isError) {
             Text(
@@ -90,7 +98,7 @@ fun CustomOutlinedTextField(
     }
 }
 enum class InputType {
-    NUMBER, TEXT
+    NUMBER, TEXT,All
 }
 class NumberInputTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {

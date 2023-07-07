@@ -7,7 +7,7 @@ import utils.fromArabicNameToAgeGroup
 fun RealmContract.toContractDto(): Contract {
     val realmContract = this
     return Contract(
-        id = realmContract.id,
+        id = realmContract.id.toHexString(),
         name = realmContract.name,
         motherName = realmContract.motherName,
         motherNationality = realmContract.motherNationality,

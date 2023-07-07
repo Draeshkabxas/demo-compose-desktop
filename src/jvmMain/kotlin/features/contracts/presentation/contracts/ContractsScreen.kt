@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
+import common.component.CustomButton
+import common.component.HeadLineWithDate
+import common.component.SystemScreen
 
-import common.component.*
+
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.contracts.FilterEvent.*
 import features.contracts.presentation.contracts.component.Filters
@@ -33,8 +36,11 @@ fun ContractsScreen(
 ) {
     val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 130.dp,90.dp, 115.dp, 100.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp)
     val headers = listOf(
-        "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم","جنسية الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "التبعية", "إسم المصرف", "رقم الحساب", "الملاحظات"
+        "التسلسل", "رقم الملف", "الإسم رباعي",
+        "الرقم الوطني", "إسم الأم","جنسية الأم",
+        "المؤهل العلمي", "المدينة", "رقم الهاتف",
+        "التبعية", "إسم المصرف", "رقم الحساب",
+        "الملاحظات"
     )
 
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
@@ -77,30 +83,11 @@ fun ContractsScreen(
                 CustomButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
-                    onClick = {
-//                        DirectoryDialog(
-//                            onApproved = { filePath ->
-//                                viewModel.printToXlsxFile(
-//                                    filePath,
-//                                    onError = {},
-//                                    onLoading = {},
-//                                    onSuccess = { println("print xlsx is success") }
-//                                )
-//                            },
-//                            onCanceled = {
-//                                println("on canceled")
-//                            },
-//                            onError = {
-//                                println("on onError")
-//                            }
-//                        )
-                    },
+                    onClick = {},
                     buttonColor = green
                 )
             }
         }
-//        table
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
@@ -110,7 +97,7 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-//                            PaginatedTable(headers, contractsData, 13, widths)
+                            PaginatedTable(headers, contractsData, 13, widths)
                         }
                     }
                 }
@@ -119,32 +106,5 @@ fun ContractsScreen(
         }
     }
 }
-//@Composable
-//fun Table() {
-//    val data = listOf(
-//        listOf("Name", "Age", "Gender"),
-//        listOf("John", "28", "Male"),
-//        listOf("Jane", "32", "Female"),
-//        listOf("Bob", "45", "Male")
-//    )
-//
-//    LazyColumn(
-//        modifier = Modifier.fillMaxSize()
-//    ) {
-//        items(data.size) { index ->
-//            LazyRow(
-//                modifier = Modifier.fillParentMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                data[index].forEach { cell ->
-//                    Text(
-//                        text = cell,
-//                        modifier = Modifier.padding(16.dp)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
 
 

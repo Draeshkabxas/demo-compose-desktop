@@ -18,25 +18,28 @@ import androidx.compose.ui.unit.dp
 import common.component.CustomOutlinedTextField
 
 import common.component.*
+import features.contracts.presentation.add_contracts.AddContractFormEvent
 import styles.AppColors
 import styles.AppColors.blue
 import utils.Education
 import utils.LibyanCities
+import utils.getAllAgeGroupArabicNames
 
 @Composable
 fun Filters(
-    onFilterLibyaId:(String)->Unit,
-    onFilterFileNumber:(String)->Unit,
-    onFilterEducationLevel:(String)->Unit,
-    onFilterCity:(String)->Unit,
-    onFilterMotherName:(String)->Unit,
-    onFilterName:(String)->Unit,
-    onFilterAgeGroup:(String)->Unit,
-    onReset:()->Unit,
-    onSubmit:()->Unit
-){
+    onFilterLibyaId: (String) -> Unit,
+    onFilterFileNumber: (String) -> Unit,
+    onFilterEducationLevel: (String) -> Unit,
+    onFilterCity: (String) -> Unit,
+    onFilterMotherName: (String) -> Unit,
+    onFilterName: (String) -> Unit,
+    onFilterAgeGroup: (String) -> Unit,
+    onReset: () -> Unit,
+    onSubmit: () -> Unit
+) {
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+    var selectedAge by remember { mutableStateOf("إختر الفئة العمرية") }
     val libyaIdState = remember { mutableStateOf("") }
     val fileNumberState = remember { mutableStateOf("") }
     val motherNameState = remember { mutableStateOf("") }
@@ -50,6 +53,7 @@ fun Filters(
         onReset()
         selectedCity = "إختر المدينة"
         selectededucation = "إختر المؤهل"
+        selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         motherNameState.value = ""
         personNameState.value = ""
@@ -67,13 +71,14 @@ fun Filters(
         ) {
             CustomOutlinedTextField(
                 valueState = libyaIdState,
-                hint = "إبحث بالرقم الوطني ",
-                errorMessage = "",
                 onValueChange = { onFilterLibyaId(it) },
-                onNextChange = { onFilterLibyaId(it) },
-                width = 200.dp,
+                onNextChange = {onFilterLibyaId(it)},
+                hint = "إبحث بالرقم الوطني",
+                isError = false,
+                errorMessage = "",
+                width = 150.dp,
                 inputType = InputType.NUMBER,
-//                maxLength = 12 // Set the maximum length to N characters
+                maxLength = 12 // Set the maximum length to N characters
             )
             CustomButton(
                 text = "إبحث", icon = Icons.Default.Search, onClick = {
@@ -108,93 +113,102 @@ fun Filters(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-
                 buttonColor = blue
             )
             Spacer(modifier = Modifier.width(530.dp))
 
         }
-            if (isMoreFiltersVisible) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
+        if (isMoreFiltersVisible) {
+            Column(
+                modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        CustomOutlinedTextField(
-                            valueState = fileNumberState,
-                            hint = "إبحث برقم الملف",
-                            errorMessage = "",
-                            onValueChange = { onFilterFileNumber(it) },
-                            onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp,
-                            inputType = InputType.NUMBER,
-//                            maxLength = 5 // Set the maximum length to N characters
+                    CustomOutlinedTextField(
+                        valueState = fileNumberState,
+                        hint = "إبحث برقم الملف",
+                        errorMessage = "",
+                        onValueChange = { onFilterFileNumber(it) },
+                        onNextChange = { onFilterFileNumber(it) },
+                        width = 180.dp,
+                        inputType = InputType.NUMBER,
+                        maxLength = 5 // Set the maximum length to N characters
 
 
-                        )
-                        CustomOutlinedTextField(
-                            valueState = personNameState,
-                            hint = "إبحث بالإسم",
-                            errorMessage = "",
-                            onValueChange = { onFilterFileNumber(it) },
-                            onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp,
-                            inputType = InputType.TEXT
+                    )
+                    CustomOutlinedTextField(
+                        valueState = personNameState,
+                        hint = "إبحث بالإسم",
+                        errorMessage = "",
+                        onValueChange = { onFilterFileNumber(it) },
+                        onNextChange = { onFilterFileNumber(it) },
+                        width = 150.dp,
+                        inputType = InputType.TEXT
 
-                        )
-                        CustomOutlinedTextField(
-                                valueState = motherNameState,
+                    )
+                    CustomOutlinedTextField(
+                        valueState = motherNameState,
                         hint = "إبحث بإسم الأم",
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 120.dp,
-                            inputType = InputType.TEXT
+                        width = 150.dp,
+                        inputType = InputType.TEXT
 
-                        )
-                        SelectorWithLabel(
-                            label = "المؤهل العلمي : ",
-                            items = Education.values().map { it.arabicName },
-                            selectedItem = selectededucation,
-                            onItemSelected = { education ->
-                                selectededucation = education
-                                onFilterEducationLevel(education)
-                            }
-                        )
+                    )
+                    SelectorWithLabel(
+                        label = "المؤهل العلمي : ",
+                        items = Education.values().map { it.arabicName },
+                        selectedItem = selectededucation,
+                        onItemSelected = { education ->
+                            selectededucation = education
+                            onFilterEducationLevel(education)
+                        }
+                    )
 
-                        SelectorWithLabel(
-                            label = "المدينة : ",
-                            items = LibyanCities.values().map { it.arabicName },
-                            selectedItem = selectedCity,
-                            onItemSelected = { city ->
-                                selectedCity = city
-                                onFilterCity(city)
-                            }
-                        )
-
-
-                        CustomButton(
-                            text = "إبحث", icon = Icons.Default.Search, onClick = {
-                                onSubmit()
-                            },
-                            buttonColor = Color(0xff3B5EA1)
-                        )
-                        CustomButton(
-                            text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
-                                resetFilters()
-                            },
-                            buttonColor = Color.Red
-                        )
+                    SelectorWithLabel(
+                        label = "المدينة : ",
+                        items = LibyanCities.values().map { it.arabicName },
+                        selectedItem = selectedCity,
+                        onItemSelected = { city ->
+                            selectedCity = city
+                            onFilterCity(city)
+                        }
+                    )
 
 
-
-                    }
+                    CustomButton(
+                        text = "إبحث", icon = Icons.Default.Search, onClick = {
+                            onSubmit()
+                        },
+                        buttonColor = blue
+                    )
+                    CustomButton(
+                        text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
+                            resetFilters()
+                        },
+                        buttonColor = Color.Red
+                    )
 
 
                 }
+                Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
+                ) {
+                    SelectorWithLabel(
+                        label = " الفئة العمرية : ",
+                        items = getAllAgeGroupArabicNames(),
+                        selectedItem = selectedAge,
+                        onItemSelected = { ageGroup ->
+                            selectedAge = ageGroup
+                            onFilterAgeGroup(ageGroup)
+                        }
+                    )
+                }
+
             }
         }
+    }
 }

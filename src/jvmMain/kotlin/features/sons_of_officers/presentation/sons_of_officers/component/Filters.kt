@@ -22,6 +22,7 @@ import styles.AppColors
 import styles.AppColors.blue
 import utils.Education
 import utils.LibyanCities
+import utils.getAllAgeGroupArabicNames
 
 @Composable
 fun Filters(
@@ -31,6 +32,7 @@ fun Filters(
     onFilterCity:(String)->Unit,
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
+    onFilterAgeGroup: (String) -> Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
@@ -51,6 +53,7 @@ fun Filters(
         selectededucation = "إختر المؤهل"
         selectedFileState = "إختر حالة الملف"
         selectedTrainer = "إختر  نعم او لا"
+        selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         fileNumberState.value = ""
     }
@@ -65,8 +68,9 @@ fun Filters(
             horizontalArrangement = Arrangement.Start
         ) {
             CustomOutlinedTextField(
-//                valueState = libyaIdState,
+                valueState = libyaIdState,
                 hint = "إبحث بالرقم الوطني ",
+                isError = false,
                 errorMessage = "",
                 onValueChange = { onFilterLibyaId(it) },
                 onNextChange = { onFilterLibyaId(it) },
@@ -131,7 +135,7 @@ fun Filters(
                             onNextChange = { onFilterFileNumber(it) },
                             width = 120.dp,
                             inputType = InputType.NUMBER,
-//                            maxLength = 5 // Set the maximum length to N characters
+                            maxLength = 5 // Set the maximum length to N characters
 
                         )
                         SelectorWithLabel(
@@ -197,16 +201,13 @@ fun Filters(
                     }
                      Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
                      ) {
-                         val ageValues = listOf("+18", "18 إلى 30","+30")
                          SelectorWithLabel(
                              label = " الفئة العمرية : ",
-                             items = ageValues,
+                             items = getAllAgeGroupArabicNames(),
                              selectedItem = selectedAge,
-                             onItemSelected = { trainer ->
-                                 selectedAge = trainer
-//                                 onFilterReferralForTraining(
-////                                     trainer == trainerValues[0]
-//                                 )
+                             onItemSelected = { ageGroup ->
+                                 selectedAge = ageGroup
+                                 onFilterAgeGroup(ageGroup)
                              }
                          )
                      }

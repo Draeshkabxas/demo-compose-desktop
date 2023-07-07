@@ -10,5 +10,5 @@ data class FilterState(
     val city:String="",
     val motherName:String="",
     val personName:String="",
-    val ageGroup: AgeGroup = AgeGroup.UnderEightTeen
+    val ageGroup: AgeGroup? = null
 )

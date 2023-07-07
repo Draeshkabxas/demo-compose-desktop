@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class RealmPersonImpl(private val realm: Realm) :
+class RealmContractImpl(private val realm: Realm) :
     ContractRepository {
     init {
         Runtime.getRuntime().addShutdownHook(Thread {
@@ -65,6 +65,7 @@ class RealmPersonImpl(private val realm: Realm) :
                    phoneNumber = updatedContract.phoneNumber
                    dependency = updatedContract.dependency
                    bankName = updatedContract.bankName
+                    ageGroup = updatedContract.ageGroup
                    accountNumber = updatedContract.accountNumber
                    educationLevel = updatedContract.educationLevel
                    city = updatedContract.city

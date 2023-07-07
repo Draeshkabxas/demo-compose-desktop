@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import utils.fromArabicNameToAgeGroup
 
 class SonsOfOfficersScreenViewModel(
     private val getAllPeople: GetAllPeople,
@@ -49,7 +50,9 @@ class SonsOfOfficersScreenViewModel(
             is FilterEvent.FilterReferralForTraining -> {
                 state = state.copy(referralForTraining = event.referralForTraining.toString())
             }
-
+            is FilterEvent.FilterAgeGroup -> {
+                state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
+            }
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()
@@ -59,7 +62,6 @@ class SonsOfOfficersScreenViewModel(
                 getFilterData()
             }
 
-            else -> {}
         }
     }
 
@@ -83,7 +85,9 @@ class SonsOfOfficersScreenViewModel(
         try {
             getAllPeople.invoke(state).onEach {
                 when (it) {
-                    is Resource.Error -> {}
+                    is Resource.Error -> {
+                        println(it.message)
+                    }
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         it.data?.let { people ->

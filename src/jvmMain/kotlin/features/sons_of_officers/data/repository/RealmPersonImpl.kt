@@ -68,6 +68,7 @@ class RealmPersonImpl(private val realm: Realm) :
                     educationLevel = updatedPerson.educationLevel
                     recruiter=updatedPerson.recruiter
                     city= updatedPerson.city
+                    ageGroup = updatedPerson.ageGroup
                     justificationsRequire = updatedPerson.justificationsRequire
                     procedures = updatedPerson.procedures
                 }

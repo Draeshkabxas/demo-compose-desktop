@@ -12,7 +12,10 @@ fun getAllAgeGroupArabicNames(): List<String> =
     AgeGroup.values().map { it.arabicName }
 
 fun String.fromArabicNameToAgeGroup():AgeGroup =
-    AgeGroup.values().first { it.arabicName.equals(this,ignoreCase = true)}
+    AgeGroup.values().firstOrNull {
+        it.arabicName.equals(this, ignoreCase = true)
+    } ?: AgeGroup.UnderEightTeen
+
 
 fun getAgeGroupFromLibyaId(libyaId: String): AgeGroup {
     if (libyaId.isEmpty()) return AgeGroup.UnderEightTeen

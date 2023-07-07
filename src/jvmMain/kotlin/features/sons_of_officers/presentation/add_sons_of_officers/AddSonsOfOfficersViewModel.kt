@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import utils.getAgeGroupFromLibyaId
 
 class AddSonsOfOfficersViewModel(
     private val validateLibyaId: ValidateLibyaId =ValidateLibyaId(),
@@ -146,6 +147,7 @@ class AddSonsOfOfficersViewModel(
             educationLevel = state.educationLevel,
             recruiter = state.recruiter,
             city = state.city,
+            ageGroup = getAgeGroupFromLibyaId(state.libyaid),
             justificationsRequire = justification,
             procedures = procedures
         )

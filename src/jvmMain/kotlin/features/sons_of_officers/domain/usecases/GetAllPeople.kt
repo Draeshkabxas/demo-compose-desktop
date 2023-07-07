@@ -12,14 +12,16 @@ class GetAllPeople(
     operator fun invoke(filters: FilterState): Flow<Resource<List<Person>>> = flow{
         emit(Resource.Loading(data = emptyList()))
         println(filters)
-        val result=personRepository.getAllPeople("")
 
+        val result=personRepository.getAllPeople("")
+        println("get all people before filters")
         var resultAfterFiltered = result.first().filter {
             println(it)
             it.libyaId.contains(filters.libyaId) &&
             it.fileNumber.contains(filters.fileNumber) &&
             it.educationLevel.contains(filters.educationLevel) &&
-            it.city.contains(filters.city)
+            it.city.contains(filters.city) &&
+            if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }
         if (filters.referralForTraining.isNotEmpty()) {
            resultAfterFiltered = resultAfterFiltered.filter {
@@ -36,6 +38,7 @@ class GetAllPeople(
                 filters.fileState.toBooleanStrict() == it.justificationsRequire.all { requireValue-> requireValue.value }
             }
         }
+        println("get all people after filters $resultAfterFiltered")
         emit(Resource.Success(resultAfterFiltered))
-    }.catch { emit(Resource.Error("Cloud Not add new person")) }
+    }.catch { emit(Resource.Error("Cloud Not add new person ${it.localizedMessage}")) }
 }

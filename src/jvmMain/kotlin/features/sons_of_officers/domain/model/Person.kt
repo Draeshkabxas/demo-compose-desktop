@@ -1,5 +1,7 @@
 package features.sons_of_officers.domain.model
 
+import utils.AgeGroup
+
 data class Person(
     val id: String,
     val name: String,
@@ -10,6 +12,7 @@ data class Person(
     val educationLevel: String,
     val recruiter: String,
     val city: String,
+    val ageGroup: AgeGroup,
     val justificationsRequire: Map<String, Boolean>,
     val procedures: Map<String, Boolean>,
 )

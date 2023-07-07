@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import utils.fromArabicNameToAgeGroup
 import utils.getAgeGroupFromLibyaId
 
 class ContractsScreenViewModel (
@@ -50,7 +51,7 @@ class ContractsScreenViewModel (
                 state = state.copy(motherName = event.motherName)
             }
             is FilterEvent.FilterAgeGroup -> {
-                state = state.copy(ageGroup = getAgeGroupFromLibyaId(event.ageGroup))
+                state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
 
             is FilterEvent.Reset -> {

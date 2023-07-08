@@ -23,7 +23,7 @@ import styles.CairoTypography
 
 @Composable
 fun AddContractsScreen(
-    navController: NavController,
+    navController: NavController<Screens>,
     viewModel: AddContractViewModel = koinInject()
 ) {
     LaunchedEffect(key1 = true) {

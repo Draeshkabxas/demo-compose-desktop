@@ -9,15 +9,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 /**
  * NavController Class
  */
-class NavController(
-    private val startDestination: String,
-    private var backStackScreens: MutableSet<String> = mutableSetOf()
-) {
+class  NavController<T>(
+    private val startDestination: T,
+    private var backStackScreens: MutableSet<T> = mutableSetOf()
+){
     // Variable to store the state of the current screen
-    var currentScreen: MutableState<String> = mutableStateOf(startDestination)
+    var currentScreen: MutableState<T> = mutableStateOf(startDestination)
+    var currentScreenValue = currentScreen.value
 
     // Function to handle the navigation between the screen
-    fun navigate(route: String) {
+    fun navigate(route: T) {
         if (route != currentScreen.value) {
             if (backStackScreens.contains(currentScreen.value) && currentScreen.value != startDestination) {
                 backStackScreens.remove(currentScreen.value)
@@ -47,10 +48,10 @@ class NavController(
  * Composable to remember the state of the navcontroller
  */
 @Composable
-fun rememberNavController(
-    startDestination: String,
-    backStackScreens: MutableSet<String> = mutableSetOf()
-): MutableState<NavController> = rememberSaveable {
+fun <T>rememberNavController(
+    startDestination: T,
+    backStackScreens: MutableSet<T> = mutableSetOf()
+): MutableState<NavController<T>> = rememberSaveable {
     mutableStateOf(NavController(startDestination, backStackScreens))
 }
 

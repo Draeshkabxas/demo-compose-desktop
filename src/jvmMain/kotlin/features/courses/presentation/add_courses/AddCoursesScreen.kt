@@ -1,33 +1,26 @@
 package features.courses.presentation.add_courses
 
-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
-
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import common.component.*
-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
+import features.courses.presentation.add_courses.AddCourseViewModel.ValidationEvent
+import features.courses.presentation.add_courses.CourseInfoFormEvent.*
 import navcontroller.NavController
-import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
 import org.koin.compose.koinInject
-import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 
 @Composable
 fun AddCoursesScreen(
-    navController: NavController,
-    viewModel: AddSonsOfOfficersViewModel = koinInject()
+    navController: NavController<Screens>,
+    viewModel: AddCourseViewModel = koinInject()
 ) {
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
@@ -49,7 +42,7 @@ fun AddCoursesScreen(
 
         HeadLineWithDate(text = "منظومة الدورات / إضافة طالب ", date ="1/7/2023  1:30:36 PM" )
         Section("البيانات الشخصية",4){
-            val personalInputsName= viewModel.personalInputsNameAndValue
+            val personalInputsName= viewModel.courseInputsNameAndValue
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(

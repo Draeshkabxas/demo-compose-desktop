@@ -27,7 +27,7 @@ import styles.AppColors.background
 
 @Composable
 fun RegisterScreen(
-    navController: NavController,
+    navController: NavController<String>,
     viewModel: RegisterViewModel = koinInject(),
 ) {
     val state = viewModel.state

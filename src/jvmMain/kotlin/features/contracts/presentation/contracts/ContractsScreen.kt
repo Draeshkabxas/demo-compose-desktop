@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.ui.Modifier
 import common.component.CustomButton
 import common.component.HeadLineWithDate
+import common.component.Screens
 import common.component.SystemScreen
 
 
@@ -31,7 +32,7 @@ import styles.AppColors.green
 
 @Composable
 fun ContractsScreen(
-    navController: NavController,
+    navController: NavController<Screens>,
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
     val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 130.dp,90.dp, 115.dp, 100.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp)
@@ -76,7 +77,7 @@ fun ContractsScreen(
                 CustomButton(
                     text = "إضافة ملف", icon = Icons.Default.AddTask,
                     onClick = {
-                        navController.navigate(SystemScreen.AddContractsScreen.name)
+                        navController.navigate(Screens.AddContractsScreen())
                     },
                     buttonColor = blue
                 )

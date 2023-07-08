@@ -1,7 +1,5 @@
 package features.courses.presentation.courses
 
-import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
-
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,11 +15,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
+import common.component.CustomButton
+import common.component.DirectoryDialog
+import common.component.HeadLineWithDate
+import common.component.Screens
 
-import common.component.*
+import features.courses.domain.model.Course
+import features.courses.presentation.courses.FilterEvent.*
+import features.courses.presentation.courses.component.Filters
+import features.courses.presentation.courses.component.PaginatedTable
 import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
-import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.AppColors.green
@@ -29,8 +32,8 @@ import styles.AppColors.green
 
 @Composable
 fun CoursesScreen(
-    navController: NavController,
-    viewModel: SonsOfOfficersScreenViewModel = koinInject()
+    navController: NavController<Screens>,
+    viewModel: CoursesScreenViewModel = koinInject()
 ) {
     val widths = listOf(70.dp, 82.dp, 200.dp, 130.dp, 150.dp, 115.dp, 100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
     val headers = listOf(
@@ -38,11 +41,11 @@ fun CoursesScreen(
         "القائم بالتجنيد", "إحالة لتدريب", "حالة الملف", "النواقص"
     )
 
-    var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
+    var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
 
     LaunchedEffect(key1 = true) {
-        viewModel.peopleDataFlow.collect { people ->
-            peopleData = people
+        viewModel.coursesDataFlow.collect { courses ->
+            coursesData = courses
         }
     }
 
@@ -71,7 +74,7 @@ fun CoursesScreen(
                 CustomButton(
                     text = "إضافة ملف", icon = Icons.Default.AddTask,
                     onClick = {
-                        navController.navigate(SystemScreen.AddSonsOfOfficersScreen.name)
+                        navController.navigate(Screens.AddCoursesScreen())
                     },
                     buttonColor = blue
                 )
@@ -111,7 +114,7 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, peopleData, 13, widths)
+                            PaginatedTable(headers, coursesData, 13, widths)
                         }
                     }
                 }
@@ -120,32 +123,6 @@ fun CoursesScreen(
         }
     }
 }
-//@Composable
-//fun Table() {
-//    val data = listOf(
-//        listOf("Name", "Age", "Gender"),
-//        listOf("John", "28", "Male"),
-//        listOf("Jane", "32", "Female"),
-//        listOf("Bob", "45", "Male")
-//    )
-//
-//    LazyColumn(
-//        modifier = Modifier.fillMaxSize()
-//    ) {
-//        items(data.size) { index ->
-//            LazyRow(
-//                modifier = Modifier.fillParentMaxWidth(),
-//                horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                data[index].forEach { cell ->
-//                    Text(
-//                        text = cell,
-//                        modifier = Modifier.padding(16.dp)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
+
 
 

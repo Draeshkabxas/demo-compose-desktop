@@ -5,33 +5,35 @@ import androidx.compose.runtime.Composable
 /**
  * NavigationHost class
  */
-class NavigationHost(
-    val navController: NavController,
-    val contents: @Composable NavigationGraphBuilder.() -> Unit
+class NavigationHost<T>(
+    val navController: NavController<T>,
+    val contents: @Composable NavigationGraphBuilder<T>.() -> Unit
 ) {
 
     @Composable
     fun build() {
-        NavigationGraphBuilder().renderContents()
+        NavigationGraphBuilder<T>(navController,contents = contents).renderContents()
     }
 
-    inner class NavigationGraphBuilder(
-        val navController: NavController = this@NavigationHost.navController
-    ) {
-        @Composable
-        fun renderContents() {
-            this@NavigationHost.contents(this)
-        }
-    }
+
 }
 
+class NavigationGraphBuilder<T>(
+    val navController: NavController<T>,
+    val contents:@Composable NavigationGraphBuilder<T>.() -> Unit
+) {
+    @Composable
+    fun renderContents() {
+        contents(this)
+    }
+}
 
 /**
  * Composable to build the Navigation Host
  */
 @Composable
-fun NavigationHost.NavigationGraphBuilder.composable(
-    route: String,
+fun <T> NavigationGraphBuilder<T>.composable(
+    route: T,
     content: @Composable () -> Unit
 ) {
     if (navController.currentScreen.value == route) {

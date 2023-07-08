@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
+import common.component.ScreenMode.ADD
 import features.contracts.presentation.add_contracts.AddContractsScreen
 import features.contracts.presentation.contracts.ContractsScreen
 import features.courses.presentation.add_courses.AddCoursesScreen
@@ -41,11 +42,16 @@ import kotlin.system.exitProcess
 
 @Composable
 fun NavigationWindow(
-    authNavController: NavController,
+    authNavController: NavController<String>,
     windowState: WindowState
 ) {
-    val screens = SystemScreen.values().toList()
-    val navController by rememberNavController(SystemScreen.HomeScreen.name)
+    val screens = listOf<Screens>(
+        Screens.HomeScreen(),
+        Screens.ContractsScreen(),
+        Screens.SonsOfOfficersScreen(),
+        Screens.CoursesScreen()
+    )
+    val navController by rememberNavController<Screens>(Screens.HomeScreen())
     val currentScreen by remember {
         navController.currentScreen
     }
@@ -62,81 +68,83 @@ fun NavigationWindow(
         CompositionLocalProvider(
             LocalLayoutDirection provides LayoutDirection.Rtl // Set layout direction to RTL
         ) {
-        Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            NavigationRail(
-                modifier = Modifier.fillMaxHeight().width(140.dp)
-
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(20.dp))
+                    .fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                screens.forEach {
-                    NavigationRailItem(modifier = Modifier.fillMaxWidth(),
-                        selected = currentScreen == it.name,
-                        onClick = {
-                            navController.navigate(it.name)
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = it.icon,
-                                contentDescription = it.label
-                            )
-                        },
+                NavigationRail(
+                    modifier = Modifier.fillMaxHeight().width(140.dp)
 
-
-                        label = {
-                            Text(it.label, style = CairoTypography.body2, fontWeight = FontWeight.Bold)
-                        },
-                        alwaysShowLabel = true,
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.size(5.dp))
-            Box(
-                modifier = Modifier.fillMaxHeight(),
-            ) {
-                SystemNavigationHost(navController = navController, windowState)
-                Row(
-                    modifier = Modifier.align(Alignment.TopEnd),
                 ) {
-                    IconButton(onClick = { windowState.isMinimized = true }) {
-                        Icon(
-                            painter = painterResource("images/minimize.svg"),
-                            contentDescription = "Minimize Application",
-                            tint = Color.Gray.copy(alpha = 0.4f),
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
-                    val isWindowInFullScreen = windowState.placement == WindowPlacement.Fullscreen
-                    IconButton(
-                        onClick = {
-                            if (isWindowInFullScreen)
-                                windowState.placement = WindowPlacement.Floating
-                            else
-                                windowState.placement = WindowPlacement.Fullscreen
-                        }
+                    screens.forEach {
+                        NavigationRailItem(
+                            modifier = Modifier.fillMaxWidth(),
+                            selected = currentScreen == it,
+                            onClick = {
+                                navController.navigate(it)
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = it.icon,
+                                    contentDescription = it.label
+                                )
+                            },
 
-                    ) {
-                        val iconPath = if (isWindowInFullScreen) "floating.svg" else "maximize.svg"
-                        Icon(
-                            painter = painterResource("images/$iconPath"),
-                            contentDescription = "Full Screen Application",
-                            tint = Color.Gray.copy(alpha = 0.6f),
-                            modifier = Modifier.size(22.dp)
-                        )
-                    }
-                    IconButton(onClick = { exitProcess(0) }) {
-                        Image(
-                            painter = painterResource("images/exit.svg"),
-                            contentDescription = "Exit Application",
-                            modifier = Modifier.size(22.dp)
+
+                            label = {
+                                Text(it.label, style = CairoTypography.body2, fontWeight = FontWeight.Bold)
+                            },
+                            alwaysShowLabel = true,
                         )
                     }
                 }
+                Spacer(modifier = Modifier.size(5.dp))
+                Box(
+                    modifier = Modifier.fillMaxHeight(),
+                ) {
+                    SystemNavigationHost(navController = navController, windowState)
+                    Row(
+                        modifier = Modifier.align(Alignment.TopEnd),
+                    ) {
+                        IconButton(onClick = { windowState.isMinimized = true }) {
+                            Icon(
+                                painter = painterResource("images/minimize.svg"),
+                                contentDescription = "Minimize Application",
+                                tint = Color.Gray.copy(alpha = 0.4f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                        val isWindowInFullScreen = windowState.placement == WindowPlacement.Fullscreen
+                        IconButton(
+                            onClick = {
+                                if (isWindowInFullScreen)
+                                    windowState.placement = WindowPlacement.Floating
+                                else
+                                    windowState.placement = WindowPlacement.Fullscreen
+                            }
+
+                        ) {
+                            val iconPath = if (isWindowInFullScreen) "floating.svg" else "maximize.svg"
+                            Icon(
+                                painter = painterResource("images/$iconPath"),
+                                contentDescription = "Full Screen Application",
+                                tint = Color.Gray.copy(alpha = 0.6f),
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+                        IconButton(onClick = { exitProcess(0) }) {
+                            Image(
+                                painter = painterResource("images/exit.svg"),
+                                contentDescription = "Exit Application",
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+                    }
+                }
             }
-        }}
+        }
     }
 }
 
@@ -175,38 +183,63 @@ enum class SystemScreen(
     ),
 }
 
+sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
+    class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)
+    data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
+    class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.PersonAdd,2)
+    data class AddContractsScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
+    class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
+    data class AddCoursesScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
+    class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
+
+    override fun equals(other: Any?): Boolean {
+        println("Screens: ${this.type == (other as Screens).type}")
+        return this.type == (other as Screens).type
+    }
+
+    override fun hashCode(): Int {
+        return javaClass.hashCode()
+    }
+}
+
+enum class ScreenMode{
+    EDIT,ADD
+}
+
 
 @Composable
 fun SystemNavigationHost(
-    navController: NavController,
+    navController: NavController<Screens>,
     windowState: WindowState
 ) {
     NavigationHost(navController) {
-        composable(SystemScreen.HomeScreen.name) {
+        composable(Screens.HomeScreen()) {
+            println("Screen")
             HomeScreen(navController)
         }
 
-        composable(SystemScreen.AddSonsOfOfficersScreen.name) {
-            windowState.size = DpSize(1100.dp, 950.dp)
+        composable(Screens.AddSonsOfOfficersScreen()) {
+            val currentScreen = navController.currentScreen.value as Screens.AddSonsOfOfficersScreen
+            println("it's add sons ${currentScreen.mode}")
             AddSonsOfOfficersScreen(navController)
         }
-        composable(SystemScreen.SonsOfOfficersScreen.name) {
+        composable(Screens.SonsOfOfficersScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             SonsOfOfficersScreen(navController)
         }
-        composable(SystemScreen.AddContractsScreen.name) {
+        composable(Screens.AddContractsScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             AddContractsScreen(navController)
         }
-        composable(SystemScreen.ContractsScreen.name) {
+        composable(Screens.ContractsScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             ContractsScreen(navController)
         }
-        composable(SystemScreen.AddCoursesScreen.name) {
+        composable(Screens.AddCoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             AddCoursesScreen(navController)
         }
-        composable(SystemScreen.CoursesScreen.name) {
+        composable(Screens.CoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             CoursesScreen(navController)
         }

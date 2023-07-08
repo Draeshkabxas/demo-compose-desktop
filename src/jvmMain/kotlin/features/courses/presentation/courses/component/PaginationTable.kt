@@ -18,13 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import features.courses.domain.model.Course
 import features.sons_of_officers.domain.model.Person
 import styles.CairoTypography
 
 @Composable
 fun PaginatedTable(
     headers: List<String>,
-    personList: List<Person>,
+    personList: List<Course>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
 

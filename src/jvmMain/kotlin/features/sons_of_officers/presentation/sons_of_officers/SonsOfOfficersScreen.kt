@@ -26,7 +26,7 @@ import styles.AppColors.green
 
 @Composable
 fun SonsOfOfficersScreen(
-    navController: NavController,
+    navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
     val widths = listOf(70.dp, 82.dp, 200.dp, 130.dp, 150.dp, 115.dp, 100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
@@ -68,7 +68,7 @@ fun SonsOfOfficersScreen(
                 CustomButton(
                     text = "إضافة ملف", icon = Icons.Default.AddTask,
                     onClick = {
-                        navController.navigate(SystemScreen.AddSonsOfOfficersScreen.name)
+                        navController.navigate(Screens.AddSonsOfOfficersScreen(mode = ScreenMode.EDIT))
                     },
                     buttonColor = blue
                 )

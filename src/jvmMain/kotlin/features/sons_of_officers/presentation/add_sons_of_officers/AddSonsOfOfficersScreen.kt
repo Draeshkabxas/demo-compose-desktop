@@ -23,7 +23,7 @@ import styles.CairoTypography
 
 @Composable
 fun AddSonsOfOfficersScreen(
-    navController: NavController,
+    navController: NavController<Screens>,
     viewModel: AddSonsOfOfficersViewModel = koinInject()
 ) {
     LaunchedEffect(key1 = true) {

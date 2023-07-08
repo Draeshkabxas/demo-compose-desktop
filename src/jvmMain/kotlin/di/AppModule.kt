@@ -23,6 +23,15 @@ import features.contracts.domain.usecases.GetAllContracts
 import features.contracts.domain.usecases.RemoveAllContracts
 import features.contracts.presentation.add_contracts.AddContractViewModel
 import features.contracts.presentation.contracts.ContractsScreenViewModel
+import features.courses.data.model.JustificationCourse
+import features.courses.data.model.ProcedureCourse
+import features.courses.data.model.RealmCourse
+import features.courses.data.repository.RealmCourseImpl
+import features.courses.domain.repository.CoursesRepository
+import features.courses.domain.usecases.AddCourse
+import features.courses.domain.usecases.GetAllCourses
+import features.courses.presentation.add_courses.AddCourseViewModel
+import features.courses.presentation.courses.CoursesScreenViewModel
 import features.sons_of_officers.data.model.Justification
 import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
@@ -45,7 +54,10 @@ val appModule = module {
                     RealmPerson::class,
                     Justification::class,
                     Procedure::class,
-                    RealmContract::class
+                    RealmContract::class,
+                    RealmCourse::class,
+                    JustificationCourse::class,
+                    ProcedureCourse::class
                 )
             ).schemaVersion(2)
                 .migration(firstRealmMigrate())
@@ -77,5 +89,16 @@ val appModule = module {
     //Add Contract Di
     single<AddContract> { AddContract(get()) }
     single<AddContractViewModel> { AddContractViewModel(addContract = get()) }
+
+
+    //Courses Di
+    single<CoursesRepository> { RealmCourseImpl(get()) }
+    single<GetAllCourses> { GetAllCourses(get()) }
+    //single<RemoveAllC> { RemoveAllContracts(get()) }
+    factory<CoursesScreenViewModel> { CoursesScreenViewModel(getAllCourses = get()) }
+    //Add Courses Di
+    single<AddCourse> { AddCourse(get()) }
+    single<AddCourseViewModel> { AddCourseViewModel(addCourse = get()) }
+
 
 }

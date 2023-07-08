@@ -84,7 +84,7 @@ enum class AuthScreen(
 
 @Composable
 fun AuthNavigationHost(
-    navController: NavController,
+    navController: NavController<String>,
     windowState:WindowState
 ) {
     NavigationHost(navController) {

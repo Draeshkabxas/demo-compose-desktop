@@ -31,7 +31,7 @@ import styles.AppColors.white
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
+    navController: NavController<String>,
     viewModel: LoginViewModel = koinInject(),
     appClose: AppCloseRepository = koinInject(),
 ) {

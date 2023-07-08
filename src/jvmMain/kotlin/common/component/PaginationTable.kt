@@ -14,11 +14,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import features.sons_of_officers.domain.model.Person
+import styles.AppColors
 import styles.CairoTypography
 
 @Composable
@@ -61,6 +64,8 @@ fun PaginatedTable(
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(
                     modifier = Modifier.background(
+                        if (person.procedures["لائق صحيا"] == true) Color.Green else
+                            if (person.procedures["غير لائق صحيا"] == true) Color.Red else
                         if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
                             (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
                         )
@@ -70,56 +75,131 @@ fun PaginatedTable(
                     Text(
                         text = (personList.indexOf(person) + 1).toString(), // display counter value as text
                         maxLines = 1,
+                        style = CairoTypography.h3,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[0])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.fileNumber,
+                        style = CairoTypography.h3,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[1])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.name,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[2])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.libyaId,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[3])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.motherName,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[4])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.educationLevel,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[5])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.city,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[6])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.phoneNumber,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[7])
                             .padding(8.dp)
                     )
                     Text(
                         text = person.recruiter,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[8])
+                            .padding(8.dp)
+                    )
+
+                    Text(
+                        text = if (person.justificationsRequire.values.all { it }) {
+                            "مستوفي"
+                        } else {
+                            "نواقص"
+                        },
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .width(columnWidths[9])
+                            .padding(8.dp)
+                    )
+                    //val justifications = person.justificationsRequire.filterValues { it }.keys
+                    isButtonVisible =
+                        !person.justificationsRequire.values.all { it } || !person.procedures.values.all { it }
+                    if (isButtonVisible) {
+                        Button(modifier = Modifier
+                            .width(columnWidths[10])
+                            .padding(8.dp),
+                            shape = RoundedCornerShape(30.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+                            onClick = { /* handle button click */ }
+                        ) {
+                            Text("إضافة",style = CairoTypography.body2,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xffffffff),
+                                textAlign = TextAlign.Center,)
+                        }
+                    }
+                    else{
+                        Text(
+                            text = "",
+                            modifier = Modifier
+                                .width(columnWidths[10])
+                                .padding(8.dp)
+                        )
+                    }
+                    Text(
+                        text = if (person.procedures["لائق صحيا"] == true) "لائق" else if (person.procedures["غير لائق صحيا"] == true) "غير لائق" else "",
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .width(columnWidths[10])
                             .padding(8.dp)
                     )
                     Text(
@@ -129,30 +209,13 @@ fun PaginatedTable(
                         } else {
                             "لا"
                         },
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .width(columnWidths[9])
+                            .width(columnWidths[12])
                             .padding(8.dp)
                     )
-                    Text(
-                        text = if (person.justificationsRequire.values.all { it }) {
-                            "مستوفي"
-                        } else {
-                            "نواقص"
-                        },
-                        modifier = Modifier
-                            .width(columnWidths[10])
-                            .padding(8.dp)
-                    )
-                    //val justifications = person.justificationsRequire.filterValues { it }.keys
-                    isButtonVisible =
-                        !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
-                    if (isButtonVisible) {
-                        Button(
-                            onClick = { /* handle button click */ }
-                        ) {
-                            Text("إضافة")
-                        }
-                    }
 //                    counter++
                 }
             }

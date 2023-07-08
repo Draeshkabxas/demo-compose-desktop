@@ -51,6 +51,9 @@ class CoursesScreenViewModel(
             is FilterEvent.FilterAgeGroup -> {
                 state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
+            is FilterEvent.FilterHealthStatus -> {
+                state = state.copy(healthStatus = event.healthStatus.toString())
+            }
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()

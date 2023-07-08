@@ -24,7 +24,6 @@ import features.courses.domain.model.Course
 import features.courses.presentation.courses.FilterEvent.*
 import features.courses.presentation.courses.component.Filters
 import features.courses.presentation.courses.component.PaginatedTable
-import features.sons_of_officers.domain.model.Person
 import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.AppColors.green
@@ -35,10 +34,10 @@ fun CoursesScreen(
     navController: NavController<Screens>,
     viewModel: CoursesScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 200.dp, 130.dp, 150.dp, 115.dp, 100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
+    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 87.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "إحالة لتدريب", "حالة الملف", "النواقص"
+        "القائم بالتجنيد", "حالة الملف", "النواقص","النتيجة", "إحالة لتدريب"
     )
 
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
@@ -53,7 +52,7 @@ fun CoursesScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HeadLineWithDate(text = "منظومة أبناء الضباط ", date = "1/7/2023  1:30:36 PM")
+        HeadLineWithDate(text = "منظومة الدورات ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
                 onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
@@ -63,6 +62,7 @@ fun CoursesScreen(
                 onFilterFileState = { viewModel.onEvent(FilterFileState(it)) },
                 onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },
                 onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
+                onFilterHealthStatus = { viewModel.onEvent(FilterHealthStatus(it)) },
                 onReset = { viewModel.onEvent(Reset) },
                 onSubmit = { viewModel.onEvent(Submit) },
             )

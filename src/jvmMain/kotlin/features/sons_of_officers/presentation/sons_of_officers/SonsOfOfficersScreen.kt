@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.ui.Modifier
 
 import common.component.*
+import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.component.Filters
@@ -29,10 +30,10 @@ fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 200.dp, 130.dp, 150.dp, 115.dp, 100.dp, 110.dp, 140.dp, 87.dp, 85.dp, 80.dp)
+    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 87.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "إحالة لتدريب", "حالة الملف", "النواقص"
+        "القائم بالتجنيد", "حالة الملف", "النواقص","النتيجة", "إحالة لتدريب"
     )
 
     var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
@@ -49,16 +50,17 @@ fun SonsOfOfficersScreen(
     ) {
         HeadLineWithDate(text = "منظومة أبناء الضباط ", date = "1/7/2023  1:30:36 PM")
         Box {
-            Filters(
-                onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
-                onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
-                onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
-                onFilterCity = { viewModel.onEvent(FilterCity(it)) },
-                onFilterFileState = { viewModel.onEvent(FilterFileState(it)) },
-                onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },
-                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
-                onReset = { viewModel.onEvent(Reset) },
-                onSubmit = { viewModel.onEvent(Submit) },
+            features.courses.presentation.courses.component.Filters(
+                onFilterLibyaId = { viewModel.onEvent(FilterEvent.FilterLibyaId(it)) },
+                onFilterFileNumber = { viewModel.onEvent(FilterEvent.FilterFileNumber(it)) },
+                onFilterEducationLevel = { viewModel.onEvent(FilterEvent.FilterEducationLevel(it)) },
+                onFilterCity = { viewModel.onEvent(FilterEvent.FilterCity(it)) },
+                onFilterFileState = { viewModel.onEvent(FilterEvent.FilterFileState(it)) },
+                onFilterReferralForTraining = { viewModel.onEvent(FilterEvent.FilterReferralForTraining(it)) },
+                onFilterAgeGroup = { viewModel.onEvent(FilterEvent.FilterAgeGroup(it)) },
+                onFilterHealthStatus = { viewModel.onEvent(FilterEvent.FilterHealthStatus(it)) },
+                onReset = { viewModel.onEvent(FilterEvent.Reset) },
+                onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd),

@@ -33,10 +33,12 @@ fun Filters(
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
     onFilterAgeGroup: (String) -> Unit,
+    onFilterHealthStatus:(String)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
+    var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
@@ -49,6 +51,7 @@ fun Filters(
 
     val resetFilters = {
         onReset()
+        selectedHealthStatus ="إختلر الحالة الصحية"
         selectedCity = "إختر المدينة"
         selectededucation = "إختر المؤهل"
         selectedFileState = "إختر حالة الملف"
@@ -210,7 +213,20 @@ fun Filters(
                                  onFilterAgeGroup(ageGroup)
                              }
                          )
+                         val healthValues = listOf("غير لائق", "لائق")
+                         SelectorWithLabel(
+                             label = " الحالة الصحية : ",
+                             items = healthValues,
+                             selectedItem = selectedHealthStatus,
+                             onItemSelected = { file ->
+                                 selectedHealthStatus = file
+                                 onFilterFileState(
+                                     file == healthValues[0]
+                                 )
+                             }
+                         )
                      }
+
 
                 }
             }

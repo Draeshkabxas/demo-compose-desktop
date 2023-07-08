@@ -60,9 +60,11 @@ class AddCourseViewModel(
     val proceduresInputNameAndValues = mapOf(
         "تحاليل" to mutableStateOf(false),
         "كشف طبي" to mutableStateOf(false),
+        "لائق صحيا" to mutableStateOf(false),
+        "غير لائق صحيا" to mutableStateOf(false),
         "مقابلة شخصية" to mutableStateOf(false),
         "إحالة لتدريب" to mutableStateOf(false),
-    )
+        )
 
 
     fun onEvent(event: CourseInfoFormEvent){

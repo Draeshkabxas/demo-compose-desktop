@@ -32,6 +32,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {    val nav_version = "2.6.0"
 //                implementation("com.himanshoe:charty:v2.0.0-alpha01")
+//                implementation("co.yml:ycharts:2.1.0")
+
                 implementation("androidx.navigation:navigation-compose:$nav_version")
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)

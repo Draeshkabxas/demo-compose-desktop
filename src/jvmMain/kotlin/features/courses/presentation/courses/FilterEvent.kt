@@ -8,6 +8,8 @@ sealed class FilterEvent {
     data class FilterFileState(val fileState:Boolean):FilterEvent()
     data class FilterReferralForTraining(val referralForTraining:Boolean):FilterEvent()
     data class FilterAgeGroup(val ageGroup:String): FilterEvent()
+    data class FilterHealthStatus(val healthStatus: String): FilterEvent()
+
     object Reset:FilterEvent()
     object Submit:FilterEvent()
 }

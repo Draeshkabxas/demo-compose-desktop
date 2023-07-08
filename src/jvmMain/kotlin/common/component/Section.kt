@@ -19,7 +19,7 @@ fun Section(
     gridContent: LazyGridScope.() -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(vertical = 6.dp),
+        modifier = Modifier.padding(vertical = 0.dp),
     ) {
         Text(
             text = label,

@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="11">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add courses screens">
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/pie/PieChart.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/pie/config/PieChartConfig.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/pie/config/PieChartDefaults.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/pie/model/PieData.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/Fonts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +59,8 @@
         <option value="Kotlin Data Class" />
         <option value="Kotlin Enum" />
         <option value="Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -86,7 +88,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/HP/Desktop/newderar/src/jvmMain/kotlin/features/courses/presentation/courses/component",
+    "last_opened_file_path": "C:/Users/HP/Desktop/newderar/src/jvmMain/kotlin/common/component/pie",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -96,11 +98,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component\pie" />
+      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
+      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\courses\presentation\courses\component" />
+      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\courses\presentation\courses" />
       <recent name="C:\development\demo\src\jvmMain\kotlin\features\contracts\presentation\contracts\component" />
-      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\contracts\presentation\contracts\component" />
-      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\contracts\presentation\contracts" />
-      <recent name="C:\development\demo\src\jvmMain\resources" />
-      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\features\sons_of_officers\presentation" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\development\demo\src\jvmMain\kotlin\features\sons_of_officers\presentation\sons_of_officers\component" />
@@ -357,7 +359,31 @@
       <option name="project" value="LOCAL" />
       <updated>1688659110492</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="add courses screens">
+      <option name="closed" value="true" />
+      <created>1688733695506</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1688733695506</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add courses screens">
+      <option name="closed" value="true" />
+      <created>1688733753730</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1688733753730</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add courses screens">
+      <option name="closed" value="true" />
+      <created>1688733896422</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1688733896422</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,6 +413,7 @@
     <MESSAGE value="Clean up sons of officers class&#10;1 make filters in a separate file&#10;2 fix state bugs when start the screen&#10;3 Add Education and LibyanCities enum class to make it easy to get them anywhere" />
     <MESSAGE value="Fix add person twice in AddSonsOfOfficersScreen &#10;Fix هحالة لتدريب دائما لا in SonsOfOfficersScreen" />
     <MESSAGE value="add contracts sceens" />
-    <option name="LAST_COMMIT_MESSAGE" value="add contracts sceens" />
+    <MESSAGE value="add courses screens" />
+    <option name="LAST_COMMIT_MESSAGE" value="add courses screens" />
   </component>
 </project>

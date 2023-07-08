@@ -31,7 +31,7 @@ fun PaginatedTable(
     itemsPerPage: Int,
     columnWidths: List<Dp>
 ) {
-    if (contractList.isEmpty()) return
+//    if (contractList.isEmpty()) return
     val pageCount = (contractList.size + itemsPerPage - 1) / itemsPerPage
     var currentPage by remember { mutableStateOf(0) }
     //btn check
@@ -53,9 +53,13 @@ fun PaginatedTable(
                 )
             }
         }
-        if (contractList.isEmpty()) {
+        if (contractList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
-                Text(text = "No data")
+                Column(modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp), horizontalAlignment = Alignment.CenterHorizontally
+                    , verticalArrangement = Arrangement.Center) {
+                    Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
+                    Text(text="يمكنك فلترة بحثك للحصول على نتائج اكثر دقة",style = CairoTypography.h3)
+                }
             }
         } else {
             var counter = 0 // initialize counter based on current page and items per page

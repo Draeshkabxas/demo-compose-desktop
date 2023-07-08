@@ -15,10 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
-import common.component.CustomButton
-import common.component.DirectoryDialog
-import common.component.HeadLineWithDate
-import common.component.Screens
+import androidx.compose.ui.graphics.Color
+import common.component.*
 
 import features.courses.domain.model.Course
 import features.courses.presentation.courses.FilterEvent.*
@@ -71,14 +69,16 @@ fun CoursesScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                CustomButton(
-                    text = "إضافة ملف", icon = Icons.Default.AddTask,
+                GradientButton(
+                    text = "إضافة ملف",
+                    icon = Icons.Default.AddTask,
                     onClick = {
                         navController.navigate(Screens.AddCoursesScreen())
                     },
-                    buttonColor = blue
+                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    cornerRadius = 30.dp
                 )
-                CustomButton(
+                GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
@@ -99,7 +99,9 @@ fun CoursesScreen(
                             }
                         )
                     },
-                    buttonColor = green
+
+                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    cornerRadius = 30.dp
                 )
             }
         }

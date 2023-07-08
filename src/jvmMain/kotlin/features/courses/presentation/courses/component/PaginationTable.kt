@@ -1,5 +1,7 @@
 package features.courses.presentation.courses.component
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
@@ -17,7 +19,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Colors
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -26,6 +35,7 @@ import features.sons_of_officers.domain.model.Person
 import styles.AppColors.green
 import styles.CairoTypography
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PaginatedTable(
     headers: List<String>,
@@ -178,17 +188,69 @@ fun PaginatedTable(
                     isButtonVisible =
                         !person.justificationsRequire.values.all { it } || !person.procedures.values.all { it }
                     if (isButtonVisible) {
-                        Button(modifier = Modifier
-                            .width(columnWidths[10])
-                            .padding(8.dp),
-                            shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = green),
-                            onClick = { /* handle button click */ }
-                        ) {
-                            Text("إضافة",style = CairoTypography.body2,
+                        val hoverScale = remember { Animatable(1f) }
+                        val isHovered = remember { mutableStateOf(false) }
+                        val gradient = Brush.verticalGradient(
+                            colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+
+                            )
+                        val scale = derivedStateOf {
+                            if (isHovered.value) 1.1f else 1f
+                        }
+
+                        LaunchedEffect(isHovered.value) {
+                            if (isHovered.value) {
+                                hoverScale.animateTo(
+                                    targetValue = 1.1f,
+                                    animationSpec = tween(durationMillis = 10000)
+                                )
+                            } else {
+                                hoverScale.animateTo(
+                                    targetValue = 1f,
+                                    animationSpec = tween(durationMillis = 10000)
+                                )
+                            }
+
+                        }
+                        Box(
+//                            onClick = { /* handle button click */ },
+                            modifier = Modifier
+//                                .clickable(onClick = onClick(){})
+                                .padding(16.dp)
+                                .clip(RoundedCornerShape(30.dp))
+                                .scale(scale.value)
+                                .shadow(
+                                    spotColor = Color.Black,
+                                    elevation = 8.dp,
+                                    shape = RoundedCornerShape(30.dp)
+                                )
+                                .onPointerEvent(PointerEventType.Move) {
+                                }
+                                .onPointerEvent(PointerEventType.Enter) {
+                                    isHovered.value = true
+                                }
+                                .onPointerEvent(PointerEventType.Exit) {
+                                    isHovered.value = false
+                                }
+
+                                )
+                        {
+                            Canvas(
+                                modifier = Modifier.matchParentSize()
+                            ) {
+                                drawRect(brush = gradient)
+                            }
+                            Row (modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp),
+
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center){ Text(
+                                "إضافة",
+                                style = CairoTypography.body2,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xffffffff),
-                                textAlign = TextAlign.Center,)
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            ) }
+
                         }
                     }
                     else{

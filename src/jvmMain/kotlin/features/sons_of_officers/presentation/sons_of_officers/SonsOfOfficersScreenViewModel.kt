@@ -1,6 +1,7 @@
 package features.sons_of_officers.presentation.sons_of_officers
 
 import common.Resource
+import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople
 import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
@@ -53,8 +54,11 @@ class SonsOfOfficersScreenViewModel(
             is FilterEvent.FilterAgeGroup -> {
                 state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
+            is FilterEvent.FilterHealthStatus -> {
+                state = state.copy(healthStatus = event.healthStatus.toString())
+            }
             is FilterEvent.Reset -> {
-                state = FilterState()
+                state = features.sons_of_officers.presentation.sons_of_officers.FilterState()
                 getFilterData()
             }
 

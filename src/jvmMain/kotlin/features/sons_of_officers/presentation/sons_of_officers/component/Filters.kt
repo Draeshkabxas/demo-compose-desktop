@@ -33,10 +33,12 @@ fun Filters(
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
     onFilterAgeGroup: (String) -> Unit,
+    onFilterHealthStatus:(String)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
+    var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
@@ -49,6 +51,7 @@ fun Filters(
 
     val resetFilters = {
         onReset()
+        selectedHealthStatus ="إختلر الحالة الصحية"
         selectedCity = "إختر المدينة"
         selectededucation = "إختر المؤهل"
         selectedFileState = "إختر حالة الملف"
@@ -118,101 +121,114 @@ fun Filters(
             Spacer(modifier = Modifier.width(530.dp))
 
         }
-            if (isMoreFiltersVisible) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
+        if (isMoreFiltersVisible) {
+            Column(
+                modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        CustomOutlinedTextField(
-                            valueState = fileNumberState,
-                            hint = "إبحث برقم الملف",
-                            errorMessage = "",
-                            onValueChange = { onFilterFileNumber(it) },
-                            onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp,
-                            inputType = InputType.NUMBER,
-                            maxLength = 5 // Set the maximum length to N characters
+                    CustomOutlinedTextField(
+                        valueState = fileNumberState,
+                        hint = "إبحث برقم الملف",
+                        errorMessage = "",
+                        onValueChange = { onFilterFileNumber(it) },
+                        onNextChange = { onFilterFileNumber(it) },
+                        width = 120.dp,
+                        inputType = InputType.NUMBER,
+                        maxLength = 5 // Set the maximum length to N characters
 
-                        )
-                        SelectorWithLabel(
-                            label = "المؤهل العلمي : ",
-                            items = Education.values().map { it.arabicName },
-                            selectedItem = selectededucation,
-                            onItemSelected = { education ->
-                                selectededucation = education
-                                onFilterEducationLevel(education)
-                            }
-                        )
+                    )
+                    SelectorWithLabel(
+                        label = "المؤهل العلمي : ",
+                        items = Education.values().map { it.arabicName },
+                        selectedItem = selectededucation,
+                        onItemSelected = { education ->
+                            selectededucation = education
+                            onFilterEducationLevel(education)
+                        }
+                    )
 
-                        SelectorWithLabel(
-                            label = "المدينة : ",
-                            items = LibyanCities.values().map { it.arabicName },
-                            selectedItem = selectedCity,
-                            onItemSelected = { city ->
-                                selectedCity = city
-                                onFilterCity(city)
-                            }
-                        )
+                    SelectorWithLabel(
+                        label = "المدينة : ",
+                        items = LibyanCities.values().map { it.arabicName },
+                        selectedItem = selectedCity,
+                        onItemSelected = { city ->
+                            selectedCity = city
+                            onFilterCity(city)
+                        }
+                    )
 
-                        val fileValues = listOf("مستوفي", "نواقص")
-                        SelectorWithLabel(
-                            label = "حالة الملف : ",
-                            items = fileValues,
-                            selectedItem = selectedFileState,
-                            onItemSelected = { file ->
-                                selectedFileState = file
-                                onFilterFileState(
-                                    file == fileValues[0]
-                                )
-                            }
-                        )
+                    val fileValues = listOf("مستوفي", "نواقص")
+                    SelectorWithLabel(
+                        label = "حالة الملف : ",
+                        items = fileValues,
+                        selectedItem = selectedFileState,
+                        onItemSelected = { file ->
+                            selectedFileState = file
+                            onFilterFileState(
+                                file == fileValues[0]
+                            )
+                        }
+                    )
 
-                        val trainerValues = listOf("نعم", "لا")
-                        SelectorWithLabel(
-                            label = "إحالة للتدريب : ",
-                            items = trainerValues,
-                            selectedItem = selectedTrainer,
-                            onItemSelected = { trainer ->
-                                selectedTrainer = trainer
-                                onFilterReferralForTraining(
-                                    trainer == trainerValues[0]
-                                )
-                            }
-                        )
-                        CustomButton(
-                            text = "إبحث", icon = Icons.Default.Search, onClick = {
-                                onSubmit()
-                            },
-                            buttonColor = Color(0xff3B5EA1)
-                        )
-                        CustomButton(
-                            text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
-                                resetFilters()
-                            },
-                            buttonColor = Color.Red
-                        )
+                    val trainerValues = listOf("نعم", "لا")
+                    SelectorWithLabel(
+                        label = "إحالة للتدريب : ",
+                        items = trainerValues,
+                        selectedItem = selectedTrainer,
+                        onItemSelected = { trainer ->
+                            selectedTrainer = trainer
+                            onFilterReferralForTraining(
+                                trainer == trainerValues[0]
+                            )
+                        }
+                    )
+                    CustomButton(
+                        text = "إبحث", icon = Icons.Default.Search, onClick = {
+                            onSubmit()
+                        },
+                        buttonColor = Color(0xff3B5EA1)
+                    )
+                    CustomButton(
+                        text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
+                            resetFilters()
+                        },
+                        buttonColor = Color.Red
+                    )
 
 
-
-                    }
-                     Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
-                     ) {
-                         SelectorWithLabel(
-                             label = " الفئة العمرية : ",
-                             items = getAllAgeGroupArabicNames(),
-                             selectedItem = selectedAge,
-                             onItemSelected = { ageGroup ->
-                                 selectedAge = ageGroup
-                                 onFilterAgeGroup(ageGroup)
-                             }
-                         )
-                     }
 
                 }
+                Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
+                ) {
+                    SelectorWithLabel(
+                        label = " الفئة العمرية : ",
+                        items = getAllAgeGroupArabicNames(),
+                        selectedItem = selectedAge,
+                        onItemSelected = { ageGroup ->
+                            selectedAge = ageGroup
+                            onFilterAgeGroup(ageGroup)
+                        }
+                    )
+                    val healthValues = listOf("غير لائق", "لائق")
+                    SelectorWithLabel(
+                        label = " الحالة الصحية : ",
+                        items = healthValues,
+                        selectedItem = selectedHealthStatus,
+                        onItemSelected = { file ->
+                            selectedHealthStatus = file
+                            onFilterFileState(
+                                file == healthValues[0]
+                            )
+                        }
+                    )
+                }
+
+
             }
         }
+    }
 }

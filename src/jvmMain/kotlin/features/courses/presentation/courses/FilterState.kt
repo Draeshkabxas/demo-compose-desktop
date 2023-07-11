@@ -10,5 +10,6 @@ data class FilterState(
     val city:String="",
     val fileState:String="",
     val referralForTraining:String="",
-    val ageGroup: AgeGroup? = null
-)
+    val ageGroup: AgeGroup? = null,
+    val healthStatus:String="",
+    )

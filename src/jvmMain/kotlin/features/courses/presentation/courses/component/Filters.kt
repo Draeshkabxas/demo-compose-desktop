@@ -6,10 +6,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.filled.RestartAlt
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +31,12 @@ fun Filters(
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
     onFilterAgeGroup: (String) -> Unit,
+    onFilterHealthStatus:(String)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
+    var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
     var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
@@ -49,6 +49,7 @@ fun Filters(
 
     val resetFilters = {
         onReset()
+        selectedHealthStatus ="إختلر الحالة الصحية"
         selectedCity = "إختر المدينة"
         selectededucation = "إختر المؤهل"
         selectedFileState = "إختر حالة الملف"
@@ -63,7 +64,7 @@ fun Filters(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -79,12 +80,14 @@ fun Filters(
                 maxLength = 12 // Set the maximum length to N characters
 
             )
-            CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = {
-                    onSubmit()
+            GradientButton(
+                text = "إبحث",
+                icon = Icons.Default.Search,
+                onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                buttonColor = Color(0xff3B5EA1)
+                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                cornerRadius = 30.dp
             )
             if (isCancelVisible) {
                 Button(
@@ -107,13 +110,14 @@ fun Filters(
 
                 }
 
+
             }
-            CustomButton(
+            GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-
-                buttonColor = blue
+                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                cornerRadius = 30.dp
             )
             Spacer(modifier = Modifier.width(530.dp))
 
@@ -183,18 +187,25 @@ fun Filters(
                                 )
                             }
                         )
-                        CustomButton(
-                            text = "إبحث", icon = Icons.Default.Search, onClick = {
+                        GradientButton(
+                            text = "إبحث",
+                            icon = Icons.Default.Search,
+                            onClick = {
                                 onSubmit()
                             },
-                            buttonColor = Color(0xff3B5EA1)
+                            colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                            cornerRadius = 30.dp
                         )
-                        CustomButton(
-                            text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
+                        GradientButton(
+                            text = "إعادة ضبط",
+                            icon = Icons.Default.RestartAlt,
+                            onClick = {
                                 resetFilters()
                             },
-                            buttonColor = Color.Red
+                            colors = listOf(Color(0xFFFA1717), Color(0xFFA04134).copy(alpha = 0.87f), Color(0xFFFD0C0C).copy(alpha = 0.36f)),
+                            cornerRadius = 30.dp
                         )
+
 
 
 
@@ -210,7 +221,20 @@ fun Filters(
                                  onFilterAgeGroup(ageGroup)
                              }
                          )
+                         val healthValues = listOf("غير لائق", "لائق")
+                         SelectorWithLabel(
+                             label = " الحالة الصحية : ",
+                             items = healthValues,
+                             selectedItem = selectedHealthStatus,
+                             onItemSelected = { file ->
+                                 selectedHealthStatus = file
+                                 onFilterFileState(
+                                     file == healthValues[0]
+                                 )
+                             }
+                         )
                      }
+
 
                 }
             }

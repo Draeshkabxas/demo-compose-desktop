@@ -7,12 +7,13 @@ import androidx.compose.runtime.Composable
  */
 class NavigationHost<T>(
     val navController: NavController<T>,
+    private val condition: (T,T) -> Boolean = {currentScreen,route->currentScreen == route },
     val contents: @Composable NavigationGraphBuilder<T>.() -> Unit
 ) {
 
     @Composable
     fun build() {
-        NavigationGraphBuilder<T>(navController,contents = contents).renderContents()
+        NavigationGraphBuilder<T>(navController,condition,contents = contents).renderContents()
     }
 
 
@@ -20,6 +21,7 @@ class NavigationHost<T>(
 
 class NavigationGraphBuilder<T>(
     val navController: NavController<T>,
+    val condition: (T,T) -> Boolean,
     val contents:@Composable NavigationGraphBuilder<T>.() -> Unit
 ) {
     @Composable
@@ -36,8 +38,7 @@ fun <T> NavigationGraphBuilder<T>.composable(
     route: T,
     content: @Composable () -> Unit
 ) {
-    if (navController.currentScreen.value == route) {
+    if (condition(navController.currentScreen.value,route)) {
         content()
     }
-
 }

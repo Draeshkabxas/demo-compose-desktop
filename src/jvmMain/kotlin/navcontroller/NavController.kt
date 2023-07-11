@@ -9,46 +9,53 @@ import androidx.compose.runtime.saveable.rememberSaveable
 /**
  * NavController Class
  */
-class  NavController<T>(
+class NavController<T>(
     private val startDestination: T,
     private var backStackScreens: MutableSet<T> = mutableSetOf()
-){
+) {
     // Variable to store the state of the current screen
     var currentScreen: MutableState<T> = mutableStateOf(startDestination)
     var currentScreenValue = currentScreen.value
 
     // Function to handle the navigation between the screen
     fun navigate(route: T) {
-        if (route != currentScreen.value) {
-            if (backStackScreens.contains(currentScreen.value) && currentScreen.value != startDestination) {
-                backStackScreens.remove(currentScreen.value)
-            }
+        if (route == currentScreen.value) return
 
-            if (route == startDestination) {
-                backStackScreens = mutableSetOf()
-            } else {
-                backStackScreens.add(currentScreen.value)
-            }
-
-            currentScreen.value = route
+        if (backStackScreens.contains(currentScreen.value) && currentScreen.value != startDestination) {
+            backStackScreens.remove(currentScreen.value)
         }
+
+        if (route == startDestination) {
+            backStackScreens = mutableSetOf()
+        } else {
+            backStackScreens.add(currentScreen.value)
+        }
+
+        currentScreen.value = route
+
+    }
+
+    fun navigateReplacement(route: T) {
+        val lastScreen = backStackScreens.last()
+        navigate(route)
+        backStackScreens.remove(lastScreen)
     }
 
     // Function to handle the back
     fun navigateBack() {
-        if (backStackScreens.isNotEmpty()) {
-            currentScreen.value = backStackScreens.last()
-            backStackScreens.remove(currentScreen.value)
-        }
+        if (backStackScreens.isEmpty()) return
+        currentScreen.value = backStackScreens.last()
+        backStackScreens.remove(currentScreen.value)
+
     }
 }
 
 
 /**
- * Composable to remember the state of the navcontroller
+ * Composable to remember the state of the navController
  */
 @Composable
-fun <T>rememberNavController(
+fun <T> rememberNavController(
     startDestination: T,
     backStackScreens: MutableSet<T> = mutableSetOf()
 ): MutableState<NavController<T>> = rememberSaveable {

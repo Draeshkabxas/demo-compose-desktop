@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
@@ -35,6 +34,7 @@ import navcontroller.composable
 import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
+import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
 import styles.CairoTypography
@@ -185,21 +185,12 @@ enum class SystemScreen(
 
 sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)
-    data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
+    data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD,val person:Person? = null) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
     class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.PersonAdd,2)
     data class AddContractsScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
     class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
     data class AddCoursesScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
-
-    override fun equals(other: Any?): Boolean {
-        println("Screens: ${this.type == (other as Screens).type}")
-        return this.type == (other as Screens).type
-    }
-
-    override fun hashCode(): Int {
-        return javaClass.hashCode()
-    }
 }
 
 enum class ScreenMode{
@@ -212,16 +203,16 @@ fun SystemNavigationHost(
     navController: NavController<Screens>,
     windowState: WindowState
 ) {
-    NavigationHost(navController) {
+    NavigationHost(navController,{currentScreen,route-> currentScreen.javaClass == route.javaClass}) {
         composable(Screens.HomeScreen()) {
             println("Screen")
             HomeScreen(navController)
         }
 
         composable(Screens.AddSonsOfOfficersScreen()) {
-            val currentScreen = navController.currentScreen.value as Screens.AddSonsOfOfficersScreen
-            println("it's add sons ${currentScreen.mode}")
-            AddSonsOfOfficersScreen(navController)
+            val screenDetails = navController.currentScreen.value as Screens.AddSonsOfOfficersScreen
+            println("it's add sons ${screenDetails.mode}")
+            AddSonsOfOfficersScreen(navController,screenDetails.person, mode = screenDetails.mode)
         }
         composable(Screens.SonsOfOfficersScreen()) {
             windowState.placement = WindowPlacement.Fullscreen

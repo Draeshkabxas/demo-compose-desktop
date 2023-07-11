@@ -28,6 +28,13 @@ fun firstRealmMigrate(): AutomaticSchemaMigration = AutomaticSchemaMigration { c
                 newObject?.set("ageGroup", "")
             }
         }
+    }else if (currentVersion == 2L){
+        if (oldRealm.schema()["RealmPerson"]?.isEmbedded == true) {
+            context.enumerate("RealmPerson") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                val oldId = oldObject.getValue("id", ObjectId::class)
+                newObject?.set("id", oldId.toHexString())
+            }
+        }
     }
 
 }

@@ -1,14 +1,17 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
+import features.sons_of_officers.domain.model.Person
+
 data class PersonalInfoFormState(
+    val id:String ="",
     val name: String = "",
     val nameError: String? = null,
     val motherName: String = "",
     val motherNameError: String? = null,
     val fileNumber: String = "",
     val fileNumberError: String? = null,
-    val libyaid: String = "",
-    val libyaidError: String? = null,
+    val libyaId: String = "",
+    val libyaIdError: String? = null,
     val phoneNumber: String = "",
     val phoneNumberError: String? = null,
     val educationLevel: String = "",
@@ -18,3 +21,18 @@ data class PersonalInfoFormState(
     val city: String = "",
     val cityError: String? = null,
 )
+
+fun Person.toPersonalInfoFormState(): PersonalInfoFormState =
+    PersonalInfoFormState(
+        id = this.id,
+        name = this.name,
+        motherName = this.motherName,
+        fileNumber = this.fileNumber,
+        libyaId = this.libyaId,
+        phoneNumber = this.phoneNumber,
+        educationLevel = this.educationLevel,
+        recruiter = this.recruiter,
+        city = this.city
+    )
+
+

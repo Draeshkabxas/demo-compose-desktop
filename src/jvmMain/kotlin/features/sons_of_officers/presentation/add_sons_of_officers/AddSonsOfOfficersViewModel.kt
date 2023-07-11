@@ -3,6 +3,9 @@ package features.sons_of_officers.presentation.add_sons_of_officers
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import common.component.ScreenMode
+import common.component.ScreenMode.ADD
+import common.component.ScreenMode.EDIT
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
@@ -20,12 +23,23 @@ class AddSonsOfOfficersViewModel(
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
     private val addPerson: AddPerson,
+    private val updatePerson: UpdatePerson
 ) {
 
     var state by mutableStateOf(PersonalInfoFormState())
 
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun setupMode(mode: ScreenMode,person: Person?){
+        if (mode == EDIT && person !=null){
+            state = person.toPersonalInfoFormState()
+            justificationsRequiredInputsNameAndValue =
+                person.justificationsRequire.map { it.key to mutableStateOf(it.value) }.toMap()
+            proceduresInputNameAndValues =
+                person.procedures.map { it.key to mutableStateOf(it.value) }.toMap()
+        }
+    }
 
     val personalInputsNameAndValue = listOf(
         "الاسم رباعي",
@@ -38,7 +52,7 @@ class AddSonsOfOfficersViewModel(
         "المدينة",
     )
 
-    val justificationsRequiredInputsNameAndValue = mapOf(
+    var justificationsRequiredInputsNameAndValue = mapOf(
         "ملف" to mutableStateOf(false),
         "السيرة الذاتية" to mutableStateOf(false),
         "عدد 8 صور " to mutableStateOf(false),
@@ -55,7 +69,7 @@ class AddSonsOfOfficersViewModel(
         " شهادة الدرن" to mutableStateOf(false),
         "الرقم الوطني" to mutableStateOf(false)
     )
-    val proceduresInputNameAndValues = mapOf(
+    var proceduresInputNameAndValues = mapOf(
         "تحاليل" to mutableStateOf(false),
         "كشف طبي" to mutableStateOf(false),
         "مقابلة شخصية" to mutableStateOf(false),
@@ -75,7 +89,8 @@ class AddSonsOfOfficersViewModel(
                 state = state.copy(fileNumber =  event.fileNumber)
             }
             is LibyaIdChanged -> {
-                state = state.copy(libyaid = event.libyaId)
+                println("Libya id change = ${event.libyaId}")
+                state = state.copy(libyaId = event.libyaId)
             }
             is PhoneNumberChanged -> {
                 state = state.copy(phoneNumber = event.phone)
@@ -90,17 +105,17 @@ class AddSonsOfOfficersViewModel(
                 state = state.copy(city = event.city)
             }
             is Submit -> {
-                submitData()
+                submitData(event.mode)
             }
         }
     }
 
 
-    private fun submitData() {
+    private fun submitData(mode: ScreenMode) {
         val nameResult = validateQuadrupleName.execute(state.name)
         val motherResult = validateTextInputs.execute(state.motherName,"اسم الأم")
         val fileNumberResult = validateTextInputs.execute(state.fileNumber,"رقم الملف",true)
-        val libyaIdResult = validateLibyaId.execute(state.libyaid)
+        val libyaIdResult = validateLibyaId.execute(state.libyaId)
         val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
         val educationLevelResult= validateTextInputs.execute(state.educationLevel,"المؤهل العلمي")
         val recruiterResult = validateTextInputs.execute(state.recruiter,"القائم بالتجنيد")
@@ -122,7 +137,7 @@ class AddSonsOfOfficersViewModel(
                 nameError = nameResult.errorMessage,
                 motherNameError = motherResult.errorMessage,
                 fileNumberError = fileNumberResult.errorMessage,
-                libyaidError = libyaIdResult.errorMessage,
+                libyaIdError = libyaIdResult.errorMessage,
                 phoneNumberError = phoneNumberResult.errorMessage,
                 educationLevelError = educationLevelResult.errorMessage,
                 recruiterError = recruiterResult.errorMessage,
@@ -137,36 +152,41 @@ class AddSonsOfOfficersViewModel(
         val procedures = proceduresInputNameAndValues.map {name ->
             name.key to name.value.value
         }.toMap()
+        println(state)
         val newPerson= Person(
-            id = "",
+            id = state.id,
             name = state.name,
             motherName = state.motherName,
             fileNumber = state.fileNumber,
-            libyaId = state.libyaid,
+            libyaId = state.libyaId,
             phoneNumber = state.phoneNumber,
             educationLevel = state.educationLevel,
             recruiter = state.recruiter,
             city = state.city,
-            ageGroup = getAgeGroupFromLibyaId(state.libyaid),
+            ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
             procedures = procedures
         )
         println("submitData is running")
-        addPerson.invoke(newPerson).onEach {
-            validationEventChannel.send(ValidationEvent.Success)
-            println("submitData is getting data")
-            state = state.copy(
-                name = "",
-                motherName = "",
-                fileNumber = "",
-                libyaid = "",
-                phoneNumber = "",
-                educationLevel = "",
-                recruiter = "",
-                city = ""
-            )
-            validationEventChannel.send(ValidationEvent.New)
-        }.launchIn(CoroutineScope(Dispatchers.IO))
+        if (mode == ADD) {
+            addPerson.invoke(newPerson).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(ValidationEvent.Success)
+                    println("submitData add is getting data")
+                    state = PersonalInfoFormState()
+                    validationEventChannel.send(ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }else{
+            updatePerson.invoke(newPerson).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(ValidationEvent.Success)
+                    println("submitData update is getting data")
+                    state = PersonalInfoFormState()
+                    validationEventChannel.send(ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }
     }
 
     sealed class ValidationEvent {

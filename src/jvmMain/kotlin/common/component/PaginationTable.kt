@@ -18,11 +18,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.domain.model.hasShortfalls
+import navcontroller.NavController
 import styles.CairoTypography
 
 @Composable
 fun PaginatedTable(
+    navController: NavController<Screens>,
     headers: List<String>,
     personList: List<Person>,
     itemsPerPage: Int,
@@ -134,7 +138,7 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     Text(
-                        text = if (person.justificationsRequire.values.all { it }) {
+                        text = if (!person.hasShortfalls()) {
                             "مستوفي"
                         } else {
                             "نواقص"
@@ -144,11 +148,12 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     //val justifications = person.justificationsRequire.filterValues { it }.keys
-                    isButtonVisible =
-                        !person.justificationsRequire.values.all { it } && !person.procedures.values.all { it }
+                    isButtonVisible = person.hasShortfalls()
                     if (isButtonVisible) {
                         Button(
-                            onClick = { /* handle button click */ }
+                            onClick = {
+                              navController.navigate(AddSonsOfOfficersScreen(person = person,mode=ScreenMode.EDIT))
+                            }
                         ) {
                             Text("إضافة")
                         }

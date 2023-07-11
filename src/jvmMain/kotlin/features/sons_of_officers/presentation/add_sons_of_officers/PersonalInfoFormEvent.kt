@@ -1,5 +1,7 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
+import common.component.ScreenMode
+
 sealed class PersonalInfoFormEvent {
     data class NameChanged(val name: String) : PersonalInfoFormEvent()
     data class MotherNameChanged(val name: String) : PersonalInfoFormEvent()
@@ -14,5 +16,5 @@ sealed class PersonalInfoFormEvent {
     data class RecruiterChanged(val recruiter: String) : PersonalInfoFormEvent()
     data class CityChanged(val city: String) : PersonalInfoFormEvent()
 
-    object Submit: PersonalInfoFormEvent()
+    data class Submit(val mode:ScreenMode = ScreenMode.ADD): PersonalInfoFormEvent()
 }

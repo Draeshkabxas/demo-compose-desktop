@@ -14,7 +14,6 @@ class GetAllPeople(
         println(filters)
 
         val result=personRepository.getAllPeople("")
-        println("get all people before filters")
         var resultAfterFiltered = result.first().filter {
             println(it)
             it.libyaId.contains(filters.libyaId) &&
@@ -38,7 +37,6 @@ class GetAllPeople(
                 filters.fileState.toBooleanStrict() == it.justificationsRequire.all { requireValue-> requireValue.value }
             }
         }
-        println("get all people after filters $resultAfterFiltered")
         emit(Resource.Success(resultAfterFiltered))
     }.catch { emit(Resource.Error("Cloud Not add new person ${it.localizedMessage}")) }
 }

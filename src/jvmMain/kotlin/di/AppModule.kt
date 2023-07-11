@@ -42,6 +42,7 @@ import features.sons_of_officers.domain.repository.PersonXlsxRepository
 import features.sons_of_officers.domain.usecases.AddPerson
 import features.sons_of_officers.domain.usecases.GetAllPeople
 import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
+import features.sons_of_officers.domain.usecases.UpdatePerson
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 
@@ -59,7 +60,7 @@ val appModule = module {
                     JustificationCourse::class,
                     ProcedureCourse::class
                 )
-            ).schemaVersion(2)
+            ).schemaVersion(3)
                 .migration(firstRealmMigrate())
                 .build()
         )
@@ -78,7 +79,8 @@ val appModule = module {
     single<PersonXlsxRepository> { PersonXlsxImpl() }
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
     single<GetAllPeople> { GetAllPeople(get()) }
-    single<AddSonsOfOfficersViewModel> { AddSonsOfOfficersViewModel(addPerson = AddPerson(get())) }
+    single<UpdatePerson> { UpdatePerson(get()) }
+    single<AddSonsOfOfficersViewModel> { AddSonsOfOfficersViewModel(addPerson = AddPerson(get()), updatePerson = get()) }
     factory<SonsOfOfficersScreenViewModel> { SonsOfOfficersScreenViewModel(get(), get()) }
 
     //Contract Di

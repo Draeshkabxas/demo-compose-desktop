@@ -16,3 +16,5 @@ data class Person(
     val justificationsRequire: Map<String, Boolean>,
     val procedures: Map<String, Boolean>,
 )
+fun Person.hasShortfalls():Boolean =
+    justificationsRequire.values.any { !it } || procedures.values.any { !it }

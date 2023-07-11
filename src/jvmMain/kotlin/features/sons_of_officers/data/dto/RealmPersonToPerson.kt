@@ -6,7 +6,7 @@ import utils.fromArabicNameToAgeGroup
 
 fun RealmPerson.toPersonDTO(): Person {
     return Person(
-        id=this.id.toHexString(),
+        id=this.id,
         name = this.name,
         motherName = this.motherName,
         fileNumber = this.fileNUmber,

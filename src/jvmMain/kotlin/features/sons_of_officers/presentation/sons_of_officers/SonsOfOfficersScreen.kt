@@ -68,7 +68,7 @@ fun SonsOfOfficersScreen(
                 CustomButton(
                     text = "إضافة ملف", icon = Icons.Default.AddTask,
                     onClick = {
-                        navController.navigate(Screens.AddSonsOfOfficersScreen(mode = ScreenMode.EDIT))
+                        navController.navigate(Screens.AddSonsOfOfficersScreen())
                     },
                     buttonColor = blue
                 )
@@ -108,7 +108,7 @@ fun SonsOfOfficersScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, peopleData, 13, widths)
+                            PaginatedTable(navController,headers, peopleData, 13, widths)
                         }
                     }
                 }

@@ -8,7 +8,6 @@ import features.courses.domain.repository.CoursesRepository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
@@ -53,27 +52,32 @@ class RealmCourseImpl(private val realm: Realm) :
     }
 
     override fun updateCourse(person: Course): Flow<Boolean> = flow{
-        val oldCourse:Course? = getCourse(person.id).first()
-        val updatedCourse = person.toRealmCourse()
         var result = false
-        if (oldCourse == null) emit(false)
-        realm.writeBlocking {
-            oldCourse?.let {
-                findLatest(it.toRealmCourse())?.apply {
-                    name = updatedCourse.name
-                    motherName = updatedCourse.motherName
-                    fileNUmber= updatedCourse.phoneNUmber
-                    libyaId=updatedCourse.libyaId
-                    phoneNUmber=updatedCourse.phoneNUmber
-                    educationLevel = updatedCourse.educationLevel
-                    recruiter=updatedCourse.recruiter
-                    city= updatedCourse.city
-                    ageGroup = updatedCourse.ageGroup
-                    justificationsRequire = updatedCourse.justificationsRequire
-                    procedures = updatedCourse.procedures
-                }
+        try {
+            realm.writeBlocking {
+                val updatedPerson = person.toRealmCourse()
+                query<RealmCourse>("id = $0", person.id)
+                    .first()
+                    .find()
+                    ?.also { oldPerson ->
+                        findLatest(oldPerson.apply {
+                            name = updatedPerson.name
+                            motherName = updatedPerson.motherName
+                            fileNUmber = updatedPerson.fileNUmber
+                            libyaId = updatedPerson.libyaId
+                            phoneNUmber = updatedPerson.phoneNUmber
+                            educationLevel = updatedPerson.educationLevel
+                            recruiter = updatedPerson.recruiter
+                            city = updatedPerson.city
+                            ageGroup = updatedPerson.ageGroup
+                            justificationsRequire = updatedPerson.justificationsRequire
+                            procedures = updatedPerson.procedures
+                        })
+                    }
+                result = true
             }
-            result = true
+        } catch (e: Exception) {
+            println("Realm update course impl has error ${e.localizedMessage}")
         }
         emit(result)
     }

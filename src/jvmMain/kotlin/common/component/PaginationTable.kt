@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import common.component.ScreenMode.ADD
+import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.model.hasShortfalls
@@ -34,7 +36,6 @@ fun PaginatedTable(
     personList: List<Person>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
-
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -183,7 +184,9 @@ fun PaginatedTable(
                             .padding(8.dp),
                             shape = RoundedCornerShape(30.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
-                            onClick = { /* handle button click */ }
+                            onClick = {
+                                navController.navigate(AddSonsOfOfficersScreen(mode = EDIT, person = person))
+                            }
                         ) {
                             Text("إضافة",style = CairoTypography.body2,
                                 fontWeight = FontWeight.Bold,

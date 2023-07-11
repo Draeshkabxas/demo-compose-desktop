@@ -1,7 +1,5 @@
 package features.courses.presentation.courses.component
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
@@ -17,32 +15,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Colors
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.input.pointer.PointerEventType
-import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import common.component.ScreenMode.ADD
+import common.component.ScreenMode.EDIT
+import common.component.Screens
+import common.component.Screens.AddSonsOfOfficersScreen
 import features.courses.domain.model.Course
-import features.sons_of_officers.domain.model.Person
-import styles.AppColors.green
+import features.courses.domain.model.hasShortfalls
+import features.courses.presentation.add_courses.AddCoursesScreen
+import features.sons_of_officers.domain.model.hasShortfalls
+import navcontroller.NavController
+import styles.AppColors
 import styles.CairoTypography
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PaginatedTable(
+    navController: NavController<Screens>,
     headers: List<String>,
     personList: List<Course>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
-
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -69,19 +65,18 @@ fun PaginatedTable(
         if (personList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
                 Column(modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp), horizontalAlignment = Alignment.CenterHorizontally
-                    , verticalArrangement = Arrangement.Center) {
+                , verticalArrangement = Arrangement.Center) {
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text="يمكنك فلترة بحثك للحصول على نتائج اكثر دقة",style = CairoTypography.h3)
                 }
             }
         } else {
-            var counter = 0 // initialize counter based on current page and items per page
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(
                     modifier = Modifier.background(
                         if (person.procedures["لائق صحيا"] == true) Color.Green else
-                        if (person.procedures["غير لائق صحيا"] == true) Color.Red else
+                            if (person.procedures["غير لائق صحيا"] == true) Color.Red else
                         if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
                             (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
                         )
@@ -172,7 +167,7 @@ fun PaginatedTable(
                     )
 
                     Text(
-                        text = if (person.justificationsRequire.values.all { it }) {
+                        text = if (!person.hasShortfalls()) {
                             "مستوفي"
                         } else {
                             "نواقص"
@@ -185,72 +180,21 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     //val justifications = person.justificationsRequire.filterValues { it }.keys
-                    isButtonVisible =
-                        !person.justificationsRequire.values.all { it } || !person.procedures.values.all { it }
+                    isButtonVisible = person.hasShortfalls()
                     if (isButtonVisible) {
-                        val hoverScale = remember { Animatable(1f) }
-                        val isHovered = remember { mutableStateOf(false) }
-                        val gradient = Brush.verticalGradient(
-                            colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
-
-                            )
-                        val scale = derivedStateOf {
-                            if (isHovered.value) 1.1f else 1f
-                        }
-
-                        LaunchedEffect(isHovered.value) {
-                            if (isHovered.value) {
-                                hoverScale.animateTo(
-                                    targetValue = 1.1f,
-                                    animationSpec = tween(durationMillis = 10000)
-                                )
-                            } else {
-                                hoverScale.animateTo(
-                                    targetValue = 1f,
-                                    animationSpec = tween(durationMillis = 10000)
-                                )
+                        Button(modifier = Modifier
+                            .width(columnWidths[10])
+                            .padding(8.dp),
+                            shape = RoundedCornerShape(30.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+                            onClick = {
+                                navController.navigate(Screens.AddCoursesScreen( mode=EDIT, course = person))
                             }
-
-                        }
-                        Box(
-//                            onClick = { /* handle button click */ },
-                            modifier = Modifier
-//                                .clickable(onClick = onClick(){})
-                                .padding(16.dp)
-                                .clip(RoundedCornerShape(30.dp))
-                                .scale(scale.value)
-                                .shadow(
-                                    spotColor = Color.Black,
-                                    elevation = 8.dp,
-                                    shape = RoundedCornerShape(30.dp)
-                                )
-                                .onPointerEvent(PointerEventType.Move) {
-                                }
-                                .onPointerEvent(PointerEventType.Enter) {
-                                    isHovered.value = true
-                                }
-                                .onPointerEvent(PointerEventType.Exit) {
-                                    isHovered.value = false
-                                }
-
-                                )
-                        {
-                            Canvas(
-                                modifier = Modifier.matchParentSize()
-                            ) {
-                                drawRect(brush = gradient)
-                            }
-                            Row (modifier = Modifier.padding(horizontal = 14.dp, vertical = 6.dp),
-
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center){ Text(
-                                "إضافة",
-                                style = CairoTypography.body2,
+                        ) {
+                            Text("إضافة",style = CairoTypography.body2,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.White,
-                                textAlign = TextAlign.Center
-                            ) }
-
+                                color = Color(0xffffffff),
+                                textAlign = TextAlign.Center,)
                         }
                     }
                     else{

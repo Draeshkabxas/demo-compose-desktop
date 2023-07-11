@@ -116,7 +116,7 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, coursesData, 13, widths)
+                            PaginatedTable(navController,headers, coursesData, 13, widths)
                         }
                     }
                 }

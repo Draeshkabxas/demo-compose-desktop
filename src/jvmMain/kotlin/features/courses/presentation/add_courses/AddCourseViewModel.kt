@@ -3,11 +3,15 @@ package features.courses.presentation.add_courses
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import common.component.ScreenMode
 import features.courses.domain.model.Course
 import features.courses.domain.usecases.AddCourse
+import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.CourseInfoFormEvent.*
-import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
+import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormState
+import features.sons_of_officers.presentation.add_sons_of_officers.toPersonalInfoFormState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -21,13 +25,25 @@ class AddCourseViewModel(
     private val validatePhoneNumber: ValidatePhoneNumber = ValidatePhoneNumber(),
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
-    private val addCourse: AddCourse
+    private val addCourse: AddCourse,
+    private val updateCourse: UpdateCourse
 ) {
 
     var state by mutableStateOf(CourseInfoFormState())
 
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun setupMode(mode: ScreenMode, course: Course?){
+        if (mode == ScreenMode.EDIT && course !=null){
+            state = course.toCourseInfoFormState()
+            println("Setup mode state = $state")
+            justificationsRequiredInputsNameAndValue =
+                course.justificationsRequire.map { it.key to mutableStateOf(it.value) }.toMap()
+            proceduresInputNameAndValues =
+                course.procedures.map { it.key to mutableStateOf(it.value) }.toMap()
+        }
+    }
 
     val courseInputsNameAndValue = listOf(
         "الاسم رباعي",
@@ -40,7 +56,7 @@ class AddCourseViewModel(
         "المدينة",
     )
 
-    val justificationsRequiredInputsNameAndValue = mapOf(
+    var justificationsRequiredInputsNameAndValue = mapOf(
         "ملف" to mutableStateOf(false),
         "السيرة الذاتية" to mutableStateOf(false),
         "عدد 8 صور " to mutableStateOf(false),
@@ -57,7 +73,7 @@ class AddCourseViewModel(
         " شهادة الدرن" to mutableStateOf(false),
         "الرقم الوطني" to mutableStateOf(false)
     )
-    val proceduresInputNameAndValues = mapOf(
+    var proceduresInputNameAndValues = mapOf(
         "تحاليل" to mutableStateOf(false),
         "كشف طبي" to mutableStateOf(false),
         "لائق صحيا" to mutableStateOf(false),
@@ -79,7 +95,7 @@ class AddCourseViewModel(
                 state = state.copy(fileNumber =  event.fileNumber)
             }
             is LibyaIdChanged -> {
-                state = state.copy(libyaid = event.libyaId)
+                state = state.copy(libyaId = event.libyaId)
             }
             is PhoneNumberChanged -> {
                 state = state.copy(phoneNumber = event.phone)
@@ -94,17 +110,18 @@ class AddCourseViewModel(
                 state = state.copy(city = event.city)
             }
             is Submit -> {
-                submitData()
+                submitData(event.mode)
             }
         }
     }
 
 
-    private fun submitData() {
+    private fun submitData(mode: ScreenMode) {
+        println(state)
         val nameResult = validateQuadrupleName.execute(state.name)
         val motherResult = validateTextInputs.execute(state.motherName,"اسم الأم")
         val fileNumberResult = validateTextInputs.execute(state.fileNumber,"رقم الملف",true)
-        val libyaIdResult = validateLibyaId.execute(state.libyaid)
+        val libyaIdResult = validateLibyaId.execute(state.libyaId)
         val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
         val educationLevelResult= validateTextInputs.execute(state.educationLevel,"المؤهل العلمي")
         val recruiterResult = validateTextInputs.execute(state.recruiter,"القائم بالتجنيد")
@@ -126,7 +143,7 @@ class AddCourseViewModel(
                 nameError = nameResult.errorMessage,
                 motherNameError = motherResult.errorMessage,
                 fileNumberError = fileNumberResult.errorMessage,
-                libyaidError = libyaIdResult.errorMessage,
+                libyaIdError = libyaIdResult.errorMessage,
                 phoneNumberError = phoneNumberResult.errorMessage,
                 educationLevelError = educationLevelResult.errorMessage,
                 recruiterError = recruiterResult.errorMessage,
@@ -142,36 +159,39 @@ class AddCourseViewModel(
             name.key to name.value.value
         }.toMap()
         val newCourse= Course(
-            id = "",
+            id = state.id,
             name = state.name,
             motherName = state.motherName,
             fileNumber = state.fileNumber,
-            libyaId = state.libyaid,
+            libyaId = state.libyaId,
             phoneNumber = state.phoneNumber,
             educationLevel = state.educationLevel,
             recruiter = state.recruiter,
             city = state.city,
-            ageGroup = getAgeGroupFromLibyaId(state.libyaid),
+            ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
             procedures = procedures
         )
         println("submitData is running")
-        addCourse.invoke(newCourse).onEach {
-            validationEventChannel.send(ValidationEvent.Success)
-            println("submitData is getting data")
-            state = state.copy(
-                name = "",
-                motherName = "",
-                fileNumber = "",
-                libyaid = "",
-                phoneNumber = "",
-                educationLevel = "",
-                recruiter = "",
-                city = ""
-            )
-            validationEventChannel.send(ValidationEvent.New)
-        }.launchIn(CoroutineScope(Dispatchers.IO))
-    }
+        if (mode == ScreenMode.ADD) {
+            addCourse.invoke(newCourse).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(ValidationEvent.Success)
+                    println("submitData add is getting data")
+                    state = CourseInfoFormState()
+                    validationEventChannel.send(ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }else{
+            updateCourse.invoke(newCourse).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(ValidationEvent.Success)
+                    println("submitData update is getting data")
+                    state = CourseInfoFormState()
+                    validationEventChannel.send(ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }    }
 
     sealed class ValidationEvent {
         object Success: ValidationEvent()

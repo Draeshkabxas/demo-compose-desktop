@@ -14,25 +14,36 @@ fun firstRealmMigrate(): AutomaticSchemaMigration = AutomaticSchemaMigration { c
     val oldRealm: DynamicRealm = context.oldRealm
     val newRealm: DynamicMutableRealm = context.newRealm
 
-    val currentVersion = oldRealm.schemaVersion()
-    if (currentVersion == 0L) {
-        if (oldRealm.schema()["RealmContract"]?.isEmbedded == true) {
-        context.enumerate("RealmContract") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
-            val oldId = oldObject.getValue("id", String::class)
-            newObject?.set("id", if (oldId.isEmpty()) ObjectId() else ObjectId(oldId))
-        }
-        }
-    }else if(currentVersion == 1L){
-        if (oldRealm.schema()["RealmPerson"]?.isEmbedded == true) {
-            context.enumerate("RealmPerson") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
-                newObject?.set("ageGroup", "")
+    when (oldRealm.schemaVersion()) {
+        0L -> {
+            if (oldRealm.schema()["RealmContract"]?.isEmbedded == true) {
+                context.enumerate("RealmContract") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    val oldId = oldObject.getValue("id", String::class)
+                    newObject?.set("id", if (oldId.isEmpty()) ObjectId() else ObjectId(oldId))
+                }
             }
         }
-    }else if (currentVersion == 2L){
-        if (oldRealm.schema()["RealmPerson"]?.isEmbedded == true) {
-            context.enumerate("RealmPerson") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
-                val oldId = oldObject.getValue("id", ObjectId::class)
-                newObject?.set("id", oldId.toHexString())
+        1L -> {
+            if (oldRealm.schema()["RealmPerson"]?.isEmbedded == true) {
+                context.enumerate("RealmPerson") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    newObject?.set("ageGroup", "")
+                }
+            }
+        }
+        2L -> {
+            if (oldRealm.schema()["RealmPerson"]?.isEmbedded == true) {
+                context.enumerate("RealmPerson") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    val oldId = oldObject.getValue("id", ObjectId::class)
+                    newObject?.set("id", oldId.toHexString())
+                }
+            }
+        }
+        3L -> {
+            if (oldRealm.schema()["RealmCourse"]?.isEmbedded == true) {
+                context.enumerate("RealmCourse") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    val oldId = oldObject.getValue("id", ObjectId::class)
+                    newObject?.set("id", oldId.toHexString())
+                }
             }
         }
     }

@@ -26,6 +26,7 @@ import androidx.compose.ui.window.WindowState
 import common.component.ScreenMode.ADD
 import features.contracts.presentation.add_contracts.AddContractsScreen
 import features.contracts.presentation.contracts.ContractsScreen
+import features.courses.domain.model.Course
 import features.courses.presentation.add_courses.AddCoursesScreen
 import features.courses.presentation.courses.CoursesScreen
 import navcontroller.NavController
@@ -189,7 +190,7 @@ sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.PersonAdd,2)
     data class AddContractsScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
     class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
-    data class AddCoursesScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
+    data class AddCoursesScreen(val mode: ScreenMode = ADD,val course:Course? = null): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
 }
 
@@ -228,7 +229,8 @@ fun SystemNavigationHost(
         }
         composable(Screens.AddCoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
-            AddCoursesScreen(navController)
+            val screenDetails = navController.currentScreen.value as Screens.AddCoursesScreen
+            AddCoursesScreen(navController,screenDetails.course, mode = screenDetails.mode)
         }
         composable(Screens.CoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen

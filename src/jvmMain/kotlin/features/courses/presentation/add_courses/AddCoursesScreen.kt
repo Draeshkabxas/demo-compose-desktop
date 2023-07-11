@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import common.component.*
+import features.courses.domain.model.Course
 import features.courses.presentation.add_courses.AddCourseViewModel.ValidationEvent
 import features.courses.presentation.add_courses.CourseInfoFormEvent.*
 import navcontroller.NavController
@@ -20,13 +21,17 @@ import styles.CairoTypography
 @Composable
 fun AddCoursesScreen(
     navController: NavController<Screens>,
+    course: Course? = null,
+    mode:ScreenMode,
     viewModel: AddCourseViewModel = koinInject()
 ) {
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
+            println("event : $event")
             when (event) {
                 ValidationEvent.Success -> {
-                    navController.navigateBack()
+                    println("Success event : $event")
+                    navController.navigateReplacement(Screens.CoursesScreen())
                 }
                 else -> {}
             }
@@ -36,16 +41,22 @@ fun AddCoursesScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+        var selectedEducation by remember { mutableStateOf("إختر المؤهل") }
         var selectedCity by remember { mutableStateOf("إختر المدينة") }
-
-
+        var isFirstRender by remember { mutableStateOf(true) }
+        if (isFirstRender){
+            viewModel.setupMode(mode,course)
+            selectedEducation = viewModel.state.educationLevel
+            selectedCity = viewModel.state.city
+            isFirstRender = false
+        }
         HeadLineWithDate(text = "منظومة الدورات / إضافة طالب ", date ="1/7/2023  1:30:36 PM" )
         Section("البيانات الشخصية",4){
             val personalInputsName= viewModel.courseInputsNameAndValue
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
+                    value = state.name,
                     onValueChange = { viewModel.onEvent(NameChanged(it)) },
                     onNextChange = { viewModel.onEvent(NameChanged(it)) },
                     isError = state.nameError!=null,
@@ -57,6 +68,7 @@ fun AddCoursesScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.motherName,
                     onValueChange = { viewModel.onEvent(MotherNameChanged(it)) },
                     onNextChange = { viewModel.onEvent(MotherNameChanged(it)) },
                     hint = personalInputsName[1],
@@ -68,6 +80,7 @@ fun AddCoursesScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.fileNumber,
                     onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     hint = personalInputsName[2],
@@ -81,17 +94,19 @@ fun AddCoursesScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.libyaId,
                     onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     hint = personalInputsName[3],
-                    isError = state.libyaidError!=null,
-                    errorMessage = state.libyaidError.toString(),
+                    isError = state.libyaIdError!=null,
+                    errorMessage = state.libyaIdError.toString(),
                     inputType = InputType.NUMBER,
                     maxLength = 12 // Set the maximum length to N characters
                 )
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.phoneNumber,
                     onValueChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
                     hint = personalInputsName[4],
@@ -104,6 +119,7 @@ fun AddCoursesScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.recruiter,
                     onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     hint = personalInputsName[6],
@@ -119,7 +135,7 @@ fun AddCoursesScreen(
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
-                        selectedItem = selectededucation,
+                        selectedItem = selectedEducation,
                         onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
                     )
 
@@ -174,7 +190,7 @@ fun AddCoursesScreen(
         CustomButton(
             text = "حفظ",
             icon = Icons.Default.Save,
-            onClick = {  viewModel.onEvent(Submit) },
+            onClick = {  viewModel.onEvent(Submit(mode)) },
             buttonColor = blue
         )
     }

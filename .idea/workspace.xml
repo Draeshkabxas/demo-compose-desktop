@@ -5,12 +5,119 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edits">
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/UpdateCourse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/HeadLineWithDate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/HeadLineWithDate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10032.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10352.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10420.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10436.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10484.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid11248.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid11524.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1204.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid12188.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid12236.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid12860.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1288.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid12904.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid12996.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13016.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13264.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13336.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13424.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1384.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1412.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid14400.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid15188.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1536.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid15748.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid16308.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid16380.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid16644.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid16688.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17100.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17208.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17344.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17476.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17524.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17568.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17724.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17832.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid17980.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18044.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid1808.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18108.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18240.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18652.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18796.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19000.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19160.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19184.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19212.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19284.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19448.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19512.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19660.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19792.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20084.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20172.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20336.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20720.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20832.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20964.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21024.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21040.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21316.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21336.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid21388.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid224.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid2496.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid2756.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid2840.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3076.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3304.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3372.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3740.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3756.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3920.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid412.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid4228.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid4960.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid5200.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid5536.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid5956.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6164.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6496.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6784.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid7776.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid8044.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid8048.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid8960.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9128.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9168.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9296.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9480.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9488.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9612.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9684.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/dto/CourseToRealmCourse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/dto/CourseToRealmCourse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/dto/RealmCourseToCourse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/dto/RealmCourseToCourse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/model/RealmCourse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/model/RealmCourse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/repository/RealmCourseImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/data/repository/RealmCourseImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/model/Course.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/model/Course.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/repository/PersonRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/repository/CoursesRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCourseViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCourseViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCoursesScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/CourseInfoFormEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/CourseInfoFormEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/CourseInfoFormState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/CourseInfoFormState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/navcontroller/NavController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/navcontroller/NavController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,9 +227,9 @@
       <recent name="" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="features.courses.domain.usecases" />
       <recent name="features.courses.presentation.add_courses" />
       <recent name="features.courses.presentation.courses" />
-      <recent name="features.courses.domain.usecases" />
       <recent name="features.courses.domain.repository" />
       <recent name="features.courses.domain.model" />
     </key>

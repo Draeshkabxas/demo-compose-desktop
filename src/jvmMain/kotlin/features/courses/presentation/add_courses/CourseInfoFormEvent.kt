@@ -1,5 +1,7 @@
 package features.courses.presentation.add_courses
 
+import common.component.ScreenMode
+
 sealed class CourseInfoFormEvent {
     data class NameChanged(val name: String) : CourseInfoFormEvent()
     data class MotherNameChanged(val name: String) : CourseInfoFormEvent()
@@ -14,5 +16,5 @@ sealed class CourseInfoFormEvent {
     data class RecruiterChanged(val recruiter: String) : CourseInfoFormEvent()
     data class CityChanged(val city: String) : CourseInfoFormEvent()
 
-    object Submit: CourseInfoFormEvent()
+    data class Submit(val mode: ScreenMode = ScreenMode.ADD): CourseInfoFormEvent()
 }

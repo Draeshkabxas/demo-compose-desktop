@@ -30,6 +30,7 @@ import features.courses.data.repository.RealmCourseImpl
 import features.courses.domain.repository.CoursesRepository
 import features.courses.domain.usecases.AddCourse
 import features.courses.domain.usecases.GetAllCourses
+import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.AddCourseViewModel
 import features.courses.presentation.courses.CoursesScreenViewModel
 import features.sons_of_officers.data.model.Justification
@@ -60,7 +61,7 @@ val appModule = module {
                     JustificationCourse::class,
                     ProcedureCourse::class
                 )
-            ).schemaVersion(3)
+            ).schemaVersion(4)
                 .migration(firstRealmMigrate())
                 .build()
         )
@@ -100,7 +101,8 @@ val appModule = module {
     factory<CoursesScreenViewModel> { CoursesScreenViewModel(getAllCourses = get()) }
     //Add Courses Di
     single<AddCourse> { AddCourse(get()) }
-    single<AddCourseViewModel> { AddCourseViewModel(addCourse = get()) }
+    single<UpdateCourse> { UpdateCourse(get()) }
+    single<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
 
 
 }

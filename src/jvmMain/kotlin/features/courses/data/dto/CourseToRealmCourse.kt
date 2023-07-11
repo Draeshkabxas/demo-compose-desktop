@@ -23,7 +23,7 @@ fun Course.toRealmCourse(): RealmCourse {
     }) }
 
     return RealmCourse().apply {
-        id = if (person.id.isNotEmpty()) ObjectId(person.id) else ObjectId()
+        id = person.id.ifEmpty { ObjectId().toHexString() }
         name = person.name
         motherName = person.motherName
         fileNUmber = person.fileNumber

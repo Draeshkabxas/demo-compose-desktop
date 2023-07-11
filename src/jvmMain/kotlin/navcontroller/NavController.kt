@@ -36,7 +36,7 @@ class NavController<T>(
     }
 
     fun navigateReplacement(route: T) {
-        val lastScreen = backStackScreens.last()
+        val lastScreen = currentScreen.value
         navigate(route)
         backStackScreens.remove(lastScreen)
     }

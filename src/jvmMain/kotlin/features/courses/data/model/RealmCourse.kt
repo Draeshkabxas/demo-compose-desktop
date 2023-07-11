@@ -9,7 +9,7 @@ import utils.AgeGroup
 
 open class RealmCourse: RealmObject{
     @PrimaryKey
-    var id:ObjectId = ObjectId()
+    var id:String = ObjectId().toHexString()
     var name: String = ""
     var motherName: String = ""
     var fileNUmber: String = ""

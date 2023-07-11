@@ -7,7 +7,7 @@ import utils.fromArabicNameToAgeGroup
 
 fun RealmCourse.toCourseDTO(): Course {
     return Course(
-        id=this.id.toHexString(),
+        id=this.id,
         name = this.name,
         motherName = this.motherName,
         fileNumber = this.fileNUmber,

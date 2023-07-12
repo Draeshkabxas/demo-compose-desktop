@@ -37,9 +37,9 @@ fun Filters(
 ){
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
-    var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+    var selectededucation by remember { mutableStateOf("إختر المؤهل العلمي") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
-    var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
+    var selectedTrainer by remember { mutableStateOf("إحالة لتدريب") }
     var selectedAge by remember { mutableStateOf("إختر الفئة العمرية") }
     val libyaIdState = remember { mutableStateOf("") }
     val fileNumberState = remember { mutableStateOf("") }
@@ -51,9 +51,9 @@ fun Filters(
         onReset()
         selectedHealthStatus ="إختلر الحالة الصحية"
         selectedCity = "إختر المدينة"
-        selectededucation = "إختر المؤهل"
+        selectededucation = "إختر المؤهل العلمي"
         selectedFileState = "إختر حالة الملف"
-        selectedTrainer = "إختر  نعم او لا"
+        selectedTrainer = "إحالة لتدريب"
         selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         fileNumberState.value = ""
@@ -127,23 +127,23 @@ fun Filters(
                     modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp).padding(horizontal = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
                     ) {
                         CustomOutlinedTextField(
                             valueState = fileNumberState,
-                            hint = "إبحث برقم الملف",
+                            hint = "رقم الملف",
                             errorMessage = "",
                             onValueChange = { onFilterFileNumber(it) },
                             onNextChange = { onFilterFileNumber(it) },
-                            width = 120.dp,
+                            width = 100.dp,
                             inputType = InputType.NUMBER,
                             maxLength = 5 // Set the maximum length to N characters
 
                         )
                         SelectorWithLabel(
-                            label = "المؤهل العلمي : ",
+                            label = "",
                             items = Education.values().map { it.arabicName },
                             selectedItem = selectededucation,
                             onItemSelected = { education ->
@@ -153,7 +153,7 @@ fun Filters(
                         )
 
                         SelectorWithLabel(
-                            label = "المدينة : ",
+                            label = "",
                             items = LibyanCities.values().map { it.arabicName },
                             selectedItem = selectedCity,
                             onItemSelected = { city ->
@@ -164,7 +164,7 @@ fun Filters(
 
                         val fileValues = listOf("مستوفي", "نواقص")
                         SelectorWithLabel(
-                            label = "حالة الملف : ",
+                            label = "",
                             items = fileValues,
                             selectedItem = selectedFileState,
                             onItemSelected = { file ->
@@ -177,13 +177,34 @@ fun Filters(
 
                         val trainerValues = listOf("نعم", "لا")
                         SelectorWithLabel(
-                            label = "إحالة للتدريب : ",
+                            label = "",
                             items = trainerValues,
                             selectedItem = selectedTrainer,
                             onItemSelected = { trainer ->
                                 selectedTrainer = trainer
                                 onFilterReferralForTraining(
                                     trainer == trainerValues[0]
+                                )
+                            }
+                        )
+                        SelectorWithLabel(
+                            label = "",
+                            items = getAllAgeGroupArabicNames(),
+                            selectedItem = selectedAge,
+                            onItemSelected = { ageGroup ->
+                                selectedAge = ageGroup
+                                onFilterAgeGroup(ageGroup)
+                            }
+                        )
+                        val healthValues = listOf("غير لائق", "لائق")
+                        SelectorWithLabel(
+                            label = "",
+                            items = healthValues,
+                            selectedItem = selectedHealthStatus,
+                            onItemSelected = { file ->
+                                selectedHealthStatus = file
+                                onFilterFileState(
+                                    file == healthValues[0]
                                 )
                             }
                         )
@@ -212,27 +233,8 @@ fun Filters(
                     }
                      Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
                      ) {
-                         SelectorWithLabel(
-                             label = " الفئة العمرية : ",
-                             items = getAllAgeGroupArabicNames(),
-                             selectedItem = selectedAge,
-                             onItemSelected = { ageGroup ->
-                                 selectedAge = ageGroup
-                                 onFilterAgeGroup(ageGroup)
-                             }
-                         )
-                         val healthValues = listOf("غير لائق", "لائق")
-                         SelectorWithLabel(
-                             label = " الحالة الصحية : ",
-                             items = healthValues,
-                             selectedItem = selectedHealthStatus,
-                             onItemSelected = { file ->
-                                 selectedHealthStatus = file
-                                 onFilterFileState(
-                                     file == healthValues[0]
-                                 )
-                             }
-                         )
+
+
                      }
 
 

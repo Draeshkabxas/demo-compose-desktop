@@ -30,8 +30,8 @@ fun SelectorWithLabel(
     var expanded by remember { mutableStateOf(false) }
     val selectedIndex = items.indexOf(selectedItem)
 
-    Column(modifier = Modifier.padding(12.dp)) {
-        Row(modifier = Modifier.fillMaxHeight()
+    Column(modifier = Modifier.padding(horizontal = 6.dp)) {
+        Row(modifier = Modifier.fillMaxHeight().padding(vertical = 0.dp)
             ,verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center) {
             Text(text = label,

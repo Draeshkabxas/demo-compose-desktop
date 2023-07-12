@@ -204,7 +204,7 @@ fun PaginatedTable(
                         )
                         Button(modifier = Modifier
                             .width(columnWidths[10])
-                            .padding(8.dp),
+                            .padding(4.dp),
                             shape = RoundedCornerShape(30.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
                             onClick = {

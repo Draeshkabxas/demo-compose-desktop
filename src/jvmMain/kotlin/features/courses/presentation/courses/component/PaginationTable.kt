@@ -167,10 +167,10 @@ fun PaginatedTable(
                     )
 
                     Text(
-                        text = if (!person.hasShortfalls()) {
-                            "مستوفي"
-                        } else {
+                        text = if (person.justificationsRequire.values.contains(false)) {
                             "نواقص"
+                        } else {
+                            "مستوفي"
                         },
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
@@ -180,8 +180,10 @@ fun PaginatedTable(
                             .padding(8.dp)
                     )
                     //val justifications = person.justificationsRequire.filterValues { it }.keys
+                    val valueToCheck = person.procedures.get("إحالة لتدريب")
+
                     isButtonVisible = person.hasShortfalls()
-                    if (isButtonVisible) {
+                    if (valueToCheck == false) {
                         Button(modifier = Modifier
                             .width(columnWidths[10])
                             .padding(8.dp),

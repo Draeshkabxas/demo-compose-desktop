@@ -33,7 +33,7 @@ fun ContractsScreen(
     navController: NavController<Screens>,
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
-    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp,70.dp)
+    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 100.dp, 95.dp, 85.dp,70.dp)
     val headers = listOf(
         "رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم","جنسية الأم",

@@ -76,7 +76,7 @@ fun Filters(
                 hint = "إبحث بالرقم الوطني",
                 isError = false,
                 errorMessage = "",
-                width = 150.dp,
+                width = 200.dp,
                 inputType = InputType.NUMBER,
                 maxLength = 12 // Set the maximum length to N characters
             )

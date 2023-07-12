@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -53,7 +54,7 @@ fun AddContractsScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+        var selectededucation by remember { mutableStateOf(" إختر المؤهل ") }
         var selectedCity by remember { mutableStateOf("إختر المدينة") }
 
 
@@ -89,8 +90,8 @@ fun AddContractsScreen(
                     onValueChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
                     onNextChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
                     hint = personalInputsNameAndValue[2],
-                    isError = state.fileNumberError!=null,
-                    errorMessage = state.fileNumberError.toString(),
+                    isError = state.motherNationalityError!=null,
+                    errorMessage = state.motherNationalityError.toString(),
                     width = 150.dp,
                     inputType = InputType.TEXT
                 )
@@ -100,8 +101,8 @@ fun AddContractsScreen(
                     onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
                     hint = personalInputsNameAndValue[3],
-                    isError = state.libyaIdError!=null,
-                    errorMessage = state.libyaIdError.toString(),
+                    isError = state.fileNumberError!=null,
+                    errorMessage = state.fileNumberError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER,
                     maxLength = 5 // Set the maximum length to N characters
@@ -113,8 +114,8 @@ fun AddContractsScreen(
                     onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
                     hint = personalInputsNameAndValue[4],
-                    isError = state.phoneNumberError!=null,
-                    errorMessage = state.phoneNumberError.toString(),
+                    isError = state.libyaIdError!=null,
+                    errorMessage = state.libyaIdError.toString(),
                     width = 150.dp,
                     inputType = InputType.NUMBER,
                     maxLength = 12 // Set the maximum length to N characters
@@ -144,30 +145,7 @@ fun AddContractsScreen(
                     inputType = InputType.TEXT
                 )
             }
-            item {
-                CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(BankNameChanged(it)) },
-                    onNextChange = { viewModel.onEvent(BankNameChanged(it)) },
-                    hint = personalInputsNameAndValue[8],
-                    isError = state.bankNameError!=null,
-                    errorMessage = state.bankNameError.toString(),
-                    width = 150.dp,
-                    inputType = InputType.TEXT
 
-                )
-            }
-            item {
-                CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(AccountNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(AccountNumberChanged(it)) },
-                    hint = personalInputsNameAndValue[9],
-                    isError = state.accountNumberError!=null,
-                    errorMessage = state.accountNumberError.toString(),
-                    width = 150.dp,
-                    inputType = InputType.NUMBER
-
-                )
-            }
             val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
             item {
                 Column {
@@ -201,6 +179,36 @@ fun AddContractsScreen(
                         )
                 }
             }
+
+        }
+
+        Section("البيانات المالية",
+            3){
+            val state = viewModel.state
+            item {
+                CustomOutlinedTextField(
+                    onValueChange = { viewModel.onEvent(BankNameChanged(it)) },
+                    onNextChange = { viewModel.onEvent(BankNameChanged(it)) },
+                    hint = personalInputsNameAndValue[8],
+                    isError = state.bankNameError!=null,
+                    errorMessage = state.bankNameError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.TEXT
+
+                )
+            }
+            item {
+                CustomOutlinedTextField(
+                    onValueChange = { viewModel.onEvent(AccountNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(AccountNumberChanged(it)) },
+                    hint = personalInputsNameAndValue[9],
+                    isError = state.accountNumberError!=null,
+                    errorMessage = state.accountNumberError.toString(),
+                    width = 150.dp,
+                    inputType = InputType.NUMBER
+
+                )
+            }
             item {
                 CustomOutlinedTextField(
                     onValueChange = { viewModel.onEvent(NotesChanged(it)) },
@@ -213,13 +221,12 @@ fun AddContractsScreen(
                 )
             }
         }
-
-
-        CustomButton(
+        GradientButton(
             text = "حفظ",
             icon = Icons.Default.Save,
             onClick = {  viewModel.onEvent(Submit) },
-            buttonColor = blue
+            colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+            cornerRadius = 30.dp
         )
     }
 }

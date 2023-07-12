@@ -23,7 +23,9 @@ import features.courses.presentation.courses.FilterEvent.*
 import features.courses.presentation.courses.component.Filters
 import features.courses.presentation.courses.component.PaginatedTable
 import org.koin.compose.koinInject
+import styles.AppColors.GreenGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.AppColors.green
 
 
@@ -53,6 +55,7 @@ fun CoursesScreen(
         HeadLineWithDate(text = "منظومة الدورات ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
+
                 onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
                 onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
@@ -75,7 +78,7 @@ fun CoursesScreen(
                     onClick = {
                         navController.navigate(Screens.AddCoursesScreen())
                     },
-                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    blueGradient,
                     cornerRadius = 30.dp
                 )
                 GradientButton(
@@ -100,7 +103,7 @@ fun CoursesScreen(
                         )
                     },
 
-                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    GreenGradient,
                     cornerRadius = 30.dp
                 )
             }

@@ -72,12 +72,12 @@ fun PaginatedTable(
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 Row(
                     modifier = Modifier.background(
-                        if (person.procedures["لائق صحيا"] == true) Color.Green else
-                            if (person.procedures["غير لائق صحيا"] == true) Color.Red else
+                        if (person.procedures["لائق صحيا"] == true) Color.Green.copy(alpha = 0.20f) else
+                            if (person.procedures["غير لائق صحيا"] == true) Color.Red.copy(alpha = 0.20f) else
                         if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
                             (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
                         )
-                            Color.LightGray else Color.White
+                            Color.White else Color.White
                     )
                 ) {
                     Text(

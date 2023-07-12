@@ -152,7 +152,7 @@ fun AddContractsScreen(
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
-                        selectedItem = selectededucation,
+                        selectedItem = if (selectededucation.isEmpty()) "إختر المؤهل " else selectededucation ,
                         onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
                     )
 
@@ -169,7 +169,7 @@ fun AddContractsScreen(
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,
-                        selectedItem = selectedCity,
+                        selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
                         onItemSelected = { viewModel.onEvent(CityChanged(it)) }
                     )
                     if (state.cityError!=null)

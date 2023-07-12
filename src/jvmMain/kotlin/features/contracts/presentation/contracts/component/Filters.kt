@@ -20,7 +20,9 @@ import common.component.CustomOutlinedTextField
 import common.component.*
 import features.contracts.presentation.add_contracts.AddContractFormEvent
 import styles.AppColors
+import styles.AppColors.RedGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import utils.Education
 import utils.LibyanCities
 import utils.getAllAgeGroupArabicNames
@@ -86,7 +88,6 @@ fun Filters(
                 onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
                 cornerRadius = 30.dp
             )
             if (isCancelVisible) {
@@ -113,7 +114,6 @@ fun Filters(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                colors = AppColors.blueGradient,
                 cornerRadius = 30.dp
             )
             Spacer(modifier = Modifier.width(530.dp))
@@ -198,7 +198,6 @@ fun Filters(
                         onClick = {
                             onSubmit()
                         },
-                        colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
                         cornerRadius = 30.dp
                     )
                     GradientButton(
@@ -207,8 +206,8 @@ fun Filters(
                         onClick = {
                             resetFilters()
                         },
-                        colors = listOf(Color(0xFFFA1717), Color(0xFFA04134).copy(alpha = 0.87f), Color(0xFFFD0C0C).copy(alpha = 0.36f)),
-                        cornerRadius = 30.dp
+                        RedGradient
+                                ,cornerRadius = 30.dp
                     )
                 }
             }

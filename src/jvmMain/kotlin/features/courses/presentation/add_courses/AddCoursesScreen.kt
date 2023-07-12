@@ -136,7 +136,7 @@ fun AddCoursesScreen(
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
-                        selectedItem = selectedEducation,
+                        selectedItem = if (selectedEducation.isEmpty()) "إختر المؤهل " else selectedEducation ,
                         onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
                     )
 
@@ -153,8 +153,11 @@ fun AddCoursesScreen(
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,
-                        selectedItem = selectedCity,
-                        onItemSelected = { viewModel.onEvent(CityChanged(it)) }
+
+                        selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
+                        onItemSelected = {
+                            viewModel.onEvent(CityChanged(it))
+                        }
                     )
                     if (state.cityError!=null)
                         Text(state.cityError.toString()

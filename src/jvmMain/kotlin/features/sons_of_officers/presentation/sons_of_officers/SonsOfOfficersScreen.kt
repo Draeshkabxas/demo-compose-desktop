@@ -22,7 +22,9 @@ import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
+import styles.AppColors.GreenGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.AppColors.green
 
 
@@ -74,7 +76,7 @@ fun SonsOfOfficersScreen(
                     onClick = {
                         navController.navigate(Screens.AddSonsOfOfficersScreen())
                     },
-                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    blueGradient,
                     cornerRadius = 30.dp
                 )
                 GradientButton(
@@ -99,7 +101,7 @@ fun SonsOfOfficersScreen(
                         )
                     },
 
-                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    GreenGradient,
                     cornerRadius = 30.dp
                 )
 

@@ -4,18 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 5">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/CustomSelectedInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/CustomSelectedInput.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/OutlinedTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/OutlinedTextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/GradientButton.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/GradientButton.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/Section.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/Section.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/Filters.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCoursesScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -412,7 +416,23 @@
       <option name="project" value="LOCAL" />
       <updated>1689184316178</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add edite 6">
+      <option name="closed" value="true" />
+      <created>1689189856217</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1689189856217</updated>
+    </task>
+    <task id="LOCAL-00031" summary="add edite 6">
+      <option name="closed" value="true" />
+      <created>1689193145236</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1689193145236</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -447,6 +467,7 @@
     <MESSAGE value="add edits" />
     <MESSAGE value="add btn" />
     <MESSAGE value="add edite 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 5" />
+    <MESSAGE value="add edite 6" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 6" />
   </component>
 </project>

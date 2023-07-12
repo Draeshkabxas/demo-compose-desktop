@@ -146,8 +146,8 @@ fun Filters(
                         valueState = personNameState,
                         hint = "إبحث بالإسم",
                         errorMessage = "",
-                        onValueChange = { onFilterFileNumber(it) },
-                        onNextChange = { onFilterFileNumber(it) },
+                        onValueChange = { onFilterName(it) },
+                        onNextChange = { onFilterName(it) },
                         width = 190.dp,
                         inputType = InputType.TEXT
 
@@ -157,8 +157,8 @@ fun Filters(
                         valueState = motherNameState,
                         hint = "إبحث بإسم الأم",
                         errorMessage = "",
-                        onValueChange = { onFilterFileNumber(it) },
-                        onNextChange = { onFilterFileNumber(it) },
+                        onValueChange = { onFilterMotherName(it) },
+                        onNextChange = { onFilterMotherName(it) },
                         width = 190.dp,
                         inputType = InputType.TEXT
 

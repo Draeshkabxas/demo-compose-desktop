@@ -22,6 +22,23 @@ class GetAllPeople(
             it.city.contains(filters.city) &&
             if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }
+
+        if (filters.healthStatus.isNotEmpty()){
+            resultAfterFiltered = resultAfterFiltered.filter {
+                when (filters.healthStatus) {
+                    "لائق صحيا" -> {
+                        it.procedures["لائق صحيا"] == true
+                    }
+                    "غير لائق صحيا" -> {
+                        it.procedures["غير لائق صحيا"]== true
+                    }
+                    else -> {
+                        true
+                    }
+                }
+            }
+        }
+
         if (filters.referralForTraining.isNotEmpty()) {
            resultAfterFiltered = resultAfterFiltered.filter {
                 if (it.procedures["إحالة لتدريب"] == null) {

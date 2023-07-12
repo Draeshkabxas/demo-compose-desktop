@@ -7,6 +7,7 @@ import features.courses.domain.model.Course
 import features.courses.domain.repository.CoursesRepository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -20,9 +21,10 @@ class RealmCourseImpl(private val realm: Realm) :
     }
 
     override fun getAllCourses(filterQuery: String): Flow<List<Course>> {
-        return realm.query<RealmCourse>().asFlow()
+        return realm.query<RealmCourse>()
+            .asFlow()
             .map {
-                it.list.map { realmCourse -> realmCourse.toCourseDTO() }
+                it.list.map { realmCourse -> realmCourse.toCourseDTO() }.reversed()
             }
     }
 

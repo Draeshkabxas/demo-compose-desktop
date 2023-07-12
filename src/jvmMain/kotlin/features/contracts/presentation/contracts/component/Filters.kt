@@ -107,15 +107,13 @@ fun Filters(
                         tint = Color.White,
                         modifier = Modifier.size(24.dp)
                     )
-
                 }
-
             }
             GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                colors = AppColors.blueGradient,
                 cornerRadius = 30.dp
             )
             Spacer(modifier = Modifier.width(530.dp))
@@ -212,11 +210,7 @@ fun Filters(
                         colors = listOf(Color(0xFFFA1717), Color(0xFFA04134).copy(alpha = 0.87f), Color(0xFFFD0C0C).copy(alpha = 0.36f)),
                         cornerRadius = 30.dp
                     )
-
-
-
                 }
-
             }
         }
     }

@@ -55,7 +55,7 @@ fun CustomOutlinedTextField(
         All -> {input:String -> input}
     }
 
-    Column(modifier.padding(5.dp).sizeIn(maxWidth = width)) {
+    Column(modifier.padding(vertical = 20.dp).sizeIn(maxWidth = width)) {
         OutlinedTextField(
             modifier = Modifier,
             value = textValue.value,

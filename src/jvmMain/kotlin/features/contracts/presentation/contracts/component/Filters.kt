@@ -38,7 +38,7 @@ fun Filters(
     onSubmit: () -> Unit
 ) {
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
-    var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+    var selectededucation by remember { mutableStateOf("إختر المؤهل العلمي") }
     var selectedAge by remember { mutableStateOf("إختر الفئة العمرية") }
     val libyaIdState = remember { mutableStateOf("") }
     val fileNumberState = remember { mutableStateOf("") }
@@ -52,7 +52,7 @@ fun Filters(
     val resetFilters = {
         onReset()
         selectedCity = "إختر المدينة"
-        selectededucation = "إختر المؤهل"
+        selectededucation = " إختر المؤهل العلمي"
         selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         motherNameState.value = ""
@@ -65,7 +65,7 @@ fun Filters(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -80,12 +80,14 @@ fun Filters(
                 inputType = InputType.NUMBER,
                 maxLength = 12 // Set the maximum length to N characters
             )
-            CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = {
-                    onSubmit()
+            GradientButton(
+                text = "إبحث",
+                icon = Icons.Default.Search,
+                onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                buttonColor = Color(0xff3B5EA1)
+                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                cornerRadius = 30.dp
             )
             if (isCancelVisible) {
                 Button(
@@ -109,11 +111,12 @@ fun Filters(
                 }
 
             }
-            CustomButton(
+            GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                buttonColor = blue
+                colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                cornerRadius = 30.dp
             )
             Spacer(modifier = Modifier.width(530.dp))
 
@@ -123,7 +126,7 @@ fun Filters(
                 modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp).padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -133,34 +136,37 @@ fun Filters(
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 180.dp,
+                        width = 140.dp,
                         inputType = InputType.NUMBER,
                         maxLength = 5 // Set the maximum length to N characters
 
 
                     )
+                    Spacer(modifier = Modifier.width(10.dp))
+
                     CustomOutlinedTextField(
                         valueState = personNameState,
                         hint = "إبحث بالإسم",
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 150.dp,
+                        width = 190.dp,
                         inputType = InputType.TEXT
 
                     )
+                    Spacer(modifier = Modifier.width(10.dp))
                     CustomOutlinedTextField(
                         valueState = motherNameState,
                         hint = "إبحث بإسم الأم",
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 150.dp,
+                        width = 190.dp,
                         inputType = InputType.TEXT
 
                     )
                     SelectorWithLabel(
-                        label = "المؤهل العلمي : ",
+                        label = "",
                         items = Education.values().map { it.arabicName },
                         selectedItem = selectededucation,
                         onItemSelected = { education ->
@@ -170,7 +176,7 @@ fun Filters(
                     )
 
                     SelectorWithLabel(
-                        label = "المدينة : ",
+                        label = "",
                         items = LibyanCities.values().map { it.arabicName },
                         selectedItem = selectedCity,
                         onItemSelected = { city ->
@@ -178,27 +184,8 @@ fun Filters(
                             onFilterCity(city)
                         }
                     )
-
-
-                    CustomButton(
-                        text = "إبحث", icon = Icons.Default.Search, onClick = {
-                            onSubmit()
-                        },
-                        buttonColor = blue
-                    )
-                    CustomButton(
-                        text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
-                            resetFilters()
-                        },
-                        buttonColor = Color.Red
-                    )
-
-
-                }
-                Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
-                ) {
                     SelectorWithLabel(
-                        label = " الفئة العمرية : ",
+                        label = "",
                         items = getAllAgeGroupArabicNames(),
                         selectedItem = selectedAge,
                         onItemSelected = { ageGroup ->
@@ -206,6 +193,28 @@ fun Filters(
                             onFilterAgeGroup(ageGroup)
                         }
                     )
+
+                    GradientButton(
+                        text = "إبحث",
+                        icon = Icons.Default.Search,
+                        onClick = {
+                            onSubmit()
+                        },
+                        colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                        cornerRadius = 30.dp
+                    )
+                    GradientButton(
+                        text = "إعادة ضبط",
+                        icon = Icons.Default.RestartAlt,
+                        onClick = {
+                            resetFilters()
+                        },
+                        colors = listOf(Color(0xFFFA1717), Color(0xFFA04134).copy(alpha = 0.87f), Color(0xFFFD0C0C).copy(alpha = 0.36f)),
+                        cornerRadius = 30.dp
+                    )
+
+
+
                 }
 
             }

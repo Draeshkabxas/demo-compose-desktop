@@ -15,10 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
-import common.component.CustomButton
-import common.component.HeadLineWithDate
-import common.component.Screens
-import common.component.SystemScreen
+import androidx.compose.ui.graphics.Color
+import common.component.*
 
 
 import features.contracts.domain.model.Contract
@@ -35,13 +33,13 @@ fun ContractsScreen(
     navController: NavController<Screens>,
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 130.dp,90.dp, 115.dp, 100.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp)
+    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 105.dp, 90.dp, 85.dp,70.dp)
     val headers = listOf(
-        "التسلسل", "رقم الملف", "الإسم رباعي",
+        "رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم","جنسية الأم",
         "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "التبعية", "إسم المصرف", "رقم الحساب",
-        "الملاحظات"
+        "الملاحظات","تعديل"
     )
 
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
@@ -70,22 +68,44 @@ fun ContractsScreen(
                 onSubmit = { viewModel.onEvent(Submit) },
             )
             Row(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                CustomButton(
-                    text = "إضافة ملف", icon = Icons.Default.AddTask,
+                GradientButton(
+                    text = "إضافة ملف",
+                    icon = Icons.Default.AddTask,
                     onClick = {
                         navController.navigate(Screens.AddContractsScreen())
                     },
-                    buttonColor = blue
+                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    cornerRadius = 30.dp
                 )
-                CustomButton(
+
+                GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
-                    onClick = {},
-                    buttonColor = green
+                    onClick = {
+//                        DirectoryDialog(
+//                            onApproved = { filePath ->
+//                                viewModel.printToXlsxFile(
+//                                    filePath,
+//                                    onError = {},
+//                                    onLoading = {},
+//                                    onSuccess = { println("print xlsx is success") }
+//                                )
+//                            },
+//                            onCanceled = {
+//                                println("on canceled")
+//                            },
+//                            onError = {
+//                                println("on onError")
+//                            }
+//                        )
+                    },
+
+                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    cornerRadius = 30.dp
                 )
             }
         }

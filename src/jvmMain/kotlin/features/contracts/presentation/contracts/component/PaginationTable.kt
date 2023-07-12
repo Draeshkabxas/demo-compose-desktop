@@ -14,18 +14,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Cancel
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import common.component.ScreenMode
+import common.component.Screens
 import features.contracts.domain.model.Contract
+import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 
 @Composable
 fun PaginatedTable(
+//    navController: NavController<Screens>,
     headers: List<String>,
     contractList: List<Contract>,
     itemsPerPage: Int,
@@ -192,6 +202,29 @@ fun PaginatedTable(
                                 .padding(8.dp),
                             maxLines = 2
                         )
+                        Button(modifier = Modifier
+                            .width(columnWidths[10])
+                            .padding(8.dp),
+                            shape = RoundedCornerShape(30.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+                            onClick = {
+//
+//                                navController.navigate(
+//                                    Screens.AddContractsScreen(
+//                                        mode = ScreenMode.EDIT,
+//                                        person = contract
+//                                    )
+//                                )
+                            }
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "",
+                                tint = Color.White,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
                     }
                 }
             }

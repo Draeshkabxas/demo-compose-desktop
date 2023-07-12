@@ -36,7 +36,7 @@ class RealmContractImpl(private val realm: Realm) :
     override fun getAllContracts(): Flow<List<Contract>> {
         return realm.query<RealmContract>().asFlow()
             .map {
-                it.list.map { realmContract -> realmContract.toContractDto() }
+                it.list.map { realmContract -> realmContract.toContractDto() }.reversed()
             }
     }
 

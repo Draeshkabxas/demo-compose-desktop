@@ -55,7 +55,7 @@ class SonsOfOfficersScreenViewModel(
                 state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
             is FilterEvent.FilterHealthStatus -> {
-                state = state.copy(healthStatus = event.healthStatus.toString())
+                state = state.copy(healthStatus = event.healthStatus)
             }
             is FilterEvent.Reset -> {
                 state = features.sons_of_officers.presentation.sons_of_officers.FilterState()

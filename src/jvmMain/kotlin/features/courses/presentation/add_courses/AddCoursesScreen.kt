@@ -1,5 +1,6 @@
 package features.courses.presentation.add_courses
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
@@ -148,7 +149,7 @@ fun AddCoursesScreen(
 
             val  cities= listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
             item{
-                Column {
+                Column(verticalArrangement = Arrangement.Center) {
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,

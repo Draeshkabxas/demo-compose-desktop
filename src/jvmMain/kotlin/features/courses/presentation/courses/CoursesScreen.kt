@@ -32,7 +32,7 @@ fun CoursesScreen(
     navController: NavController<Screens>,
     viewModel: CoursesScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 87.dp)
+    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "القائم بالتجنيد", "حالة الملف", "النواقص","النتيجة", "إحالة لتدريب"

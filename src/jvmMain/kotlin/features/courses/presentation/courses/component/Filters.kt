@@ -49,7 +49,7 @@ fun Filters(
 
     val resetFilters = {
         onReset()
-        selectedHealthStatus ="إختلر الحالة الصحية"
+        selectedHealthStatus ="إختار الحالة الصحية"
         selectedCity = "إختر المدينة"
         selectededucation = "إختر المؤهل العلمي"
         selectedFileState = "إختر حالة الملف"
@@ -226,18 +226,7 @@ fun Filters(
                             colors = listOf(Color(0xFFFA1717), Color(0xFFA04134).copy(alpha = 0.87f), Color(0xFFFD0C0C).copy(alpha = 0.36f)),
                             cornerRadius = 30.dp
                         )
-
-
-
-
                     }
-                     Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
-                     ) {
-
-
-                     }
-
-
                 }
             }
         }

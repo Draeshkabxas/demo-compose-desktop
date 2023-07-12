@@ -182,7 +182,7 @@ fun PaginatedTable(
                     //val justifications = person.justificationsRequire.filterValues { it }.keys
                     val valueToCheck = person.procedures.get("إحالة لتدريب")
 
-                    isButtonVisible = person.hasShortfalls()
+//                    isButtonVisible = person.hasShortfalls()
                     if (valueToCheck == false) {
                         Button(modifier = Modifier
                             .width(columnWidths[10])

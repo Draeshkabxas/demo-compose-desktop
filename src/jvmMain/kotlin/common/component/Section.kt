@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import styles.CairoTypography
+import javax.swing.GroupLayout.Alignment
 
 
 @Composable
@@ -30,7 +31,7 @@ fun Section(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             columns = GridCells.Fixed(columns),
-            contentPadding = PaddingValues(10.dp)
+            contentPadding = PaddingValues(horizontal = 12.dp)
         ){
             gridContent()
         }

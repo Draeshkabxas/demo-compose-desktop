@@ -12,9 +12,14 @@ import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpSize
 
 import common.component.*
 import features.courses.presentation.courses.FilterEvent
@@ -22,8 +27,13 @@ import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
+import styles.AppColors
+import styles.AppColors.GreenGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.AppColors.green
+import styles.CairoTypography
+import kotlin.math.ceil
 
 
 @Composable
@@ -38,6 +48,8 @@ fun SonsOfOfficersScreen(
     )
 
     var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
+    var printColumns by remember { mutableStateOf(listOf<String>()) }
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
         viewModel.peopleDataFlow.collect { people ->
@@ -64,7 +76,7 @@ fun SonsOfOfficersScreen(
                 onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
             )
             Row(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -74,35 +86,44 @@ fun SonsOfOfficersScreen(
                     onClick = {
                         navController.navigate(Screens.AddSonsOfOfficersScreen())
                     },
-                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    blueGradient,
                     cornerRadius = 30.dp
                 )
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        DirectoryDialog(
-                            onApproved = { filePath ->
-                                viewModel.printToXlsxFile(
-                                    filePath,
-                                    onError = {},
-                                    onLoading = {},
-                                    onSuccess = { println("print xlsx is success") }
-                                )
-                            },
-                            onCanceled = {
-                                println("on canceled")
-                            },
-                            onError = {
-                                println("on onError")
-                            }
-                        )
+                        showDialog = true
+
+                        //                        DirectoryDialog(
+//                            onApproved = { filePath ->
+//                                viewModel.printToXlsxFile(
+//                                    filePath,
+//                                    onError = {},
+//                                    onLoading = {},
+//                                    onSuccess = { println("print xlsx is success") }
+//                                )
+//                            },
+//                            onCanceled = {
+//                                println("on canceled")
+//                            },
+//                            onError = {
+//                                println("on onError")
+//                            }
+//                        )
                     },
 
-                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    GreenGradient,
                     cornerRadius = 30.dp
                 )
-
+                // Show the print dialog if the boolean flag is true
+                if (showDialog) {
+                    PrintDialog(
+                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"),
+                        onPrintColumnsChanged = { printColumns = it },
+                        onDismiss = { showDialog = false }
+                    )
+                }
             }
         }
 //        table

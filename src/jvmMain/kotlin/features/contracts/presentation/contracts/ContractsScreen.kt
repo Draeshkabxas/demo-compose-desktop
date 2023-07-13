@@ -24,7 +24,9 @@ import features.contracts.presentation.contracts.FilterEvent.*
 import features.contracts.presentation.contracts.component.Filters
 import features.contracts.presentation.contracts.component.PaginatedTable
 import org.koin.compose.koinInject
+import styles.AppColors.GreenGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.AppColors.green
 
 
@@ -33,7 +35,7 @@ fun ContractsScreen(
     navController: NavController<Screens>,
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
-    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 100.dp, 95.dp, 85.dp,70.dp)
+    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 100.dp, 95.dp, 85.dp,80.dp)
     val headers = listOf(
         "رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم","جنسية الأم",
@@ -78,14 +80,17 @@ fun ContractsScreen(
                     onClick = {
                         navController.navigate(Screens.AddContractsScreen())
                     },
-                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
-                    cornerRadius = 30.dp
+                    blueGradient
+                    , cornerRadius = 30.dp
                 )
-
+                var printColumns by remember { mutableStateOf(listOf<String>()) }
+                var showDialog by remember { mutableStateOf(false) }
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
+                        showDialog = true
+
 //                        DirectoryDialog(
 //                            onApproved = { filePath ->
 //                                viewModel.printToXlsxFile(
@@ -104,9 +109,16 @@ fun ContractsScreen(
 //                        )
                     },
 
-                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    GreenGradient,
                     cornerRadius = 30.dp
                 )
+                if (showDialog) {
+                    PrintDialog(
+                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "جنسية الام","المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"," التبعية","اسم المصرف","رقم الحساب"),
+                        onPrintColumnsChanged = { printColumns = it },
+                        onDismiss = { showDialog = false }
+                    )
+                }
             }
         }
         Row(
@@ -118,7 +130,7 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, contractsData, 13, widths)
+                            PaginatedTable(navController,headers, contractsData, 13, widths)
                         }
                     }
                 }

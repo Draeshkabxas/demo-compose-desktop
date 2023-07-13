@@ -64,7 +64,8 @@ fun SelectorWithLabel(
                     Spacer(Modifier.width(14.dp))
 
                 }
-                DropdownMenu(
+                DropdownMenu(modifier = Modifier.sizeIn(maxHeight = 500.dp),
+                    focusable=true,
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
                 ) {

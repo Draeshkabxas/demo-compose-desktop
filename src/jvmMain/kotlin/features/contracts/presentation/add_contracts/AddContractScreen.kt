@@ -1,13 +1,10 @@
 package features.contracts.presentation.add_contracts
 
-import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+import androidx.compose.foundation.layout.*
 
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,23 +12,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
-import features.contracts.presentation.add_contracts.AddContractFormEvent.*
-import features.contracts.presentation.add_contracts.AddContractViewModel.ValidationEvent
+import features.contracts.domain.model.Contract
+import features.courses.presentation.add_courses.AddCourseViewModel
 import navcontroller.NavController
 import org.koin.compose.koinInject
-import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.CairoTypography
 
 @Composable
 fun AddContractsScreen(
     navController: NavController<Screens>,
-    viewModel: AddContractViewModel = koinInject()
-) {
+    contract: Contract? = null,
+    mode:ScreenMode,
+    viewModel: AddContractViewModel = koinInject(),
+
+    ) {
+//    LaunchedEffect(key1 = true) {
+//        viewModel.addContractEvent.collect { event ->
+//            when (event) {
+//                ValidationEvent.Success -> {
+//                    navController.navigateReplacement(Screens.ContractsScreen())
+//
+//                }
+//                else -> {}
+//            }
+//        }
+//    }
     LaunchedEffect(key1 = true) {
-        viewModel.addContractEvent.collect { event ->
+        viewModel.validationEvents.collect { event ->
+            println("event : $event")
             when (event) {
-                ValidationEvent.Success -> {
-                    navController.navigateBack()
+                AddContractViewModel.ValidationEvent.Success -> {
+                    println("Success event : $event")
+                    navController.navigateReplacement(Screens.CoursesScreen())
                 }
                 else -> {}
             }
@@ -56,7 +69,13 @@ fun AddContractsScreen(
     ) {
         var selectededucation by remember { mutableStateOf(" إختر المؤهل ") }
         var selectedCity by remember { mutableStateOf("إختر المدينة") }
-
+        var isFirstRender by remember { mutableStateOf(true) }
+        if (isFirstRender){
+            viewModel.setupMode(mode,contract)
+            selectededucation = viewModel.state.educationLevel
+            selectedCity = viewModel.state.city
+            isFirstRender = false
+        }
 
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
         Section("البيانات الشخصية",
@@ -64,8 +83,8 @@ fun AddContractsScreen(
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(NameChanged(it)) },
-                    onNextChange = { viewModel.onEvent(NameChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.NameChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.NameChanged(it)) },
                     isError = state.nameError!=null,
                     hint = personalInputsNameAndValue[0],
                     errorMessage = state.nameError.toString(),
@@ -75,8 +94,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(MotherNameChanged(it)) },
-                    onNextChange = { viewModel.onEvent(MotherNameChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
                     hint = personalInputsNameAndValue[1],
                     isError = state.motherNameError!=null,
                     errorMessage = state.motherNameError.toString(),
@@ -87,8 +106,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
-                    onNextChange = { viewModel.onEvent(MotherNationalityChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
                     hint = personalInputsNameAndValue[2],
                     isError = state.motherNationalityError!=null,
                     errorMessage = state.motherNationalityError.toString(),
@@ -98,8 +117,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(FileNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(FileNumberChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
                     hint = personalInputsNameAndValue[3],
                     isError = state.fileNumberError!=null,
                     errorMessage = state.fileNumberError.toString(),
@@ -111,8 +130,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(LibyaIdChanged(it)) },
-                    onNextChange = { viewModel.onEvent(LibyaIdChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
                     hint = personalInputsNameAndValue[4],
                     isError = state.libyaIdError!=null,
                     errorMessage = state.libyaIdError.toString(),
@@ -123,8 +142,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(PhoneNumberChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.PhoneNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.PhoneNumberChanged(it)) },
                     hint = personalInputsNameAndValue[5],
                     isError = state.phoneNumberError!=null,
                     errorMessage = state.phoneNumberError.toString(),
@@ -136,8 +155,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(DependencyChanged(it)) },
-                    onNextChange = { viewModel.onEvent(DependencyChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.DependencyChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.DependencyChanged(it)) },
                     hint = personalInputsNameAndValue[7],
                     isError = state.dependencyError!=null,
                     errorMessage = state.dependencyError.toString(),
@@ -152,8 +171,10 @@ fun AddContractsScreen(
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
-                        selectedItem = selectededucation,
-                        onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
+                        selectedItem = if (selectededucation.isEmpty()) "إختر المؤهل " else selectededucation ,
+                        onItemSelected = {
+                            selectededucation = it
+                            viewModel.onEvent(ContractInfoFormEvent.EducationLevelChanged(it))}
                     )
 
                     if (state.educationLevelError != null)
@@ -169,8 +190,10 @@ fun AddContractsScreen(
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,
-                        selectedItem = selectedCity,
-                        onItemSelected = { viewModel.onEvent(CityChanged(it)) }
+                        selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
+                        onItemSelected = {
+                            selectedCity= it
+                            viewModel.onEvent(ContractInfoFormEvent.CityChanged(it)) }
                     )
                     if (state.cityError!=null)
                         Text(state.cityError.toString(),
@@ -187,8 +210,8 @@ fun AddContractsScreen(
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(BankNameChanged(it)) },
-                    onNextChange = { viewModel.onEvent(BankNameChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.BankNameChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.BankNameChanged(it)) },
                     hint = personalInputsNameAndValue[8],
                     isError = state.bankNameError!=null,
                     errorMessage = state.bankNameError.toString(),
@@ -199,8 +222,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(AccountNumberChanged(it)) },
-                    onNextChange = { viewModel.onEvent(AccountNumberChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.AccountNumberChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.AccountNumberChanged(it)) },
                     hint = personalInputsNameAndValue[9],
                     isError = state.accountNumberError!=null,
                     errorMessage = state.accountNumberError.toString(),
@@ -211,8 +234,8 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
-                    onValueChange = { viewModel.onEvent(NotesChanged(it)) },
-                    onNextChange = { viewModel.onEvent(NotesChanged(it)) },
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.NotesChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.NotesChanged(it)) },
                     hint = personalInputsNameAndValue[10],
                     isError = state.notesError!=null,
                     errorMessage = state.notesError.toString(),
@@ -221,12 +244,14 @@ fun AddContractsScreen(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(50.dp))
         GradientButton(
             text = "حفظ",
             icon = Icons.Default.Save,
-            onClick = {  viewModel.onEvent(Submit) },
-            colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f),Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+            onClick = {  viewModel.onEvent(ContractInfoFormEvent.Submit(mode)) },
+            colors = blueGradient,
             cornerRadius = 30.dp
         )
+
     }
 }

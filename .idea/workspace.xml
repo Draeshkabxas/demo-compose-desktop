@@ -4,20 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="make the the the features list reversed and fix filter by name and mother name in contracts and add filter by health status in sons of officers  and courses">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_11_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_11_12_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_02_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_02_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_21_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_21_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_22_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_24_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_24_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_11_39_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_11_39_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractFormEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/add_contracts/AddContractViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/Filters.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCourseViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/add_courses/AddCourseViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,22 +83,22 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/Desktop/newderar/src/jvmMain/kotlin/common/component&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "C:/Users/HP/Desktop/desktop-app/hosam/realEstate",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "build.tools",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
@@ -127,11 +125,11 @@
       <recent name="" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="features.contracts.domain.usecases" />
       <recent name="features.courses.domain.usecases" />
       <recent name="features.courses.presentation.add_courses" />
       <recent name="features.courses.presentation.courses" />
       <recent name="features.courses.domain.repository" />
-      <recent name="features.courses.domain.model" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -414,23 +412,55 @@
       <option name="project" value="LOCAL" />
       <updated>1689184316178</updated>
     </task>
-    <task id="LOCAL؜-٠٠٠٣٠" summary="add gradient blue color in appcolors and contracts filters">
+    <task id="LOCAL-00030" summary="add edite 6">
       <option name="closed" value="true" />
-      <created>1689193029221</created>
-      <option name="number" value="٠٠٠٣٠" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٣٠" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1689193029221</updated>
+      <created>1689189856217</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1689189856217</updated>
     </task>
-    <task id="LOCAL؜-٠٠٠٣١" summary="make the the the features list reversed and fix filter by name and mother name in contracts and add filter by health status in sons of officers  and courses">
+    <task id="LOCAL-00031" summary="add edite 6">
       <option name="closed" value="true" />
-      <created>1689203915058</created>
-      <option name="number" value="٠٠٠٣١" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٣١" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1689203915058</updated>
+      <created>1689193145236</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1689193145236</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="add edite 7">
+      <option name="closed" value="true" />
+      <created>1689205775454</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1689205775454</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add edite 8">
+      <option name="closed" value="true" />
+      <created>1689267063019</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1689267063019</updated>
+    </task>
+    <task id="LOCAL-00034" summary="add edite 8">
+      <option name="closed" value="true" />
+      <created>1689267144511</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1689267144511</updated>
+    </task>
+    <task id="LOCAL-00035" summary="add edite 8">
+      <option name="closed" value="true" />
+      <created>1689267500664</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1689267500664</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -465,8 +495,9 @@
     <MESSAGE value="add edits" />
     <MESSAGE value="add btn" />
     <MESSAGE value="add edite 5" />
-    <MESSAGE value="add gradient blue color in appcolors and contracts filters" />
-    <MESSAGE value="make the the the features list reversed and fix filter by name and mother name in contracts and add filter by health status in sons of officers  and courses" />
-    <option name="LAST_COMMIT_MESSAGE" value="make the the the features list reversed and fix filter by name and mother name in contracts and add filter by health status in sons of officers  and courses" />
+    <MESSAGE value="add edite 6" />
+    <MESSAGE value="add edite 7" />
+    <MESSAGE value="add edite 8" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 8" />
   </component>
 </project>

@@ -23,7 +23,9 @@ import features.courses.presentation.courses.FilterEvent.*
 import features.courses.presentation.courses.component.Filters
 import features.courses.presentation.courses.component.PaginatedTable
 import org.koin.compose.koinInject
+import styles.AppColors.GreenGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.AppColors.green
 
 
@@ -40,12 +42,14 @@ fun CoursesScreen(
 
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
 
+
     LaunchedEffect(key1 = true) {
         viewModel.coursesDataFlow.collect { courses ->
             coursesData = courses
         }
     }
-
+    var printColumns by remember { mutableStateOf(listOf<String>()) }
+    var showDialog by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,6 +57,7 @@ fun CoursesScreen(
         HeadLineWithDate(text = "منظومة الدورات ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
+
                 onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
                 onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
@@ -65,7 +70,7 @@ fun CoursesScreen(
                 onSubmit = { viewModel.onEvent(Submit) },
             )
             Row(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -75,34 +80,44 @@ fun CoursesScreen(
                     onClick = {
                         navController.navigate(Screens.AddCoursesScreen())
                     },
-                    colors = listOf(Color(0xFF3B5EA1), Color(0xFF3B5EA1).copy(alpha = 0.84f), Color(0xFF3B5EA1).copy(alpha = 0.36f)),
+                    blueGradient,
                     cornerRadius = 30.dp
                 )
+
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        DirectoryDialog(
-                            onApproved = { filePath ->
-                                viewModel.printToXlsxFile(
-                                    filePath,
-                                    onError = {},
-                                    onLoading = {},
-                                    onSuccess = { println("print xlsx is success") }
-                                )
-                            },
-                            onCanceled = {
-                                println("on canceled")
-                            },
-                            onError = {
-                                println("on onError")
-                            }
-                        )
+                        showDialog = true
+
+//                        DirectoryDialog(
+//                            onApproved = { filePath ->
+//                                viewModel.printToXlsxFile(
+//                                    filePath,
+//                                    onError = {},
+//                                    onLoading = {},
+//                                    onSuccess = { println("print xlsx is success") }
+//                                )
+//                            },
+//                            onCanceled = {
+//                                println("on canceled")
+//                            },
+//                            onError = {
+//                                println("on onError")
+//                            }
+//                        )
                     },
 
-                    colors = listOf(Color(0xFF3F6F52), Color(0xFF3F6F52).copy(alpha = 0.84f),Color(0xFF3F6F52).copy(alpha = 0.36f)),
+                    GreenGradient,
                     cornerRadius = 30.dp
                 )
+                if (showDialog) {
+                    PrintDialog(
+                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"),
+                        onPrintColumnsChanged = { printColumns = it },
+                        onDismiss = { showDialog = false }
+                    )
+                }
             }
         }
 //        table

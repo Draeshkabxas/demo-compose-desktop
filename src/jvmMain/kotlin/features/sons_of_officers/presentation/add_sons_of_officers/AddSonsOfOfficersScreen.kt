@@ -135,10 +135,13 @@ fun AddSonsOfOfficersScreen(
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
-                        selectedItem = selectedEducation,
+                        selectedItem = if (selectedEducation.isEmpty()) "إختر المؤهل " else selectedEducation ,
                         onItemSelected = {
                             selectedEducation = it
-                            viewModel.onEvent(EducationLevelChanged(it))}
+                            viewModel.onEvent(EducationLevelChanged(it))
+
+                        }
+
                     )
 
                     if (state.educationLevelError != null)
@@ -154,7 +157,7 @@ fun AddSonsOfOfficersScreen(
                     SelectorWithLabel(
                         label = "المدينة : ",
                         items = cities,
-                        selectedItem = selectedCity,
+                        selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
                         onItemSelected = {
                             selectedCity = it
                             viewModel.onEvent(CityChanged(it)) }

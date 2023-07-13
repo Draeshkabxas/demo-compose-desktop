@@ -29,6 +29,7 @@ import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import styles.AppColors.blueGradient
 import styles.CairoTypography
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -37,7 +38,7 @@ fun GradientButton(
     text: String,
     icon: ImageVector,
     onClick: () -> Unit,
-    colors: List<Color>,
+    colors: List<Color> =blueGradient,
     modifier: Modifier = Modifier,
     cornerRadius: Dp,
 

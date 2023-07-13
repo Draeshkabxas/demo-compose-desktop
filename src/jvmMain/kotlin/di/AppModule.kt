@@ -21,6 +21,7 @@ import features.contracts.domain.repository.ContractRepository
 import features.contracts.domain.usecases.AddContract
 import features.contracts.domain.usecases.GetAllContracts
 import features.contracts.domain.usecases.RemoveAllContracts
+import features.contracts.domain.usecases.UpdateContract
 import features.contracts.presentation.add_contracts.AddContractViewModel
 import features.contracts.presentation.contracts.ContractsScreenViewModel
 import features.courses.data.model.JustificationCourse
@@ -91,7 +92,8 @@ val appModule = module {
     factory<ContractsScreenViewModel> { ContractsScreenViewModel(allContracts = get()) }
     //Add Contract Di
     single<AddContract> { AddContract(get()) }
-    single<AddContractViewModel> { AddContractViewModel(addContract = get()) }
+    single<UpdateContract> { UpdateContract(get()) }
+    single<AddContractViewModel> { AddContractViewModel(addContract = get(), updateContract = get()) }
 
 
     //Courses Di

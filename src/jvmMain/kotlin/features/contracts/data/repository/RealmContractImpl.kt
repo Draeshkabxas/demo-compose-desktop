@@ -5,6 +5,10 @@ import features.contracts.data.dto.toRealmContractDto
 import features.contracts.data.model.RealmContract
 import features.contracts.domain.model.Contract
 import features.contracts.domain.repository.ContractRepository
+import features.courses.data.dto.toCourseDTO
+import features.courses.data.dto.toRealmCourse
+import features.courses.data.model.RealmCourse
+import features.courses.domain.model.Course
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +22,13 @@ class RealmContractImpl(private val realm: Realm) :
         Runtime.getRuntime().addShutdownHook(Thread {
             realm.close()
         })
+    }
+    override fun getAllContracts(filterQuery: String): Flow<List<Contract>>  {
+        return realm.query<RealmContract>()
+            .asFlow()
+            .map {
+                it.list.map { realmContract -> realmContract.toContractDto() }.reversed()
+            }
     }
 
     override fun addContract(contract: Contract): Flow<Boolean> = flow{
@@ -33,12 +44,7 @@ class RealmContractImpl(private val realm: Realm) :
         emit(result)
     }
 
-    override fun getAllContracts(): Flow<List<Contract>> {
-        return realm.query<RealmContract>().asFlow()
-            .map {
-                it.list.map { realmContract -> realmContract.toContractDto() }.reversed()
-            }
-    }
+
 
     override fun getContract(id: String): Flow<Contract?> = flow{
         val data = realm.query<RealmContract>("id == $0",id).first().find()
@@ -49,34 +55,66 @@ class RealmContractImpl(private val realm: Realm) :
         }
     }
 
+//
+//    override fun updateContract(contract: Contract): Flow<Boolean> = flow{
+//        val oldContract:Contract? = getContract(contract.id).first()
+//        val updatedContract = contract.toRealmContractDto()
+//        var result = false
+//        if (oldContract == null) emit(false)
+//        realm.writeBlocking {
+//            oldContract?.let {
+//                findLatest(it.toRealmContractDto())?.apply {
+//                   name = updatedContract.name
+//                   motherName = updatedContract.motherName
+//                   motherNationality = updatedContract.motherNationality
+//                   fileNumber = updatedContract.fileNumber
+//                   libyaId = updatedContract.libyaId
+//                   phoneNumber = updatedContract.phoneNumber
+//                   dependency = updatedContract.dependency
+//                   bankName = updatedContract.bankName
+//                    ageGroup = updatedContract.ageGroup
+//                   accountNumber = updatedContract.accountNumber
+//                   educationLevel = updatedContract.educationLevel
+//                   city = updatedContract.city
+//                   notes = updatedContract.notes
+//                }
+//            }
+//            result = true
+//        }
+//        emit(result)
+//    }
     override fun updateContract(contract: Contract): Flow<Boolean> = flow{
-        val oldContract:Contract? = getContract(contract.id).first()
-        val updatedContract = contract.toRealmContractDto()
         var result = false
-        if (oldContract == null) emit(false)
-        realm.writeBlocking {
-            oldContract?.let {
-                findLatest(it.toRealmContractDto())?.apply {
-                   name = updatedContract.name
-                   motherName = updatedContract.motherName
-                   motherNationality = updatedContract.motherNationality
-                   fileNumber = updatedContract.fileNumber
-                   libyaId = updatedContract.libyaId
-                   phoneNumber = updatedContract.phoneNumber
-                   dependency = updatedContract.dependency
-                   bankName = updatedContract.bankName
-                    ageGroup = updatedContract.ageGroup
-                   accountNumber = updatedContract.accountNumber
-                   educationLevel = updatedContract.educationLevel
-                   city = updatedContract.city
-                   notes = updatedContract.notes
-                }
+        try {
+            realm.writeBlocking {
+                val updatedContract = contract.toRealmContractDto()
+                query<RealmContract>("id = $0", contract.id)
+                    .first()
+                    .find()
+                    ?.also { oldContract ->
+                        findLatest(oldContract.apply {
+                            name = updatedContract.name
+                            motherName = updatedContract.motherName
+                            motherNationality = updatedContract.motherNationality
+                            fileNumber = updatedContract.fileNumber
+                            libyaId = updatedContract.libyaId
+                            phoneNumber = updatedContract.phoneNumber
+                            dependency = updatedContract.dependency
+                            bankName = updatedContract.bankName
+                            ageGroup = updatedContract.ageGroup
+                            accountNumber = updatedContract.accountNumber
+                            educationLevel = updatedContract.educationLevel
+                            city = updatedContract.city
+                            notes = updatedContract.notes
+                        })
+                    }
+                result = true
             }
-            result = true
+        } catch (e: Exception) {
+            println("Realm update course impl has error ${e.localizedMessage}")
         }
         emit(result)
     }
-
     override fun removeAllContract(): Flow<Boolean> = flow {
         var result = true
         realm.writeBlocking {

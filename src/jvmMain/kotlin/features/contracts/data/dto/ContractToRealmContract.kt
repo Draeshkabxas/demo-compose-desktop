@@ -8,7 +8,7 @@ import org.mongodb.kbson.ObjectId
 fun Contract.toRealmContractDto(): RealmContract {
     val contract = this
     return RealmContract().apply {
-        id = if (contract.id.isEmpty()) ObjectId() else ObjectId(contract.id)
+        id = contract.id.ifEmpty { ObjectId().toHexString() }
         name = contract.name
         motherName = contract.motherName
         motherNationality = contract.motherNationality

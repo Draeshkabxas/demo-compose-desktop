@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 9" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 11">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/dto/ContractToRealmContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/dto/ContractToRealmContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/dto/RealmContractToContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/dto/RealmContractToContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/model/RealmContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/model/RealmContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/repository/RealmContractImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/repository/RealmContractImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/repository/ContractRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/repository/ContractRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/GetAllContracrts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/GetAllContracrts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -456,7 +467,39 @@
       <option name="project" value="LOCAL" />
       <updated>1689276955918</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="add edite 10">
+      <option name="closed" value="true" />
+      <created>1689277686893</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1689277686893</updated>
+    </task>
+    <task id="LOCAL-00038" summary="add edite 10">
+      <option name="closed" value="true" />
+      <created>1689277972599</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1689277972599</updated>
+    </task>
+    <task id="LOCAL-00039" summary="add edite 11">
+      <option name="closed" value="true" />
+      <created>1689280929309</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1689280929309</updated>
+    </task>
+    <task id="LOCAL-00040" summary="add edite 11">
+      <option name="closed" value="true" />
+      <created>1689282505086</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1689282505086</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -471,7 +514,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first commit" />
     <MESSAGE value="add navigation to the project" />
     <MESSAGE value="Add add sons of officers screen and its backend work" />
     <MESSAGE value="make add person usecase work and add get all poeple usecase" />
@@ -495,6 +537,8 @@
     <MESSAGE value="add edite 7" />
     <MESSAGE value="add edite 8" />
     <MESSAGE value="add edite 9" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 9" />
+    <MESSAGE value="add edite 10" />
+    <MESSAGE value="add edite 11" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 11" />
   </component>
 </project>

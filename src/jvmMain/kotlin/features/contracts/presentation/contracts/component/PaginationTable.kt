@@ -17,9 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Cancel
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -221,7 +219,7 @@ fun PaginatedTable(
                         ) {
 
                             Icon(
-                                imageVector = Icons.Default.Add,
+                                imageVector = Icons.Default.EditNote,
                                 contentDescription = "",
                                 tint = Color.White,
                                 modifier = Modifier.size(24.dp)

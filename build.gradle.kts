@@ -63,9 +63,17 @@ kotlin {
                 }
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test")) // This brings the dependency
+                Implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
+                // on JUnit 4 transitively
+            }
+        }
     }
 }
+
+
 
 compose.desktop {
     application {

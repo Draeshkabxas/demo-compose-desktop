@@ -71,10 +71,12 @@ fun AddContractsScreen(
         var selectedCity by remember { mutableStateOf("إختر المدينة") }
         var isFirstRender by remember { mutableStateOf(true) }
         if (isFirstRender){
+
             viewModel.setupMode(mode,contract)
             selectededucation = viewModel.state.educationLevel
             selectedCity = viewModel.state.city
             isFirstRender = false
+
         }
 
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )

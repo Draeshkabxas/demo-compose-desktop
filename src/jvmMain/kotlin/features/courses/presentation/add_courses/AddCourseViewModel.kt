@@ -191,7 +191,8 @@ class AddCourseViewModel(
                     validationEventChannel.send(ValidationEvent.New)
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
-        }    }
+        }
+    }
 
     sealed class ValidationEvent {
         object Success: ValidationEvent()

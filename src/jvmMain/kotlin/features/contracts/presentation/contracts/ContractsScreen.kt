@@ -130,7 +130,7 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(headers, contractsData, 13, widths)
+                            PaginatedTable(navController,headers, contractsData, 13, widths)
                         }
                     }
                 }

@@ -18,11 +18,7 @@ import androidx.compose.ui.unit.dp
 import common.component.CustomOutlinedTextField
 
 import common.component.*
-import features.contracts.presentation.add_contracts.AddContractFormEvent
-import styles.AppColors
 import styles.AppColors.RedGradient
-import styles.AppColors.blue
-import styles.AppColors.blueGradient
 import utils.Education
 import utils.LibyanCities
 import utils.getAllAgeGroupArabicNames

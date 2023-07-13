@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
 import common.component.ScreenMode.ADD
+import features.contracts.domain.model.Contract
 import features.contracts.presentation.add_contracts.AddContractsScreen
 import features.contracts.presentation.contracts.ContractsScreen
 import features.courses.domain.model.Course
@@ -188,7 +189,7 @@ sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)
     data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD,val person:Person? = null) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
     class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.PersonAdd,2)
-    data class AddContractsScreen(val mode: ScreenMode = ADD): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
+    data class AddContractsScreen(val mode: ScreenMode = ADD,val contract: Contract? =null): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
     class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
     data class AddCoursesScreen(val mode: ScreenMode = ADD,val course:Course? = null): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
@@ -220,8 +221,12 @@ fun SystemNavigationHost(
             SonsOfOfficersScreen(navController)
         }
         composable(Screens.AddContractsScreen()) {
-            windowState.placement = WindowPlacement.Fullscreen
-            AddContractsScreen(navController)
+//            windowState.placement = WindowPlacement.Fullscreen
+            val screenDetails = navController.currentScreen.value as Screens.AddContractsScreen
+            println("it's add sons ${screenDetails.mode}")
+            AddContractsScreen(navController,screenDetails.contract, mode = screenDetails.mode)
+
+//            AddContractsScreen(navController)
         }
         composable(Screens.ContractsScreen()) {
             windowState.placement = WindowPlacement.Fullscreen

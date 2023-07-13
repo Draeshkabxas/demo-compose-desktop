@@ -35,7 +35,7 @@ import styles.CairoTypography
 
 @Composable
 fun PaginatedTable(
-//    navController: NavController<Screens>,
+    navController: NavController<Screens>,
     headers: List<String>,
     contractList: List<Contract>,
     itemsPerPage: Int,
@@ -208,6 +208,8 @@ fun PaginatedTable(
                             shape = RoundedCornerShape(30.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
                             onClick = {
+                                navController.navigate(Screens.AddContractsScreen( mode= ScreenMode.EDIT, contract = contract))
+
 //
 //                                navController.navigate(
 //                                    Screens.AddContractsScreen(

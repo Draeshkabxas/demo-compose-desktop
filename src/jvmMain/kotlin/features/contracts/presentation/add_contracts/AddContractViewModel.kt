@@ -3,8 +3,13 @@ package features.contracts.presentation.add_contracts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import common.component.ScreenMode
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.AddContract
+import features.contracts.domain.usecases.UpdateContract
+import features.courses.domain.usecases.UpdateCourse
+import features.courses.presentation.add_courses.AddCourseViewModel
+import features.courses.presentation.add_courses.CourseInfoFormState
 import features.sons_of_officers.domain.usecases.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,70 +26,88 @@ class AddContractViewModel(
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
     private val addContract: AddContract,
+    private val updateContract: UpdateContract
+
 ) {
 
-    var state by mutableStateOf(AddContractFormState())
+    var state by mutableStateOf(ContractInfoFormState())
 
-    private val addContractChannel = Channel<ValidationEvent>()
-    val addContractEvent = addContractChannel.receiveAsFlow()
-    fun onEvent(event: AddContractFormEvent) {
+//    private val addContractChannel = Channel<ValidationEvent>()
+//    val addContractEvent = addContractChannel.receiveAsFlow()
+
+    private val validationEventChannel = Channel<AddContractViewModel.ValidationEvent>()
+    val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun setupMode(mode: ScreenMode, contract: Contract?){
+        if (mode == ScreenMode.EDIT && contract !=null){
+            state = contract.toContractInfoFormState()
+            println("Setup mode state = $state")
+//            justificationsRequiredInputsNameAndValue =
+//                contract.justificationsRequire.map { it.key to mutableStateOf(it.value) }.toMap()
+//            proceduresInputNameAndValues =
+//                contract.procedures.map { it.key to mutableStateOf(it.value) }.toMap()
+        }
+    }
+
+
+    fun onEvent(event: ContractInfoFormEvent) {
         when (event) {
-            is AddContractFormEvent.NameChanged -> {
+            is ContractInfoFormEvent.NameChanged -> {
                 state = state.copy(name = event.name)
             }
 
-            is AddContractFormEvent.MotherNameChanged -> {
+            is ContractInfoFormEvent.MotherNameChanged -> {
                 state = state.copy(motherName = event.name)
             }
 
-            is AddContractFormEvent.MotherNationalityChanged -> {
+            is ContractInfoFormEvent.MotherNationalityChanged -> {
                 state = state.copy(motherNationality = event.name)
             }
 
-            is AddContractFormEvent.FileNumberChanged -> {
+            is ContractInfoFormEvent.FileNumberChanged -> {
                 state = state.copy(fileNumber = event.fileNumber)
             }
 
-            is AddContractFormEvent.LibyaIdChanged -> {
+            is ContractInfoFormEvent.LibyaIdChanged -> {
                 state = state.copy(libyaId = event.libyaId)
             }
 
-            is AddContractFormEvent.PhoneNumberChanged -> {
+            is ContractInfoFormEvent.PhoneNumberChanged -> {
                 state = state.copy(phoneNumber = event.phone)
             }
 
-            is AddContractFormEvent.DependencyChanged -> {
+            is ContractInfoFormEvent.DependencyChanged -> {
                 state = state.copy(dependency = event.dependency)
             }
 
-            is AddContractFormEvent.BankNameChanged -> {
+            is ContractInfoFormEvent.BankNameChanged -> {
                 state = state.copy(bankName = event.bankName)
             }
 
-            is AddContractFormEvent.AccountNumberChanged -> {
+            is ContractInfoFormEvent.AccountNumberChanged -> {
                 state = state.copy(accountNumber = event.accountNumber)
             }
 
-            is AddContractFormEvent.EducationLevelChanged -> {
+            is ContractInfoFormEvent.EducationLevelChanged -> {
                 state = state.copy(educationLevel = event.educationLevel)
             }
 
-            is AddContractFormEvent.CityChanged -> {
+            is ContractInfoFormEvent.CityChanged -> {
                 state = state.copy(city = event.city)
             }
 
-            is AddContractFormEvent.NotesChanged -> {
+            is ContractInfoFormEvent.NotesChanged -> {
                 state = state.copy(notes = event.notes)
             }
 
-            AddContractFormEvent.Submit -> {
-                submitData()
+            is ContractInfoFormEvent.Submit -> {
+                submitData(event.mode)
             }
         }
     }
 
 
-    private fun submitData() {
+    private fun submitData(mode: ScreenMode) {
         val nameResult = validateQuadrupleName.execute(state.name)
         val motherResult = validateTextInputs.execute(state.motherName, "اسم الأم")
         val motherNationalityResult = validateTextInputs.execute(state.motherNationality, "جنسية الام")
@@ -143,11 +166,34 @@ class AddContractViewModel(
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             notes = state.notes,
         )
-        addContract.invoke(newContract).onEach {
-            addContractChannel.send(ValidationEvent.Success)
-            state = AddContractFormState()
-            addContractChannel.send(ValidationEvent.New)
-        }.launchIn(CoroutineScope(Dispatchers.IO))
+
+        if (mode == ScreenMode.ADD) {
+            addContract.invoke(newContract).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(AddContractViewModel.ValidationEvent.Success)
+                    println("submitData add is getting data")
+                    state = ContractInfoFormState()
+                    validationEventChannel.send(AddContractViewModel.ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }else{
+            updateContract.invoke(newContract).onEach {
+                if (it.data == true){
+                    validationEventChannel.send(AddContractViewModel.ValidationEvent.Success)
+                    println("submitData update is getting data")
+                    state = ContractInfoFormState()
+                    validationEventChannel.send(AddContractViewModel.ValidationEvent.New)
+                }
+            }.launchIn(CoroutineScope(Dispatchers.IO))
+        }
+//        addContract.invoke(newContract).onEach {
+//            addContractChannel.send(ValidationEvent.Success)
+//            state = AddContractFormState()
+//            addContractChannel.send(ValidationEvent.New)
+//        }.launchIn(CoroutineScope(Dispatchers.IO))
+
+
+
     }
 
     sealed class ValidationEvent {

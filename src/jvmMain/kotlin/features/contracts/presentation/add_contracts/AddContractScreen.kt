@@ -1,10 +1,9 @@
 package features.contracts.presentation.add_contracts
 
+import androidx.compose.foundation.layout.*
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
@@ -153,7 +152,9 @@ fun AddContractsScreen(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
                         selectedItem = if (selectededucation.isEmpty()) "إختر المؤهل " else selectededucation ,
-                        onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
+                        onItemSelected = {
+                            selectededucation = it
+                            viewModel.onEvent(EducationLevelChanged(it))}
                     )
 
                     if (state.educationLevelError != null)
@@ -170,7 +171,9 @@ fun AddContractsScreen(
                         label = "المدينة : ",
                         items = cities,
                         selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
-                        onItemSelected = { viewModel.onEvent(CityChanged(it)) }
+                        onItemSelected = {
+                            selectedCity= it
+                            viewModel.onEvent(CityChanged(it)) }
                     )
                     if (state.cityError!=null)
                         Text(state.cityError.toString(),
@@ -221,6 +224,7 @@ fun AddContractsScreen(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(50.dp))
         GradientButton(
             text = "حفظ",
             icon = Icons.Default.Save,

@@ -14,6 +14,7 @@ import common.component.*
 import features.courses.domain.model.Course
 import features.courses.presentation.add_courses.AddCourseViewModel.ValidationEvent
 import features.courses.presentation.add_courses.CourseInfoFormEvent.*
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent
 import navcontroller.NavController
 import org.koin.compose.koinInject
 import styles.AppColors.blue
@@ -137,7 +138,8 @@ fun AddCoursesScreen(
                         label = "المؤهل العلمي : ",
                         items = educationLevel,
                         selectedItem = if (selectedEducation.isEmpty()) "إختر المؤهل " else selectedEducation ,
-                        onItemSelected = { viewModel.onEvent(EducationLevelChanged(it))}
+                        onItemSelected = {selectedEducation = it
+                            viewModel.onEvent(EducationLevelChanged(it))}
                     )
 
                     if (state.educationLevelError != null)
@@ -156,6 +158,7 @@ fun AddCoursesScreen(
 
                         selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
                         onItemSelected = {
+                            selectedCity = it
                             viewModel.onEvent(CityChanged(it))
                         }
                     )

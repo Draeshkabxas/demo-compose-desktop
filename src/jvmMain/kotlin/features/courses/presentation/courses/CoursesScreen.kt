@@ -47,7 +47,8 @@ fun CoursesScreen(
             coursesData = courses
         }
     }
-
+    var printColumns by remember { mutableStateOf(listOf<String>()) }
+    var showDialog by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -81,31 +82,41 @@ fun CoursesScreen(
                     blueGradient,
                     cornerRadius = 30.dp
                 )
+
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        DirectoryDialog(
-                            onApproved = { filePath ->
-                                viewModel.printToXlsxFile(
-                                    filePath,
-                                    onError = {},
-                                    onLoading = {},
-                                    onSuccess = { println("print xlsx is success") }
-                                )
-                            },
-                            onCanceled = {
-                                println("on canceled")
-                            },
-                            onError = {
-                                println("on onError")
-                            }
-                        )
+                        showDialog = true
+
+//                        DirectoryDialog(
+//                            onApproved = { filePath ->
+//                                viewModel.printToXlsxFile(
+//                                    filePath,
+//                                    onError = {},
+//                                    onLoading = {},
+//                                    onSuccess = { println("print xlsx is success") }
+//                                )
+//                            },
+//                            onCanceled = {
+//                                println("on canceled")
+//                            },
+//                            onError = {
+//                                println("on onError")
+//                            }
+//                        )
                     },
 
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
+                if (showDialog) {
+                    PrintDialog(
+                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"),
+                        onPrintColumnsChanged = { printColumns = it },
+                        onDismiss = { showDialog = false }
+                    )
+                }
             }
         }
 //        table

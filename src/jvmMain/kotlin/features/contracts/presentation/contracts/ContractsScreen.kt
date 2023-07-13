@@ -83,11 +83,14 @@ fun ContractsScreen(
                     blueGradient
                     , cornerRadius = 30.dp
                 )
-
+                var printColumns by remember { mutableStateOf(listOf<String>()) }
+                var showDialog by remember { mutableStateOf(false) }
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
+                        showDialog = true
+
 //                        DirectoryDialog(
 //                            onApproved = { filePath ->
 //                                viewModel.printToXlsxFile(
@@ -109,6 +112,13 @@ fun ContractsScreen(
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
+                if (showDialog) {
+                    PrintDialog(
+                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "جنسية الام","المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"," التبعية","اسم المصرف","رقم الحساب"),
+                        onPrintColumnsChanged = { printColumns = it },
+                        onDismiss = { showDialog = false }
+                    )
+                }
             }
         }
         Row(

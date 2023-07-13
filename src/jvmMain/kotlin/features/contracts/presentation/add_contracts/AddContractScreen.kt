@@ -44,7 +44,7 @@ fun AddContractsScreen(
             when (event) {
                 AddContractViewModel.ValidationEvent.Success -> {
                     println("Success event : $event")
-                    navController.navigateReplacement(Screens.CoursesScreen())
+                    navController.navigateReplacement(Screens.ContractsScreen())
                 }
                 else -> {}
             }
@@ -71,12 +71,10 @@ fun AddContractsScreen(
         var selectedCity by remember { mutableStateOf("إختر المدينة") }
         var isFirstRender by remember { mutableStateOf(true) }
         if (isFirstRender){
-
             viewModel.setupMode(mode,contract)
             selectededucation = viewModel.state.educationLevel
             selectedCity = viewModel.state.city
             isFirstRender = false
-
         }
 
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
@@ -85,6 +83,7 @@ fun AddContractsScreen(
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
+                    value = state.name,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.NameChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.NameChanged(it)) },
                     isError = state.nameError!=null,
@@ -96,6 +95,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.motherName,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
                     hint = personalInputsNameAndValue[1],
@@ -108,6 +108,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.motherNationality,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
                     hint = personalInputsNameAndValue[2],
@@ -119,6 +120,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.fileNumber,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
                     hint = personalInputsNameAndValue[3],
@@ -132,6 +134,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.libyaId,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
                     hint = personalInputsNameAndValue[4],
@@ -144,6 +147,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.phoneNumber,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.PhoneNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.PhoneNumberChanged(it)) },
                     hint = personalInputsNameAndValue[5],
@@ -157,6 +161,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.dependency,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.DependencyChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.DependencyChanged(it)) },
                     hint = personalInputsNameAndValue[7],
@@ -212,6 +217,7 @@ fun AddContractsScreen(
             val state = viewModel.state
             item {
                 CustomOutlinedTextField(
+                    value = state.bankName,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.BankNameChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.BankNameChanged(it)) },
                     hint = personalInputsNameAndValue[8],
@@ -224,6 +230,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.accountNumber,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.AccountNumberChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.AccountNumberChanged(it)) },
                     hint = personalInputsNameAndValue[9],
@@ -236,6 +243,7 @@ fun AddContractsScreen(
             }
             item {
                 CustomOutlinedTextField(
+                    value = state.notes,
                     onValueChange = { viewModel.onEvent(ContractInfoFormEvent.NotesChanged(it)) },
                     onNextChange = { viewModel.onEvent(ContractInfoFormEvent.NotesChanged(it)) },
                     hint = personalInputsNameAndValue[10],

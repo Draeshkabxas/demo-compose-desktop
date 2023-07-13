@@ -15,7 +15,7 @@ class GetAllContracts(
     operator fun invoke(filters: FilterState): Flow<Resource<List<Contract>>> = flow{
         emit(Resource.Loading(data = emptyList()))
         println(filters)
-        val result=contractRepository.getAllContracts()
+        val result=contractRepository.getAllContracts("")
         val resultAfterFiltered = result.first().filter {
             println(it)
             it.libyaId.contains(filters.libyaId) &&

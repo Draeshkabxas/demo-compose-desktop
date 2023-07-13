@@ -62,7 +62,7 @@ val appModule = module {
                     JustificationCourse::class,
                     ProcedureCourse::class
                 )
-            ).schemaVersion(4)
+            ).schemaVersion(5)
                 .migration(firstRealmMigrate())
                 .build()
         )

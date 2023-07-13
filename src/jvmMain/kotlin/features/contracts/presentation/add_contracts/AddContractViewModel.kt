@@ -170,19 +170,19 @@ class AddContractViewModel(
         if (mode == ScreenMode.ADD) {
             addContract.invoke(newContract).onEach {
                 if (it.data == true){
-                    validationEventChannel.send(AddContractViewModel.ValidationEvent.Success)
+                    validationEventChannel.send(ValidationEvent.Success)
                     println("submitData add is getting data")
                     state = ContractInfoFormState()
-                    validationEventChannel.send(AddContractViewModel.ValidationEvent.New)
+                    validationEventChannel.send(ValidationEvent.New)
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }else{
             updateContract.invoke(newContract).onEach {
                 if (it.data == true){
-                    validationEventChannel.send(AddContractViewModel.ValidationEvent.Success)
+                    validationEventChannel.send(ValidationEvent.Success)
                     println("submitData update is getting data")
                     state = ContractInfoFormState()
-                    validationEventChannel.send(AddContractViewModel.ValidationEvent.New)
+                    validationEventChannel.send(ValidationEvent.New)
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }

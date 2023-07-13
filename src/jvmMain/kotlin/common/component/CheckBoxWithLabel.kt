@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import styles.AppColors.blue
 import styles.CairoTypography
 
 @Composable
@@ -26,7 +27,7 @@ fun CheckBoxWithLabel(
     ) {
         Checkbox(
             colors = CheckboxDefaults.colors(
-                checkedColor = Color(0xff3B5EA1),
+                checkedColor = blue,
                 uncheckedColor = Color.Gray,
                 checkmarkColor = Color.White,
                 disabledColor = Color.LightGray,

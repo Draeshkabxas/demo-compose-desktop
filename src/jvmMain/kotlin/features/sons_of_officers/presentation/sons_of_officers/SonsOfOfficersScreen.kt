@@ -76,7 +76,7 @@ fun SonsOfOfficersScreen(
                 onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
             )
             Row(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {

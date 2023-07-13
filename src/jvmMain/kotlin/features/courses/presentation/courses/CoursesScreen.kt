@@ -42,6 +42,7 @@ fun CoursesScreen(
 
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
 
+
     LaunchedEffect(key1 = true) {
         viewModel.coursesDataFlow.collect { courses ->
             coursesData = courses
@@ -69,7 +70,7 @@ fun CoursesScreen(
                 onSubmit = { viewModel.onEvent(Submit) },
             )
             Row(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {

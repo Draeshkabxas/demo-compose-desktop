@@ -84,7 +84,7 @@ val appModule = module {
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
     single<GetAllPeople> { GetAllPeople(get()) }
     single<UpdatePerson> { UpdatePerson(get()) }
-    single<AddSonsOfOfficersViewModel> { AddSonsOfOfficersViewModel(addPerson = AddPerson(get()), updatePerson = get()) }
+    factory<AddSonsOfOfficersViewModel> { AddSonsOfOfficersViewModel(addPerson = AddPerson(get()), updatePerson = get()) }
     factory<SonsOfOfficersScreenViewModel> { SonsOfOfficersScreenViewModel(get(), get()) }
 
     //Contract Di
@@ -97,7 +97,7 @@ val appModule = module {
     //Add Contract Di
     single<AddContract> { AddContract(get()) }
     single<UpdateContract> { UpdateContract(get()) }
-    single<AddContractViewModel> { AddContractViewModel(addContract = get(), updateContract = get()) }
+    factory<AddContractViewModel> { AddContractViewModel(addContract = get(), updateContract = get()) }
 
 
     //Courses Di
@@ -110,7 +110,7 @@ val appModule = module {
     //Add Courses Di
     single<AddCourse> { AddCourse(get()) }
     single<UpdateCourse> { UpdateCourse(get()) }
-    single<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
+    factory<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
 
 
 }

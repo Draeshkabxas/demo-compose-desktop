@@ -12,28 +12,16 @@ import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.DpSize
 
 import common.component.*
 import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.presentation.sons_of_officers.FilterEvent.*
-import features.sons_of_officers.presentation.sons_of_officers.component.Filters
+import features.sons_of_officers.presentation.sons_of_officers.PrintEvent.*
 import org.koin.compose.koinInject
-import styles.AppColors
 import styles.AppColors.GreenGradient
-import styles.AppColors.blue
 import styles.AppColors.blueGradient
-import styles.AppColors.green
-import styles.CairoTypography
-import kotlin.math.ceil
 
 
 @Composable
@@ -41,15 +29,15 @@ fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 95.dp)
+    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp, 85.dp, 65.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "النواقص","النتيجة", "إحالة لتدريب"
+        "القائم بالتجنيد", "حالة الملف", "النواقص", "النتيجة", "إحالة لتدريب"
     )
 
     var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
-    var printColumns by remember { mutableStateOf(listOf<String>()) }
-    var showDialog by remember { mutableStateOf(false) }
+    var showPrintListDialog by remember { mutableStateOf(false) }
+    var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(key1 = true) {
         viewModel.peopleDataFlow.collect { people ->
@@ -93,37 +81,51 @@ fun SonsOfOfficersScreen(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        showDialog = true
+                        showPrintListDialog = true
 
-                        //                        DirectoryDialog(
-//                            onApproved = { filePath ->
-//                                viewModel.printToXlsxFile(
-//                                    filePath,
-//                                    onError = {},
-//                                    onLoading = {},
-//                                    onSuccess = { println("print xlsx is success") }
-//                                )
-//                            },
-//                            onCanceled = {
-//                                println("on canceled")
-//                            },
-//                            onError = {
-//                                println("on onError")
-//                            }
-//                        )
                     },
 
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
                 // Show the print dialog if the boolean flag is true
-                if (showDialog) {
+                if (showPrintListDialog) {
                     PrintDialog(
-                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"),
-                        onPrintColumnsChanged = { printColumns = it },
-                        onDismiss = { showDialog = false }
+                        columns = listOf(
+                            "رقم الملف",
+                            "الاسم رباعي",
+                            "اسم الام",
+                            "المؤهل العلمي",
+                            "المدينة",
+                            "رقم الهاتف",
+                            "القائم بالتجنيد",
+                            "النتيجة"
+                        ),
+                        onPrintColumnsChanged = {
+                            viewModel.onPrintEvent(PrintList(it))
+                            showPrintDirectoryPathDialog = true
+                        },
+                        onDismiss = { showPrintListDialog = false }
                     )
                 }
+
+                if (showPrintDirectoryPathDialog) {
+                    DirectoryDialog(
+                        onApproved = { filePath ->
+                            viewModel.onPrintEvent(PrintToDirectory(filePath))
+                            viewModel.onPrintEvent(Submit)
+                            showPrintDirectoryPathDialog = false
+                        },
+                        onCanceled = {
+                            showPrintDirectoryPathDialog = false
+                            println("on canceled")
+                        },
+                        onError = {
+                            println("on onError")
+                        }
+                    )
+                }
+
             }
         }
 //        table
@@ -137,7 +139,7 @@ fun SonsOfOfficersScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController,headers, peopleData, 13, widths)
+                            PaginatedTable(navController, headers, peopleData, 13, widths)
                         }
                     }
                 }

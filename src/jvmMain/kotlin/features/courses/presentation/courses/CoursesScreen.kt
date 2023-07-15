@@ -20,6 +20,8 @@ import common.component.*
 
 import features.courses.domain.model.Course
 import features.courses.presentation.courses.FilterEvent.*
+import features.courses.presentation.courses.FilterEvent.Submit
+import features.courses.presentation.courses.PrintEvent.*
 import features.courses.presentation.courses.component.Filters
 import features.courses.presentation.courses.component.PaginatedTable
 import org.koin.compose.koinInject
@@ -34,13 +36,16 @@ fun CoursesScreen(
     navController: NavController<Screens>,
     viewModel: CoursesScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp,85.dp, 65.dp, 95.dp)
+    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp, 85.dp, 65.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "النواقص","النتيجة", "إحالة لتدريب"
+        "القائم بالتجنيد", "حالة الملف", "النواقص", "النتيجة", "إحالة لتدريب"
     )
 
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
+    var showPrintListDialog by remember { mutableStateOf(false) }
+    var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+
 
 
     LaunchedEffect(key1 = true) {
@@ -48,8 +53,6 @@ fun CoursesScreen(
             coursesData = courses
         }
     }
-    var printColumns by remember { mutableStateOf(listOf<String>()) }
-    var showDialog by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -88,34 +91,46 @@ fun CoursesScreen(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        showDialog = true
-
-//                        DirectoryDialog(
-//                            onApproved = { filePath ->
-//                                viewModel.printToXlsxFile(
-//                                    filePath,
-//                                    onError = {},
-//                                    onLoading = {},
-//                                    onSuccess = { println("print xlsx is success") }
-//                                )
-//                            },
-//                            onCanceled = {
-//                                println("on canceled")
-//                            },
-//                            onError = {
-//                                println("on onError")
-//                            }
-//                        )
+                        showPrintListDialog = true
                     },
 
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
-                if (showDialog) {
+                if (showPrintListDialog) {
                     PrintDialog(
-                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"),
-                        onPrintColumnsChanged = { printColumns = it },
-                        onDismiss = { showDialog = false }
+                        columns = listOf(
+                            "رقم الملف",
+                            "الاسم رباعي",
+                            "اسم الام",
+                            "المؤهل العلمي",
+                            "المدينة",
+                            "رقم الهاتف",
+                            "القائم بالتجنيد",
+                            "النتيجة"
+                        ),
+                        onPrintColumnsChanged = {
+                            viewModel.onPrintEvent(PrintList(it))
+                            showPrintDirectoryPathDialog = true
+                        },
+                        onDismiss = { showPrintListDialog = false }
+                    )
+                }
+
+                if (showPrintDirectoryPathDialog) {
+                    DirectoryDialog(
+                        onApproved = { filePath ->
+                            viewModel.onPrintEvent(PrintToDirectory(filePath))
+                            viewModel.onPrintEvent(PrintEvent.Submit)
+                            showPrintDirectoryPathDialog = false
+                        },
+                        onCanceled = {
+                            showPrintDirectoryPathDialog = false
+                            println("on canceled")
+                        },
+                        onError = {
+                            println("on onError")
+                        }
                     )
                 }
             }
@@ -131,7 +146,7 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController,headers, coursesData, 13, widths)
+                            PaginatedTable(navController, headers, coursesData, 13, widths)
                         }
                     }
                 }

@@ -1,8 +1,8 @@
-package features.sons_of_officers.data.repository
+package features.contracts.data.repository
 
-import features.sons_of_officers.domain.model.Person
+import features.contracts.domain.model.Contract
+import features.contracts.domain.repository.ContractXlsxRepository
 import features.sons_of_officers.domain.model.result
-import features.sons_of_officers.domain.repository.PersonXlsxRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileOutputStream
 
-class PersonXlsxImpl: PersonXlsxRepository {
+class ContractXlsxImpl: ContractXlsxRepository {
 
-    override fun printPersonsToXlsxFile(persons: List<Person>, filePath:String,headers:List<String>): Flow<Boolean> = flow {
+    override fun printContractsToXlsxFile(contracts: List<Contract>, filePath:String, headers:List<String>): Flow<Boolean> = flow {
         val workbook = XSSFWorkbook()
         try {
             val sheet = workbook.createSheet("Persons")
@@ -21,33 +21,39 @@ class PersonXlsxImpl: PersonXlsxRepository {
                 headerRow.createCell(index).setCellValue(headerName)
             }
             // ... create other header cells
-            persons.forEachIndexed { index, person ->
+            contracts.forEachIndexed { index, contract ->
                 val row = sheet.createRow(index + 1)
                 headers.forEachIndexed { cellIndex: Int, headerName: String ->
-                    when(headerName){
+                    when(headerName.trim()){
                         "رقم الملف" -> {
-                            row.createCell(cellIndex).setCellValue(person.fileNumber)
+                            row.createCell(cellIndex).setCellValue(contract.fileNumber)
                         }
                         "الاسم رباعي" -> {
-                            row.createCell(cellIndex).setCellValue(person.name)
+                            row.createCell(cellIndex).setCellValue(contract.name)
                         }
                         "اسم الام" -> {
-                            row.createCell(cellIndex).setCellValue(person.motherName)
+                            row.createCell(cellIndex).setCellValue(contract.motherName)
                         }
                         "المؤهل العلمي" -> {
-                            row.createCell(cellIndex).setCellValue(person.educationLevel)
+                            row.createCell(cellIndex).setCellValue(contract.educationLevel)
                         }
                         "المدينة" -> {
-                            row.createCell(cellIndex).setCellValue(person.city)
+                            row.createCell(cellIndex).setCellValue(contract.city)
                         }
                         "رقم الهاتف" -> {
-                            row.createCell(cellIndex).setCellValue(person.phoneNumber)
+                            row.createCell(cellIndex).setCellValue(contract.phoneNumber)
                         }
-                        "القائم بالتجنيد" -> {
-                            row.createCell(cellIndex).setCellValue(person.recruiter)
+                        "جنسية الام" -> {
+                            row.createCell(cellIndex).setCellValue(contract.motherNationality)
                         }
-                        "النتيجة" -> {
-                            row.createCell(cellIndex).setCellValue(person.result())
+                         "التبعية" -> {
+                            row.createCell(cellIndex).setCellValue(contract.dependency)
+                        }
+                        "اسم المصرف"-> {
+                            row.createCell(cellIndex).setCellValue(contract.bankName)
+                        }
+                        "رقم الحساب"-> {
+                            row.createCell(cellIndex).setCellValue(contract.accountNumber)
                         }
                         else -> {}
                     }
@@ -65,7 +71,8 @@ class PersonXlsxImpl: PersonXlsxRepository {
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getPersonsFromXlsxFile(path: String): Flow<List<Person>> {
+
+    override fun getContractsFromXlsxFile(path: String): Flow<List<Contract>> {
         TODO("Not yet implemented")
     }
 }

@@ -23,6 +23,9 @@ class SonsOfOfficersScreenViewModel(
     private var peopleData:List<Person> = emptyList()
     val peopleDataFlow = peopleDataChannel.receiveAsFlow()
 
+    private var printList = listOf<String>()
+    private var printPath = ""
+
     init {
         getFilterData()
     }
@@ -69,13 +72,23 @@ class SonsOfOfficersScreenViewModel(
         }
     }
 
+    fun onPrintEvent(event: PrintEvent){
+        when(event){
+            is PrintEvent.PrintList -> printList = event.list
+            is PrintEvent.PrintToDirectory -> printPath = event.path
+            PrintEvent.Submit -> printToXlsxFile(printPath,printList,{},{},{})
+        }
+
+    }
+
     fun printToXlsxFile(
         filePath: String,
+        printList:List<String>,
         onError: (String) -> Unit,
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printPersonsListToXlsxFile.invoke(peopleData, filePath).onEach {
+        printPersonsListToXlsxFile.invoke(peopleData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()

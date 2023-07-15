@@ -16,21 +16,23 @@ import authorization.domain.usecase.ValidateUsername
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
 import features.contracts.data.model.RealmContract
+import features.contracts.data.repository.ContractXlsxImpl
 import features.contracts.data.repository.RealmContractImpl
 import features.contracts.domain.repository.ContractRepository
-import features.contracts.domain.usecases.AddContract
-import features.contracts.domain.usecases.GetAllContracts
-import features.contracts.domain.usecases.RemoveAllContracts
-import features.contracts.domain.usecases.UpdateContract
+import features.contracts.domain.repository.ContractXlsxRepository
+import features.contracts.domain.usecases.*
 import features.contracts.presentation.add_contracts.AddContractViewModel
 import features.contracts.presentation.contracts.ContractsScreenViewModel
 import features.courses.data.model.JustificationCourse
 import features.courses.data.model.ProcedureCourse
 import features.courses.data.model.RealmCourse
+import features.courses.data.repository.CoursesXlsxImpl
 import features.courses.data.repository.RealmCourseImpl
+import features.courses.domain.repository.CourseXlsxRepository
 import features.courses.domain.repository.CoursesRepository
 import features.courses.domain.usecases.AddCourse
 import features.courses.domain.usecases.GetAllCourses
+import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.AddCourseViewModel
 import features.courses.presentation.courses.CoursesScreenViewModel
@@ -88,8 +90,10 @@ val appModule = module {
     //Contract Di
     single<ContractRepository> { RealmContractImpl(get()) }
     single<GetAllContracts> { GetAllContracts(get()) }
+    single<ContractXlsxRepository> { ContractXlsxImpl() }
+    single<PrintContractsListToXlsxFile> { PrintContractsListToXlsxFile(get()) }
     single<RemoveAllContracts> { RemoveAllContracts(get()) }
-    factory<ContractsScreenViewModel> { ContractsScreenViewModel(allContracts = get()) }
+    factory<ContractsScreenViewModel> { ContractsScreenViewModel(allContracts = get(), printContractsListToXlsxFile = get()) }
     //Add Contract Di
     single<AddContract> { AddContract(get()) }
     single<UpdateContract> { UpdateContract(get()) }
@@ -99,8 +103,10 @@ val appModule = module {
     //Courses Di
     single<CoursesRepository> { RealmCourseImpl(get()) }
     single<GetAllCourses> { GetAllCourses(get()) }
+    single<CourseXlsxRepository> { CoursesXlsxImpl() }
+    single<PrintCoursesListToXlsxFile> { PrintCoursesListToXlsxFile(get()) }
     //single<RemoveAllC> { RemoveAllContracts(get()) }
-    factory<CoursesScreenViewModel> { CoursesScreenViewModel(getAllCourses = get()) }
+    factory<CoursesScreenViewModel> { CoursesScreenViewModel(getAllCourses = get(), printCoursesListToXlsxFile =  get()) }
     //Add Courses Di
     single<AddCourse> { AddCourse(get()) }
     single<UpdateCourse> { UpdateCourse(get()) }

@@ -23,6 +23,7 @@ import features.contracts.domain.model.Contract
 import features.contracts.presentation.contracts.FilterEvent.*
 import features.contracts.presentation.contracts.component.Filters
 import features.contracts.presentation.contracts.component.PaginatedTable
+import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import org.koin.compose.koinInject
 import styles.AppColors.GreenGradient
 import styles.AppColors.blue
@@ -35,16 +36,20 @@ fun ContractsScreen(
     navController: NavController<Screens>,
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
-    val widths = listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp,85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 100.dp, 95.dp, 85.dp,80.dp)
+    val widths =
+        listOf(40.dp, 82.dp, 150.dp, 120.dp, 130.dp, 85.dp, 115.dp, 75.dp, 110.dp, 100.dp, 100.dp, 95.dp, 85.dp, 80.dp)
     val headers = listOf(
         "رقم", "رقم الملف", "الإسم رباعي",
-        "الرقم الوطني", "إسم الأم","جنسية الأم",
+        "الرقم الوطني", "إسم الأم", "جنسية الأم",
         "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "التبعية", "إسم المصرف", "رقم الحساب",
-        "الملاحظات","تعديل"
+        "الملاحظات", "تعديل"
     )
 
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
+    var showPrintListDialog by remember { mutableStateOf(false) }
+    var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(key1 = true) {
         viewModel.contractsDataFlow.collect { people ->
@@ -80,43 +85,54 @@ fun ContractsScreen(
                     onClick = {
                         navController.navigate(Screens.AddContractsScreen())
                     },
-                    blueGradient
-                    , cornerRadius = 30.dp
+                    blueGradient, cornerRadius = 30.dp
                 )
-                var printColumns by remember { mutableStateOf(listOf<String>()) }
-                var showDialog by remember { mutableStateOf(false) }
                 GradientButton(
                     text = "طباعة",
                     icon = Icons.Default.Print,
                     onClick = {
-                        showDialog = true
-
-//                        DirectoryDialog(
-//                            onApproved = { filePath ->
-//                                viewModel.printToXlsxFile(
-//                                    filePath,
-//                                    onError = {},
-//                                    onLoading = {},
-//                                    onSuccess = { println("print xlsx is success") }
-//                                )
-//                            },
-//                            onCanceled = {
-//                                println("on canceled")
-//                            },
-//                            onError = {
-//                                println("on onError")
-//                            }
-//                        )
+                        showPrintListDialog = true
                     },
 
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
-                if (showDialog) {
+                if (showPrintListDialog) {
                     PrintDialog(
-                        columns = listOf("رقم الملف","الاسم رباعي", "اسم الام", "جنسية الام","المؤهل العلمي","المدينة","رقم الهاتف","القائم بالتجنيد","النتيجة"," التبعية","اسم المصرف","رقم الحساب"),
-                        onPrintColumnsChanged = { printColumns = it },
-                        onDismiss = { showDialog = false }
+                        columns = listOf(
+                            "رقم الملف",
+                            "الاسم رباعي",
+                            "اسم الام",
+                            "جنسية الام",
+                            "المؤهل العلمي",
+                            "المدينة",
+                            "رقم الهاتف",
+                            " التبعية",
+                            "اسم المصرف",
+                            "رقم الحساب"
+                        ),
+                        onPrintColumnsChanged = {
+                            viewModel.onPrintEvent(PrintEvent.PrintList(it))
+                            showPrintDirectoryPathDialog = true
+                        },
+                        onDismiss = { showPrintListDialog = false }
+                    )
+                }
+
+                if (showPrintDirectoryPathDialog) {
+                    DirectoryDialog(
+                        onApproved = { filePath ->
+                            viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
+                            viewModel.onPrintEvent(PrintEvent.Submit)
+                            showPrintDirectoryPathDialog = false
+                        },
+                        onCanceled = {
+                            showPrintDirectoryPathDialog = false
+                            println("on canceled")
+                        },
+                        onError = {
+                            println("on onError")
+                        }
                     )
                 }
             }
@@ -130,7 +146,7 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController,headers, contractsData, 13, widths)
+                            PaginatedTable(navController, headers, contractsData, 13, widths)
                         }
                     }
                 }

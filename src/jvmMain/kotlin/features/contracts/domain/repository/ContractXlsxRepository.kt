@@ -1,10 +1,10 @@
 package features.contracts.domain.repository
 
-import features.sons_of_officers.domain.model.Person
+import features.contracts.domain.model.Contract
 import kotlinx.coroutines.flow.Flow
 
 interface ContractXlsxRepository {
-    fun printPersonsToXlsxFile(persons:List<Person>, filePath:String): Flow<Boolean>
+    fun printContractsToXlsxFile(contracts:List<Contract>, filePath:String, headers:List<String>): Flow<Boolean>
 
-    fun getPersonsFromXlsxFile(path:String):Flow<List<Person>>
+    fun getContractsFromXlsxFile(path:String):Flow<List<Contract>>
 }

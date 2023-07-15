@@ -3,6 +3,8 @@ package features.contracts.presentation.contracts
 import common.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.GetAllContracts;
+import features.contracts.domain.usecases.PrintContractsListToXlsxFile
+import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -13,7 +15,8 @@ import utils.fromArabicNameToAgeGroup
 import utils.getAgeGroupFromLibyaId
 
 class ContractsScreenViewModel (
-    private val allContracts:GetAllContracts
+    private val allContracts:GetAllContracts,
+    private val printContractsListToXlsxFile: PrintContractsListToXlsxFile
 ) {
     private var state  = FilterState()
 
@@ -21,6 +24,9 @@ class ContractsScreenViewModel (
 
     private var contractsData:List<Contract> = emptyList()
     val contractsDataFlow = contractsDataChannel.receiveAsFlow()
+
+    private var printList = listOf<String>()
+    private var printPath = ""
 
     init {
         getFilterData()
@@ -63,6 +69,30 @@ class ContractsScreenViewModel (
                 getFilterData()
             }
         }
+    }
+
+    fun onPrintEvent(event: PrintEvent){
+        when(event){
+            is PrintEvent.PrintList -> printList = event.list
+            is PrintEvent.PrintToDirectory -> printPath = event.path
+            PrintEvent.Submit -> printToXlsxFile(printPath,printList,{},{},{})
+        }
+    }
+
+    private fun printToXlsxFile(
+        filePath: String,
+        printList:List<String>,
+        onError: (String) -> Unit,
+        onLoading: () -> Unit,
+        onSuccess: (Boolean) -> Unit
+    ) {
+        printContractsListToXlsxFile.invoke(contractsData, filePath,printList).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> it.data?.let(onSuccess)
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 
     private fun getFilterData() {

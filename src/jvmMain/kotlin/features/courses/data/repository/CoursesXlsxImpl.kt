@@ -1,8 +1,8 @@
-package features.sons_of_officers.data.repository
+package features.courses.data.repository
 
-import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.domain.model.result
-import features.sons_of_officers.domain.repository.PersonXlsxRepository
+import features.courses.domain.model.Course
+import features.courses.domain.model.result
+import features.courses.domain.repository.CourseXlsxRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileOutputStream
 
-class PersonXlsxImpl: PersonXlsxRepository {
+class CoursesXlsxImpl: CourseXlsxRepository {
 
-    override fun printPersonsToXlsxFile(persons: List<Person>, filePath:String,headers:List<String>): Flow<Boolean> = flow {
+    override fun printCoursesToXlsxFile(courses: List<Course>, filePath:String, headers:List<String>): Flow<Boolean> = flow {
         val workbook = XSSFWorkbook()
         try {
             val sheet = workbook.createSheet("Persons")
@@ -21,33 +21,33 @@ class PersonXlsxImpl: PersonXlsxRepository {
                 headerRow.createCell(index).setCellValue(headerName)
             }
             // ... create other header cells
-            persons.forEachIndexed { index, person ->
+            courses.forEachIndexed { index, course ->
                 val row = sheet.createRow(index + 1)
                 headers.forEachIndexed { cellIndex: Int, headerName: String ->
                     when(headerName){
                         "رقم الملف" -> {
-                            row.createCell(cellIndex).setCellValue(person.fileNumber)
+                            row.createCell(cellIndex).setCellValue(course.fileNumber)
                         }
                         "الاسم رباعي" -> {
-                            row.createCell(cellIndex).setCellValue(person.name)
+                            row.createCell(cellIndex).setCellValue(course.name)
                         }
                         "اسم الام" -> {
-                            row.createCell(cellIndex).setCellValue(person.motherName)
+                            row.createCell(cellIndex).setCellValue(course.motherName)
                         }
                         "المؤهل العلمي" -> {
-                            row.createCell(cellIndex).setCellValue(person.educationLevel)
+                            row.createCell(cellIndex).setCellValue(course.educationLevel)
                         }
                         "المدينة" -> {
-                            row.createCell(cellIndex).setCellValue(person.city)
+                            row.createCell(cellIndex).setCellValue(course.city)
                         }
                         "رقم الهاتف" -> {
-                            row.createCell(cellIndex).setCellValue(person.phoneNumber)
+                            row.createCell(cellIndex).setCellValue(course.phoneNumber)
                         }
                         "القائم بالتجنيد" -> {
-                            row.createCell(cellIndex).setCellValue(person.recruiter)
+                            row.createCell(cellIndex).setCellValue(course.recruiter)
                         }
                         "النتيجة" -> {
-                            row.createCell(cellIndex).setCellValue(person.result())
+                            row.createCell(cellIndex).setCellValue(course.result())
                         }
                         else -> {}
                     }
@@ -65,7 +65,7 @@ class PersonXlsxImpl: PersonXlsxRepository {
         }
     }.flowOn(Dispatchers.IO)
 
-    override fun getPersonsFromXlsxFile(path: String): Flow<List<Person>> {
+    override fun getCoursesFromXlsxFile(path: String): Flow<List<Course>> {
         TODO("Not yet implemented")
     }
 }

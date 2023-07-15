@@ -3,6 +3,7 @@ package features.courses.presentation.courses
 import common.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.usecases.GetAllCourses
+import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
@@ -12,6 +13,7 @@ import utils.fromArabicNameToAgeGroup
 
 class CoursesScreenViewModel(
     private val getAllCourses: GetAllCourses,
+    private val printCoursesListToXlsxFile: PrintCoursesListToXlsxFile
 ) {
     private var state  = FilterState()
 
@@ -20,6 +22,8 @@ class CoursesScreenViewModel(
     private var coursesData:List<Course> = emptyList()
     val coursesDataFlow = coursesDataChannel.receiveAsFlow()
 
+    private var printList = listOf<String>()
+    private var printPath = ""
     init {
         getFilterData()
     }
@@ -65,14 +69,29 @@ class CoursesScreenViewModel(
 
         }
     }
+    fun onPrintEvent(event: PrintEvent){
+        when(event){
+            is PrintEvent.PrintList -> printList = event.list
+            is PrintEvent.PrintToDirectory -> printPath = event.path
+            PrintEvent.Submit -> printToXlsxFile(printPath,printList,{},{},{})
+        }
 
-    fun printToXlsxFile(
+    }
+
+    private fun printToXlsxFile(
         filePath: String,
+        printList:List<String>,
         onError: (String) -> Unit,
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-
+        printCoursesListToXlsxFile.invoke(coursesData, filePath,printList).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> it.data?.let(onSuccess)
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 
 

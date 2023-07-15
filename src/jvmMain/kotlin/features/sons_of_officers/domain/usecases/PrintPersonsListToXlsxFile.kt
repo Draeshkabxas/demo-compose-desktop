@@ -12,10 +12,10 @@ class PrintPersonsListToXlsxFile(
     private val personXlsxRepository: PersonXlsxRepository
 ) {
 
-    operator fun invoke(persons: List<Person>, filePath:String): Flow<Resource<Boolean>> = flow{
+    operator fun invoke(persons: List<Person>, filePath:String,headers:List<String>): Flow<Resource<Boolean>> = flow{
         emit(Resource.Loading(data = true))
         println("persons have data $persons")
-        val result=personXlsxRepository.printPersonsToXlsxFile(persons,filePath)
+        val result=personXlsxRepository.printPersonsToXlsxFile(persons,filePath,headers)
         println("print to xlsx state  "+result.first())
         emit(Resource.Success(result.first()))
     }.catch { emit(Resource.Error("Cloud Not print to xlsx file")) }

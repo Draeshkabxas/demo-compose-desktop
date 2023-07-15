@@ -110,25 +110,9 @@ fun PrintDialog(
                             text = "طباعة",
                             icon = Icons.Default.Print,
                             onClick = {
-
-                                //                        DirectoryDialog(
-//                            onApproved = { filePath ->
-//                                viewModel.printToXlsxFile(
-//                                    filePath,
-//                                    onError = {},
-//                                    onLoading = {},
-//                                    onSuccess = { println("print xlsx is success") }
-//                                )
-//                            },
-//                            onCanceled = {
-//                                println("on canceled")
-//                            },
-//                            onError = {
-//                                println("on onError")
-//                            }
-//                        )
+                                onPrintColumnsChanged(selectedColumns)
+                                onDismiss()
                             },
-
                             AppColors.GreenGradient,
                             cornerRadius = 30.dp
                         )

@@ -112,6 +112,22 @@ fun Filters(
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
                 cornerRadius = 30.dp
             )
+            Button(
+                shape = RoundedCornerShape(100.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
+                contentPadding = PaddingValues(0.dp),
+                onClick = {
+                    onSubmit()
+                },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.RestartAlt,
+                    contentDescription = "",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(530.dp))
 
         }

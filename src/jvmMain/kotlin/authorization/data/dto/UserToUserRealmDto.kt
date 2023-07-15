@@ -11,6 +11,8 @@ class UserToUserRealmDto {
             name = user.name
             password = user.password
             job = user.job.name
+            systems = user.systems.joinToString(",") { it.name }
+
         }
     }
 }

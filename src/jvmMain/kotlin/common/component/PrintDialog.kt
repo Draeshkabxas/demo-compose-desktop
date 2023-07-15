@@ -134,7 +134,7 @@ fun PrintDialog(
 
 @Composable
 fun CheckboxWithLabel(
-    label: @Composable() () -> Unit,
+    label: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
 ) {
@@ -146,6 +146,6 @@ fun CheckboxWithLabel(
             onCheckedChange = onCheckedChange,
             modifier = Modifier.padding(end = 8.dp),
         )
-        label()
+        label
     }
 }

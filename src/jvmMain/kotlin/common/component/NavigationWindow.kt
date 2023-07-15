@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
+import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.add_contracts.AddContractsScreen
@@ -51,7 +52,8 @@ fun NavigationWindow(
         Screens.HomeScreen(),
         Screens.ContractsScreen(),
         Screens.SonsOfOfficersScreen(),
-        Screens.CoursesScreen()
+        Screens.CoursesScreen() ,
+        Screens.AccountsPermissionsScreen()
     )
     val navController by rememberNavController<Screens>(Screens.HomeScreen())
     val currentScreen by remember {
@@ -193,6 +195,8 @@ sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
     data class AddCoursesScreen(val mode: ScreenMode = ADD,val course:Course? = null): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
+    class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance,6)
+
 }
 
 enum class ScreenMode{
@@ -240,6 +244,10 @@ fun SystemNavigationHost(
         composable(Screens.CoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             CoursesScreen(navController)
+        }
+        composable(Screens.AccountsPermissionsScreen()) {
+            windowState.placement = WindowPlacement.Fullscreen
+            AccountsPermissionsScreen(navController)
         }
     }.build()
 }

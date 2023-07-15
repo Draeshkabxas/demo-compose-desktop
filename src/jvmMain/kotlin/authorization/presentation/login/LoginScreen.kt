@@ -97,8 +97,7 @@ fun LoginScreen(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     RoundedButton({
-                        viewModel.login(User("",userName.value,password.value, Jobs.Viewer))
-                    }, "تسجيل الدخول")
+                        viewModel.login(User("", userName.value, password.value, Jobs.Viewer, listOf()))                    }, "تسجيل الدخول")
                     OutlineRoundedButton({
                         navController.navigate(AuthScreen.SignupAuthScreen.name)
                     }, "إنشاء حساب")

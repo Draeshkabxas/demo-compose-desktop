@@ -3,7 +3,6 @@ package authorization.presentation.register
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import authorization.data.model.UserRealm
 import authorization.domain.model.Jobs
 import authorization.domain.model.User
 import authorization.domain.usecase.*
@@ -75,7 +74,7 @@ class RegisterViewModel(
             )
             return
         }
-        signupUseCase.invoke(User("",state.username,state.password, Jobs.Viewer)).onEach {
+        signupUseCase.invoke(User("", state.username, state.password, Jobs.Viewer, listOf())).onEach {
             validationEventChannel.send(ValidationEvent.Success)
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }

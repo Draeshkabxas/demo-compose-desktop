@@ -4,5 +4,6 @@ data class User(
     val id:String,
     val name:String,
     val password:String,
-    val job:Jobs
+    var job:Jobs,
+    var systems: List<Systems>
 )

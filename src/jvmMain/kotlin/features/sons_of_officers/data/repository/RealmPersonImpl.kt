@@ -12,11 +12,6 @@ import kotlinx.coroutines.flow.*
 
 class RealmPersonImpl(private val realm: Realm) :
     PersonRepository {
-    init {
-        Runtime.getRuntime().addShutdownHook(Thread {
-            realm.close()
-        })
-    }
 
     override fun getAllPeople(filterQuery: String): Flow<List<Person>> {
         return realm

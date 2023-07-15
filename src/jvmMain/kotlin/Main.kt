@@ -26,6 +26,9 @@ import styles.AppColors.primary
 import styles.AppColors.secondary
 import styles.AppColors.white
 import common.component.NavigationWindow
+import io.realm.kotlin.Realm
+import org.koin.compose.getKoin
+import org.koin.core.context.GlobalContext.get
 
 
 @Composable
@@ -59,7 +62,15 @@ fun App(appClose: AppCloseRepository = koinInject()) {
 
 fun main() = application {
     koinConfiguration()
+    closeRealmWhenApplicationClose()
     App()
+}
+
+fun closeRealmWhenApplicationClose() {
+    val realm: Realm = get().get()
+    Runtime.getRuntime().addShutdownHook(Thread {
+        realm.close()
+    })
 }
 
 

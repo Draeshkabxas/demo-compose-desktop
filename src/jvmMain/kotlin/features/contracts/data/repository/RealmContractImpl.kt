@@ -18,11 +18,7 @@ import kotlinx.coroutines.flow.map
 
 class RealmContractImpl(private val realm: Realm) :
     ContractRepository {
-    init {
-        Runtime.getRuntime().addShutdownHook(Thread {
-            realm.close()
-        })
-    }
+
     override fun getAllContracts(filterQuery: String): Flow<List<Contract>>  {
         return realm.query<RealmContract>()
             .asFlow()

@@ -14,11 +14,7 @@ import kotlinx.coroutines.flow.map
 
 class RealmCourseImpl(private val realm: Realm) :
     CoursesRepository {
-    init {
-        Runtime.getRuntime().addShutdownHook(Thread {
-            realm.close()
-        })
-    }
+
 
     override fun getAllCourses(filterQuery: String): Flow<List<Course>> {
         return realm.query<RealmCourse>()

@@ -17,7 +17,7 @@ default.realm.management
 .idea/libraries/
 .idea/shelf
 .idea/artifacts
-.idea/
+.idea
 *.iws
 *.iml
 *.ipr

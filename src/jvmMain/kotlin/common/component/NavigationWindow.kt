@@ -103,6 +103,19 @@ fun NavigationWindow(
                             alwaysShowLabel = true,
                         )
                     }
+                    Spacer(modifier = Modifier.size(200.dp))
+
+                    IconButton(
+                        onClick = {
+                            // Handle logout button click
+                        },
+                        modifier = Modifier.padding(horizontal = 8.dp)
+                    ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(Icons.Default.ExitToApp, contentDescription = "Exit app")
+                            Text(text = "تسجيل الخروج", style = CairoTypography.h4, modifier = Modifier.padding(start = 8.dp))
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.size(5.dp))
                 Box(
@@ -190,9 +203,9 @@ enum class SystemScreen(
 sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)
     data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD,val person:Person? = null) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
-    class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.PersonAdd,2)
+    class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.Policy,2)
     data class AddContractsScreen(val mode: ScreenMode = ADD,val contract: Contract? =null): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
-    class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.PersonAdd,4)
+    class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.FilePresent,4)
     data class AddCoursesScreen(val mode: ScreenMode = ADD,val course:Course? = null): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
     class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance,6)

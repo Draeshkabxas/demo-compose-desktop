@@ -55,7 +55,7 @@ val appModule = module {
         Realm.open(
             RealmConfiguration.Builder(
                 schema = setOf(
-                    UserRealm::class,
+//                    UserRealm::class,
                     RealmPerson::class,
                     Justification::class,
                     Procedure::class,

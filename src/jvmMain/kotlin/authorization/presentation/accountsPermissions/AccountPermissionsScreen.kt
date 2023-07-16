@@ -13,18 +13,23 @@ import androidx.compose.material.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import authorization.domain.model.Jobs
 import authorization.domain.model.Systems
 import authorization.domain.model.User
 import common.component.CheckboxWithLabel
+import common.component.CustomCheckboxWithLabel
 import common.component.HeadLineWithDate
 import common.component.Screens
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.contracts.ContractsScreenViewModel
 import org.koin.compose.koinInject
-
+import styles.AppColors.blue
+import styles.CairoTypography
 
 
 @Composable
@@ -67,6 +72,7 @@ fun AccountsPermissionsScreen(
             job = Jobs.Viewer,
             systems = listOf(Systems.Courses, Systems.SonsOfOfficers)
         ),
+
         // Add more users here
     )
 
@@ -90,58 +96,109 @@ fun AccountsPermissionsScreen(
                         Column(
                             modifier = Modifier.weight(1f).padding(end = 8.dp)
                         ) {
-                            Text(text = user.name)
+                            Text(text = " اسم الحساب : ${user.name}",style = CairoTypography.h2, fontWeight = FontWeight.SemiBold)
                         }
                         Column(
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text(text = "Jobs")
-                            CheckboxWithLabel(
-                                label = "Admin",
-                                checked = user.job == Jobs.Admin
-                            ) { checked ->
-                                user.job = if (checked) Jobs.Admin else Jobs.Viewer
-                            }
-                            CheckboxWithLabel(
-                                label = "Viewer",
-                                checked = user.job == Jobs.Viewer
-                            ) { checked ->
-                                user.job = if (checked) Jobs.Viewer else Jobs.Admin
-                            }
+                            Text(text = "الصلاحيات",style = CairoTypography.h3, fontWeight = FontWeight.SemiBold)
+                            var isAdminChecked by remember { mutableStateOf(false) }
+
+                            CustomCheckboxWithLabel(
+                                label = "إمكانية الاضافة والتعديل",
+                                checked = isAdminChecked,
+                                onCheckedChange = { isAdminChecked = it },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
+//                            CheckboxWithLabel(
+//                                label = "Admin",
+//                                checked = user.job == Jobs.Admin
+//                            ) { checked ->
+//                                user.job = if (checked) Jobs.Admin else Jobs.Viewer
+//                            }
+//                            CheckboxWithLabel(
+//                                label = "Viewer",
+//                                checked = user.job == Jobs.Viewer
+//                            ) { checked ->
+//                                user.job = if (checked) Jobs.Viewer else Jobs.Admin
+//                            }
+                            var isViewerChecked by remember { mutableStateOf(false) }
+
+                            CustomCheckboxWithLabel(
+                                label = "عرض فقط",
+                                checked = isViewerChecked,
+                                onCheckedChange = { isViewerChecked = it },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
                         }
                         Column(
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text(text = "Systems")
-                            CheckboxWithLabel(
-                                label = "Contracts",
-                                checked = user.systems.contains(Systems.Contracts)
-                            ) { checked ->
-                                if (checked) user.systems += Systems.Contracts
-                                else user.systems -= Systems.Contracts
-                            }
-                            CheckboxWithLabel(
-                                label = "Courses",
-                                checked = user.systems.contains(Systems.Courses)
-                            ) { checked ->
-                                if (checked) user.systems += Systems.Courses
-                                else user.systems -= Systems.Courses
-                            }
-                            CheckboxWithLabel(
-                                label = "Sons of Officers",
-                                checked = user.systems.contains(Systems.SonsOfOfficers)
-                            ) { checked ->
-                                if (checked) user.systems += Systems.SonsOfOfficers
-                                else user.systems -= Systems.SonsOfOfficers
-                            }
+                            Text(text = "المنظومات",style = CairoTypography.h3, fontWeight = FontWeight.SemiBold)
+//                            CheckboxWithLabel(
+//                                label = "Contracts",
+//                                checked = user.systems.contains(Systems.Contracts)
+//                            ) { checked ->
+//                                if (checked) user.systems += Systems.Contracts
+//                                else user.systems -= Systems.Contracts
+//                            }
+                            var isContractsChecked by remember { mutableStateOf(false) }
+
+                            CustomCheckboxWithLabel(
+                                label = "منظومة العقود",
+                                checked = isContractsChecked,
+                                onCheckedChange = { isContractsChecked = it },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
+//                            CheckboxWithLabel(
+//                                label = "Courses",
+//                                checked = user.systems.contains(Systems.Courses)
+//                            ) { checked ->
+//                                if (checked) user.systems += Systems.Courses
+//                                else user.systems -= Systems.Courses
+//                            }
+                            var isCoursesChecked by remember { mutableStateOf(false) }
+
+                            CustomCheckboxWithLabel(
+                                label = "منظومة الدورات",
+                                checked = isCoursesChecked,
+                                onCheckedChange = { isCoursesChecked = it },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
+//                            CheckboxWithLabel(
+//                                label = "Sons of Officers",
+//                                checked = user.systems.contains(Systems.SonsOfOfficers)
+//                            ) { checked ->
+//                                if (checked) user.systems += Systems.SonsOfOfficers
+//                                else user.systems -= Systems.SonsOfOfficers
+//                            }
+                            var isSonsofOfficersChecked by remember { mutableStateOf(false) }
+
+                            CustomCheckboxWithLabel(
+                                label = "منظومة ابناء الضباط",
+                                checked = isSonsofOfficersChecked,
+                                onCheckedChange = { isSonsofOfficersChecked = it },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
                         }
                         Button(
                             onClick = {
                                 // Handle confirm button click
                             },
+                            shape = RoundedCornerShape(24.dp),
                             modifier = Modifier.padding(horizontal = 8.dp)
                         ) {
-                            Text(text = "Confirm")
+                            Text(text = "موافق",style= CairoTypography.body2)
                         }
                         IconButton(
                             onClick = {
@@ -149,7 +206,7 @@ fun AccountsPermissionsScreen(
                             },
                             modifier = Modifier.padding(horizontal = 8.dp),
                         ) {
-                            Icon(Icons.Default.Delete, contentDescription = "Delete")
+                            Icon(Icons.Default.Delete, contentDescription = "Delete",tint= Color.Red)
                         }
                     }
                 }

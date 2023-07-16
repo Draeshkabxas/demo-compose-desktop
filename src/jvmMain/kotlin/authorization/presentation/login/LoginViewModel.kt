@@ -1,7 +1,7 @@
 package authorization.presentation.login
 
 import androidx.compose.runtime.mutableStateOf
-import authorization.data.model.UserRealm
+import authorization.data.model.UsersRealm
 import authorization.domain.model.User
 import authorization.domain.usecase.LoginUseCase
 import common.Resource

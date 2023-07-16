@@ -3,7 +3,7 @@ package di
 import realmdb.firstRealmMigrate
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import authorization.data.model.UserRealm
+import authorization.data.model.UsersRealm
 import org.koin.dsl.module
 import authorization.data.repository.AppCloseImpl
 import authorization.domain.repository.AppCloseRepository
@@ -55,7 +55,7 @@ val appModule = module {
         Realm.open(
             RealmConfiguration.Builder(
                 schema = setOf(
-//                    UserRealm::class,
+                    UsersRealm::class,
                     RealmPerson::class,
                     Justification::class,
                     Procedure::class,

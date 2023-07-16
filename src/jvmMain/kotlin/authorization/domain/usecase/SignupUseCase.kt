@@ -1,6 +1,6 @@
 package authorization.domain.usecase
 
-import authorization.data.model.UserRealm
+import authorization.data.model.UsersRealm
 import authorization.domain.model.User
 import authorization.domain.repository.AuthenticationRepository
 import common.Resource

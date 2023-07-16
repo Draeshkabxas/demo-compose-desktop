@@ -2,7 +2,7 @@ package authorization.data.repository
 
 import authorization.data.dto.UserRealmToUserDto
 import authorization.data.dto.UserToUserRealmDto
-import authorization.data.model.UserRealm
+import authorization.data.model.UsersRealm
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +17,7 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
     AuthenticationRepository {
 
     override fun getAllUsers(): Flow<List<User>> {
-        return realm.query<UserRealm>().asFlow()
+        return realm.query<UsersRealm>().asFlow()
             .map {
                 it.list.map { userRealm -> UserRealmToUserDto().convert(userRealm) }
             }
@@ -35,7 +35,7 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
     }
 
     override fun getUser(user: User): Flow<User?> = flow {
-        val data = realm.query<UserRealm>("name == $0 && password == $1", user.name, user.password).first().find()
+        val data = realm.query<UsersRealm>("name == $0 && password == $1", user.name, user.password).first().find()
         if (data == null) {
             emit(null)
         } else {
@@ -48,7 +48,7 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
     }
 
     override fun isThereUserWithName(username: String): Boolean {
-        val usersCount = realm.query<UserRealm>("name == $0", username).count()
+        val usersCount = realm.query<UsersRealm>("name == $0", username).count()
         return usersCount.find() > 0
     }
 

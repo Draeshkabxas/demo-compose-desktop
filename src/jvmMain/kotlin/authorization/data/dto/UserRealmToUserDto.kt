@@ -1,12 +1,12 @@
 package authorization.data.dto
 
-import authorization.data.model.UserRealm
+import authorization.data.model.UsersRealm
 import authorization.domain.model.Jobs
 import authorization.domain.model.Systems
 import authorization.domain.model.User
 
 class UserRealmToUserDto {
-    fun convert(userRealm: UserRealm): User {
+    fun convert(userRealm: UsersRealm): User {
         return User(
             id = userRealm.id.toHexString(),
             name = userRealm.name,

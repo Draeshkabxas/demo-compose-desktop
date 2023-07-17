@@ -23,6 +23,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
+import authorization.domain.model.Jobs
+import authorization.domain.model.Systems
+import authorization.domain.model.User
+import authorization.domain.usecase.GetUser
 import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
@@ -41,6 +45,8 @@ import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
 import styles.CairoTypography
+import utils.UserAuthSystem
+import utils.getUserAuth
 import kotlin.system.exitProcess
 
 @Composable
@@ -48,17 +54,56 @@ fun NavigationWindow(
     authNavController: NavController<String>,
     windowState: WindowState
 ) {
-    val screens = listOf<Screens>(
-        Screens.HomeScreen(),
-        Screens.ContractsScreen(),
-        Screens.SonsOfOfficersScreen(),
-        Screens.CoursesScreen() ,
-        Screens.AccountsPermissionsScreen()
-    )
+//    val screens = listOf<Screens>(
+//        Screens.HomeScreen(),
+//        Screens.ContractsScreen(),
+//        Screens.SonsOfOfficersScreen(),
+//        Screens.CoursesScreen() ,
+//        Screens.AccountsPermissionsScreen()
+//    )
     val navController by rememberNavController<Screens>(Screens.HomeScreen())
     val currentScreen by remember {
         navController.currentScreen
     }
+
+
+    //primmisions
+    // create a user
+    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
+// set the currentUser property to the current user
+    val userAuthSystem = getUserAuth()
+    var canEditPermission =userAuthSystem.canEdit()
+    userAuthSystem.currentUser = user // replace with your own code to get the current user
+    // Get the current user's authentication status for each screen
+    val screenAuthStatus = mapOf(
+        Systems.Home to userAuthSystem.canAccessScreen(Systems.Home),
+        Systems.Contracts to userAuthSystem.canAccessScreen(Systems.Contracts),
+        Systems.SonsOfOfficers to userAuthSystem.canAccessScreen(Systems.SonsOfOfficers),
+        Systems.Courses to userAuthSystem.canAccessScreen(Systems.Courses)
+    )
+
+// Display the screens based on the user's authentication status
+    val screens = mutableListOf<Screens>()
+
+    if (screenAuthStatus[Systems.Home] == true) {
+        screens.add(Screens.HomeScreen())
+    }
+
+    if (screenAuthStatus[Systems.Contracts] == true) {
+        screens.add(Screens.ContractsScreen())
+    }
+
+    if (screenAuthStatus[Systems.SonsOfOfficers] == true) {
+        screens.add(Screens.SonsOfOfficersScreen())
+    }
+
+    if (screenAuthStatus[Systems.Courses] == true) {
+        screens.add(Screens.CoursesScreen())
+    }
+
+    screens.add(Screens.AccountsPermissionsScreen())
+
+
 
     Surface(
         modifier = Modifier
@@ -202,6 +247,7 @@ enum class SystemScreen(
         icon = Icons.Filled.PersonAdd
     ),
 }
+
 
 sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
     class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)

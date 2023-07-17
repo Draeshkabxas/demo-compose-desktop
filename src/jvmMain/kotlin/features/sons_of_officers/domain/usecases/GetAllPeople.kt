@@ -1,17 +1,18 @@
 package features.sons_of_officers.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.repository.PersonRepository
 import features.sons_of_officers.presentation.sons_of_officers.FilterState
 import kotlinx.coroutines.flow.*
+import utils.HealthStatus.*
 
 class GetAllPeople(
     private val personRepository: PersonRepository
 ) {
     operator fun invoke(filters: FilterState): Flow<Resource<List<Person>>> = flow{
         emit(Resource.Loading(data = emptyList()))
-        println(filters)
+        println("Filters in getAllPeople $filters")
 
         val result=personRepository.getAllPeople("")
         var resultAfterFiltered = result.first().filter {
@@ -23,13 +24,15 @@ class GetAllPeople(
             if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }
 
-        if (filters.healthStatus.isNotEmpty()){
+        if (filters.healthStatus != All){
             resultAfterFiltered = resultAfterFiltered.filter {
                 when (filters.healthStatus) {
-                    "لائق صحيا" -> {
+                    APPROPRIATE -> {
+                        println("لائق صحيا")
                         it.procedures["لائق صحيا"] == true
                     }
-                    "غير لائق صحيا" -> {
+                    INAPPROPRIATE -> {
+                        println("غير لائق صحيا")
                         it.procedures["غير لائق صحيا"]== true
                     }
                     else -> {

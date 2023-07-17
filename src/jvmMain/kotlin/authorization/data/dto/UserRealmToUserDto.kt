@@ -7,18 +7,13 @@ import authorization.domain.model.User
 
 class UserRealmToUserDto {
     fun convert(userRealm: UsersRealm): User {
+        println("Convert UserRealm to User $userRealm")
         return User(
             id = userRealm.id.toHexString(),
             name = userRealm.name,
             password = userRealm.password,
             job = Jobs.valueOf(userRealm.job),
-            systems = userRealm.systems.mapNotNull { system ->
-                try {
-                    Systems.valueOf(system.toString())
-                } catch (e: IllegalArgumentException) {
-                    null
-                }
-            }
+            systems = userRealm.systems.map { Systems.valueOf(it) }
         )
     }
 }

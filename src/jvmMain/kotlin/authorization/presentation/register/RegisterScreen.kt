@@ -39,7 +39,7 @@ fun RegisterScreen(
         viewModel.validationEvents.collect { event ->
             when (event) {
                 RegisterViewModel.ValidationEvent.Success -> {
-                    navController.navigate(AuthScreen.SystemScreen.name)
+                    navController.navigate(AuthScreen.LoginAuthScreen.name)
                 }
             }
         }

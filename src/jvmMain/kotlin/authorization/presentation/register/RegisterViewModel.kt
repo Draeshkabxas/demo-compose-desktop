@@ -74,7 +74,7 @@ class RegisterViewModel(
             )
             return
         }
-        signupUseCase.invoke(User("", state.username, state.password, Jobs.Viewer, listOf())).onEach {
+        signupUseCase.invoke(User("", state.username, state.password, Jobs.None, listOf())).onEach {
             validationEventChannel.send(ValidationEvent.Success)
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }

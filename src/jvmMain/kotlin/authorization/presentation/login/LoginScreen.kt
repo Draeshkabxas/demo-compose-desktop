@@ -22,11 +22,12 @@ import common.component.RoundedButton
 import common.component.RoundedImage
 import authorization.presentation.component.PasswordTextField
 import authorization.presentation.component.UserNameTextField
-import authorization.domain.model.Jobs
+import authorization.domain.model.Jobs.None
+import authorization.domain.model.Jobs.Viewer
 import authorization.domain.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
-import common.Resource
+import utils.Resource
 import navcontroller.NavController
 import styles.CairoTypography
 import styles.AppColors.background
@@ -57,7 +58,7 @@ fun LoginScreen(
             }
 
             is Resource.Loading -> {
-                if (state.data == true) {
+                if (state.data == null) {
                     LoadingDialog {
                         Text("Loading... ")
                     }
@@ -65,7 +66,10 @@ fun LoginScreen(
             }
 
             is Resource.Success -> {
-                navController.navigate(AuthScreen.SystemScreen.name)
+                if (state.data != null && state.data.job != None){
+                    navController.navigate(AuthScreen.SystemScreen.name)
+
+                }
             }
 
             else -> {}
@@ -111,7 +115,7 @@ fun LoginScreen(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     RoundedButton({
-                        viewModel.login(User("", userName.value, password.value, Jobs.Viewer, listOf()))
+                        viewModel.login(User("", userName.value, password.value, Viewer, listOf()))
                     }, "تسجيل الدخول")
                     OutlineRoundedButton({
                         navController.navigate(AuthScreen.SignupAuthScreen.name)

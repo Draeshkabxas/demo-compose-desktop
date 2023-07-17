@@ -2,6 +2,9 @@ package features.sons_of_officers.presentation.sons_of_officers
 
 import androidx.compose.ui.text.toLowerCase
 import utils.AgeGroup
+import utils.HealthStatus
+import utils.HealthStatus.All
+
 data class FilterState(
     val libyaId:String = "",
     val fileNumber:String="",
@@ -10,5 +13,5 @@ data class FilterState(
     val fileState:String="",
     val referralForTraining:String="",
     val ageGroup: AgeGroup? = null,
-    val healthStatus:String="",
+    val healthStatus:HealthStatus= All,
 )

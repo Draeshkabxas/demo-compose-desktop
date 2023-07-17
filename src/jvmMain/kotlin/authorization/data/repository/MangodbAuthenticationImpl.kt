@@ -3,15 +3,16 @@ package authorization.data.repository
 import authorization.data.dto.UserRealmToUserDto
 import authorization.data.dto.UserToUserRealmDto
 import authorization.data.model.UsersRealm
+import authorization.domain.model.Jobs.SuperAdmin
+import authorization.domain.model.Systems.*
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import authorization.domain.model.User
+import authorization.domain.model.addOrRemoveScreenFromSystem
 import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
-import kotlinx.coroutines.flow.flow
+import io.realm.kotlin.ext.toRealmList
+import kotlinx.coroutines.flow.*
 
 class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCloseRepository) :
     AuthenticationRepository {
@@ -24,6 +25,13 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
     }
 
     override suspend fun add(user: User): User {
+        if (getAllUsers().first().isEmpty()){
+            user.job = SuperAdmin
+            user.addOrRemoveScreenFromSystem(SonsOfOfficers,true)
+            user.addOrRemoveScreenFromSystem(Contracts,true)
+            user.addOrRemoveScreenFromSystem(Courses,true)
+            user.addOrRemoveScreenFromSystem(Home,true)
+        }
         realm.writeBlocking {
             try {
                 copyToRealm(UserToUserRealmDto().convert(user))
@@ -43,8 +51,8 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
         }
     }
 
-    override fun isUser(userRealm: User): Flow<Boolean> {
-        return getUser(userRealm).map { it != null }
+    override fun isUser(user: User): Flow<User?> {
+        return getUser(user)
     }
 
     override fun isThereUserWithName(username: String): Boolean {
@@ -69,4 +77,46 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
             }
         }
     }
+
+    override suspend fun updateUser(userUpdate: User):Flow<Boolean> {
+        var result = true
+        try {
+            realm.writeBlocking {
+                query<UsersRealm>(" name == $0 && password == $1",userUpdate.name,userUpdate.password)
+                    .first()
+                    .find()?.also {
+                        findLatest(it)?.apply {
+                            name = userUpdate.name
+                            job= userUpdate.job.toString()
+                            systems = userUpdate.systems.map {system-> system.name }.toRealmList()
+                        }
+                    }
+                query<UsersRealm>(" name == $0 && password == $1",userUpdate.name,userUpdate.password)
+                    .first()
+                    .find()?.also {
+                        println("inside the update user impl $it")
+                    }
+            }
+        }catch (e:Exception){
+            result = false
+        }
+        return flowOf(result)
+    }
+
+    override suspend fun deleteUser(deletedUser: User): Flow<Boolean> {
+        var result = true
+        try {
+            realm.writeBlocking {
+                query<UsersRealm>(" name == $0 && password == $1",deletedUser.name,deletedUser.password)
+                    .first()
+                    .find()?.also {
+                        delete(it)
+                    }
+            }
+        }catch (e:Exception){
+            result = false
+        }
+        return flowOf(result)    }
+
+
 }

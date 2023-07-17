@@ -5,9 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 17">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/DeleteUser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/GetAllUsers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/UpdateUser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/accountsPermissions/AccountPermissionViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/HealthStatus.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/UserAuthSystem.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/default.realm.lock" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid10788.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid11136.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid11680.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid11912.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid13764.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid14036.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid15580.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid15692.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid16848.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18092.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid18444.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19252.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid19956.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20012.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid20180.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3048.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid3120.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid5272.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6000.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6224.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid6452.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9000.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hs_err_pid9712.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserRealmToUserDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserRealmToUserDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserToUserRealmDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/dto/UserToUserRealmDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/model/UsersRealm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/model/UsersRealm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/data/repository/MangodbAuthenticationImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/model/Jobs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/model/Jobs.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/model/User.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/repository/AuthenticationRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/repository/AuthenticationRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/LoginUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/LoginUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/SignupUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/domain/usecase/SignupUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/accountsPermissions/AccountPermissionsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/accountsPermissions/AccountPermissionsScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/Resource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/Resource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/Support.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/Support.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/di/AppModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/AddContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/AddContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/GetAllContracrts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/GetAllContracrts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/PrintContractsListToXlsxFile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/PrintContractsListToXlsxFile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/RemoveAllContracts.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/RemoveAllContracts.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/UpdateContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/UpdateContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/AddCourse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/AddCourse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/GetAllCourses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/GetAllCourses.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/PrintCoursesListToXlsxFile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/PrintCoursesListToXlsxFile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/UpdateCourse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/domain/usecases/UpdateCourse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/FilterEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/FilterEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/FilterState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/FilterState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/AddPerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/GetAllPeople.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/GetAllPeople.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/PrintPersonsListToXlsxFile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/UpdatePerson.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/UpdatePerson.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterEvent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterEvent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/FilterState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/realmdb/FirstRealmMigration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/styles/AppColors.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,22 +145,22 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HP/Desktop/desktop-app&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "Merging master",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "C:/Users/HP/Desktop/desktop-app",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "build.tools",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
@@ -540,7 +610,15 @@
       <option name="project" value="LOCAL" />
       <updated>1689552797220</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="add edite 17">
+      <option name="closed" value="true" />
+      <created>1689594000878</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1689594000878</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

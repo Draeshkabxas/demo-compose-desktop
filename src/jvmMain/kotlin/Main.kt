@@ -100,7 +100,9 @@ fun AuthNavigationHost(
 ) {
     NavigationHost(navController) {
         composable(AuthScreen.LoginAuthScreen.name) {
+            windowState.placement = WindowPlacement.Floating
             LoginScreen(navController)
+
         }
 
         composable(AuthScreen.SignupAuthScreen.name) {

@@ -19,6 +19,7 @@ import common.component.*
 import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent.*
+import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
 import styles.AppColors.GreenGradient
 import styles.AppColors.blueGradient
@@ -51,7 +52,7 @@ fun SonsOfOfficersScreen(
     ) {
         HeadLineWithDate(text = "منظومة أبناء الضباط ", date = "1/7/2023  1:30:36 PM")
         Box {
-            features.courses.presentation.courses.component.Filters(
+            Filters(
                 onFilterLibyaId = { viewModel.onEvent(FilterEvent.FilterLibyaId(it)) },
                 onFilterFileNumber = { viewModel.onEvent(FilterEvent.FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEvent.FilterEducationLevel(it)) },

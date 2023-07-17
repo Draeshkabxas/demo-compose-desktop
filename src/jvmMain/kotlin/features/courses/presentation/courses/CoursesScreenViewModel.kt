@@ -1,6 +1,6 @@
 package features.courses.presentation.courses
 
-import common.Resource
+import utils.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.usecases.GetAllCourses
 import features.courses.domain.usecases.PrintCoursesListToXlsxFile
@@ -56,7 +56,7 @@ class CoursesScreenViewModel(
                 state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
             is FilterEvent.FilterHealthStatus -> {
-                state = state.copy(healthStatus = event.healthStatus.toString())
+                state = state.copy(healthStatus = event.healthStatus)
             }
             is FilterEvent.Reset -> {
                 state = FilterState()

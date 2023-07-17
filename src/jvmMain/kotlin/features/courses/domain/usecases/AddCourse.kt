@@ -1,9 +1,8 @@
 package features.courses.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.repository.CoursesRepository
-import features.sons_of_officers.domain.model.Person
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

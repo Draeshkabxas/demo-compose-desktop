@@ -1,5 +1,7 @@
 package features.courses.presentation.courses
 
+import utils.HealthStatus
+
 sealed class FilterEvent {
     data class FilterLibyaId(val libyaId:String):FilterEvent()
     data class FilterFileNumber(val fileNumber:String):FilterEvent()
@@ -8,7 +10,7 @@ sealed class FilterEvent {
     data class FilterFileState(val fileState:Boolean):FilterEvent()
     data class FilterReferralForTraining(val referralForTraining:Boolean):FilterEvent()
     data class FilterAgeGroup(val ageGroup:String): FilterEvent()
-    data class FilterHealthStatus(val healthStatus: String): FilterEvent()
+    data class FilterHealthStatus(val healthStatus: HealthStatus): FilterEvent()
 
     object Reset:FilterEvent()
     object Submit:FilterEvent()

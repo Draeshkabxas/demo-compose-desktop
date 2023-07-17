@@ -9,10 +9,8 @@ import authorization.data.repository.AppCloseImpl
 import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
 import authorization.data.repository.MangodbAuthenticationImpl
-import authorization.domain.usecase.CloseApplication
-import authorization.domain.usecase.LoginUseCase
-import authorization.domain.usecase.SignupUseCase
-import authorization.domain.usecase.ValidateUsername
+import authorization.domain.usecase.*
+import authorization.presentation.accountsPermissions.AccountPermissionViewModel
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
 import features.contracts.data.model.RealmContract
@@ -49,6 +47,8 @@ import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
 import features.sons_of_officers.domain.usecases.UpdatePerson
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
+import utils.UserAuthSystem
+import kotlin.math.sin
 
 val appModule = module {
     single<Realm> {
@@ -64,14 +64,33 @@ val appModule = module {
                     JustificationCourse::class,
                     ProcedureCourse::class
                 )
-            ).schemaVersion(5)
+            ).schemaVersion(6)
                 .migration(firstRealmMigrate())
                 .build()
         )
     }
     single<AppCloseRepository> { AppCloseImpl() }
     single<AuthenticationRepository> { MangodbAuthenticationImpl(get(), get()) }
+
+    //UserPermission Di
+    single<GetAllUsers> { GetAllUsers(get()) }
+    single<UpdateUser> { UpdateUser(get()) }
+    single<DeleteUser> { DeleteUser(get()) }
+    single<AccountPermissionViewModel> {
+        AccountPermissionViewModel(
+            updateUser = get(),
+            getAllUsers = get(),
+            deleteUserUseCase = get()
+        )
+    }
+
+    //Login
     single<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
+
+    //UserAuthSystem
+    single<UserAuthSystem> { UserAuthSystem() }
+
+    //Register
     single<RegisterViewModel> {
         RegisterViewModel(
             SignupUseCase(get()),
@@ -79,12 +98,19 @@ val appModule = module {
             closeApplication = CloseApplication(get())
         )
     }
+
+    //Sons of officers
     single<PersonRepository> { RealmPersonImpl(get()) }
     single<PersonXlsxRepository> { PersonXlsxImpl() }
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
     single<GetAllPeople> { GetAllPeople(get()) }
     single<UpdatePerson> { UpdatePerson(get()) }
-    factory<AddSonsOfOfficersViewModel> { AddSonsOfOfficersViewModel(addPerson = AddPerson(get()), updatePerson = get()) }
+    factory<AddSonsOfOfficersViewModel> {
+        AddSonsOfOfficersViewModel(
+            addPerson = AddPerson(get()),
+            updatePerson = get()
+        )
+    }
     factory<SonsOfOfficersScreenViewModel> { SonsOfOfficersScreenViewModel(get(), get()) }
 
     //Contract Di
@@ -93,7 +119,12 @@ val appModule = module {
     single<ContractXlsxRepository> { ContractXlsxImpl() }
     single<PrintContractsListToXlsxFile> { PrintContractsListToXlsxFile(get()) }
     single<RemoveAllContracts> { RemoveAllContracts(get()) }
-    factory<ContractsScreenViewModel> { ContractsScreenViewModel(allContracts = get(), printContractsListToXlsxFile = get()) }
+    factory<ContractsScreenViewModel> {
+        ContractsScreenViewModel(
+            allContracts = get(),
+            printContractsListToXlsxFile = get()
+        )
+    }
     //Add Contract Di
     single<AddContract> { AddContract(get()) }
     single<UpdateContract> { UpdateContract(get()) }
@@ -106,7 +137,12 @@ val appModule = module {
     single<CourseXlsxRepository> { CoursesXlsxImpl() }
     single<PrintCoursesListToXlsxFile> { PrintCoursesListToXlsxFile(get()) }
     //single<RemoveAllC> { RemoveAllContracts(get()) }
-    factory<CoursesScreenViewModel> { CoursesScreenViewModel(getAllCourses = get(), printCoursesListToXlsxFile =  get()) }
+    factory<CoursesScreenViewModel> {
+        CoursesScreenViewModel(
+            getAllCourses = get(),
+            printCoursesListToXlsxFile = get()
+        )
+    }
     //Add Courses Di
     single<AddCourse> { AddCourse(get()) }
     single<UpdateCourse> { UpdateCourse(get()) }

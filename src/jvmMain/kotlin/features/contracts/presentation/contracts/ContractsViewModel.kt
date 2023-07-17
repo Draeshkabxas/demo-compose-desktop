@@ -1,6 +1,6 @@
 package features.contracts.presentation.contracts
 
-import common.Resource
+import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.GetAllContracts;
 import features.contracts.domain.usecases.PrintContractsListToXlsxFile
@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import utils.fromArabicNameToAgeGroup
-import utils.getAgeGroupFromLibyaId
 
 class ContractsScreenViewModel (
     private val allContracts:GetAllContracts,

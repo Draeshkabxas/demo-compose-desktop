@@ -2,6 +2,8 @@ package features.courses.presentation.courses
 
 import androidx.compose.ui.text.toLowerCase
 import utils.AgeGroup
+import utils.HealthStatus
+import utils.HealthStatus.All
 
 data class FilterState(
     val libyaId:String = "",
@@ -11,5 +13,5 @@ data class FilterState(
     val fileState:String="",
     val referralForTraining:String="",
     val ageGroup: AgeGroup? = null,
-    val healthStatus:String="",
+    val healthStatus:HealthStatus= All,
     )

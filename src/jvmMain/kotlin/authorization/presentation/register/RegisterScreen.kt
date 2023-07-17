@@ -11,7 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import authorization.domain.model.Jobs
 import common.component.OutlineRoundedButton
@@ -47,6 +51,9 @@ fun RegisterScreen(
         color = background,
         shape = RoundedCornerShape(20.dp) //window has round corners now
     ) {
+        CompositionLocalProvider(
+            LocalLayoutDirection provides LayoutDirection.Rtl // Set layout direction to RTL
+        ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -59,16 +66,18 @@ fun RegisterScreen(
                 Image(
                     painter = painterResource("images/welcome.svg"),
                     contentDescription = "welcome.png",
-                    modifier = Modifier.size(250.dp, 170.dp)
+                    modifier = Modifier.size(350.dp, 170.dp)
                 )
                 Text(
-                    "الرجاء ادخال اسم المستخدم\n" +
-                            "و كلمة السر", style = CairoTypography.body1
+                    "الرجاء إدخال إسم المستخدم و كلمة السر",
+                    style = CairoTypography.h3,
+                    textAlign = TextAlign.Start,
+                    fontWeight = FontWeight.SemiBold
                 )
                 LazyVerticalGrid(
-                    modifier = Modifier.sizeIn(maxWidth = 530.dp, minHeight = 250.dp),
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(16.dp)
+                    modifier = Modifier.sizeIn(maxWidth = 400.dp, minHeight = 250.dp),
+                    columns = GridCells.Fixed(1),
+                    contentPadding = PaddingValues(0.dp)
                 ) {
                     item {
                         UserNameTextField(
@@ -78,15 +87,15 @@ fun RegisterScreen(
                             errorMessage = state.usernameError.toString(),
                             onNextChange = { print(it) })
                     }
-                    item {
-                        RoundedDropdownMenu(
-                            items= Jobs.values().toList(),
-                            onSelectItem = {},
-                            label = { Text(it.name) },
-                        ){
-                            Text(it.name)
-                        }
-                    }
+//                    item {
+//                        RoundedDropdownMenu(
+//                            items = Jobs.values().toList(),
+//                            onSelectItem = {},
+//                            label = { Text(it.name) },
+//                        ) {
+//                            Text(it.name)
+//                        }
+//                    }
                     item {
                         PasswordTextField(
                             "",
@@ -114,19 +123,23 @@ fun RegisterScreen(
                             modifier = Modifier.padding(vertical = 25.dp)
                         )
                     }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    RoundedButton({
-                        viewModel.onEvent(RegistrationFormEvent.AcceptTerms(true))
-                        viewModel.onEvent(RegistrationFormEvent.Submit)
-                    }, "إنشاء حساب")
-                    OutlineRoundedButton({ viewModel.closeApp() }, "خروج")
+                    item {
+
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceAround
+                        ) {
+                            RoundedButton({
+                                viewModel.onEvent(RegistrationFormEvent.AcceptTerms(true))
+                                viewModel.onEvent(RegistrationFormEvent.Submit)
+                            }, "إنشاء حساب")
+                            OutlineRoundedButton({ viewModel.closeApp() }, "خروج")
+                        }
+                    }
                 }
             }
-            RoundedImage("images/login-image.png", modifier = Modifier.padding(horizontal = 35.dp))
+            RoundedImage("images/cover.jpg", modifier = Modifier.padding(horizontal = 35.dp))
         }
+    }
     }
 }
 

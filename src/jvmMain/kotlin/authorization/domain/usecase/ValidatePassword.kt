@@ -8,7 +8,7 @@ class ValidatePassword {
         if(password.length < 8) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The password needs to consist of at least 8 characters"
+                errorMessage = "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
             )
         }
         val containsLettersAndDigits = password.any { it.isDigit() } &&
@@ -16,7 +16,7 @@ class ValidatePassword {
         if(!containsLettersAndDigits) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The password needs to contain at least one letter and digit"
+                errorMessage = "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل"
             )
         }
         return ValidationResult(

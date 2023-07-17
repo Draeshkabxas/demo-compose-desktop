@@ -10,8 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import common.component.OutlineRoundedButton
 import common.component.RoundedButton
@@ -46,23 +50,29 @@ fun LoginScreen(
         shape = RoundedCornerShape(20.dp), //window has round corners now
         elevation = 40.dp
     ) {
-        val state=viewModel.loginState.value
-        when(state) {
+        val state = viewModel.loginState.value
+        when (state) {
             is Resource.Error -> {
                 println("error: ${state.message}")
             }
+
             is Resource.Loading -> {
-                if(state.data == true){
-                    LoadingDialog{
+                if (state.data == true) {
+                    LoadingDialog {
                         Text("Loading... ")
                     }
                 }
             }
+
             is Resource.Success -> {
                 navController.navigate(AuthScreen.SystemScreen.name)
             }
+
             else -> {}
         }
+        CompositionLocalProvider(
+            LocalLayoutDirection provides LayoutDirection.Rtl // Set layout direction to RTL
+        ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -71,6 +81,7 @@ fun LoginScreen(
             Column(
                 modifier = Modifier.fillMaxHeight()
                     .padding(horizontal = 35.dp),
+                horizontalAlignment = Alignment.Start
             ) {
                 Image(
                     painter = painterResource("images/welcome.svg"),
@@ -78,9 +89,12 @@ fun LoginScreen(
                     modifier = Modifier.size(250.dp, 170.dp)
                 )
                 Text(
-                    "الرجاء ادخال اسم المستخدم\n" +
-                            "و كلمة السر", style = CairoTypography.body1
+                    " الرجاء إدخال إسم المستخدم و كلمة السر",
+                    style = CairoTypography.h3,
+                    textAlign = TextAlign.Start,
+                    fontWeight = FontWeight.SemiBold
                 )
+                Spacer(modifier = Modifier.size(30.dp))
                 UserNameTextField(
                     "",
                     { name -> userName.value = name },
@@ -97,14 +111,24 @@ fun LoginScreen(
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     RoundedButton({
-                        viewModel.login(User("", userName.value, password.value, Jobs.Viewer, listOf()))                    }, "تسجيل الدخول")
+                        viewModel.login(User("", userName.value, password.value, Jobs.Viewer, listOf()))
+                    }, "تسجيل الدخول")
                     OutlineRoundedButton({
                         navController.navigate(AuthScreen.SignupAuthScreen.name)
                     }, "إنشاء حساب")
                 }
+                Text(
+                    "ملاحظه: عند انشاء حسابك لأول مرة يرجى التواصل مع المسؤول لتفعيل حسابك",
+                    style = CairoTypography.body1,
+                    textAlign = TextAlign.Start,
+                    color = Color.Red
+//                fontWeight = FontWeight.SemiBold
+                )
             }
-            RoundedImage("images/login-image.png", modifier = Modifier.padding(horizontal = 35.dp))
+
+            RoundedImage("images/cover.jpg", modifier = Modifier.padding(horizontal = 35.dp))
         }
+    }
     }
 }
 

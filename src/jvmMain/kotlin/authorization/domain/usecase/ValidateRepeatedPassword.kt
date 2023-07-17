@@ -8,7 +8,7 @@ class ValidateRepeatedPassword {
         if(password != repeatedPassword) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The passwords don't match"
+                errorMessage = "كلمات المرور غير متطابقة"
             )
         }
         return ValidationResult(

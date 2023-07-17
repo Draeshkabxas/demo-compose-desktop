@@ -16,5 +16,5 @@ class SignupUseCase(private val auth: AuthenticationRepository) {
         auth.add(user)
         emit(Resource.Success(user))
         println(auth.getUser(user).first().toString())
-    }.catch { emit(Resource.Error("Cloud Not login")) }
+    }.catch { emit(Resource.Error("لا يمكن تسجيل الدخول")) }
 }

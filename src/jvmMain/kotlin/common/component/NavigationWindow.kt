@@ -108,6 +108,9 @@ fun NavigationWindow(
                     IconButton(
                         onClick = {
                             // Handle logout button click
+                            authNavController.navigate(AuthScreen.LoginAuthScreen.name)
+                  print("clickkkkkkkkkkkk")
+
                         },
                         modifier = Modifier.padding(horizontal = 8.dp)
                     ) {

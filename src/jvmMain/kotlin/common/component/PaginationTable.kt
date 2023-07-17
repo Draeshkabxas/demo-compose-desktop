@@ -28,6 +28,7 @@ import features.sons_of_officers.domain.model.hasShortfalls
 import navcontroller.NavController
 import styles.AppColors
 import styles.CairoTypography
+import utils.getUserAuth
 
 @Composable
 fun PaginatedTable(
@@ -42,7 +43,8 @@ fun PaginatedTable(
     var currentPage by remember { mutableStateOf(0) }
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
-
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
 
     Column() {
         Row {
@@ -180,6 +182,7 @@ fun PaginatedTable(
                     val valueToCheck = person.procedures.get("إحالة لتدريب")
 
 //                    isButtonVisible = person.hasShortfalls()
+                    if (canEditPermission){
                     if (valueToCheck == false) {
                         Button(modifier = Modifier
                             .width(columnWidths[10])
@@ -190,12 +193,15 @@ fun PaginatedTable(
                                 navController.navigate(AddSonsOfOfficersScreen(mode = EDIT, person = person))
                             }
                         ) {
-                            Text("إضافة",style = CairoTypography.body2,
+                            Text(
+                                "إضافة", style = CairoTypography.body2,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xffffffff),
-                                textAlign = TextAlign.Center,)
+                                textAlign = TextAlign.Center,
+                            )
                         }
                     }
+                }
                     else{
                         Text(
                             text = "",

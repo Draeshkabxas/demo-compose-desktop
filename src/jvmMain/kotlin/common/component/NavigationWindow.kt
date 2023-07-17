@@ -69,11 +69,12 @@ fun NavigationWindow(
 
     //primmisions
     // create a user
-    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
+//    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
 // set the currentUser property to the current user
     val userAuthSystem = getUserAuth()
-    var canEditPermission =userAuthSystem.canEdit()
-    userAuthSystem.currentUser = user // replace with your own code to get the current user
+    var canEditPermission = userAuthSystem.canEdit()
+    var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
+    userAuthSystem.currentUser // replace with your own code to get the current user
     // Get the current user's authentication status for each screen
     val screenAuthStatus = mapOf(
         Systems.Home to userAuthSystem.canAccessScreen(Systems.Home),
@@ -101,7 +102,9 @@ fun NavigationWindow(
         screens.add(Screens.CoursesScreen())
     }
 
-    screens.add(Screens.AccountsPermissionsScreen())
+    if (superAdminPermission){
+            screens.add(Screens.AccountsPermissionsScreen())
+    }
 
 
 
@@ -152,6 +155,9 @@ fun NavigationWindow(
 
                     IconButton(
                         onClick = {
+                            //    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
+// set the currentUser property to the current user
+                             userAuthSystem.currentUser =User("", "", "", Jobs.None, listOf())
                             // Handle logout button click
                             authNavController.navigate(AuthScreen.LoginAuthScreen.name)
                   print("clickkkkkkkkkkkk")
@@ -262,7 +268,7 @@ sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
 }
 
 enum class ScreenMode{
-    EDIT,ADD
+    EDIT,ADD,DELET
 }
 
 

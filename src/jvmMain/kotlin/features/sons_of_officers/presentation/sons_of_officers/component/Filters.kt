@@ -19,7 +19,9 @@ import common.component.CustomOutlinedTextField
 
 import common.component.*
 import styles.AppColors
+import styles.AppColors.RedGradient
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import utils.*
 import utils.HealthStatus.All
 
@@ -38,9 +40,9 @@ fun Filters(
 ){
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
-    var selectededucation by remember { mutableStateOf("إختر المؤهل") }
+    var selectededucation by remember { mutableStateOf("إختر المؤهل العلمي") }
     var selectedFileState by remember { mutableStateOf("إختر حالة الملف") }
-    var selectedTrainer by remember { mutableStateOf("إختر  نعم او لا") }
+    var selectedTrainer by remember { mutableStateOf("إحالة لتدريب") }
     var selectedAge by remember { mutableStateOf("إختر الفئة العمرية") }
     val libyaIdState = remember { mutableStateOf("") }
     val fileNumberState = remember { mutableStateOf("") }
@@ -50,11 +52,11 @@ fun Filters(
 
     val resetFilters = {
         onReset()
-        selectedHealthStatus ="إختلر الحالة الصحية"
+        selectedHealthStatus ="إختار الحالة الصحية"
         selectedCity = "إختر المدينة"
-        selectededucation = "إختر المؤهل"
+        selectededucation = "إختر المؤهل العلمي"
         selectedFileState = "إختر حالة الملف"
-        selectedTrainer = "إختر  نعم او لا"
+        selectedTrainer = "إحالة لتدريب"
         selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         fileNumberState.value = ""
@@ -65,7 +67,7 @@ fun Filters(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -81,12 +83,14 @@ fun Filters(
                 maxLength = 12 // Set the maximum length to N characters
 
             )
-            CustomButton(
-                text = "إبحث", icon = Icons.Default.Search, onClick = {
-                    onSubmit()
+            GradientButton(
+                text = "إبحث",
+                icon = Icons.Default.Search,
+                onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                buttonColor = Color(0xff3B5EA1)
+                blueGradient,
+                cornerRadius = 30.dp
             )
             if (isCancelVisible) {
                 Button(
@@ -109,13 +113,14 @@ fun Filters(
 
                 }
 
+
             }
-            CustomButton(
+            GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-
-                buttonColor = blue
+                blueGradient,
+                cornerRadius = 30.dp
             )
             Button(
                 shape = RoundedCornerShape(100.dp),
@@ -141,23 +146,23 @@ fun Filters(
                 modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp),
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp).padding(horizontal = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
                     CustomOutlinedTextField(
                         valueState = fileNumberState,
-                        hint = "إبحث برقم الملف",
+                        hint = "رقم الملف",
                         errorMessage = "",
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
-                        width = 120.dp,
+                        width = 100.dp,
                         inputType = InputType.NUMBER,
                         maxLength = 5 // Set the maximum length to N characters
 
                     )
                     SelectorWithLabel(
-                        label = "المؤهل العلمي : ",
+                        label = "",
                         items = Education.values().map { it.arabicName },
                         selectedItem = selectededucation,
                         onItemSelected = { education ->
@@ -167,7 +172,7 @@ fun Filters(
                     )
 
                     SelectorWithLabel(
-                        label = "المدينة : ",
+                        label = "",
                         items = LibyanCities.values().map { it.arabicName },
                         selectedItem = selectedCity,
                         onItemSelected = { city ->
@@ -178,7 +183,7 @@ fun Filters(
 
                     val fileValues = listOf("مستوفي", "نواقص")
                     SelectorWithLabel(
-                        label = "حالة الملف : ",
+                        label = "",
                         items = fileValues,
                         selectedItem = selectedFileState,
                         onItemSelected = { file ->
@@ -191,7 +196,7 @@ fun Filters(
 
                     val trainerValues = listOf("نعم", "لا")
                     SelectorWithLabel(
-                        label = "إحالة للتدريب : ",
+                        label = "",
                         items = trainerValues,
                         selectedItem = selectedTrainer,
                         onItemSelected = { trainer ->
@@ -201,26 +206,8 @@ fun Filters(
                             )
                         }
                     )
-                    CustomButton(
-                        text = "إبحث", icon = Icons.Default.Search, onClick = {
-                            onSubmit()
-                        },
-                        buttonColor = Color(0xff3B5EA1)
-                    )
-                    CustomButton(
-                        text = "إعادة ضبط", icon = Icons.Default.RestartAlt, onClick = {
-                            resetFilters()
-                        },
-                        buttonColor = Color.Red
-                    )
-
-
-
-                }
-                Row(                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 85.dp),
-                ) {
                     SelectorWithLabel(
-                        label = " الفئة العمرية : ",
+                        label = "",
                         items = getAllAgeGroupArabicNames(),
                         selectedItem = selectedAge,
                         onItemSelected = { ageGroup ->
@@ -229,7 +216,7 @@ fun Filters(
                         }
                     )
                     SelectorWithLabel(
-                        label = " الحالة الصحية : ",
+                        label = "",
                         items = HealthStatus.values().filterNot { it == All }.map { it.arabicName },
                         selectedItem = selectedHealthStatus,
                         onItemSelected = { file ->
@@ -237,9 +224,25 @@ fun Filters(
                             onFilterHealthStatus(getHealthStatusFromArabicName(file))
                         }
                     )
+                    GradientButton(
+                        text = "إبحث",
+                        icon = Icons.Default.Search,
+                        onClick = {
+                            onSubmit()
+                        },
+                        blueGradient,
+                        cornerRadius = 30.dp
+                    )
+                    GradientButton(
+                        text = "إعادة ضبط",
+                        icon = Icons.Default.RestartAlt,
+                        onClick = {
+                            resetFilters()
+                        },
+                        RedGradient
+                        ,cornerRadius = 30.dp
+                    )
                 }
-
-
             }
         }
     }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import common.component.*
 
 
@@ -25,12 +26,16 @@ import features.contracts.presentation.contracts.component.Filters
 import features.contracts.presentation.contracts.component.PaginatedTable
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import org.koin.compose.koinInject
+import styles.AppColors
 import styles.AppColors.GreenGradient
 import styles.AppColors.blue
 import styles.AppColors.blueGradient
 import styles.AppColors.green
+import styles.CairoTypography
+import utils.getUserAuth
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ContractsScreen(
     navController: NavController<Screens>,
@@ -45,7 +50,9 @@ fun ContractsScreen(
         "التبعية", "إسم المصرف", "رقم الحساب",
         "الملاحظات", "تعديل"
     )
-
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
+    var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
@@ -62,81 +69,124 @@ fun ContractsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HeadLineWithDate(text = "منظومة العقود ", date = "1/7/2023  1:30:36 PM")
-        Box {
-            Filters(
-                onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
-                onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
-                onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
-                onFilterCity = { viewModel.onEvent(FilterCity(it)) },
-                onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
-                onFilterName = { viewModel.onEvent(FilterName(it)) },
-                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
-                onReset = { viewModel.onEvent(Reset) },
-                onSubmit = { viewModel.onEvent(Submit) },
-            )
-            Row(
-                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                GradientButton(
-                    text = "إضافة ملف",
-                    icon = Icons.Default.AddTask,
-                    onClick = {
-                        navController.navigate(Screens.AddContractsScreen())
-                    },
-                    blueGradient, cornerRadius = 30.dp
+            Box {
+                Filters(
+                    onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
+                    onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
+                    onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
+                    onFilterCity = { viewModel.onEvent(FilterCity(it)) },
+                    onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
+                    onFilterName = { viewModel.onEvent(FilterName(it)) },
+                    onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
+                    onReset = { viewModel.onEvent(Reset) },
+                    onSubmit = { viewModel.onEvent(Submit) },
                 )
-                GradientButton(
-                    text = "طباعة",
-                    icon = Icons.Default.Print,
-                    onClick = {
-                        showPrintListDialog = true
-                    },
+                Row(
+                    modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    if (canEditPermission) {
 
-                    GreenGradient,
-                    cornerRadius = 30.dp
-                )
-                if (showPrintListDialog) {
-                    PrintDialog(
-                        columns = listOf(
-                            "رقم الملف",
-                            "الاسم رباعي",
-                            "اسم الام",
-                            "جنسية الام",
-                            "المؤهل العلمي",
-                            "المدينة",
-                            "رقم الهاتف",
-                            " التبعية",
-                            "اسم المصرف",
-                            "رقم الحساب"
-                        ),
-                        onPrintColumnsChanged = {
-                            viewModel.onPrintEvent(PrintEvent.PrintList(it))
-                            showPrintDirectoryPathDialog = true
-                        },
-                        onDismiss = { showPrintListDialog = false }
-                    )
-                }
+                        GradientButton(
+                            text = "إضافة ملف",
+                            icon = Icons.Default.AddTask,
+                            onClick = {
+                                navController.navigate(Screens.AddContractsScreen())
+                            },
+                            blueGradient, cornerRadius = 30.dp
+                        )
+                        GradientButton(
+                            text = "طباعة",
+                            icon = Icons.Default.Print,
+                            onClick = {
+                                showPrintListDialog = true
+                            },
 
-                if (showPrintDirectoryPathDialog) {
-                    DirectoryDialog(
-                        onApproved = { filePath ->
-                            viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
-                            viewModel.onPrintEvent(PrintEvent.Submit)
-                            showPrintDirectoryPathDialog = false
-                        },
-                        onCanceled = {
-                            showPrintDirectoryPathDialog = false
-                            println("on canceled")
-                        },
-                        onError = {
-                            println("on onError")
+                            GreenGradient,
+                            cornerRadius = 30.dp
+                        )
+                        var showDialogDelet by remember { mutableStateOf(false) }
+
+                        if (showDialogDelet) {
+                            AlertDialog(
+                                onDismissRequest = { showDialogDelet = false },
+                                title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
+                                text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
+                                confirmButton = {
+                                    GradientButton(
+                                        text = "مسح",
+                                        icon = Icons.Default.DeleteForever,
+                                        onClick = {
+                                            showDialogDelet = false
+                                        },
+                                        AppColors.RedGradient, cornerRadius = 30.dp
+                                    )
+                                },
+                                dismissButton = {
+
+                                    GradientButton(
+                                        text = "الغاء",
+                                        icon = Icons.Default.Cancel,
+                                        onClick = { showDialogDelet = false },
+
+                                                AppColors.RedGradient, cornerRadius = 30.dp
+                                    )
+                                }
+                            )
                         }
-                    )
+                        if (superAdminPermission){
+                        GradientButton(
+                            text = "مسح الكل",
+                            icon = Icons.Default.DeleteForever,
+                            onClick = {
+                               showDialogDelet = true
+                            },
+                            AppColors.RedGradient, cornerRadius = 30.dp
+                        )
+                    }
+                        if (showPrintListDialog) {
+                            PrintDialog(
+                                columns = listOf(
+                                    "رقم الملف",
+                                    "الاسم رباعي",
+                                    "اسم الام",
+                                    "جنسية الام",
+                                    "المؤهل العلمي",
+                                    "المدينة",
+                                    "رقم الهاتف",
+                                    " التبعية",
+                                    "اسم المصرف",
+                                    "رقم الحساب"
+                                ),
+                                onPrintColumnsChanged = {
+                                    viewModel.onPrintEvent(PrintEvent.PrintList(it))
+                                    showPrintDirectoryPathDialog = true
+                                },
+                                onDismiss = { showPrintListDialog = false }
+                            )
+                        }
+
+                        if (showPrintDirectoryPathDialog) {
+                            DirectoryDialog(
+                                onApproved = { filePath ->
+                                    viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
+                                    viewModel.onPrintEvent(PrintEvent.Submit)
+                                    showPrintDirectoryPathDialog = false
+                                },
+                                onCanceled = {
+                                    showPrintDirectoryPathDialog = false
+                                    println("on canceled")
+                                },
+                                onError = {
+                                    println("on onError")
+                                }
+                            )
+                        }
+                    }
                 }
             }
-        }
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,

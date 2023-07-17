@@ -4,19 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 17">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_29_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_07_2023_01_46_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_11_12_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_11_12_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_02_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_02_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_27_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_29_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_07_2023_12_44_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_21_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_21_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_22_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_07_2023_10_22_PM__Changes_.xml" afterDir="false" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 18">
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/CustomAlertDialog.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases/RemovePersons.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/default.realm" beforeDir="false" afterPath="$PROJECT_DIR$/default.realm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/NavigationWindow.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/data/repository/RealmPersonImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/domain/repository/PersonRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +68,8 @@
         <option value="Kotlin Data Class" />
         <option value="Class" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -92,7 +97,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/HP/Desktop/desktop-app",
+    "last_opened_file_path": "C:/Users/HP/Desktop/desktop-app/demo-compose-desktop/src/jvmMain/kotlin/features/sons_of_officers/domain/usecases",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -102,11 +107,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\Desktop\desktop-app\demo-compose-desktop\src\jvmMain\kotlin\features\sons_of_officers\domain\usecases" />
       <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
       <recent name="C:\development\demox\src\jvmMain\kotlin\features\courses\presentation\courses" />
       <recent name="C:\development\demox\src\jvmMain\kotlin\features\courses\data\dto" />
       <recent name="C:\development\demox\src\jvmMain\kotlin\features\courses\data\model" />
-      <recent name="C:\development\demox\src\jvmMain\kotlin\features\courses\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\HP\Desktop\demo-compose-desktop\src\jvmMain\resources\images" />
@@ -557,7 +562,15 @@
       <option name="project" value="LOCAL" />
       <updated>1689594000878</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="add edite 18">
+      <option name="closed" value="true" />
+      <created>1689604474795</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1689604474795</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -572,7 +585,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add test table&#10;3" />
     <MESSAGE value="add persons list to table" />
     <MESSAGE value="add test table&#10;4" />
     <MESSAGE value="add detailes table" />
@@ -597,6 +609,7 @@
     <MESSAGE value="add edite 15" />
     <MESSAGE value="add edite 16" />
     <MESSAGE value="add edite 17" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 17" />
+    <MESSAGE value="add edite 18" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 18" />
   </component>
 </project>

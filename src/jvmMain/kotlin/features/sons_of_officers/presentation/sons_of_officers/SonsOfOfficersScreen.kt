@@ -14,17 +14,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 
 import common.component.*
 import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent.*
 import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
+import styles.AppColors
 import styles.AppColors.GreenGradient
 import styles.AppColors.blueGradient
+import styles.CairoTypography
+import utils.getUserAuth
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
@@ -35,6 +42,9 @@ fun SonsOfOfficersScreen(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "القائم بالتجنيد", "حالة الملف", "النواقص", "النتيجة", "إحالة لتدريب"
     )
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
+    var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
 
     var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
@@ -69,6 +79,7 @@ fun SonsOfOfficersScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
+           if (canEditPermission){
                 GradientButton(
                     text = "إضافة ملف",
                     icon = Icons.Default.AddTask,
@@ -89,6 +100,46 @@ fun SonsOfOfficersScreen(
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
+               var showDialogDelet by remember { mutableStateOf(false) }
+
+               if (showDialogDelet) {
+                   AlertDialog(
+                       onDismissRequest = { showDialogDelet = false },
+                       title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
+                       text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
+                       confirmButton = {
+                           GradientButton(
+                               text = "مسح",
+                               icon = Icons.Default.DeleteForever,
+                               onClick = {
+//                                   AddSonsOfOfficersViewModel.onEvent(Submit(mode ))
+                                   showDialogDelet = false
+                               },
+                               AppColors.RedGradient, cornerRadius = 30.dp
+                           )
+                       },
+                       dismissButton = {
+
+                           GradientButton(
+                               text = "الغاء",
+                               icon = Icons.Default.Cancel,
+                               onClick = { showDialogDelet = false },
+
+                               AppColors.RedGradient, cornerRadius = 30.dp
+                           )
+                       }
+                   )
+               }
+               if (superAdminPermission){
+                   GradientButton(
+                       text = "مسح الكل",
+                       icon = Icons.Default.DeleteForever,
+                       onClick = {
+                           showDialogDelet = true
+                       },
+                       AppColors.RedGradient, cornerRadius = 30.dp
+                   )
+               }
                 // Show the print dialog if the boolean flag is true
                 if (showPrintListDialog) {
                     PrintDialog(
@@ -126,7 +177,7 @@ fun SonsOfOfficersScreen(
                         }
                     )
                 }
-
+            }
             }
         }
 //        table

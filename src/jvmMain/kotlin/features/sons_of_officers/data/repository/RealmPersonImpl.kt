@@ -77,4 +77,20 @@ class RealmPersonImpl(private val realm: Realm) :
         emit(result)
     }
 
+//    override fun removeAllPersons(): Flow<Boolean> = flow {
+//        println("DeleteAllPersonsImpl is running")
+//        var result = true
+//        realm.writeBlocking {
+//            try {
+//                println("DeleteAllPersonsImpl in try catch")
+//                deleteAll<RealmPerson>()
+//            } catch (e: Exception) {
+//                println("DeleteAllPersonsImpl in error catch")
+//                println(e.localizedMessage)
+//                result = false
+//            }
+//        }
+//        emit(result)
+//    }
+
 }

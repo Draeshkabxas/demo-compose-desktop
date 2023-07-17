@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import common.component.*
 
 import features.courses.domain.model.Course
@@ -25,12 +26,16 @@ import features.courses.presentation.courses.PrintEvent.*
 import features.courses.presentation.courses.component.Filters
 import features.courses.presentation.courses.component.PaginatedTable
 import org.koin.compose.koinInject
+import styles.AppColors
 import styles.AppColors.GreenGradient
 import styles.AppColors.blue
 import styles.AppColors.blueGradient
 import styles.AppColors.green
+import styles.CairoTypography
+import utils.getUserAuth
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CoursesScreen(
     navController: NavController<Screens>,
@@ -41,6 +46,9 @@ fun CoursesScreen(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "القائم بالتجنيد", "حالة الملف", "النواقص", "النتيجة", "إحالة لتدريب"
     )
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
+    var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
 
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
@@ -77,6 +85,7 @@ fun CoursesScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
+                if(canEditPermission){
                 GradientButton(
                     text = "إضافة ملف",
                     icon = Icons.Default.AddTask,
@@ -97,6 +106,45 @@ fun CoursesScreen(
                     GreenGradient,
                     cornerRadius = 30.dp
                 )
+                    var showDialogDelet by remember { mutableStateOf(false) }
+
+                    if (showDialogDelet) {
+                        AlertDialog(
+                            onDismissRequest = { showDialogDelet = false },
+                            title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
+                            text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
+                            confirmButton = {
+                                GradientButton(
+                                    text = "مسح",
+                                    icon = Icons.Default.DeleteForever,
+                                    onClick = {
+                                        showDialogDelet = false
+                                    },
+                                    AppColors.RedGradient, cornerRadius = 30.dp
+                                )
+                            },
+                            dismissButton = {
+
+                                GradientButton(
+                                    text = "الغاء",
+                                    icon = Icons.Default.Cancel,
+                                    onClick = { showDialogDelet = false },
+
+                                    AppColors.RedGradient, cornerRadius = 30.dp
+                                )
+                            }
+                        )
+                    }
+                    if (superAdminPermission){
+                        GradientButton(
+                            text = "مسح الكل",
+                            icon = Icons.Default.DeleteForever,
+                            onClick = {
+                                showDialogDelet = true
+                            },
+                            AppColors.RedGradient, cornerRadius = 30.dp
+                        )
+                    }
                 if (showPrintListDialog) {
                     PrintDialog(
                         columns = listOf(
@@ -133,6 +181,7 @@ fun CoursesScreen(
                         }
                     )
                 }
+            }
             }
         }
 //        table

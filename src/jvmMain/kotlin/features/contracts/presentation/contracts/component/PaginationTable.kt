@@ -30,6 +30,7 @@ import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
+import utils.getUserAuth
 
 @Composable
 fun PaginatedTable(
@@ -44,7 +45,8 @@ fun PaginatedTable(
     var currentPage by remember { mutableStateOf(0) }
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
-
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
 
     Column() {
         Row {
@@ -200,13 +202,14 @@ fun PaginatedTable(
                                 .padding(8.dp),
                             maxLines = 2
                         )
-                        Button(modifier = Modifier
-                            .width(columnWidths[10])
-                            .padding(4.dp),
-                            shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
-                            onClick = {
-                                navController.navigate(Screens.AddContractsScreen( mode= ScreenMode.EDIT, contract = contract))
+                        if (canEditPermission){
+                            Button(modifier = Modifier
+                                .width(columnWidths[10])
+                                .padding(4.dp),
+                                shape = RoundedCornerShape(30.dp),
+                                colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+                                onClick = {
+                                    navController.navigate(Screens.AddContractsScreen( mode= ScreenMode.EDIT, contract = contract))
 
 //
 //                                navController.navigate(
@@ -215,16 +218,18 @@ fun PaginatedTable(
 //                                        person = contract
 //                                    )
 //                                )
-                            }
-                        ) {
+                                }
+                            ) {
 
-                            Icon(
-                                imageVector = Icons.Default.EditNote,
-                                contentDescription = "",
-                                tint = Color.White,
-                                modifier = Modifier.size(24.dp)
-                            )
+                                Icon(
+                                    imageVector = Icons.Default.EditNote,
+                                    contentDescription = "",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
                         }
+
                     }
                 }
             }

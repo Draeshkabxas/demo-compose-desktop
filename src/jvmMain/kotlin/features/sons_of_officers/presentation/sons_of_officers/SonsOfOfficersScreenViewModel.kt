@@ -14,6 +14,7 @@ import utils.fromArabicNameToAgeGroup
 
 class SonsOfOfficersScreenViewModel(
     private val getAllPeople: GetAllPeople,
+//    private val removeAllPersons: RemoveAllPersons,
     private val printPersonsListToXlsxFile: PrintPersonsListToXlsxFile
 ) {
     private var state  = FilterState()
@@ -72,6 +73,18 @@ class SonsOfOfficersScreenViewModel(
         }
     }
 
+//    fun deletAll(){
+//
+//            removeAllPersons.invoke().onEach {
+//                if (it.data == true){
+//                    validationEventChannel.send(ValidationEvent.Success)
+//                    println("submitData update is getting data")
+//                    state = PersonalInfoFormState()
+//                    validationEventChannel.send(ValidationEvent.New)
+//                }
+//            }.launchIn(CoroutineScope(Dispatchers.IO))
+//
+//    }
     fun onPrintEvent(event: PrintEvent){
         when(event){
             is PrintEvent.PrintList -> printList = event.list
@@ -80,6 +93,7 @@ class SonsOfOfficersScreenViewModel(
         }
 
     }
+
 
     fun printToXlsxFile(
         filePath: String,

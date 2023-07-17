@@ -31,6 +31,7 @@ import features.sons_of_officers.domain.model.hasShortfalls
 import navcontroller.NavController
 import styles.AppColors
 import styles.CairoTypography
+import utils.getUserAuth
 
 @Composable
 fun PaginatedTable(
@@ -45,7 +46,8 @@ fun PaginatedTable(
     var currentPage by remember { mutableStateOf(0) }
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
-
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
 
     Column() {
         Row {
@@ -183,6 +185,7 @@ fun PaginatedTable(
                     val valueToCheck = person.procedures.get("إحالة لتدريب")
 
 //                    isButtonVisible = person.hasShortfalls()
+                    if (canEditPermission){
                     if (valueToCheck == false) {
                         Button(modifier = Modifier
                             .width(columnWidths[10])
@@ -190,15 +193,18 @@ fun PaginatedTable(
                             shape = RoundedCornerShape(30.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
                             onClick = {
-                                navController.navigate(Screens.AddCoursesScreen( mode=EDIT, course = person))
+                                navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
                             }
                         ) {
-                            Text("إضافة",style = CairoTypography.body2,
+                            Text(
+                                "إضافة", style = CairoTypography.body2,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xffffffff),
-                                textAlign = TextAlign.Center,)
+                                textAlign = TextAlign.Center,
+                            )
                         }
                     }
+                }
                     else{
                         Text(
                             text = "",

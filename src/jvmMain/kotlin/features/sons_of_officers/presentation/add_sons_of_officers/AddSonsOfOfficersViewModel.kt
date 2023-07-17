@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import common.component.ScreenMode
 import common.component.ScreenMode.ADD
 import common.component.ScreenMode.EDIT
+import features.contracts.domain.usecases.RemoveAllContracts
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
@@ -23,7 +24,9 @@ class AddSonsOfOfficersViewModel(
     private val validateTextInputs: ValidateTextInputs = ValidateTextInputs(),
     private val validateQuadrupleName: ValidateQuadrupleName = ValidateQuadrupleName(),
     private val addPerson: AddPerson,
-    private val updatePerson: UpdatePerson
+    private val updatePerson: UpdatePerson,
+//    private val removeAllPersons: RemoveAllPersons
+
 ) {
 
     var state by mutableStateOf(PersonalInfoFormState())
@@ -189,6 +192,16 @@ class AddSonsOfOfficersViewModel(
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }
+//        if (mode == ScreenMode.DELET){
+//            removeAllPersons.invoke().onEach {
+//                if (it.data == true){
+//                    validationEventChannel.send(ValidationEvent.Success)
+//                    println("submitData update is getting data")
+//                    state = PersonalInfoFormState()
+//                    validationEventChannel.send(ValidationEvent.New)
+//                }
+//            }.launchIn(CoroutineScope(Dispatchers.IO))
+//        }
     }
 
     sealed class ValidationEvent {

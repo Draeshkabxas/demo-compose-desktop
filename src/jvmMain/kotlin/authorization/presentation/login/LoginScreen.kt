@@ -27,12 +27,14 @@ import authorization.domain.model.Jobs.Viewer
 import authorization.domain.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
+import common.component.CustomAlertDialog
 import utils.Resource
 import navcontroller.NavController
 import styles.CairoTypography
 import styles.AppColors.background
 import styles.AppColors.primary
 import styles.AppColors.white
+import utils.getUserAuth
 
 @Composable
 fun LoginScreen(
@@ -40,6 +42,8 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinInject(),
     appClose: AppCloseRepository = koinInject(),
 ) {
+    val userAuthSystem = getUserAuth()
+
     val userName = mutableStateOf<String>("")
     val password = mutableStateOf<String>("")
     Surface(
@@ -53,8 +57,17 @@ fun LoginScreen(
     ) {
         val state = viewModel.loginState.value
         when (state) {
+//            is Resource.Error -> {
+//                println("error: ${state.message}")
+//            }
             is Resource.Error -> {
-                println("error: ${state.message}")
+                state.message?.let {
+                    CustomAlertDialog(
+                        title = "حدث خطا عند محاولة تسجيل دخولك",
+                        message = it,
+                        onDismiss = { /* Do something when the dialog is dismissed */ }
+                    )
+                }
             }
 
             is Resource.Loading -> {
@@ -67,6 +80,7 @@ fun LoginScreen(
 
             is Resource.Success -> {
                 if (state.data != null && state.data.job != None){
+                    userAuthSystem.currentUser=state.data
                     navController.navigate(AuthScreen.SystemScreen.name)
 
                 }
@@ -139,7 +153,7 @@ fun LoginScreen(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LoadingDialog(
-    size: DpSize= DpSize(400.dp, 320.dp),
+    size: DpSize= DpSize(350.dp, 250.dp),
     content: @Composable() () -> Unit,
 ) {
     AlertDialog(
@@ -162,7 +176,7 @@ fun LoadingDialog(
                    CircularProgressIndicator(
                        modifier = Modifier.size(size.width/4, size.height/4),
                        color = primary,
-                       strokeWidth = 4.dp
+                       strokeWidth = 6.dp
                    )
                   content()
                }

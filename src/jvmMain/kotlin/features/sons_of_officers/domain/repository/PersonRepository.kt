@@ -9,4 +9,6 @@ interface PersonRepository {
     fun getAllPeople(filterQuery:String):Flow<List<Person>>
      fun getPerson(id:String):Flow<Person?>
      fun updatePerson(person: Person):Flow<Boolean>
+//        fun removeAllPersons():  Flow<Boolean>
+
 }

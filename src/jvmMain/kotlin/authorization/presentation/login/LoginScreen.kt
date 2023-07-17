@@ -118,7 +118,7 @@ fun LoginScreen(
                     }, "إنشاء حساب")
                 }
                 Text(
-                    "ملاحظه: عند انشاء حسابك لأول مرة يرجى التواصل مع المسؤول لتفعيل حسابك",
+                    "ملاحظه: عند إنشاء حسابك لأول مرة يرجى التواصل مع المسؤول لتفعيل حسابك",
                     style = CairoTypography.body1,
                     textAlign = TextAlign.Start,
                     color = Color.Red

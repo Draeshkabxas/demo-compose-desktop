@@ -1,9 +1,8 @@
 package authorization.domain.usecase
 
-import authorization.data.model.UsersRealm
 import authorization.domain.model.User
 import authorization.domain.repository.AuthenticationRepository
-import common.Resource
+import utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

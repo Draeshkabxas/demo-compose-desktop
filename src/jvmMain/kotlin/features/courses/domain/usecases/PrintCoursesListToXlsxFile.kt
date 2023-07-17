@@ -1,6 +1,6 @@
 package features.courses.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.repository.CourseXlsxRepository
 import kotlinx.coroutines.flow.Flow

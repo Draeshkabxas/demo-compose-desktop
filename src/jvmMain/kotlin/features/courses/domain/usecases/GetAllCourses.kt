@@ -1,10 +1,12 @@
 package features.courses.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.repository.CoursesRepository
 import features.courses.presentation.courses.FilterState
 import kotlinx.coroutines.flow.*
+import utils.HealthStatus
+import utils.HealthStatus.All
 
 class GetAllCourses(
     private val courseRepository: CoursesRepository
@@ -24,13 +26,15 @@ class GetAllCourses(
             if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }
 
-        if (filters.healthStatus.isNotEmpty()){
+        if (filters.healthStatus != All){
             resultAfterFiltered = resultAfterFiltered.filter {
                 when (filters.healthStatus) {
-                    "لائق صحيا" -> {
+                    HealthStatus.APPROPRIATE -> {
+                        println("لائق صحيا")
                         it.procedures["لائق صحيا"] == true
                     }
-                    "غير لائق صحيا" -> {
+                    HealthStatus.INAPPROPRIATE -> {
+                        println("غير لائق صحيا")
                         it.procedures["غير لائق صحيا"]== true
                     }
                     else -> {

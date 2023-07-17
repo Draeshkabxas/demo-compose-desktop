@@ -1,9 +1,8 @@
 package features.contracts.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.repository.ContractRepository
-import features.courses.domain.model.Course
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

@@ -20,9 +20,8 @@ import common.component.CustomOutlinedTextField
 import common.component.*
 import styles.AppColors
 import styles.AppColors.blue
-import utils.Education
-import utils.LibyanCities
-import utils.getAllAgeGroupArabicNames
+import utils.*
+import utils.HealthStatus.All
 
 @Composable
 fun Filters(
@@ -33,7 +32,7 @@ fun Filters(
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
     onFilterAgeGroup: (String) -> Unit,
-    onFilterHealthStatus:(String)->Unit,
+    onFilterHealthStatus:(HealthStatus)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
@@ -229,16 +228,13 @@ fun Filters(
                             onFilterAgeGroup(ageGroup)
                         }
                     )
-                    val healthValues = listOf("غير لائق", "لائق")
                     SelectorWithLabel(
                         label = " الحالة الصحية : ",
-                        items = healthValues,
+                        items = HealthStatus.values().filterNot { it == All }.map { it.arabicName },
                         selectedItem = selectedHealthStatus,
                         onItemSelected = { file ->
                             selectedHealthStatus = file
-                            onFilterFileState(
-                                file == healthValues[0]
-                            )
+                            onFilterHealthStatus(getHealthStatusFromArabicName(file))
                         }
                     )
                 }

@@ -1,6 +1,6 @@
 package features.sons_of_officers.presentation.sons_of_officers
 
-import common.Resource
+import utils.Resource
 import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople
@@ -61,7 +61,7 @@ class SonsOfOfficersScreenViewModel(
                 state = state.copy(healthStatus = event.healthStatus)
             }
             is FilterEvent.Reset -> {
-                state = features.sons_of_officers.presentation.sons_of_officers.FilterState()
+                state = FilterState()
                 getFilterData()
             }
 

@@ -1,6 +1,6 @@
 package features.sons_of_officers.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.repository.PersonRepository
 import kotlinx.coroutines.flow.Flow

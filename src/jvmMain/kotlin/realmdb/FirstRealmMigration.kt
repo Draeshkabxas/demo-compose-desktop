@@ -1,13 +1,12 @@
 package realmdb
 
 
-import features.contracts.data.model.RealmContract
 import io.realm.kotlin.dynamic.DynamicMutableRealm
 import io.realm.kotlin.dynamic.DynamicMutableRealmObject
 import io.realm.kotlin.dynamic.DynamicRealm
 import io.realm.kotlin.dynamic.DynamicRealmObject
+import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.migration.AutomaticSchemaMigration
-import io.realm.kotlin.schema.RealmClass
 import org.mongodb.kbson.ObjectId
 
 fun firstRealmMigrate(): AutomaticSchemaMigration = AutomaticSchemaMigration { context ->
@@ -51,6 +50,14 @@ fun firstRealmMigrate(): AutomaticSchemaMigration = AutomaticSchemaMigration { c
                 context.enumerate("RealmContract") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
                     val oldId = oldObject.getValue("id", ObjectId::class)
                     newObject?.set("id", oldId.toHexString())
+                }
+            }
+        }
+        5L -> {
+            if (oldRealm.schema()["UsersRealm"]?.isEmbedded == true) {
+                context.enumerate("UsersRealm") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    val oldSystemValue = oldObject.getValue("systems", String::class)
+                    newObject?.set("systems", realmListOf(oldSystemValue))
                 }
             }
         }

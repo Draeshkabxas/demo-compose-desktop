@@ -1,6 +1,6 @@
 package features.contracts.domain.usecases
 
-import common.Resource
+import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.repository.ContractRepository
 import features.contracts.presentation.contracts.FilterState

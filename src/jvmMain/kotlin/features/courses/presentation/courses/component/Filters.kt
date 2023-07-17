@@ -20,9 +20,8 @@ import styles.AppColors
 import styles.AppColors.RedGradient
 import styles.AppColors.blue
 import styles.AppColors.blueGradient
-import utils.Education
-import utils.LibyanCities
-import utils.getAllAgeGroupArabicNames
+import utils.*
+import utils.HealthStatus.All
 
 @Composable
 fun Filters(
@@ -33,7 +32,7 @@ fun Filters(
     onFilterFileState:(Boolean)->Unit,
     onFilterReferralForTraining:(Boolean)->Unit,
     onFilterAgeGroup: (String) -> Unit,
-    onFilterHealthStatus:(String)->Unit,
+    onFilterHealthStatus:(HealthStatus)->Unit,
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
@@ -214,16 +213,13 @@ fun Filters(
                                 onFilterAgeGroup(ageGroup)
                             }
                         )
-                        val healthValues = listOf("غير لائق", "لائق")
                         SelectorWithLabel(
                             label = "",
-                            items = healthValues,
+                            items = HealthStatus.values().filterNot { it == All }.map { it.arabicName },
                             selectedItem = selectedHealthStatus,
                             onItemSelected = { file ->
                                 selectedHealthStatus = file
-                                onFilterFileState(
-                                    file == healthValues[0]
-                                )
+                                onFilterHealthStatus(getHealthStatusFromArabicName(file))
                             }
                         )
                         GradientButton(

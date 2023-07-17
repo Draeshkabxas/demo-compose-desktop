@@ -55,12 +55,15 @@ class ContractXlsxImpl: ContractXlsxRepository {
                         "رقم الحساب"-> {
                             row.createCell(cellIndex).setCellValue(contract.accountNumber)
                         }
+                        "الرقم الوطني"-> {
+                            row.createCell(cellIndex).setCellValue(contract.libyaId)
+                        }
                         else -> {}
                     }
                 }
             }
 
-            FileOutputStream("$filePath/persons.xlsx").use { outputStream ->
+            FileOutputStream("$filePath/العقود.xlsx").use { outputStream ->
                 workbook.write(outputStream)
                 workbook.close()
             }

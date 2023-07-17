@@ -26,7 +26,9 @@ import androidx.compose.ui.window.WindowState
 import authorization.domain.model.Jobs
 import authorization.domain.model.Systems
 import authorization.domain.model.User
+import authorization.domain.repository.AuthenticationRepository
 import authorization.domain.usecase.GetUser
+import authorization.domain.usecase.LogoutUseCase
 import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
@@ -52,7 +54,7 @@ import kotlin.system.exitProcess
 @Composable
 fun NavigationWindow(
     authNavController: NavController<String>,
-    windowState: WindowState
+    windowState: WindowState,
 ) {
 //    val screens = listOf<Screens>(
 //        Screens.HomeScreen(),
@@ -65,7 +67,6 @@ fun NavigationWindow(
     val currentScreen by remember {
         navController.currentScreen
     }
-
 
     //primmisions
     // create a user

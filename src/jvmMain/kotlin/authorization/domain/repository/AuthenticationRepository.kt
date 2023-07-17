@@ -16,4 +16,5 @@ interface AuthenticationRepository {
     suspend fun updateUser(userUpdate: User):Flow<Boolean>
 
     suspend fun deleteUser(deletedUser:User):Flow<Boolean>
+    fun logout()
 }

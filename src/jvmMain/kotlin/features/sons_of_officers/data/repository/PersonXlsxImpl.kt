@@ -31,6 +31,9 @@ class PersonXlsxImpl: PersonXlsxRepository {
                         "الاسم رباعي" -> {
                             row.createCell(cellIndex).setCellValue(person.name)
                         }
+                        "الرقم الوطني" -> {
+                            row.createCell(cellIndex).setCellValue(person.motherName)
+                        }
                         "اسم الام" -> {
                             row.createCell(cellIndex).setCellValue(person.motherName)
                         }
@@ -54,7 +57,7 @@ class PersonXlsxImpl: PersonXlsxRepository {
                 }
             }
 
-            FileOutputStream("$filePath/persons.xlsx").use { outputStream ->
+            FileOutputStream("$filePath/ابناءالضباط.xlsx").use { outputStream ->
                 workbook.write(outputStream)
                 workbook.close()
             }

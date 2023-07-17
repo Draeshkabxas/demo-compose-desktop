@@ -118,5 +118,9 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
         }
         return flowOf(result)    }
 
+    override fun logout() {
+        TODO("Not yet implemented")
+    }
+
 
 }

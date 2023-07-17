@@ -31,6 +31,9 @@ class CoursesXlsxImpl: CourseXlsxRepository {
                         "الاسم رباعي" -> {
                             row.createCell(cellIndex).setCellValue(course.name)
                         }
+                        "الرقم الوطني" -> {
+                            row.createCell(cellIndex).setCellValue(course.libyaId)
+                        }
                         "اسم الام" -> {
                             row.createCell(cellIndex).setCellValue(course.motherName)
                         }
@@ -54,7 +57,7 @@ class CoursesXlsxImpl: CourseXlsxRepository {
                 }
             }
 
-            FileOutputStream("$filePath/persons.xlsx").use { outputStream ->
+            FileOutputStream("$filePath/الدورات.xlsx").use { outputStream ->
                 workbook.write(outputStream)
                 workbook.close()
             }

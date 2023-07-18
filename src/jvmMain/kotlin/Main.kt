@@ -62,14 +62,13 @@ fun App(appClose: AppCloseRepository = koinInject()) {
 
 fun main() = application {
     koinConfiguration()
-    closeRealmWhenApplicationClose()
+
     App()
 }
 
-fun closeRealmWhenApplicationClose() {
-    val realm: Realm = get().get()
+fun closeRealmWhenApplicationClose(realm: Realm ) {
     Runtime.getRuntime().addShutdownHook(Thread {
-        realm.close()
+        if (!realm.isClosed()) realm.close()
     })
 }
 
@@ -101,8 +100,8 @@ fun AuthNavigationHost(
     NavigationHost(navController) {
         composable(AuthScreen.LoginAuthScreen.name) {
             windowState.placement = WindowPlacement.Floating
-            LoginScreen(navController)
 
+            LoginScreen(navController)
         }
 
         composable(AuthScreen.SignupAuthScreen.name) {

@@ -62,7 +62,7 @@ fun NavigationWindow(
 //        Screens.SonsOfOfficersScreen(),
 //        Screens.CoursesScreen() ,
 //        Screens.AccountsPermissionsScreen()
-//    )
+//
     val navController by rememberNavController<Screens>(Screens.HomeScreen())
     val currentScreen by remember {
         navController.currentScreen
@@ -74,38 +74,20 @@ fun NavigationWindow(
 // set the currentUser property to the current user
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
-    var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
+    val superAdminPermission = userAuthSystem.canChangeAccountsPermission()
     userAuthSystem.currentUser // replace with your own code to get the current user
     // Get the current user's authentication status for each screen
     val screenAuthStatus = mapOf(
-        Systems.Home to userAuthSystem.canAccessScreen(Systems.Home),
-        Systems.Contracts to userAuthSystem.canAccessScreen(Systems.Contracts),
-        Systems.SonsOfOfficers to userAuthSystem.canAccessScreen(Systems.SonsOfOfficers),
-        Systems.Courses to userAuthSystem.canAccessScreen(Systems.Courses)
+        Screens.HomeScreen() to userAuthSystem.canAccessScreen(Systems.Home),
+        Screens.ContractsScreen() to userAuthSystem.canAccessScreen(Systems.Contracts),
+        Screens.SonsOfOfficersScreen() to userAuthSystem.canAccessScreen(Systems.SonsOfOfficers),
+        Screens.CoursesScreen() to userAuthSystem.canAccessScreen(Systems.Courses),
+        Screens.AccountsPermissionsScreen() to superAdminPermission
     )
 
-// Display the screens based on the user's authentication status
-    val screens = mutableListOf<Screens>()
+    // Display the screens based on the user's authentication status
+    val screensThatCanUserAccess = screenAuthStatus.filter { it.value }.keys.toList()
 
-    if (screenAuthStatus[Systems.Home] == true) {
-        screens.add(Screens.HomeScreen())
-    }
-
-    if (screenAuthStatus[Systems.Contracts] == true) {
-        screens.add(Screens.ContractsScreen())
-    }
-
-    if (screenAuthStatus[Systems.SonsOfOfficers] == true) {
-        screens.add(Screens.SonsOfOfficersScreen())
-    }
-
-    if (screenAuthStatus[Systems.Courses] == true) {
-        screens.add(Screens.CoursesScreen())
-    }
-
-    if (superAdminPermission){
-            screens.add(Screens.AccountsPermissionsScreen())
-    }
 
 
 
@@ -131,7 +113,7 @@ fun NavigationWindow(
                     modifier = Modifier.fillMaxHeight().width(140.dp)
 
                 ) {
-                    screens.forEach {
+                    screensThatCanUserAccess.forEach {
                         NavigationRailItem(
                             modifier = Modifier.fillMaxWidth(),
                             selected = currentScreen == it,
@@ -156,19 +138,20 @@ fun NavigationWindow(
 
                     IconButton(
                         onClick = {
-                            //    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
-// set the currentUser property to the current user
-                             userAuthSystem.currentUser =User("", "", "", Jobs.None, listOf())
+                            userAuthSystem.logout()
                             // Handle logout button click
                             authNavController.navigate(AuthScreen.LoginAuthScreen.name)
-                  print("clickkkkkkkkkkkk")
-
+                            print("clickkkkkkkkkkkk")
                         },
                         modifier = Modifier.padding(horizontal = 8.dp)
                     ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Icon(Icons.Default.ExitToApp, contentDescription = "Exit app")
-                            Text(text = "تسجيل الخروج", style = CairoTypography.h4, modifier = Modifier.padding(start = 8.dp))
+                            Text(
+                                text = "تسجيل الخروج",
+                                style = CairoTypography.h4,
+                                modifier = Modifier.padding(start = 8.dp)
+                            )
                         }
                     }
                 }
@@ -256,20 +239,26 @@ enum class SystemScreen(
 }
 
 
-sealed class Screens(val label: String, val icon: ImageVector,val type:Int) {
-    class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home,0)
-    data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD,val person:Person? = null) : Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd,1)
-    class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.Policy,2)
-    data class AddContractsScreen(val mode: ScreenMode = ADD,val contract: Contract? =null): Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd,3)
-    class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.FilePresent,4)
-    data class AddCoursesScreen(val mode: ScreenMode = ADD,val course:Course? = null): Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd,5)
-    class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd,6)
-    class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance,6)
+sealed class Screens(val label: String, val icon: ImageVector, val type: Int) {
+    class HomeScreen : Screens(label = "الصفحة الرئيسية", icon = Icons.Filled.Home, 0)
+    data class AddSonsOfOfficersScreen(val mode: ScreenMode = ADD, val person: Person? = null) :
+        Screens(label = "منظومة ابناء الضباط /إضافة", icon = Icons.Filled.PersonAdd, 1)
+
+    class SonsOfOfficersScreen : Screens(label = "منظومة ابناء الضباط", icon = Icons.Filled.Policy, 2)
+    data class AddContractsScreen(val mode: ScreenMode = ADD, val contract: Contract? = null) :
+        Screens(label = "منظومة  العقود/اضافه", icon = Icons.Filled.PersonAdd, 3)
+
+    class ContractsScreen : Screens(label = "منظومة  العقود", icon = Icons.Filled.FilePresent, 4)
+    data class AddCoursesScreen(val mode: ScreenMode = ADD, val course: Course? = null) :
+        Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd, 5)
+
+    class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd, 6)
+    class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance, 6)
 
 }
 
-enum class ScreenMode{
-    EDIT,ADD,DELET
+enum class ScreenMode {
+    EDIT, ADD, DELET
 }
 
 
@@ -278,7 +267,7 @@ fun SystemNavigationHost(
     navController: NavController<Screens>,
     windowState: WindowState
 ) {
-    NavigationHost(navController,{currentScreen,route-> currentScreen.javaClass == route.javaClass}) {
+    NavigationHost(navController, { currentScreen, route -> currentScreen.javaClass == route.javaClass }) {
         composable(Screens.HomeScreen()) {
             println("Screen")
             HomeScreen(navController)
@@ -287,7 +276,7 @@ fun SystemNavigationHost(
         composable(Screens.AddSonsOfOfficersScreen()) {
             val screenDetails = navController.currentScreen.value as Screens.AddSonsOfOfficersScreen
             println("it's add sons ${screenDetails.mode}")
-            AddSonsOfOfficersScreen(navController,screenDetails.person, mode = screenDetails.mode)
+            AddSonsOfOfficersScreen(navController, screenDetails.person, mode = screenDetails.mode)
         }
         composable(Screens.SonsOfOfficersScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
@@ -297,7 +286,7 @@ fun SystemNavigationHost(
 //            windowState.placement = WindowPlacement.Fullscreen
             val screenDetails = navController.currentScreen.value as Screens.AddContractsScreen
             println("it's add sons ${screenDetails.mode}")
-            AddContractsScreen(navController,screenDetails.contract, mode = screenDetails.mode)
+            AddContractsScreen(navController, screenDetails.contract, mode = screenDetails.mode)
 
 //            AddContractsScreen(navController)
         }
@@ -308,7 +297,7 @@ fun SystemNavigationHost(
         composable(Screens.AddCoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             val screenDetails = navController.currentScreen.value as Screens.AddCoursesScreen
-            AddCoursesScreen(navController,screenDetails.course, mode = screenDetails.mode)
+            AddCoursesScreen(navController, screenDetails.course, mode = screenDetails.mode)
         }
         composable(Screens.CoursesScreen()) {
             windowState.placement = WindowPlacement.Fullscreen

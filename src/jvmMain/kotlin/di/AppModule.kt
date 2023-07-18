@@ -13,6 +13,7 @@ import authorization.domain.usecase.*
 import authorization.presentation.accountsPermissions.AccountPermissionViewModel
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
+import closeRealmWhenApplicationClose
 import features.contracts.data.model.RealmContract
 import features.contracts.data.repository.ContractXlsxImpl
 import features.contracts.data.repository.RealmContractImpl
@@ -34,6 +35,11 @@ import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.AddCourseViewModel
 import features.courses.presentation.courses.CoursesScreenViewModel
+import features.home.data.repository.BackupRealmDBImpl
+import features.home.domain.repository.BackupRepository
+import features.home.domain.usecases.GetBackupFromLocalRealmDB
+import features.home.domain.usecases.SaveBackupOfRealmInDirectory
+import features.home.presentation.HomeViewModel
 import features.sons_of_officers.data.model.Justification
 import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
@@ -47,12 +53,13 @@ import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
 import features.sons_of_officers.domain.usecases.UpdatePerson
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
+import realmdb.RealmWrapper
 import utils.UserAuthSystem
-import kotlin.math.sin
+
 
 val appModule = module {
-    single<Realm> {
-        Realm.open(
+    single<RealmWrapper> {
+        val realm = Realm.open(
             RealmConfiguration.Builder(
                 schema = setOf(
                     UsersRealm::class,
@@ -68,9 +75,12 @@ val appModule = module {
                 .migration(firstRealmMigrate())
                 .build()
         )
+        closeRealmWhenApplicationClose(realm)
+        RealmWrapper(realm = realm)
     }
+    factory<Realm> { get<RealmWrapper>().realm }
     single<AppCloseRepository> { AppCloseImpl() }
-    single<AuthenticationRepository> { MangodbAuthenticationImpl(get(), get()) }
+    factory<AuthenticationRepository> { MangodbAuthenticationImpl(get(), get()) }
 
     //UserPermission Di
     single<GetAllUsers> { GetAllUsers(get()) }
@@ -85,13 +95,13 @@ val appModule = module {
     }
 
     //Login
-    single<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
+    factory<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
 
     //UserAuthSystem
     single<UserAuthSystem> { UserAuthSystem() }
 
     //Register
-    single<RegisterViewModel> {
+    factory<RegisterViewModel> {
         RegisterViewModel(
             SignupUseCase(get()),
             ValidateUsername(get()),
@@ -100,11 +110,11 @@ val appModule = module {
     }
 
     //Sons of officers
-    single<PersonRepository> { RealmPersonImpl(get()) }
+    factory<PersonRepository> { RealmPersonImpl(get()) }
     single<PersonXlsxRepository> { PersonXlsxImpl() }
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
-    single<GetAllPeople> { GetAllPeople(get()) }
-    single<UpdatePerson> { UpdatePerson(get()) }
+    factory<GetAllPeople> { GetAllPeople(get()) }
+    factory<UpdatePerson> { UpdatePerson(get()) }
     factory<AddSonsOfOfficersViewModel> {
         AddSonsOfOfficersViewModel(
             addPerson = AddPerson(get()),
@@ -114,11 +124,11 @@ val appModule = module {
     factory<SonsOfOfficersScreenViewModel> { SonsOfOfficersScreenViewModel(get(), get()) }
 
     //Contract Di
-    single<ContractRepository> { RealmContractImpl(get()) }
-    single<GetAllContracts> { GetAllContracts(get()) }
+    factory<ContractRepository> { RealmContractImpl(get()) }
+    factory<GetAllContracts> { GetAllContracts(get()) }
     single<ContractXlsxRepository> { ContractXlsxImpl() }
     single<PrintContractsListToXlsxFile> { PrintContractsListToXlsxFile(get()) }
-    single<RemoveAllContracts> { RemoveAllContracts(get()) }
+    factory<RemoveAllContracts> { RemoveAllContracts(get()) }
     factory<ContractsScreenViewModel> {
         ContractsScreenViewModel(
             allContracts = get(),
@@ -126,14 +136,14 @@ val appModule = module {
         )
     }
     //Add Contract Di
-    single<AddContract> { AddContract(get()) }
-    single<UpdateContract> { UpdateContract(get()) }
+    factory<AddContract> { AddContract(get()) }
+    factory<UpdateContract> { UpdateContract(get()) }
     factory<AddContractViewModel> { AddContractViewModel(addContract = get(), updateContract = get()) }
 
 
     //Courses Di
-    single<CoursesRepository> { RealmCourseImpl(get()) }
-    single<GetAllCourses> { GetAllCourses(get()) }
+    factory<CoursesRepository> { RealmCourseImpl(get()) }
+    factory<GetAllCourses> { GetAllCourses(get()) }
     single<CourseXlsxRepository> { CoursesXlsxImpl() }
     single<PrintCoursesListToXlsxFile> { PrintCoursesListToXlsxFile(get()) }
     //single<RemoveAllC> { RemoveAllContracts(get()) }
@@ -144,9 +154,17 @@ val appModule = module {
         )
     }
     //Add Courses Di
-    single<AddCourse> { AddCourse(get()) }
-    single<UpdateCourse> { UpdateCourse(get()) }
+    factory<AddCourse> { AddCourse(get()) }
+    factory<UpdateCourse> { UpdateCourse(get()) }
     factory<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
+
+
+    //Realm Backup Di
+    factory<BackupRepository> { BackupRealmDBImpl(realm = get()) }
+    factory<SaveBackupOfRealmInDirectory> { SaveBackupOfRealmInDirectory(backupRepo = get()) }
+    factory<GetBackupFromLocalRealmDB> { GetBackupFromLocalRealmDB(backupRepo = get()) }
+    //Home Di
+    factory<HomeViewModel> { HomeViewModel(saveBackupOfRealmInDirectory = get(), getBackupFromLocalRealmDB = get()) }
 
 
 }

@@ -30,6 +30,7 @@ import authorization.domain.repository.AuthenticationRepository
 import authorization.domain.usecase.GetUser
 import authorization.domain.usecase.LogoutUseCase
 import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
+import authorization.presentation.login.LoginViewModel
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.add_contracts.AddContractsScreen
@@ -46,7 +47,9 @@ import features.home.presentation.HomeScreen
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
+import org.koin.compose.koinInject
 import styles.CairoTypography
+import utils.Resource
 import utils.UserAuthSystem
 import utils.getUserAuth
 import kotlin.system.exitProcess
@@ -55,7 +58,8 @@ import kotlin.system.exitProcess
 fun NavigationWindow(
     authNavController: NavController<String>,
     windowState: WindowState,
-) {
+    viewModel: LoginViewModel = koinInject(),
+    ) {
 //    val screens = listOf<Screens>(
 //        Screens.HomeScreen(),
 //        Screens.ContractsScreen(),
@@ -158,8 +162,10 @@ fun NavigationWindow(
                         onClick = {
                             //    val user = User("123", "John Doe", "password", Jobs.Admin, listOf(Systems.Contracts, Systems.Home))
 // set the currentUser property to the current user
-                             userAuthSystem.currentUser =User("", "", "", Jobs.None, listOf())
+//                             userAuthSystem.currentUser =User("", "", "", Jobs.None, listOf())
                             // Handle logout button click
+                            viewModel.loginState.value = (Resource.Loading(User("","","", Jobs.None, emptyList())))
+
                             authNavController.navigate(AuthScreen.LoginAuthScreen.name)
                   print("clickkkkkkkkkkkk")
 

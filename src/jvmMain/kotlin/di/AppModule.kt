@@ -9,10 +9,12 @@ import authorization.data.repository.AppCloseImpl
 import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
 import authorization.data.repository.MangodbAuthenticationImpl
+import authorization.domain.model.User
 import authorization.domain.usecase.*
 import authorization.presentation.accountsPermissions.AccountPermissionViewModel
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
+import closeRealmWhenApplicationClose
 import features.contracts.data.model.RealmContract
 import features.contracts.data.repository.ContractXlsxImpl
 import features.contracts.data.repository.RealmContractImpl
@@ -34,6 +36,11 @@ import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.AddCourseViewModel
 import features.courses.presentation.courses.CoursesScreenViewModel
+import features.home.data.repository.BackupRealmDBImpl
+import features.home.domain.repository.BackupRepository
+import features.home.domain.usecases.GetBackupFromLocalRealmDB
+import features.home.domain.usecases.SaveBackupOfRealmInDirectory
+import features.home.presentation.HomeViewModel
 import features.sons_of_officers.data.model.Justification
 import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
@@ -47,12 +54,16 @@ import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
 import features.sons_of_officers.domain.usecases.UpdatePerson
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
+import org.koin.core.context.GlobalContext
+import org.koin.core.context.GlobalContext.get
+import realmdb.RealmWrapper
 import utils.UserAuthSystem
-import kotlin.math.sin
+import utils.getUserAuth
+
 
 val appModule = module {
-    single<Realm> {
-        Realm.open(
+    single<RealmWrapper> {
+        val realm = Realm.open(
             RealmConfiguration.Builder(
                 schema = setOf(
                     UsersRealm::class,
@@ -68,7 +79,10 @@ val appModule = module {
                 .migration(firstRealmMigrate())
                 .build()
         )
+        closeRealmWhenApplicationClose(realm)
+        RealmWrapper(realm = realm)
     }
+    factory<Realm> { get<RealmWrapper>().realm }
     single<AppCloseRepository> { AppCloseImpl() }
     single<AuthenticationRepository> { MangodbAuthenticationImpl(get(), get()) }
 
@@ -85,13 +99,13 @@ val appModule = module {
     }
 
     //Login
-    single<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
+    factory<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
 
     //UserAuthSystem
     single<UserAuthSystem> { UserAuthSystem() }
 
     //Register
-    single<RegisterViewModel> {
+    factory<RegisterViewModel> {
         RegisterViewModel(
             SignupUseCase(get()),
             ValidateUsername(get()),
@@ -149,4 +163,21 @@ val appModule = module {
     factory<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
 
 
+    //Realm Backup Di
+    single<BackupRepository> { BackupRealmDBImpl(realm = get()) }
+    single<SaveBackupOfRealmInDirectory> { SaveBackupOfRealmInDirectory(backupRepo = get()) }
+    single<GetBackupFromLocalRealmDB> { GetBackupFromLocalRealmDB(backupRepo = get()) }
+    //Home Di
+    single<HomeViewModel> { HomeViewModel(saveBackupOfRealmInDirectory = get(), getBackupFromLocalRealmDB = get()) }
+
+
+}
+
+
+
+fun resetAppModule(){
+    val currentUser = getUserAuth().currentUser
+    get().unloadModules(listOf(appModule))
+    get().loadModules(listOf(appModule))
+    getUserAuth().currentUser = currentUser
 }

@@ -1,8 +1,10 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -27,6 +29,7 @@ import styles.AppColors.secondary
 import styles.AppColors.white
 import common.component.NavigationWindow
 import io.realm.kotlin.Realm
+import license.presentation.AppLicensesScreen
 import org.koin.compose.getKoin
 import org.koin.core.context.GlobalContext.get
 
@@ -34,7 +37,7 @@ import org.koin.core.context.GlobalContext.get
 @Composable
 @Preview
 fun App(appClose: AppCloseRepository = koinInject()) {
-    val navController by rememberNavController(AuthScreen.LoginAuthScreen.name)
+    val navController by rememberNavController(AuthScreen.AppLicenseScreen.name)
 
     val windowState = rememberWindowState(
         size = DpSize(1000.dp,700.dp),
@@ -88,6 +91,10 @@ enum class AuthScreen(
     SystemScreen(
         label = "System",
         icon = Icons.Filled.Notifications
+    ),
+    AppLicenseScreen(
+    label = "System",
+    icon = Icons.Filled.Notifications
     )
 }
 
@@ -100,7 +107,7 @@ fun AuthNavigationHost(
     NavigationHost(navController) {
         composable(AuthScreen.LoginAuthScreen.name) {
             windowState.placement = WindowPlacement.Floating
-
+            windowState.size = DpSize(1000.dp,700.dp)
             LoginScreen(navController)
         }
 
@@ -112,6 +119,12 @@ fun AuthNavigationHost(
         composable(AuthScreen.SystemScreen.name) {
             windowState.size= DpSize(1100.dp,750.dp)
             NavigationWindow(navController,windowState)
+        }
+
+        composable(AuthScreen.AppLicenseScreen.name) {
+            windowState.size= DpSize(420.dp,320.dp)
+            windowState.placement = WindowPlacement.Floating
+            AppLicensesScreen(navController)
         }
     }.build()
 }

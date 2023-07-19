@@ -54,6 +54,13 @@ import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
 import features.sons_of_officers.domain.usecases.UpdatePerson
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
+import license.data.repository.LicenseImpl
+import license.data.repository.SharedPreferencesImpl
+import license.domain.repository.LicenseRepository
+import license.domain.repository.SharedPreferencesRepository
+import license.domain.usecases.ActivateLicense
+import license.domain.usecases.GetExpireDate
+import license.presentation.AppLicenseViewModel
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.get
 import realmdb.RealmWrapper
@@ -170,12 +177,17 @@ val appModule = module {
     //Home Di
     single<HomeViewModel> { HomeViewModel(saveBackupOfRealmInDirectory = get(), getBackupFromLocalRealmDB = get()) }
 
+    //AppLicense Di
+    single<LicenseRepository> { LicenseImpl() }
+    single<SharedPreferencesRepository> { SharedPreferencesImpl() }
+    single<ActivateLicense> { ActivateLicense(licenseRepo = get(), sharedPref = get()) }
+    single<GetExpireDate> { GetExpireDate(sharedPref = get()) }
+    single<AppLicenseViewModel> { AppLicenseViewModel(activateLicense = get(), getExpireDate = get()) }
 
 }
 
 
-
-fun resetAppModule(){
+fun resetAppModule() {
     val currentUser = getUserAuth().currentUser
     get().unloadModules(listOf(appModule))
     get().loadModules(listOf(appModule))

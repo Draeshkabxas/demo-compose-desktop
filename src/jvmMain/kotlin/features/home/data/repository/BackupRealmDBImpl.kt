@@ -1,13 +1,10 @@
 package features.home.data.repository
 
-import di.appModule
 import di.resetAppModule
 import features.home.domain.repository.BackupRepository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
-import org.koin.core.component.getScopeId
 import org.koin.core.context.GlobalContext.get
-import org.koin.dsl.module
 import realmdb.RealmWrapper
 import java.io.File
 import java.io.IOException

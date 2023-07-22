@@ -139,7 +139,7 @@ fun HomeScreen(
 
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                     RoundedImage(
-                        "images/cover.jpg",
+                        "images/bg.jpg",
                         modifier = Modifier.padding(horizontal = 10.dp),
                         size = DpSize(1000.dp, 600.dp),
 //                    text =                         "صممة المنظومة لإدارة عقاراتك من تنظيم لعمليات البيع مع الزبائن ومتابعة وحساب تكاليف البناء وايضا حصر العمال ومتابعة تكاليف خدماتهم  ",

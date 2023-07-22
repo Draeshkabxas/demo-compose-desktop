@@ -19,6 +19,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
+import common.component.ItemMenu
 import common.component.ScreenMode
 import common.component.Screens
 import features.contracts.domain.model.Contract
@@ -35,7 +36,8 @@ fun PaginatedTable(
     headers: List<String>,
     contractList: List<Contract>,
     itemsPerPage: Int,
-    columnWidths: List<Dp>
+    columnWidths: List<Dp>,
+    onRemoveContract: (Contract) -> Unit
 ) {
 //    if (contractList.isEmpty()) return
     val pageCount = (contractList.size + itemsPerPage - 1) / itemsPerPage
@@ -63,46 +65,20 @@ fun PaginatedTable(
         }
         if (contractList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
-                Column(modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp), horizontalAlignment = Alignment.CenterHorizontally
-                    , verticalArrangement = Arrangement.Center) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
-                    Text(text="يمكنك فلترة بحثك للحصول على نتائج اكثر دقة",style = CairoTypography.h3)
+                    Text(text = "يمكنك فلترة بحثك للحصول على نتائج اكثر دقة", style = CairoTypography.h3)
                 }
             }
         } else {
             var counter = 0 // initialize counter based on current page and items per page
             LazyColumn {
                 items(contractList.chunked(itemsPerPage)[currentPage]) { contract ->
-                    var showPopup by remember { mutableStateOf(false) }
-                    var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
-                    if (superAdmin){
-                        if (showPopup) {
-                            DropdownMenu(
-                                expanded = showPopup,
-                                onDismissRequest = { showPopup = false },
-                                offset = DpOffset(1200.dp, -50.dp)
-                            ) {
-                                DropdownMenuItem(onClick = {
-                                    // Handle edit action
-                                    navController.navigate(
-                                        Screens.AddContractsScreen(
-                                            mode = ScreenMode.EDIT,
-                                            contract = contract
-                                        )
-                                    )
-                                    showPopup = false
-                                }) {
-                                    Text("تعديل", style = CairoTypography.h4)
-                                }
-                                DropdownMenuItem(onClick = {
-                                    // Handle delete action
-                                    showPopup = false
-                                }) {
-                                    Text("مسح", style = CairoTypography.h4)
-                                }
-                            }
-                        }
-                    }
+                    val showPopup = remember { mutableStateOf(false) }
                     Row(
                         modifier = Modifier.background(
                             if ((currentPage % 2 == 0 && contractList.indexOf(contract) % 2 == 0) ||
@@ -113,17 +89,29 @@ fun PaginatedTable(
                             .pointerInput(Unit) {
                                 detectTapGestures(
                                     onPress = { offset ->
-                                        showPopup = true
-
-                                        popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                        showPopup.value = true
                                     },
-                                    onLongPress  = { offset ->
-                                        showPopup = true
-                                        popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                    onLongPress = { offset ->
+                                        showPopup.value = true
                                     }
                                 )
                             }
                     ) {
+
+                        if (superAdmin) {
+                            ItemMenu(
+                                showMenu = showPopup,
+                                onEdit = {
+                                    Screens.AddContractsScreen(
+                                        mode = ScreenMode.EDIT,
+                                        contract = contract
+                                    )
+                                }, onRemove = {
+                                    onRemoveContract(contract)
+                                }
+                            )
+                        }
+
                         Text(
                             text = (contractList.indexOf(contract) + 1).toString(), // display counter value as text
                             maxLines = 1,
@@ -243,7 +231,7 @@ fun PaginatedTable(
                                 .padding(8.dp),
                             maxLines = 2
                         )
-                        if (canEditPermission){
+                        if (canEditPermission) {
                             Spacer(modifier = Modifier.size(0.dp, 20.dp))
 
                             common.component.TextButton(
@@ -251,7 +239,12 @@ fun PaginatedTable(
                                 textSize = 10.sp,
                                 text = "إضافة",
                                 onClick = {
-                                    navController.navigate(Screens.AddContractsScreen( mode= ScreenMode.EDIT, contract = contract))
+                                    navController.navigate(
+                                        Screens.AddContractsScreen(
+                                            mode = ScreenMode.EDIT,
+                                            contract = contract
+                                        )
+                                    )
 
                                 },
                                 colors = AppColors.GreenGradient, cornerRadius = 30.dp

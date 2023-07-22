@@ -5,6 +5,7 @@ import features.courses.domain.model.Course
 import features.courses.domain.usecases.GetAllCourses
 import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import features.courses.domain.usecases.RemoveAllCourses
+import features.courses.domain.usecases.RemoveCourse
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
@@ -15,7 +16,8 @@ import utils.fromArabicNameToAgeGroup
 class CoursesScreenViewModel(
     private val getAllCourses: GetAllCourses,
     private val printCoursesListToXlsxFile: PrintCoursesListToXlsxFile,
-    private val removeAllCourses: RemoveAllCourses
+    private val removeAllCourses: RemoveAllCourses,
+    private val removeCourseUseCase:RemoveCourse
 ) {
     private var state  = FilterState()
 
@@ -71,6 +73,25 @@ class CoursesScreenViewModel(
 
         }
     }
+
+    fun removeCourse(
+        course: Course,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (Boolean) -> Unit
+    ) {
+        removeCourseUseCase(course).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success ->{
+                    onSuccess(it.data ?: true)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
     fun onPrintEvent(event: PrintEvent){
         when(event){
             is PrintEvent.PrintList -> printList = event.list

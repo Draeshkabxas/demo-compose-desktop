@@ -22,9 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
+import common.component.ItemMenu
 import common.component.ScreenMode.EDIT
 import common.component.Screens
 import features.courses.domain.model.Course
+import features.courses.domain.usecases.RemoveCourse
 import navcontroller.NavController
 import styles.AppColors
 import styles.CairoTypography
@@ -38,6 +40,7 @@ fun PaginatedTable(
     personList: List<Course>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
+    onRemoveCourse: (Course) -> Unit
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -45,8 +48,8 @@ fun PaginatedTable(
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
-    var canEditPermission = userAuthSystem.canEdit()
-    var superAdmin = userAuthSystem.canChangeAccountsPermission()
+    val canEditPermission = userAuthSystem.canEdit()
+    val superAdmin = userAuthSystem.canChangeAccountsPermission()
 
     Column() {
         Row {
@@ -74,30 +77,20 @@ fun PaginatedTable(
         } else {
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
-                var showPopup by remember { mutableStateOf(false) }
+                var showPopup = remember { mutableStateOf(false) }
                 var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
-                if (superAdmin){
-                    if (showPopup) {
-                        DropdownMenu(
-                            expanded = showPopup,
-                            onDismissRequest = { showPopup = false },
-                            offset = DpOffset(1200.dp, -50.dp)
-                        ) {
-                            DropdownMenuItem(onClick = {
-                                // Handle edit action
-                                navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
-                                showPopup = false
-                            }) {
-                                Text("تعديل", style = CairoTypography.h4)
-                            }
-                            DropdownMenuItem(onClick = {
-                                // Handle delete action
-                                showPopup = false
-                            }) {
-                                Text("مسح", style = CairoTypography.h4)
-                            }
+                if (superAdmin) {
+                    ItemMenu(
+                        showMenu = showPopup,
+                        onEdit = {
+                            Screens.AddCoursesScreen(
+                                mode = EDIT,
+                                course = person
+                            )
+                        }, onRemove = {
+                            onRemoveCourse(person)
                         }
-                    }
+                    )
                 }
 
                 Row(
@@ -112,12 +105,12 @@ fun PaginatedTable(
                         .pointerInput(Unit) {
                             detectTapGestures(
                                 onPress = { offset ->
-                                    showPopup = true
+                                    showPopup.value = true
 
                                     popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
                                 },
                                 onLongPress  = { offset ->
-                                    showPopup = true
+                                    showPopup.value = true
                                     popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
                                 }
                             )

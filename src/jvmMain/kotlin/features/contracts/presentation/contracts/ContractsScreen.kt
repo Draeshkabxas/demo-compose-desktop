@@ -72,124 +72,130 @@ fun ContractsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         HeadLineWithDate(text = "منظومة العقود ", date = "1/7/2023  1:30:36 PM")
-            Box {
-                Filters(
-                    onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
-                    onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
-                    onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
-                    onFilterCity = { viewModel.onEvent(FilterCity(it)) },
-                    onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
-                    onFilterName = { viewModel.onEvent(FilterName(it)) },
-                    onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
-                    onReset = { viewModel.onEvent(Reset) },
-                    onSubmit = { viewModel.onEvent(Submit) },
-                )
-                Row(
-                    modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    if (canEditPermission) {
-                        GradientButton(
-                            text = "إضافة ملف",
-                            icon = Icons.Default.AddTask,
-                            onClick = {
-                                navController.navigate(Screens.AddContractsScreen())
+        Box {
+            Filters(
+                onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
+                onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
+                onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
+                onFilterCity = { viewModel.onEvent(FilterCity(it)) },
+                onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
+                onFilterName = { viewModel.onEvent(FilterName(it)) },
+                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
+                onReset = { viewModel.onEvent(Reset) },
+                onSubmit = { viewModel.onEvent(Submit) },
+            )
+            Row(
+                modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                if (canEditPermission) {
+                    GradientButton(
+                        text = "إضافة ملف",
+                        icon = Icons.Default.AddTask,
+                        onClick = {
+                            navController.navigate(Screens.AddContractsScreen())
+                        },
+                        colors = blueGradient, cornerRadius = 30.dp
+                    )
+                    GradientButton(
+                        text = "طباعة",
+                        icon = Icons.Default.Print,
+                        onClick = {
+                            showPrintListDialog = true
+                        },
+
+                        colors = GreenGradient,
+                        cornerRadius = 30.dp
+                    )
+                    var showDialogDelet by remember { mutableStateOf(false) }
+
+                    if (showDialogDelet) {
+                        AlertDialog(
+                            onDismissRequest = { showDialogDelet = false },
+                            title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
+                            text = {
+                                Text(
+                                    "هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟",
+                                    textAlign = TextAlign.End,
+                                    style = CairoTypography.h3
+                                )
                             },
-                            colors=blueGradient, cornerRadius = 30.dp
-                        )
-                        GradientButton(
-                            text = "طباعة",
-                            icon = Icons.Default.Print,
-                            onClick = {
-                                showPrintListDialog = true
+                            confirmButton = {
+                                GradientButton(
+                                    text = "مسح",
+                                    icon = Icons.Default.DeleteForever,
+                                    onClick = {
+                                        showDialogDelet = false
+                                        viewModel.removeAllContracts(onLoading = {}, onError = {}, onSuccess = {})
+                                    },
+                                    colors = RedGradient, cornerRadius = 30.dp
+                                )
                             },
+                            dismissButton = {
 
-                            colors=GreenGradient,
-                            cornerRadius = 30.dp
+                                GradientButton(
+                                    text = "الغاء",
+                                    icon = Icons.Default.Cancel,
+                                    onClick = { showDialogDelet = false },
+
+                                    colors = RedGradient, cornerRadius = 30.dp
+                                )
+                            }
                         )
-                        var showDialogDelet by remember { mutableStateOf(false) }
-
-                        if (showDialogDelet) {
-                            AlertDialog(
-                                onDismissRequest = { showDialogDelet = false },
-                                title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
-                                text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
-                                confirmButton = {
-                                    GradientButton(
-                                        text = "مسح",
-                                        icon = Icons.Default.DeleteForever,
-                                        onClick = {
-                                            showDialogDelet = false
-                                            viewModel.removeAllContracts(onLoading = {}, onError = {}, onSuccess = {})
-                                        },
-                                        colors=RedGradient, cornerRadius = 30.dp
-                                    )
-                                },
-                                dismissButton = {
-
-                                    GradientButton(
-                                        text = "الغاء",
-                                        icon = Icons.Default.Cancel,
-                                        onClick = { showDialogDelet = false },
-
-                                        colors=RedGradient, cornerRadius = 30.dp
-                                    )
-                                }
-                            )
-                        }
-                        if (superAdminPermission){
+                    }
+                    if (superAdminPermission) {
                         GradientButton(
                             text = "مسح الكل",
                             icon = Icons.Default.DeleteForever,
                             onClick = {
-                               showDialogDelet = true
+                                showDialogDelet = true
                             },
-                            colors=RedGradient, cornerRadius = 30.dp
+                            colors = RedGradient, cornerRadius = 30.dp
                         )
                     }
-                        if (showPrintListDialog) {
-                            PrintDialog(
-                                columns = listOf(
-                                    "رقم الملف",
-                                    "الاسم رباعي",
-                                    "اسم الام",
-                                    "جنسية الام",
-                                    "المؤهل العلمي",
-                                    "المدينة",
-                                    "رقم الهاتف",
-                                    " التبعية",
-                                    "اسم المصرف",
-                                    "رقم الحساب",
-                                    "الرقم الوطني"
-                                ),
-                                onPrintColumnsChanged = {
-                                    viewModel.onPrintEvent(PrintEvent.PrintList(it))
-                                    showPrintDirectoryPathDialog = true
-                                },
-                                onDismiss = { showPrintListDialog = false }
-                            )
-                        }
+                    if (showPrintListDialog) {
+                        PrintDialog(
+                            columns = listOf(
+                                "رقم الملف",
+                                "الاسم رباعي",
+                                "اسم الام",
+                                "جنسية الام",
+                                "المؤهل العلمي",
+                                "المدينة",
+                                "رقم الهاتف",
+                                " التبعية",
+                                "اسم المصرف",
+                                "رقم الحساب",
+                                "الرقم الوطني"
+                            ),
+                            onPrintColumnsChanged = {
+                                viewModel.onPrintEvent(PrintEvent.PrintList(it))
+                                showPrintDirectoryPathDialog = true
+                            },
+                            onDismiss = { showPrintListDialog = false }
+                        )
+                    }
 
-                        if (showPrintDirectoryPathDialog) {
-                            DirectoryDialog(
-                                onApproved = { filePath ->
-                                    viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
-                                    viewModel.onPrintEvent(PrintEvent.Submit)
-                                    showPrintDirectoryPathDialog = false
-                                },
-                                onCanceled = {
-                                    showPrintDirectoryPathDialog = false
-                                    println("on canceled")
-                                },
-                                onError = {
-                                    println("on onError")
-                                }
-                            )
-                        }
+                    if (showPrintDirectoryPathDialog) {
+                        DirectoryDialog(
+                            onApproved = { filePath ->
+                                viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
+                                viewModel.onPrintEvent(PrintEvent.Submit)
+                                showPrintDirectoryPathDialog = false
+                            },
+                            onCanceled = {
+                                showPrintDirectoryPathDialog = false
+                                println("on canceled")
+                            },
+                            onError = {
+                                println("on onError")
+                            }
+                        )
                     }
                 }
             }
+        }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -200,7 +206,10 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, contractsData, 13, widths)
+                            PaginatedTable(navController, headers, contractsData, 13, widths,
+                                onRemoveContract = { contract ->
+                                    viewModel.removeContract(contract, onSuccess = {})
+                                })
                         }
                     }
                 }

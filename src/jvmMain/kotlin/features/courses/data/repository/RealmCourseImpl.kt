@@ -49,16 +49,18 @@ class RealmCourseImpl(private val realm: Realm) :
             emit(data.toCourseDTO())
         }
     }
+    private fun getCourse(course: Course): RealmCourse? {
+      return realm.query<RealmCourse>("id = $0", course.id)
+            .first()
+            .find()
+    }
 
     override fun updateCourse(person: Course): Flow<Boolean> = flow{
         var result = false
         try {
             realm.writeBlocking {
                 val updatedPerson = person.toRealmCourse()
-                query<RealmCourse>("id = $0", person.id)
-                    .first()
-                    .find()
-                    ?.also { oldPerson ->
+                getCourse(person)?.also { oldPerson ->
                         findLatest(oldPerson.apply {
                             name = updatedPerson.name
                             motherName = updatedPerson.motherName
@@ -89,6 +91,23 @@ class RealmCourseImpl(private val realm: Realm) :
             }catch (e:Exception){
                 result = false
             }
+        }
+        emit(result)
+    }
+
+    override fun removeCourse(course: Course): Flow<Boolean>  = flow {
+        var result = false
+        try {
+            realm.writeBlocking {
+                getCourse(course)?.also {
+                    findLatest(it)?.also {removedCourse->
+                        delete(removedCourse)
+                    }
+                }
+                result = true
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
         emit(result)
     }

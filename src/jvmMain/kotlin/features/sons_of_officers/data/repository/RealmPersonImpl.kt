@@ -47,15 +47,18 @@ class RealmPersonImpl(private val realm: Realm) :
         )
     }
 
+    private fun getPerson(person: Person): RealmPerson? {
+        return realm.query<RealmPerson>("id = $0", person.id)
+            .first()
+            .find()
+    }
+
     override fun updatePerson(person: Person): Flow<Boolean> = flow {
         var result = false
         try {
             realm.writeBlocking {
                 val updatedPerson = person.toRealmPerson()
-                query<RealmPerson>("id = $0", person.id)
-                    .first()
-                    .find()
-                    ?.also { oldPerson ->
+                getPerson(person)?.also { oldPerson ->
                         findLatest(oldPerson.apply {
                             name = updatedPerson.name
                             motherName = updatedPerson.motherName
@@ -74,6 +77,23 @@ class RealmPersonImpl(private val realm: Realm) :
             }
         } catch (e: Exception) {
             println("Realm update person impl has error ${e.localizedMessage}")
+        }
+        emit(result)
+    }
+
+    override fun removePerson(person: Person): Flow<Boolean> = flow {
+        var result = false
+        try {
+            realm.writeBlocking {
+                getPerson(person)?.also { person->
+                    findLatest(person)?.also {removedPerson->
+                        delete(removedPerson)
+                    }
+                }
+                result = true
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
         emit(result)
     }

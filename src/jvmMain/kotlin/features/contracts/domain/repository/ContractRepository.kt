@@ -10,4 +10,6 @@ interface ContractRepository {
     fun getContract(id: String): Flow<Contract?>
     fun updateContract(contract: Contract): Flow<Boolean>
     fun removeAllContract(): Flow<Boolean>
+
+    fun removeContract(contract: Contract):Flow<Boolean>
 }

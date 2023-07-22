@@ -50,6 +50,11 @@ class RealmContractImpl(private val realm: Realm) :
             emit(data.toContractDto())
         }
     }
+    private fun getContract(contract: Contract): RealmContract? {
+      return  realm.query<RealmContract>("id = $0", contract.id)
+            .first()
+            .find()
+    }
 
     override fun updateContract(contract: Contract): Flow<Boolean> = flow{
         var result = false
@@ -91,6 +96,23 @@ class RealmContractImpl(private val realm: Realm) :
             }catch (e:Exception){
                 result = false
             }
+        }
+        emit(result)
+    }
+
+    override fun removeContract(contract: Contract): Flow<Boolean> = flow {
+        var result = false
+        try {
+            realm.writeBlocking {
+                getContract(contract)?.also {
+                    findLatest(it)?.also {removedContract->
+                        delete(removedContract)
+                    }
+                }
+                result = true
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
         emit(result)
     }

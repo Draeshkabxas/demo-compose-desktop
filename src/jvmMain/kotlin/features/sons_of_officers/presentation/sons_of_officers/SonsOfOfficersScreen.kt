@@ -78,106 +78,112 @@ fun SonsOfOfficersScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-           if (canEditPermission){
-                GradientButton(
-                    text = "إضافة ملف",
-                    icon = Icons.Default.AddTask,
-                    onClick = {
-                        navController.navigate(Screens.AddSonsOfOfficersScreen())
-                    },
-                    colors = blueGradient,
-                    cornerRadius = 30.dp
-                )
-                GradientButton(
-                    text = "طباعة",
-                    icon = Icons.Default.Print,
-                    onClick = {
-                        showPrintListDialog = true
-
-                    },
-
-                    colors =GreenGradient,
-                    cornerRadius = 30.dp
-                )
-               var showDialogDelete by remember { mutableStateOf(false) }
-
-               if (showDialogDelete) {
-                   AlertDialog(
-                       onDismissRequest = { showDialogDelete = false },
-                       title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
-                       text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
-                       confirmButton = {
-                           GradientButton(
-                               text = "مسح",
-                               icon = Icons.Default.DeleteForever,
-                               onClick = {
-                                   showDialogDelete = false
-                                   viewModel.removeAllPeople(onLoading = {}, onError = {}, onSuccess = {})
-                               },
-                               colors =RedGradient, cornerRadius = 30.dp
-                           )
-                       },
-                       dismissButton = {
-
-                           GradientButton(
-                               text = "الغاء",
-                               icon = Icons.Default.Cancel,
-                               onClick = { showDialogDelete = false },
-
-                               colors = AppColors.RedGradient, cornerRadius = 30.dp
-                           )
-                       }
-                   )
-               }
-               if (superAdminPermission){
-                   GradientButton(
-                       text = "مسح الكل",
-                       icon = Icons.Default.DeleteForever,
-                       onClick = {
-                           showDialogDelete = true
-                       },
-                       colors = AppColors.RedGradient, cornerRadius = 30.dp
-                   )
-               }
-                // Show the print dialog if the boolean flag is true
-                if (showPrintListDialog) {
-                    PrintDialog(
-                        columns = listOf(
-                            "رقم الملف",
-                            "الاسم رباعي",
-                            "الرقم الوطني",
-                            "اسم الام",
-                            "المؤهل العلمي",
-                            "المدينة",
-                            "رقم الهاتف",
-                            "القائم بالتجنيد",
-                            "النتيجة"
-                        ),
-                        onPrintColumnsChanged = {
-                            viewModel.onPrintEvent(PrintList(it))
-                            showPrintDirectoryPathDialog = true
+                if (canEditPermission) {
+                    GradientButton(
+                        text = "إضافة ملف",
+                        icon = Icons.Default.AddTask,
+                        onClick = {
+                            navController.navigate(Screens.AddSonsOfOfficersScreen())
                         },
-                        onDismiss = { showPrintListDialog = false }
+                        colors = blueGradient,
+                        cornerRadius = 30.dp
                     )
-                }
+                    GradientButton(
+                        text = "طباعة",
+                        icon = Icons.Default.Print,
+                        onClick = {
+                            showPrintListDialog = true
 
-                if (showPrintDirectoryPathDialog) {
-                    DirectoryDialog(
-                        onApproved = { filePath ->
-                            viewModel.onPrintEvent(PrintToDirectory(filePath))
-                            viewModel.onPrintEvent(Submit)
-                            showPrintDirectoryPathDialog = false
                         },
-                        onCanceled = {
-                            showPrintDirectoryPathDialog = false
-                            println("on canceled")
-                        },
-                        onError = {
-                            println("on onError")
-                        }
+
+                        colors = GreenGradient,
+                        cornerRadius = 30.dp
                     )
+                    var showDialogDelete by remember { mutableStateOf(false) }
+
+                    if (showDialogDelete) {
+                        AlertDialog(
+                            onDismissRequest = { showDialogDelete = false },
+                            title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
+                            text = {
+                                Text(
+                                    "هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟",
+                                    textAlign = TextAlign.End,
+                                    style = CairoTypography.h3
+                                )
+                            },
+                            confirmButton = {
+                                GradientButton(
+                                    text = "مسح",
+                                    icon = Icons.Default.DeleteForever,
+                                    onClick = {
+                                        showDialogDelete = false
+                                        viewModel.removeAllPeople(onLoading = {}, onError = {}, onSuccess = {})
+                                    },
+                                    colors = RedGradient, cornerRadius = 30.dp
+                                )
+                            },
+                            dismissButton = {
+
+                                GradientButton(
+                                    text = "الغاء",
+                                    icon = Icons.Default.Cancel,
+                                    onClick = { showDialogDelete = false },
+
+                                    colors = AppColors.RedGradient, cornerRadius = 30.dp
+                                )
+                            }
+                        )
+                    }
+                    if (superAdminPermission) {
+                        GradientButton(
+                            text = "مسح الكل",
+                            icon = Icons.Default.DeleteForever,
+                            onClick = {
+                                showDialogDelete = true
+                            },
+                            colors = AppColors.RedGradient, cornerRadius = 30.dp
+                        )
+                    }
+                    // Show the print dialog if the boolean flag is true
+                    if (showPrintListDialog) {
+                        PrintDialog(
+                            columns = listOf(
+                                "رقم الملف",
+                                "الاسم رباعي",
+                                "الرقم الوطني",
+                                "اسم الام",
+                                "المؤهل العلمي",
+                                "المدينة",
+                                "رقم الهاتف",
+                                "القائم بالتجنيد",
+                                "النتيجة"
+                            ),
+                            onPrintColumnsChanged = {
+                                viewModel.onPrintEvent(PrintList(it))
+                                showPrintDirectoryPathDialog = true
+                            },
+                            onDismiss = { showPrintListDialog = false }
+                        )
+                    }
+
+                    if (showPrintDirectoryPathDialog) {
+                        DirectoryDialog(
+                            onApproved = { filePath ->
+                                viewModel.onPrintEvent(PrintToDirectory(filePath))
+                                viewModel.onPrintEvent(Submit)
+                                showPrintDirectoryPathDialog = false
+                            },
+                            onCanceled = {
+                                showPrintDirectoryPathDialog = false
+                                println("on canceled")
+                            },
+                            onError = {
+                                println("on onError")
+                            }
+                        )
+                    }
                 }
-            }
             }
         }
 //        table
@@ -191,7 +197,8 @@ fun SonsOfOfficersScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, peopleData, 13, widths)
+                            PaginatedTable(navController, headers, peopleData, 13, widths,
+                                onRemovePerson = {person ->  viewModel.removePerson(person, onSuccess = {})})
                         }
                     }
                 }

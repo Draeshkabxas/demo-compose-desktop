@@ -9,7 +9,6 @@ import authorization.data.repository.AppCloseImpl
 import authorization.domain.repository.AppCloseRepository
 import authorization.domain.repository.AuthenticationRepository
 import authorization.data.repository.MangodbAuthenticationImpl
-import authorization.domain.model.User
 import authorization.domain.usecase.*
 import authorization.presentation.accountsPermissions.AccountPermissionViewModel
 import authorization.presentation.login.LoginViewModel
@@ -55,7 +54,6 @@ import license.domain.repository.SharedPreferencesRepository
 import license.domain.usecases.ActivateLicense
 import license.domain.usecases.GetExpireDate
 import license.presentation.AppLicenseViewModel
-import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.get
 import realmdb.RealmWrapper
 import utils.UserAuthSystem
@@ -120,6 +118,7 @@ val appModule = module {
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
     single<GetAllPeople> { GetAllPeople(get()) }
     single<RemoveAllPeople> { RemoveAllPeople(get()) }
+    single<RemovePerson> { RemovePerson(get()) }
     single<UpdatePerson> { UpdatePerson(get()) }
     factory<AddSonsOfOfficersViewModel> {
         AddSonsOfOfficersViewModel(
@@ -131,7 +130,8 @@ val appModule = module {
         SonsOfOfficersScreenViewModel(
             getAllPeople = get(),
             printPersonsListToXlsxFile = get(),
-            removeAllPeople = get()
+            removeAllPeople = get(),
+            removePersonUseCase = get()
         )
     }
 
@@ -141,11 +141,13 @@ val appModule = module {
     single<ContractXlsxRepository> { ContractXlsxImpl() }
     single<PrintContractsListToXlsxFile> { PrintContractsListToXlsxFile(get()) }
     single<RemoveAllContracts> { RemoveAllContracts(get()) }
+    single<RemoveContract> { RemoveContract(get()) }
     factory<ContractsScreenViewModel> {
         ContractsScreenViewModel(
             allContracts = get(),
             printContractsListToXlsxFile = get(),
-            removeAllContracts = get()
+            removeAllContracts = get(),
+            removeContractUseCase = get()
         )
     }
     //Add Contract Di
@@ -160,11 +162,13 @@ val appModule = module {
     single<CourseXlsxRepository> { CoursesXlsxImpl() }
     single<PrintCoursesListToXlsxFile> { PrintCoursesListToXlsxFile(get()) }
     single<RemoveAllCourses> { RemoveAllCourses(get()) }
+    single<RemoveCourse> { RemoveCourse(get()) }
     factory<CoursesScreenViewModel> {
         CoursesScreenViewModel(
             getAllCourses = get(),
             printCoursesListToXlsxFile = get(),
-            removeAllCourses = get()
+            removeAllCourses = get(),
+            removeCourseUseCase = get()
         )
     }
     //Add Courses Di

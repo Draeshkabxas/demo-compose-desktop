@@ -6,6 +6,7 @@ import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople
 import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
 import features.sons_of_officers.domain.usecases.RemoveAllPeople
+import features.sons_of_officers.domain.usecases.RemovePerson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
@@ -16,13 +17,14 @@ import utils.fromArabicNameToAgeGroup
 class SonsOfOfficersScreenViewModel(
     private val getAllPeople: GetAllPeople,
     private val printPersonsListToXlsxFile: PrintPersonsListToXlsxFile,
-    private val removeAllPeople: RemoveAllPeople
+    private val removeAllPeople: RemoveAllPeople,
+    private val removePersonUseCase: RemovePerson
 ) {
-    private var state  = FilterState()
+    private var state = FilterState()
 
     private val peopleDataChannel = Channel<List<Person>>()
 
-    private var peopleData:List<Person> = emptyList()
+    private var peopleData: List<Person> = emptyList()
     val peopleDataFlow = peopleDataChannel.receiveAsFlow()
 
     private var printList = listOf<String>()
@@ -31,6 +33,7 @@ class SonsOfOfficersScreenViewModel(
     init {
         getFilterData()
     }
+
     fun onEvent(event: FilterEvent) {
         when (event) {
             is FilterEvent.FilterLibyaId -> {
@@ -56,12 +59,15 @@ class SonsOfOfficersScreenViewModel(
             is FilterEvent.FilterReferralForTraining -> {
                 state = state.copy(referralForTraining = event.referralForTraining.toString())
             }
+
             is FilterEvent.FilterAgeGroup -> {
                 state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
             }
+
             is FilterEvent.FilterHealthStatus -> {
                 state = state.copy(healthStatus = event.healthStatus)
             }
+
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()
@@ -74,10 +80,14 @@ class SonsOfOfficersScreenViewModel(
         }
     }
 
-
-    fun removeAllPeople(onLoading: () -> Unit, onError: (String) -> Unit, onSuccess: (Boolean) -> Unit){
-        removeAllPeople.invoke().onEach {
-            when(it){
+    fun removePerson(
+        person: Person,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (Boolean) -> Unit
+    ) {
+        removePersonUseCase(person).onEach {
+            when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()
                 is Resource.Success -> {
@@ -88,11 +98,25 @@ class SonsOfOfficersScreenViewModel(
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 
-    fun onPrintEvent(event: PrintEvent){
-        when(event){
+
+    fun removeAllPeople(onLoading: () -> Unit, onError: (String) -> Unit, onSuccess: (Boolean) -> Unit) {
+        removeAllPeople.invoke().onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: true)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+    fun onPrintEvent(event: PrintEvent) {
+        when (event) {
             is PrintEvent.PrintList -> printList = event.list
             is PrintEvent.PrintToDirectory -> printPath = event.path
-            PrintEvent.Submit -> printToXlsxFile(printPath,printList,{},{},{})
+            PrintEvent.Submit -> printToXlsxFile(printPath, printList, {}, {}, {})
         }
 
     }
@@ -100,12 +124,12 @@ class SonsOfOfficersScreenViewModel(
 
     fun printToXlsxFile(
         filePath: String,
-        printList:List<String>,
+        printList: List<String>,
         onError: (String) -> Unit,
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printPersonsListToXlsxFile.invoke(peopleData, filePath,printList).onEach {
+        printPersonsListToXlsxFile.invoke(peopleData, filePath, printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()
@@ -122,6 +146,7 @@ class SonsOfOfficersScreenViewModel(
                     is Resource.Error -> {
                         println(it.message)
                     }
+
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         it.data?.let { people ->

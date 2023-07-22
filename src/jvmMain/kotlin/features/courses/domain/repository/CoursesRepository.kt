@@ -10,4 +10,6 @@ interface CoursesRepository {
     fun getCourse(id: String): Flow<Course?>
     fun updateCourse(person: Course): Flow<Boolean>
     fun removeAll(): Flow<Boolean>
+
+    fun removeCourse(course: Course):Flow<Boolean>
 }

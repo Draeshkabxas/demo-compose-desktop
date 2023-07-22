@@ -1,5 +1,6 @@
 package features.contracts.presentation.contracts.component
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -12,17 +13,22 @@ import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.unit.dp
 import common.component.CustomOutlinedTextField
 
 import common.component.*
 import styles.AppColors.RedGradient
+import styles.AppColors.blueGradient
 import utils.Education
 import utils.LibyanCities
 import utils.getAllAgeGroupArabicNames
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Filters(
     onFilterLibyaId: (String) -> Unit,
@@ -84,50 +90,38 @@ fun Filters(
                 onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                cornerRadius = 30.dp
+                cornerRadius = 30.dp,
+                colors = blueGradient
+
             )
             if (isCancelVisible) {
-                Button(
-                    shape = RoundedCornerShape(100.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                    modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
-
+                IconButton(
+                    imageVector = Icons.Default.Cancel,
                     onClick = {
                         resetFilters()
                         isCancelVisible = !isCancelVisible
-
                     },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Cancel,
-                        contentDescription = "",
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+                    shape = RoundedCornerShape(100.dp),
+                    colors =Color.Red,
+                    contentPadding= PaddingValues(0.dp)
+                )
+
             }
             GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                cornerRadius = 30.dp
+                cornerRadius = 30.dp,
+                colors = blueGradient
             )
-            Button(
-                shape = RoundedCornerShape(100.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
-                contentPadding = PaddingValues(0.dp),
-                onClick = {
-                    onSubmit()
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.RestartAlt,
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            Spacer(modifier = Modifier.width(4.dp))
+            IconButton(
+                Icons.Default.RestartAlt,
+                onClick = { onSubmit() },
+            shape = RoundedCornerShape(100.dp),
+            colors =Color.Red,
+            contentPadding= PaddingValues(0.dp)
+            )
             Spacer(modifier = Modifier.width(530.dp))
 
         }
@@ -210,7 +204,10 @@ fun Filters(
                         onClick = {
                             onSubmit()
                         },
-                        cornerRadius = 30.dp
+                        colors =  blueGradient
+                        ,cornerRadius = 30.dp,
+
+
                     )
                     GradientButton(
                         text = "إعادة ضبط",
@@ -218,7 +215,7 @@ fun Filters(
                         onClick = {
                             resetFilters()
                         },
-                        RedGradient
+                        colors = RedGradient
                                 ,cornerRadius = 30.dp
                     )
                 }

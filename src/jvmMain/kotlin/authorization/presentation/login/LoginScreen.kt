@@ -35,6 +35,7 @@ import styles.AppColors.background
 import styles.AppColors.primary
 import styles.AppColors.white
 import utils.getUserAuth
+import kotlin.system.exitProcess
 
 @Composable
 fun LoginScreen(
@@ -101,6 +102,13 @@ fun LoginScreen(
                     .padding(horizontal = 35.dp),
                 horizontalAlignment = Alignment.Start
             ) {
+                IconButton(onClick = { exitProcess(0) }) {
+                    Image(
+                        painter = painterResource("images/exit.svg"),
+                        contentDescription = "Exit Application",
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
                 Image(
                     painter = painterResource("images/welcome.svg"),
                     contentDescription = "welcome.png",

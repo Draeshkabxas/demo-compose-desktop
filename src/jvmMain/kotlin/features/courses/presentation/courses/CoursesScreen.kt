@@ -92,7 +92,7 @@ fun CoursesScreen(
                     onClick = {
                         navController.navigate(Screens.AddCoursesScreen())
                     },
-                    blueGradient,
+                    colors =  blueGradient,
                     cornerRadius = 30.dp
                 )
 
@@ -103,7 +103,7 @@ fun CoursesScreen(
                         showPrintListDialog = true
                     },
 
-                    GreenGradient,
+                    colors = GreenGradient,
                     cornerRadius = 30.dp
                 )
                     var showDialogDelet by remember { mutableStateOf(false) }
@@ -120,7 +120,7 @@ fun CoursesScreen(
                                     onClick = {
                                         showDialogDelet = false
                                     },
-                                    AppColors.RedGradient, cornerRadius = 30.dp
+                                    colors =   AppColors.RedGradient, cornerRadius = 30.dp
                                 )
                             },
                             dismissButton = {
@@ -130,7 +130,7 @@ fun CoursesScreen(
                                     icon = Icons.Default.Cancel,
                                     onClick = { showDialogDelet = false },
 
-                                    AppColors.RedGradient, cornerRadius = 30.dp
+                                    colors = AppColors.RedGradient, cornerRadius = 30.dp
                                 )
                             }
                         )
@@ -142,7 +142,7 @@ fun CoursesScreen(
                             onClick = {
                                 showDialogDelet = true
                             },
-                            AppColors.RedGradient, cornerRadius = 30.dp
+                            colors = AppColors.RedGradient, cornerRadius = 30.dp
                         )
                     }
                 if (showPrintListDialog) {

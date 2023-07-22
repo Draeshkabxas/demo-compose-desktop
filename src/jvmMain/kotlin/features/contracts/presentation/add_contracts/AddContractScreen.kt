@@ -27,17 +27,6 @@ fun AddContractsScreen(
     viewModel: AddContractViewModel = koinInject(),
 
     ) {
-//    LaunchedEffect(key1 = true) {
-//        viewModel.addContractEvent.collect { event ->
-//            when (event) {
-//                ValidationEvent.Success -> {
-//                    navController.navigateReplacement(Screens.ContractsScreen())
-//
-//                }
-//                else -> {}
-//            }
-//        }
-//    }
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
             println("event : $event")

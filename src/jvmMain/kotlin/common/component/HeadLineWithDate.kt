@@ -17,8 +17,8 @@ fun HeadLineWithDate(
     date: String,
 ){
     val currentDateTime = getCurrentDateTime()
-
-    Row (        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 35.dp).sizeIn(maxHeight = 50.dp),
+    Spacer(modifier = Modifier.size(width = 0.dp,height = 35.dp))
+    Row (        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp,).sizeIn(maxHeight = 40.dp),
 
         horizontalArrangement = Arrangement.SpaceBetween,){
         Text(
@@ -32,6 +32,8 @@ fun HeadLineWithDate(
             style = CairoTypography.h3,
         )
     }
+    Spacer(modifier = Modifier.size(width = 0.dp,height = 15.dp))
+
 }
 
 fun getCurrentDateTime(): String {

@@ -37,7 +37,7 @@ import org.koin.core.context.GlobalContext.get
 @Composable
 @Preview
 fun App(appClose: AppCloseRepository = koinInject()) {
-    val navController by rememberNavController(AuthScreen.AppLicenseScreen.name)
+    val navController by rememberNavController(AuthScreen.LoginAuthScreen.name)
 
     val windowState = rememberWindowState(
         size = DpSize(1000.dp,700.dp),

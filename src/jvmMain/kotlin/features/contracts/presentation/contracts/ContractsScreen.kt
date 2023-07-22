@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.text.style.TextAlign
 import common.component.*
 
@@ -28,6 +30,7 @@ import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import org.koin.compose.koinInject
 import styles.AppColors
 import styles.AppColors.GreenGradient
+import styles.AppColors.RedGradient
 import styles.AppColors.blue
 import styles.AppColors.blueGradient
 import styles.AppColors.green
@@ -87,14 +90,13 @@ fun ContractsScreen(
                     horizontalArrangement = Arrangement.Start
                 ) {
                     if (canEditPermission) {
-
                         GradientButton(
                             text = "إضافة ملف",
                             icon = Icons.Default.AddTask,
                             onClick = {
                                 navController.navigate(Screens.AddContractsScreen())
                             },
-                            blueGradient, cornerRadius = 30.dp
+                            colors=blueGradient, cornerRadius = 30.dp
                         )
                         GradientButton(
                             text = "طباعة",
@@ -103,7 +105,7 @@ fun ContractsScreen(
                                 showPrintListDialog = true
                             },
 
-                            GreenGradient,
+                            colors=GreenGradient,
                             cornerRadius = 30.dp
                         )
                         var showDialogDelet by remember { mutableStateOf(false) }
@@ -120,7 +122,7 @@ fun ContractsScreen(
                                         onClick = {
                                             showDialogDelet = false
                                         },
-                                        AppColors.RedGradient, cornerRadius = 30.dp
+                                        colors=RedGradient, cornerRadius = 30.dp
                                     )
                                 },
                                 dismissButton = {
@@ -130,7 +132,7 @@ fun ContractsScreen(
                                         icon = Icons.Default.Cancel,
                                         onClick = { showDialogDelet = false },
 
-                                                AppColors.RedGradient, cornerRadius = 30.dp
+                                        colors=RedGradient, cornerRadius = 30.dp
                                     )
                                 }
                             )
@@ -142,7 +144,7 @@ fun ContractsScreen(
                             onClick = {
                                showDialogDelet = true
                             },
-                            AppColors.RedGradient, cornerRadius = 30.dp
+                            colors=RedGradient, cornerRadius = 30.dp
                         )
                     }
                         if (showPrintListDialog) {
@@ -193,7 +195,7 @@ fun ContractsScreen(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.Top,
         ) {
-            LazyColumn(Modifier.padding(10.dp)) {
+            LazyColumn(Modifier.padding(5.dp)) {
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {

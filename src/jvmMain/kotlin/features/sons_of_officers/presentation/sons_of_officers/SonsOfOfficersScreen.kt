@@ -24,6 +24,7 @@ import features.sons_of_officers.presentation.sons_of_officers.component.Filters
 import org.koin.compose.koinInject
 import styles.AppColors
 import styles.AppColors.GreenGradient
+import styles.AppColors.RedGradient
 import styles.AppColors.blueGradient
 import styles.CairoTypography
 import utils.getUserAuth
@@ -84,7 +85,7 @@ fun SonsOfOfficersScreen(
                     onClick = {
                         navController.navigate(Screens.AddSonsOfOfficersScreen())
                     },
-                    blueGradient,
+                    colors = blueGradient,
                     cornerRadius = 30.dp
                 )
                 GradientButton(
@@ -95,7 +96,7 @@ fun SonsOfOfficersScreen(
 
                     },
 
-                    GreenGradient,
+                    colors =GreenGradient,
                     cornerRadius = 30.dp
                 )
                var showDialogDelete by remember { mutableStateOf(false) }
@@ -113,7 +114,7 @@ fun SonsOfOfficersScreen(
 //                                   AddSonsOfOfficersViewModel.onEvent(Submit(mode ))
                                    showDialogDelete = false
                                },
-                               AppColors.RedGradient, cornerRadius = 30.dp
+                               colors =RedGradient, cornerRadius = 30.dp
                            )
                        },
                        dismissButton = {
@@ -123,7 +124,7 @@ fun SonsOfOfficersScreen(
                                icon = Icons.Default.Cancel,
                                onClick = { showDialogDelete = false },
 
-                               AppColors.RedGradient, cornerRadius = 30.dp
+                               colors = AppColors.RedGradient, cornerRadius = 30.dp
                            )
                        }
                    )
@@ -135,7 +136,7 @@ fun SonsOfOfficersScreen(
                        onClick = {
                            showDialogDelete = true
                        },
-                       AppColors.RedGradient, cornerRadius = 30.dp
+                       colors = AppColors.RedGradient, cornerRadius = 30.dp
                    )
                }
                 // Show the print dialog if the boolean flag is true

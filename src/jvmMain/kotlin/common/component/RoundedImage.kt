@@ -25,7 +25,8 @@ fun RoundedImage(
 ){
     Card(
         modifier = modifier.size(size),
-        shape = RoundedCornerShape(roundedSize)
+        shape = RoundedCornerShape(roundedSize),
+        elevation = 5.dp
     ) {
         Image(
             painter = painterResource(imagePath),

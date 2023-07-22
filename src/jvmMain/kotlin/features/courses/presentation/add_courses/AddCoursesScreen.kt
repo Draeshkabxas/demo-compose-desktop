@@ -18,6 +18,7 @@ import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoF
 import navcontroller.NavController
 import org.koin.compose.koinInject
 import styles.AppColors.blue
+import styles.AppColors.blueGradient
 import styles.CairoTypography
 
 @Composable
@@ -194,11 +195,11 @@ fun AddCoursesScreen(
             }
         }
 
-        CustomButton(
+        GradientButton(
             text = "حفظ",
             icon = Icons.Default.Save,
             onClick = {  viewModel.onEvent(Submit(mode)) },
-            buttonColor = blue
+            colors = blueGradient
         )
     }
 }

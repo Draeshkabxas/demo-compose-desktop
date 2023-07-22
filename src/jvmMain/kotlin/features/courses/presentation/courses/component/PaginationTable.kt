@@ -2,36 +2,34 @@ package features.courses.presentation.courses.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
-import common.component.ScreenMode.ADD
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.IntOffset
 import common.component.ScreenMode.EDIT
 import common.component.Screens
-import common.component.Screens.AddSonsOfOfficersScreen
 import features.courses.domain.model.Course
-import features.courses.domain.model.hasShortfalls
-import features.courses.presentation.add_courses.AddCoursesScreen
-import features.sons_of_officers.domain.model.hasShortfalls
 import navcontroller.NavController
 import styles.AppColors
 import styles.CairoTypography
 import utils.getUserAuth
+import kotlin.math.roundToInt
 
 @Composable
 fun PaginatedTable(
@@ -48,6 +46,7 @@ fun PaginatedTable(
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
+    var superAdmin = userAuthSystem.canChangeAccountsPermission()
 
     Column() {
         Row {
@@ -75,6 +74,32 @@ fun PaginatedTable(
         } else {
         LazyColumn {
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
+                var showPopup by remember { mutableStateOf(false) }
+                var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
+                if (superAdmin){
+                    if (showPopup) {
+                        DropdownMenu(
+                            expanded = showPopup,
+                            onDismissRequest = { showPopup = false },
+                            offset = DpOffset(1200.dp, -50.dp)
+                        ) {
+                            DropdownMenuItem(onClick = {
+                                // Handle edit action
+                                navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
+                                showPopup = false
+                            }) {
+                                Text("تعديل", style = CairoTypography.h4)
+                            }
+                            DropdownMenuItem(onClick = {
+                                // Handle delete action
+                                showPopup = false
+                            }) {
+                                Text("مسح", style = CairoTypography.h4)
+                            }
+                        }
+                    }
+                }
+
                 Row(
                     modifier = Modifier.background(
                         if (person.procedures["لائق صحيا"] == true) Color.Green.copy(alpha = 0.20f) else
@@ -84,6 +109,19 @@ fun PaginatedTable(
                                 )
                                     Color.White else Color.White
                     )
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = { offset ->
+                                    showPopup = true
+
+                                    popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                },
+                                onLongPress  = { offset ->
+                                    showPopup = true
+                                    popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                }
+                            )
+                        }
                 ) {
                     Text(
                         text = (personList.indexOf(person) + 1).toString(), // display counter value as text
@@ -187,22 +225,17 @@ fun PaginatedTable(
 //                    isButtonVisible = person.hasShortfalls()
                     if (canEditPermission){
                     if (valueToCheck == false) {
-                        Button(modifier = Modifier
-                            .width(columnWidths[10])
-                            .padding(8.dp),
-                            shape = RoundedCornerShape(30.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+
+                        Spacer(modifier = Modifier.size(0.dp, 20.dp))
+
+                        common.component.TextButton(
+                            width = columnWidths[10],
+                            text = "إضافة",
                             onClick = {
                                 navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
-                            }
-                        ) {
-                            Text(
-                                "إضافة", style = CairoTypography.body2,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xffffffff),
-                                textAlign = TextAlign.Center,
-                            )
-                        }
+                            },
+                            colors = AppColors.GreenGradient, cornerRadius = 30.dp
+                        )
                     }
                 }
                     else{

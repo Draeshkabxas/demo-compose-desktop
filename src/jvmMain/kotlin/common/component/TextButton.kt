@@ -1,3 +1,4 @@
+
 package common.component
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -12,24 +13,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.*
 import styles.CairoTypography
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun GradientButton(
+fun TextButton(
+    width:Dp=50.dp,
+    textSize: TextUnit =15.sp,
     text: String ="",
-    icon: ImageVector,
     colors: List<Color>,
     hoverColor: Color = Color.White,
     onClick: () -> Unit,
@@ -39,14 +37,16 @@ fun GradientButton(
     var isHovered by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(if (isHovered) 1.075f else 1f)
     val color by animateColorAsState(if (isHovered) hoverColor else Color.Transparent)
-    Spacer(modifier = Modifier.size(5.dp, 0.dp))
+    Spacer(modifier = Modifier.size(0.dp, 15.dp))
 
     Box(
         modifier = Modifier
+            .width(width)
             .pointerMoveFilter(
                 onEnter = { isHovered = true; true },
                 onExit = { isHovered = false; true }
             )
+            .padding(4.dp)
             .scale(scale)
             .background(gradient, RoundedCornerShape(cornerRadius))
             .clip(RoundedCornerShape(cornerRadius))
@@ -64,9 +64,7 @@ fun GradientButton(
         contentAlignment = Alignment.Center
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, contentDescription = null, tint = Color.White)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = text, color = Color.White, style = CairoTypography.h4, fontWeight = FontWeight.SemiBold)
+            Text(text = text, color = Color.White, style = CairoTypography.h4, fontWeight = FontWeight.SemiBold, fontSize = textSize)
         }
     }
     Spacer(modifier = Modifier.size(5.dp, 0.dp))

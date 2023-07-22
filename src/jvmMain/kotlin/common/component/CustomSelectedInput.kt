@@ -52,7 +52,7 @@ fun SelectorWithLabel(
 
                     Text(
                         text = selectedItem,
-                        style = CairoTypography.h4,
+                        style = CairoTypography.body1,
                         modifier = Modifier.padding(vertical = 16.dp)
 
                     )

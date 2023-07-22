@@ -1,6 +1,7 @@
 package common.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -30,6 +31,7 @@ import authorization.domain.repository.AuthenticationRepository
 import authorization.domain.usecase.GetUser
 import authorization.domain.usecase.LogoutUseCase
 import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
+import authorization.presentation.login.LoginViewModel
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.add_contracts.AddContractsScreen
@@ -46,7 +48,10 @@ import features.home.presentation.HomeScreen
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
+import org.koin.compose.koinInject
+import styles.AppColors.blue
 import styles.CairoTypography
+import utils.Resource
 import utils.UserAuthSystem
 import utils.getUserAuth
 import kotlin.system.exitProcess
@@ -55,7 +60,7 @@ import kotlin.system.exitProcess
 fun NavigationWindow(
     authNavController: NavController<String>,
     windowState: WindowState,
-) {
+    ) {
 //    val screens = listOf<Screens>(
 //        Screens.HomeScreen(),
 //        Screens.ContractsScreen(),
@@ -110,7 +115,8 @@ fun NavigationWindow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 NavigationRail(
-                    modifier = Modifier.fillMaxHeight().width(140.dp)
+                    modifier = Modifier.fillMaxHeight().width(140.dp),
+                    backgroundColor = blue
 
                 ) {
                     screensThatCanUserAccess.forEach {
@@ -123,13 +129,14 @@ fun NavigationWindow(
                             icon = {
                                 Icon(
                                     imageVector = it.icon,
-                                    contentDescription = it.label
+                                    contentDescription = it.label,
+                                    tint= Color.White
                                 )
                             },
 
 
                             label = {
-                                Text(it.label, style = CairoTypography.body2, fontWeight = FontWeight.Bold)
+                                Text(it.label, style = CairoTypography.body2, fontWeight = FontWeight.Bold,color= Color.White)
                             },
                             alwaysShowLabel = true,
                         )

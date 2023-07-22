@@ -89,55 +89,37 @@ fun Filters(
                 onClick = { onSubmit()
                     isCancelVisible = !isCancelVisible
                 },
-                blueGradient,
+                colors =blueGradient,
                 cornerRadius = 30.dp
             )
             if (isCancelVisible) {
-                Button(
-                    shape = RoundedCornerShape(100.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                    modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
-
+                IconButton(
+                    imageVector = Icons.Default.Cancel,
                     onClick = {
                         resetFilters()
                         isCancelVisible = !isCancelVisible
-
                     },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Cancel,
-                        contentDescription = "",
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp)
-                    )
-
-                }
-
+                    shape = RoundedCornerShape(100.dp),
+                    colors =Color.Red,
+                    contentPadding= PaddingValues(0.dp)
+                )
 
             }
             GradientButton(
                 text = "فلتره البحث ",
                 icon = Icons.Default.FilterList,
                 onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                blueGradient,
+                colors =  blueGradient,
                 cornerRadius = 30.dp
             )
-            Button(
+            Spacer(modifier = Modifier.width(4.dp))
+            IconButton(
+                Icons.Default.RestartAlt,
+                onClick = { onSubmit() },
                 shape = RoundedCornerShape(100.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp),
-                contentPadding = PaddingValues(0.dp),
-                onClick = {
-                    onSubmit()
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.RestartAlt,
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+                colors =Color.Red,
+                contentPadding= PaddingValues(0.dp)
+            )
             Spacer(modifier = Modifier.width(530.dp))
 
         }
@@ -230,7 +212,7 @@ fun Filters(
                         onClick = {
                             onSubmit()
                         },
-                        blueGradient,
+                        colors =  blueGradient,
                         cornerRadius = 30.dp
                     )
                     GradientButton(
@@ -239,7 +221,7 @@ fun Filters(
                         onClick = {
                             resetFilters()
                         },
-                        RedGradient
+                        colors =  RedGradient
                         ,cornerRadius = 30.dp
                     )
                 }

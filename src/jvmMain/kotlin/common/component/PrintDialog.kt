@@ -15,6 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import styles.AppColors
+import styles.AppColors.GreenGradient
+import styles.AppColors.RedGradient
 import styles.CairoTypography
 import kotlin.math.ceil
 
@@ -113,7 +115,7 @@ fun PrintDialog(
                                 onPrintColumnsChanged(selectedColumns)
                                 onDismiss()
                             },
-                            AppColors.GreenGradient,
+                            colors=GreenGradient,
                             cornerRadius = 30.dp
                         )
 
@@ -121,7 +123,7 @@ fun PrintDialog(
                             text = "إلغاء",
                             icon = Icons.Default.Cancel,
                             onClick = onDismiss,
-                            AppColors.RedGradient
+                            colors=RedGradient
                             ,cornerRadius = 30.dp
                         )
 

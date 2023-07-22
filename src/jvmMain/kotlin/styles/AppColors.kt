@@ -16,9 +16,10 @@ object AppColors {
     val Red2:Color = "#FD0C0C".toColor()
 
 
-    val blueGradient = listOf(blue, blue.copy(alpha = 0.84f),blue.copy(alpha = 0.36f))
-    val RedGradient = listOf(Red, Red1.copy(alpha = 0.87f), Red2.copy(alpha = 0.36f))
-    val GreenGradient = listOf(green, green.copy(alpha = 0.84f),green.copy(alpha = 0.36f))
+    val blueGradient = listOf(blue.copy(alpha = 0.36f), blue.copy(alpha = 0.84f),blue)
+    val RedGradient = listOf(Red2.copy(alpha = 0.36f), Red1.copy(alpha = 0.87f), Red)
+    val GreenGradient = listOf(green.copy(alpha = 0.36f), green.copy(alpha = 0.84f), green)
+    val hoverBlueGradient = listOf( white.copy(alpha = 0.1f), white.copy(alpha = 0.1f))
 
 
 }

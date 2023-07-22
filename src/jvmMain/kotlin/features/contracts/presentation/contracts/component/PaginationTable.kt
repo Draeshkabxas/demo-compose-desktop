@@ -2,27 +2,23 @@ package features.contracts.presentation.contracts.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.*
 import common.component.ScreenMode
 import common.component.Screens
 import features.contracts.domain.model.Contract
@@ -31,6 +27,7 @@ import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 import utils.getUserAuth
+import kotlin.math.roundToInt
 
 @Composable
 fun PaginatedTable(
@@ -47,6 +44,7 @@ fun PaginatedTable(
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
+    var superAdmin = userAuthSystem.canChangeAccountsPermission()
 
     Column() {
         Row {
@@ -75,6 +73,36 @@ fun PaginatedTable(
             var counter = 0 // initialize counter based on current page and items per page
             LazyColumn {
                 items(contractList.chunked(itemsPerPage)[currentPage]) { contract ->
+                    var showPopup by remember { mutableStateOf(false) }
+                    var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
+                    if (superAdmin){
+                        if (showPopup) {
+                            DropdownMenu(
+                                expanded = showPopup,
+                                onDismissRequest = { showPopup = false },
+                                offset = DpOffset(1200.dp, -50.dp)
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    // Handle edit action
+                                    navController.navigate(
+                                        Screens.AddContractsScreen(
+                                            mode = ScreenMode.EDIT,
+                                            contract = contract
+                                        )
+                                    )
+                                    showPopup = false
+                                }) {
+                                    Text("تعديل", style = CairoTypography.h4)
+                                }
+                                DropdownMenuItem(onClick = {
+                                    // Handle delete action
+                                    showPopup = false
+                                }) {
+                                    Text("مسح", style = CairoTypography.h4)
+                                }
+                            }
+                        }
+                    }
                     Row(
                         modifier = Modifier.background(
                             if ((currentPage % 2 == 0 && contractList.indexOf(contract) % 2 == 0) ||
@@ -82,6 +110,19 @@ fun PaginatedTable(
                             )
                                 Color.LightGray else Color.White
                         )
+                            .pointerInput(Unit) {
+                                detectTapGestures(
+                                    onPress = { offset ->
+                                        showPopup = true
+
+                                        popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                    },
+                                    onLongPress  = { offset ->
+                                        showPopup = true
+                                        popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+                                    }
+                                )
+                            }
                     ) {
                         Text(
                             text = (contractList.indexOf(contract) + 1).toString(), // display counter value as text
@@ -203,31 +244,18 @@ fun PaginatedTable(
                             maxLines = 2
                         )
                         if (canEditPermission){
-                            Button(modifier = Modifier
-                                .width(columnWidths[10])
-                                .padding(4.dp),
-                                shape = RoundedCornerShape(30.dp),
-                                colors = ButtonDefaults.buttonColors(backgroundColor = AppColors.green),
+                            Spacer(modifier = Modifier.size(0.dp, 20.dp))
+
+                            common.component.TextButton(
+                                width = columnWidths[12],
+                                textSize = 10.sp,
+                                text = "إضافة",
                                 onClick = {
                                     navController.navigate(Screens.AddContractsScreen( mode= ScreenMode.EDIT, contract = contract))
 
-//
-//                                navController.navigate(
-//                                    Screens.AddContractsScreen(
-//                                        mode = ScreenMode.EDIT,
-//                                        person = contract
-//                                    )
-//                                )
-                                }
-                            ) {
-
-                                Icon(
-                                    imageVector = Icons.Default.EditNote,
-                                    contentDescription = "",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
+                                },
+                                colors = AppColors.GreenGradient, cornerRadius = 30.dp
+                            )
                         }
 
                     }

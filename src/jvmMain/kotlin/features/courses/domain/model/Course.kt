@@ -20,4 +20,6 @@ data class Course(
 fun Course.hasShortfalls():Boolean =
     justificationsRequire.values.any { !it } || procedures.values.any { !it }
 
-fun Course.result():Boolean = this.procedures["لائق صحيا"] == true
+//fun Course.result():Boolean = this.procedures["لائق صحيا"] == true
+fun Course.result1():Boolean = this.procedures["لائق صحيا"] == true
+fun Course.result2():Boolean = this.procedures["غير لائق صحيا"] == true

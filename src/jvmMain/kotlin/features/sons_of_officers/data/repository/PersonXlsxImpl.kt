@@ -1,7 +1,8 @@
 package features.sons_of_officers.data.repository
 
 import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.domain.model.result
+import features.sons_of_officers.domain.model.result1
+import features.sons_of_officers.domain.model.result2
 import features.sons_of_officers.domain.repository.PersonXlsxRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +24,8 @@ class PersonXlsxImpl: PersonXlsxRepository {
             // ... create other header cells
             persons.forEachIndexed { index, person ->
                 val row = sheet.createRow(index + 1)
+                val testResult = if (person.result1() && !person.result2()) "لائق صحيا" else if(!person.result1() && person.result2()) "غير لائق صحيا" else "لاتوجد"
+
                 headers.forEachIndexed { cellIndex: Int, headerName: String ->
                     when(headerName){
                         "رقم الملف" -> {
@@ -32,7 +35,7 @@ class PersonXlsxImpl: PersonXlsxRepository {
                             row.createCell(cellIndex).setCellValue(person.name)
                         }
                         "الرقم الوطني" -> {
-                            row.createCell(cellIndex).setCellValue(person.motherName)
+                            row.createCell(cellIndex).setCellValue(person.libyaId)
                         }
                         "اسم الام" -> {
                             row.createCell(cellIndex).setCellValue(person.motherName)
@@ -50,7 +53,7 @@ class PersonXlsxImpl: PersonXlsxRepository {
                             row.createCell(cellIndex).setCellValue(person.recruiter)
                         }
                         "النتيجة" -> {
-                            row.createCell(cellIndex).setCellValue(person.result())
+                            row.createCell(cellIndex).setCellValue(testResult.toString())
                         }
                         else -> {}
                     }

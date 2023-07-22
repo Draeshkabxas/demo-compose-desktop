@@ -18,6 +18,8 @@ import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.AppColors.blueGradient
 import styles.CairoTypography
+import utils.Education
+import utils.LibyanCities
 
 @Composable
 fun AddSonsOfOfficersScreen(
@@ -130,12 +132,11 @@ fun AddSonsOfOfficersScreen(
 
                 )
             }
-            val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
             item {
                 Column {
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
-                        items = educationLevel,
+                        items = Education.values().map { it.arabicName },
                         selectedItem = if (selectedEducation.isEmpty()) "إختر المؤهل " else selectedEducation ,
                         onItemSelected = {
                             selectedEducation = it
@@ -152,12 +153,11 @@ fun AddSonsOfOfficersScreen(
                 }
             }
 
-            val  cities= listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
             item{
                 Column {
                     SelectorWithLabel(
                         label = "المدينة : ",
-                        items = cities,
+                        items = LibyanCities.values().map { it.arabicName },
                         selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
                         onItemSelected = {
                             selectedCity = it

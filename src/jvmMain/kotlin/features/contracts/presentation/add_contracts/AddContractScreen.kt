@@ -18,6 +18,8 @@ import navcontroller.NavController
 import org.koin.compose.koinInject
 import styles.AppColors.blueGradient
 import styles.CairoTypography
+import utils.Education
+import utils.LibyanCities
 
 @Composable
 fun AddContractsScreen(
@@ -166,7 +168,7 @@ fun AddContractsScreen(
                 Column {
                     SelectorWithLabel(
                         label = "المؤهل العلمي : ",
-                        items = educationLevel,
+                        items = Education.values().map { it.arabicName },
                         selectedItem = if (selectededucation.isEmpty()) "إختر المؤهل " else selectededucation ,
                         onItemSelected = {
                             selectededucation = it
@@ -180,12 +182,11 @@ fun AddContractsScreen(
                 }
             }
 
-            val  cities= listOf("طرابلس", "تاجوراء", "القاربولي", "الخمس", "زليطن", "مصراته")
             item{
                 Column {
                     SelectorWithLabel(
                         label = "المدينة : ",
-                        items = cities,
+                        items = LibyanCities.values().map { it.arabicName },
                         selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
                         onItemSelected = {
                             selectedCity= it

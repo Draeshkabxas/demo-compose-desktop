@@ -121,6 +121,7 @@ fun ContractsScreen(
                                         icon = Icons.Default.DeleteForever,
                                         onClick = {
                                             showDialogDelet = false
+                                            viewModel.removeAllContracts(onLoading = {}, onError = {}, onSuccess = {})
                                         },
                                         colors=RedGradient, cornerRadius = 30.dp
                                     )

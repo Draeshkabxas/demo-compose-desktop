@@ -119,6 +119,7 @@ fun CoursesScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
+                                        viewModel.removeAllCourses(onLoading = {}, onError = {}, onSuccess = {})
                                     },
                                     colors =   AppColors.RedGradient, cornerRadius = 30.dp
                                 )

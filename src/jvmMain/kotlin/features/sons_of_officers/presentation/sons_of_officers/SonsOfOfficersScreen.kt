@@ -111,8 +111,8 @@ fun SonsOfOfficersScreen(
                                text = "مسح",
                                icon = Icons.Default.DeleteForever,
                                onClick = {
-//                                   AddSonsOfOfficersViewModel.onEvent(Submit(mode ))
                                    showDialogDelete = false
+                                   viewModel.removeAllPeople(onLoading = {}, onError = {}, onSuccess = {})
                                },
                                colors =RedGradient, cornerRadius = 30.dp
                            )

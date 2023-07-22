@@ -1,5 +1,6 @@
 package features.courses.data.repository
 
+import features.contracts.data.model.RealmContract
 import features.courses.data.dto.toCourseDTO
 import features.courses.data.dto.toRealmCourse
 import features.courses.data.model.RealmCourse
@@ -76,6 +77,18 @@ class RealmCourseImpl(private val realm: Realm) :
             }
         } catch (e: Exception) {
             println("Realm update course impl has error ${e.localizedMessage}")
+        }
+        emit(result)
+    }
+
+    override fun removeAll(): Flow<Boolean> = flow {
+        var result = true
+        realm.writeBlocking {
+            try {
+                delete(RealmCourse::class)
+            }catch (e:Exception){
+                result = false
+            }
         }
         emit(result)
     }

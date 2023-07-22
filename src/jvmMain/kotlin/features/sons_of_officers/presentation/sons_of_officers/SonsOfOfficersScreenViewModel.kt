@@ -5,6 +5,7 @@ import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.GetAllPeople
 import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
+import features.sons_of_officers.domain.usecases.RemoveAllPeople
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
@@ -14,8 +15,8 @@ import utils.fromArabicNameToAgeGroup
 
 class SonsOfOfficersScreenViewModel(
     private val getAllPeople: GetAllPeople,
-//    private val removeAllPersons: RemoveAllPersons,
-    private val printPersonsListToXlsxFile: PrintPersonsListToXlsxFile
+    private val printPersonsListToXlsxFile: PrintPersonsListToXlsxFile,
+    private val removeAllPeople: RemoveAllPeople
 ) {
     private var state  = FilterState()
 
@@ -73,18 +74,20 @@ class SonsOfOfficersScreenViewModel(
         }
     }
 
-//    fun deletAll(){
-//
-//            removeAllPersons.invoke().onEach {
-//                if (it.data == true){
-//                    validationEventChannel.send(ValidationEvent.Success)
-//                    println("submitData update is getting data")
-//                    state = PersonalInfoFormState()
-//                    validationEventChannel.send(ValidationEvent.New)
-//                }
-//            }.launchIn(CoroutineScope(Dispatchers.IO))
-//
-//    }
+
+    fun removeAllPeople(onLoading: () -> Unit, onError: (String) -> Unit, onSuccess: (Boolean) -> Unit){
+        removeAllPeople.invoke().onEach {
+            when(it){
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: true)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
     fun onPrintEvent(event: PrintEvent){
         when(event){
             is PrintEvent.PrintList -> printList = event.list

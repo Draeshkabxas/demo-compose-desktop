@@ -51,34 +51,6 @@ class RealmContractImpl(private val realm: Realm) :
         }
     }
 
-//
-//    override fun updateContract(contract: Contract): Flow<Boolean> = flow{
-//        val oldContract:Contract? = getContract(contract.id).first()
-//        val updatedContract = contract.toRealmContractDto()
-//        var result = false
-//        if (oldContract == null) emit(false)
-//        realm.writeBlocking {
-//            oldContract?.let {
-//                findLatest(it.toRealmContractDto())?.apply {
-//                   name = updatedContract.name
-//                   motherName = updatedContract.motherName
-//                   motherNationality = updatedContract.motherNationality
-//                   fileNumber = updatedContract.fileNumber
-//                   libyaId = updatedContract.libyaId
-//                   phoneNumber = updatedContract.phoneNumber
-//                   dependency = updatedContract.dependency
-//                   bankName = updatedContract.bankName
-//                    ageGroup = updatedContract.ageGroup
-//                   accountNumber = updatedContract.accountNumber
-//                   educationLevel = updatedContract.educationLevel
-//                   city = updatedContract.city
-//                   notes = updatedContract.notes
-//                }
-//            }
-//            result = true
-//        }
-//        emit(result)
-//    }
     override fun updateContract(contract: Contract): Flow<Boolean> = flow{
         var result = false
         try {

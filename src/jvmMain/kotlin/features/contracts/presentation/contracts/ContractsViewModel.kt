@@ -4,6 +4,7 @@ import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.GetAllContracts;
 import features.contracts.domain.usecases.PrintContractsListToXlsxFile
+import features.contracts.domain.usecases.RemoveAllContracts
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,8 @@ import utils.fromArabicNameToAgeGroup
 
 class ContractsScreenViewModel (
     private val allContracts:GetAllContracts,
-    private val printContractsListToXlsxFile: PrintContractsListToXlsxFile
+    private val printContractsListToXlsxFile: PrintContractsListToXlsxFile,
+    private val removeAllContracts: RemoveAllContracts
 ) {
     private var state  = FilterState()
 
@@ -68,6 +70,19 @@ class ContractsScreenViewModel (
                 getFilterData()
             }
         }
+    }
+
+    fun removeAllContracts(onLoading: () -> Unit, onError: (String) -> Unit, onSuccess: (Boolean) -> Unit){
+        removeAllContracts.invoke().onEach {
+            when(it){
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: true)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 
     fun onPrintEvent(event: PrintEvent){

@@ -1,5 +1,6 @@
 package features.sons_of_officers.data.repository
 
+import features.courses.data.model.RealmCourse
 import features.sons_of_officers.data.dto.toPersonDTO
 import features.sons_of_officers.data.dto.toRealmPerson
 import features.sons_of_officers.data.model.RealmPerson
@@ -38,10 +39,10 @@ class RealmPersonImpl(private val realm: Realm) :
         emit(result)
     }
 
-    override fun getPerson(id: String): Flow<Person?> =flow {
+    override fun getPerson(id: String): Flow<Person?> = flow {
         emit(
             realm.query<RealmPerson>("id = $0", id)
-            .first()
+                .first()
                 .find()?.toPersonDTO()
         )
     }
@@ -77,20 +78,16 @@ class RealmPersonImpl(private val realm: Realm) :
         emit(result)
     }
 
-//    override fun removeAllPersons(): Flow<Boolean> = flow {
-//        println("DeleteAllPersonsImpl is running")
-//        var result = true
-//        realm.writeBlocking {
-//            try {
-//                println("DeleteAllPersonsImpl in try catch")
-//                deleteAll<RealmPerson>()
-//            } catch (e: Exception) {
-//                println("DeleteAllPersonsImpl in error catch")
-//                println(e.localizedMessage)
-//                result = false
-//            }
-//        }
-//        emit(result)
-//    }
+    override fun removeAll(): Flow<Boolean> = flow {
+        var result = true
+        realm.writeBlocking {
+            try {
+                delete(RealmPerson::class)
+            } catch (e: Exception) {
+                result = false
+            }
+        }
+        emit(result)
+    }
 
 }

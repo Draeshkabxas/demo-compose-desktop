@@ -30,10 +30,7 @@ import features.courses.data.repository.CoursesXlsxImpl
 import features.courses.data.repository.RealmCourseImpl
 import features.courses.domain.repository.CourseXlsxRepository
 import features.courses.domain.repository.CoursesRepository
-import features.courses.domain.usecases.AddCourse
-import features.courses.domain.usecases.GetAllCourses
-import features.courses.domain.usecases.PrintCoursesListToXlsxFile
-import features.courses.domain.usecases.UpdateCourse
+import features.courses.domain.usecases.*
 import features.courses.presentation.add_courses.AddCourseViewModel
 import features.courses.presentation.courses.CoursesScreenViewModel
 import features.home.data.repository.BackupRealmDBImpl
@@ -48,10 +45,7 @@ import features.sons_of_officers.data.repository.PersonXlsxImpl
 import features.sons_of_officers.data.repository.RealmPersonImpl
 import features.sons_of_officers.domain.repository.PersonRepository
 import features.sons_of_officers.domain.repository.PersonXlsxRepository
-import features.sons_of_officers.domain.usecases.AddPerson
-import features.sons_of_officers.domain.usecases.GetAllPeople
-import features.sons_of_officers.domain.usecases.PrintPersonsListToXlsxFile
-import features.sons_of_officers.domain.usecases.UpdatePerson
+import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import license.data.repository.LicenseImpl
@@ -125,6 +119,7 @@ val appModule = module {
     single<PersonXlsxRepository> { PersonXlsxImpl() }
     single<PrintPersonsListToXlsxFile> { PrintPersonsListToXlsxFile(get()) }
     single<GetAllPeople> { GetAllPeople(get()) }
+    single<RemoveAllPeople> { RemoveAllPeople(get()) }
     single<UpdatePerson> { UpdatePerson(get()) }
     factory<AddSonsOfOfficersViewModel> {
         AddSonsOfOfficersViewModel(
@@ -132,7 +127,13 @@ val appModule = module {
             updatePerson = get()
         )
     }
-    factory<SonsOfOfficersScreenViewModel> { SonsOfOfficersScreenViewModel(get(), get()) }
+    factory<SonsOfOfficersScreenViewModel> {
+        SonsOfOfficersScreenViewModel(
+            getAllPeople = get(),
+            printPersonsListToXlsxFile = get(),
+            removeAllPeople = get()
+        )
+    }
 
     //Contract Di
     single<ContractRepository> { RealmContractImpl(get()) }
@@ -143,7 +144,8 @@ val appModule = module {
     factory<ContractsScreenViewModel> {
         ContractsScreenViewModel(
             allContracts = get(),
-            printContractsListToXlsxFile = get()
+            printContractsListToXlsxFile = get(),
+            removeAllContracts = get()
         )
     }
     //Add Contract Di
@@ -157,11 +159,12 @@ val appModule = module {
     single<GetAllCourses> { GetAllCourses(get()) }
     single<CourseXlsxRepository> { CoursesXlsxImpl() }
     single<PrintCoursesListToXlsxFile> { PrintCoursesListToXlsxFile(get()) }
-    //single<RemoveAllC> { RemoveAllContracts(get()) }
+    single<RemoveAllCourses> { RemoveAllCourses(get()) }
     factory<CoursesScreenViewModel> {
         CoursesScreenViewModel(
             getAllCourses = get(),
-            printCoursesListToXlsxFile = get()
+            printCoursesListToXlsxFile = get(),
+            removeAllCourses = get()
         )
     }
     //Add Courses Di

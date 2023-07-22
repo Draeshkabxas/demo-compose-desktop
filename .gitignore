@@ -5,8 +5,8 @@ build/
 !**/src/test/**/build/
 
 ### RealmDB ###
-default.realm
-default.realm.lock
+*.realm
+*.realm.lock
 default.realm.management
 *.log
 

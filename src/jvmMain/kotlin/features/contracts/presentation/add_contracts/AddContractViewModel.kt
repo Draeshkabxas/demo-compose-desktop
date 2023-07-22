@@ -151,7 +151,7 @@ class AddContractViewModel(
             return
         }
         val newContract = Contract(
-            id = "",
+            id = state.id,
             name = state.name,
             motherName = state.motherName,
             motherNationality = state.motherNationality,

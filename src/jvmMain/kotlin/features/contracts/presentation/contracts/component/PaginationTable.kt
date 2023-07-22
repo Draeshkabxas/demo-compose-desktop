@@ -239,7 +239,7 @@ fun PaginatedTable(
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[11])
+                                .width(columnWidths[12])
                                 .padding(8.dp),
                             maxLines = 2
                         )
@@ -247,7 +247,7 @@ fun PaginatedTable(
                             Spacer(modifier = Modifier.size(0.dp, 20.dp))
 
                             common.component.TextButton(
-                                width = columnWidths[12],
+                                width = columnWidths[13],
                                 textSize = 10.sp,
                                 text = "إضافة",
                                 onClick = {

@@ -17,6 +17,8 @@ data class Person(
     val procedures: Map<String, Boolean>,
 )
 
-fun Person.result():Boolean = this.procedures["لائق صحيا"] == true
+fun Person.result1():Boolean = this.procedures["لائق صحيا"] == true
+fun Person.result2():Boolean = this.procedures["غير لائق صحيا"] == true
+
 fun Person.hasShortfalls():Boolean =
     justificationsRequire.values.any { !it } || procedures.values.any { !it }

@@ -1,8 +1,11 @@
 package features.courses.data.repository
 
 import features.courses.domain.model.Course
-import features.courses.domain.model.result
+import features.courses.domain.model.result1
+import features.courses.domain.model.result2
 import features.courses.domain.repository.CourseXlsxRepository
+import features.sons_of_officers.domain.model.result1
+import features.sons_of_officers.domain.model.result2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,6 +26,8 @@ class CoursesXlsxImpl: CourseXlsxRepository {
             // ... create other header cells
             courses.forEachIndexed { index, course ->
                 val row = sheet.createRow(index + 1)
+                val testResult = if (course.result1() && !course.result2()) "لائق صحيا" else if(!course.result1() && course.result2()) "غير لائق صحيا" else "لاتوجد"
+
                 headers.forEachIndexed { cellIndex: Int, headerName: String ->
                     when(headerName){
                         "رقم الملف" -> {
@@ -50,7 +55,7 @@ class CoursesXlsxImpl: CourseXlsxRepository {
                             row.createCell(cellIndex).setCellValue(course.recruiter)
                         }
                         "النتيجة" -> {
-                            row.createCell(cellIndex).setCellValue(course.result())
+                            row.createCell(cellIndex).setCellValue(testResult.toString())
                         }
                         else -> {}
                     }

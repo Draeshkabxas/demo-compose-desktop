@@ -83,10 +83,10 @@ fun PaginatedTable(
                     ItemMenu(
                         showMenu = showPopup,
                         onEdit = {
-                            Screens.AddCoursesScreen(
-                                mode = EDIT,
-                                course = person
-                            )
+
+                            navController.navigate(Screens.AddCoursesScreen(   mode = EDIT,
+                                course = person))
+
                         }, onRemove = {
                             onRemoveCourse(person)
                         }

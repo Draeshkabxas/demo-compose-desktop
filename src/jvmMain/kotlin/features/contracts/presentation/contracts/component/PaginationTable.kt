@@ -102,10 +102,13 @@ fun PaginatedTable(
                             ItemMenu(
                                 showMenu = showPopup,
                                 onEdit = {
-                                    Screens.AddContractsScreen(
-                                        mode = ScreenMode.EDIT,
-                                        contract = contract
+                                    navController.navigate(
+                                        Screens.AddContractsScreen(
+                                            mode = ScreenMode.EDIT,
+                                            contract = contract
+                                        )
                                     )
+
                                 }, onRemove = {
                                     onRemoveContract(contract)
                                 }

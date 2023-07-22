@@ -76,7 +76,7 @@ fun PaginatedTable(
         } else {
             LazyColumn {
                 items(personList.chunked(itemsPerPage)[currentPage]) { person ->
-                    val showPopup = remember { mutableStateOf(true) }
+                    val showPopup = remember { mutableStateOf(false) }
                     Row(
                         modifier = Modifier
                             .background(

@@ -3,6 +3,8 @@ package features.sons_of_officers.presentation.sons_of_officers
 import utils.HealthStatus
 
 sealed class FilterEvent {
+    data class FilterName(val personName:String): FilterEvent()
+
     data class FilterLibyaId(val libyaId:String):FilterEvent()
     data class FilterFileNumber(val fileNumber:String):FilterEvent()
     data class FilterEducationLevel(val educationLevel:String):FilterEvent()

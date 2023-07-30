@@ -36,6 +36,9 @@ class SonsOfOfficersScreenViewModel(
 
     fun onEvent(event: FilterEvent) {
         when (event) {
+            is FilterEvent.FilterName -> {
+                state = state.copy(personName = event.personName)
+            }
             is FilterEvent.FilterLibyaId -> {
                 state = state.copy(libyaId = event.libyaId)
             }
@@ -77,6 +80,7 @@ class SonsOfOfficersScreenViewModel(
                 getFilterData()
             }
 
+            is FilterEvent.FilterName -> TODO()
         }
     }
 

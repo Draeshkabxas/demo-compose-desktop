@@ -21,7 +21,8 @@ class GetAllCourses(
             println(it)
             it.libyaId.contains(filters.libyaId) &&
             it.fileNumber.contains(filters.fileNumber) &&
-            it.educationLevel.contains(filters.educationLevel) &&
+                    it.name.contains(filters.personName)&&
+                    it.educationLevel.contains(filters.educationLevel) &&
             it.city.contains(filters.city) &&
             if (filters.ageGroup != null) it.ageGroup == filters.ageGroup else true
         }

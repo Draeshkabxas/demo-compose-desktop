@@ -141,8 +141,8 @@ fun Filters(
                         onValueChange = { onFilterFileNumber(it) },
                         onNextChange = { onFilterFileNumber(it) },
                         width = 140.dp,
-                        inputType = InputType.NUMBER,
-                        maxLength = 5 // Set the maximum length to N characters
+                        inputType = InputType.All,
+                        maxLength = 8 // Set the maximum length to N characters
 
 
                     )

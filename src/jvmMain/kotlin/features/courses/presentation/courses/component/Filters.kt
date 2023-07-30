@@ -25,6 +25,7 @@ import utils.HealthStatus.All
 
 @Composable
 fun Filters(
+    onFilterName: (String) -> Unit,
     onFilterLibyaId:(String)->Unit,
     onFilterFileNumber:(String)->Unit,
     onFilterEducationLevel:(String)->Unit,
@@ -36,6 +37,7 @@ fun Filters(
     onReset:()->Unit,
     onSubmit:()->Unit
 ){
+    val personNameState = remember { mutableStateOf("") }
     var selectedCity by remember { mutableStateOf("إختر المدينة") }
     var selectedHealthStatus by remember { mutableStateOf("إختر الحالة الصحية") }
     var selectededucation by remember { mutableStateOf("إختر المؤهل العلمي") }
@@ -58,6 +60,7 @@ fun Filters(
         selectedAge = "إختر الفئة العمرية"
         libyaIdState.value = ""
         fileNumberState.value = ""
+        personNameState.value = ""
     }
 
     Column(
@@ -70,15 +73,13 @@ fun Filters(
             horizontalArrangement = Arrangement.Start
         ) {
             CustomOutlinedTextField(
-                valueState = libyaIdState,
-                hint = "إبحث بالرقم الوطني ",
-                isError = false,
+                valueState = personNameState,
+                hint = "إبحث بالإسم",
                 errorMessage = "",
-                onValueChange = { onFilterLibyaId(it) },
-                onNextChange = { onFilterLibyaId(it) },
-                width = 200.dp,
-                inputType = InputType.NUMBER,
-                maxLength = 12 // Set the maximum length to N characters
+                onValueChange = { onFilterName(it) },
+                onNextChange = { onFilterName(it) },
+                width = 190.dp,
+                inputType = InputType.TEXT
 
             )
             GradientButton(
@@ -126,10 +127,23 @@ fun Filters(
                     modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 240.dp),
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp).padding(horizontal = 12.dp),
+                        modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 100.dp).padding(horizontal = 10.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
                     ) {
+                        CustomOutlinedTextField(
+                            valueState = libyaIdState,
+                            hint = "الرقم الوطني ",
+                            isError = false,
+                            errorMessage = "",
+                            onValueChange = { onFilterLibyaId(it) },
+                            onNextChange = { onFilterLibyaId(it) },
+                            width = 125.dp,
+                            inputType = InputType.NUMBER,
+                            maxLength = 12 // Set the maximum length to N characters
+
+                        )
+                        Spacer(modifier = Modifier.size(width = 4.dp, height = 0.dp))
                         CustomOutlinedTextField(
                             valueState = fileNumberState,
                             hint = "رقم الملف",
@@ -137,8 +151,8 @@ fun Filters(
                             onValueChange = { onFilterFileNumber(it) },
                             onNextChange = { onFilterFileNumber(it) },
                             width = 100.dp,
-                            inputType = InputType.NUMBER,
-                            maxLength = 5 // Set the maximum length to N characters
+                            inputType = InputType.All,
+                            maxLength = 8 // Set the maximum length to N characters
 
                         )
                         SelectorWithLabel(

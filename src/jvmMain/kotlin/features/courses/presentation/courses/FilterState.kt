@@ -6,6 +6,7 @@ import utils.HealthStatus
 import utils.HealthStatus.All
 
 data class FilterState(
+    val personName:String="",
     val libyaId:String = "",
     val fileNumber:String="",
     val educationLevel:String="",

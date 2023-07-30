@@ -62,6 +62,7 @@ fun SonsOfOfficersScreen(
         HeadLineWithDate(text = "منظومة أبناء الضباط ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
+                onFilterName = { viewModel.onEvent(FilterEvent.FilterName(it)) },
                 onFilterLibyaId = { viewModel.onEvent(FilterEvent.FilterLibyaId(it)) },
                 onFilterFileNumber = { viewModel.onEvent(FilterEvent.FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEvent.FilterEducationLevel(it)) },

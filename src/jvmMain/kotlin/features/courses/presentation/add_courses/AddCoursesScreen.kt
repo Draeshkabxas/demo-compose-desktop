@@ -91,8 +91,8 @@ fun AddCoursesScreen(
                     hint = personalInputsName[2],
                     isError = state.fileNumberError!=null,
                     errorMessage = state.fileNumberError.toString(),
-                    inputType = InputType.NUMBER,
-                    maxLength = 5 // Set the maximum length to N characters
+                    inputType = InputType.All,
+                    maxLength = 8 // Set the maximum length to N characters
 
 
                 )

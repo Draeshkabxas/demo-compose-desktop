@@ -118,8 +118,8 @@ fun AddContractsScreen(
                     isError = state.fileNumberError!=null,
                     errorMessage = state.fileNumberError.toString(),
                     width = 150.dp,
-                    inputType = InputType.NUMBER,
-                    maxLength = 5 // Set the maximum length to N characters
+                    inputType = InputType.All,
+                    maxLength = 8 // Set the maximum length to N characters
 
                 )
             }

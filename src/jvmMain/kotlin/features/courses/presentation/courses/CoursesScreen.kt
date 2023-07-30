@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import common.component.*
+import features.contracts.presentation.contracts.FilterEvent
 
 import features.courses.domain.model.Course
 import features.courses.presentation.courses.FilterEvent.*
@@ -68,7 +69,7 @@ fun CoursesScreen(
         HeadLineWithDate(text = "منظومة الدورات ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
-
+                onFilterName = { viewModel.onEvent(FilterName(it)) },
                 onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
                 onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
                 onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },

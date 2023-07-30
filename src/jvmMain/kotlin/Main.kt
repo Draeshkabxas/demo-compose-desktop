@@ -55,7 +55,8 @@ fun App(appClose: AppCloseRepository = koinInject()) {
     ) {
         RoundedCornerWindow(
             state= windowState,
-            onClose = {appClose.close()}
+            onClose = {appClose.close()},
+                    icon = "images/icon.png",
         ){
             AuthNavigationHost(navController = navController,windowState)
         }

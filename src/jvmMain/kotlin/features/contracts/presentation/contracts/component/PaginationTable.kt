@@ -79,6 +79,8 @@ fun PaginatedTable(
             LazyColumn {
                 items(contractList.chunked(itemsPerPage)[currentPage]) { contract ->
                     val showPopup = remember { mutableStateOf(false) }
+                    val showDialog = remember { mutableStateOf(false) }
+
                     Row(
                         modifier = Modifier.background(
                             if ((currentPage % 2 == 0 && contractList.indexOf(contract) % 2 == 0) ||
@@ -111,7 +113,9 @@ fun PaginatedTable(
 
                                 }, onRemove = {
                                     onRemoveContract(contract)
-                                }
+                                },
+                                showDialog = showDialog,
+                                alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                             )
                         }
 

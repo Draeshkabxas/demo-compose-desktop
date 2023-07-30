@@ -2,11 +2,12 @@ package common.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import styles.CairoTypography
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -16,7 +17,16 @@ fun HeadLineWithDate(
     text: String,
     date: String,
 ){
-    val currentDateTime = getCurrentDateTime()
+
+//    val currentDateTime = getCurrentDateTime()
+    var currentDateTime by remember { mutableStateOf(getCurrentDateTime()) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1000) // Wait 1 second
+            currentDateTime = getCurrentDateTime() // Update currentDateTime
+        }
+    }
     Spacer(modifier = Modifier.size(width = 0.dp,height = 35.dp))
     Row (        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp,).sizeIn(maxHeight = 40.dp),
 

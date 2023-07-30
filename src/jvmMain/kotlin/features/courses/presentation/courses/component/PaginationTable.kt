@@ -76,20 +76,27 @@ fun PaginatedTable(
             }
         } else {
         LazyColumn {
+
             items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                 var showPopup = remember { mutableStateOf(false) }
+                val showDialog = remember { mutableStateOf(false) }
+
                 var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
                 if (superAdmin) {
                     ItemMenu(
                         showMenu = showPopup,
                         onEdit = {
 
-                            navController.navigate(Screens.AddCoursesScreen(   mode = EDIT,
+                            navController.navigate(Screens.AddCoursesScreen(
+                                mode = EDIT,
                                 course = person))
 
-                        }, onRemove = {
+                        },
+                        onRemove = {
                             onRemoveCourse(person)
-                        }
+                        },
+                        showDialog = showDialog,
+                        alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                     )
                 }
 

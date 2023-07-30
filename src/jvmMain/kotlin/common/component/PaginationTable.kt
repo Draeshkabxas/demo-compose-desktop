@@ -77,6 +77,8 @@ fun PaginatedTable(
             LazyColumn {
                 items(personList.chunked(itemsPerPage)[currentPage]) { person ->
                     val showPopup = remember { mutableStateOf(false) }
+                    val showDialog = remember { mutableStateOf(false) }
+
                     Row(
                         modifier = Modifier
                             .background(
@@ -105,7 +107,9 @@ fun PaginatedTable(
                                     navController.navigate(AddSonsOfOfficersScreen(mode = EDIT, person = person))
                                 }, onRemove = {
                                     onRemovePerson(person)
-                                }
+                                },
+                                showDialog = showDialog,
+                                alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                             )
                         }
                         Text(

@@ -5,10 +5,10 @@ import authorization.domain.model.ValidationResult
 class ValidateQuadrupleName {
 
     fun execute(name: String): ValidationResult {
-        if(name.split(" ").size < 4) {
+        if(name.split(" ").size < 3) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "يجب ان يكون الإسم رباعي"
+                errorMessage = "يجب ان يكون الإسم ثُلاثي على الاقل"
             )
         }
         val containsJustDigits = name.all { it.isLetter() || it==' ' }

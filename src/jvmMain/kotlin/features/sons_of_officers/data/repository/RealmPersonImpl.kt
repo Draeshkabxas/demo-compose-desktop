@@ -1,5 +1,6 @@
 package features.sons_of_officers.data.repository
 
+import features.contracts.data.model.RealmContract
 import features.courses.data.model.RealmCourse
 import features.sons_of_officers.data.dto.toPersonDTO
 import features.sons_of_officers.data.dto.toRealmPerson
@@ -58,7 +59,10 @@ class RealmPersonImpl(private val realm: Realm) :
         try {
             realm.writeBlocking {
                 val updatedPerson = person.toRealmPerson()
-                getPerson(person)?.also { oldPerson ->
+                query<RealmPerson>("id = $0", person.id)
+                    .first()
+                    .find()
+                    ?.also { oldPerson ->
                         findLatest(oldPerson.apply {
                             name = updatedPerson.name
                             motherName = updatedPerson.motherName

@@ -6,6 +6,7 @@ import features.courses.data.dto.toRealmCourse
 import features.courses.data.model.RealmCourse
 import features.courses.domain.model.Course
 import features.courses.domain.repository.CoursesRepository
+import features.sons_of_officers.data.model.RealmPerson
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import io.realm.kotlin.query.Sort
@@ -60,7 +61,9 @@ class RealmCourseImpl(private val realm: Realm) :
         try {
             realm.writeBlocking {
                 val updatedPerson = person.toRealmCourse()
-                getCourse(person)?.also { oldPerson ->
+                query<RealmCourse>("id = $0", person.id)
+                    .first()
+                    .find()                    ?.also { oldPerson ->
                         findLatest(oldPerson.apply {
                             name = updatedPerson.name
                             motherName = updatedPerson.motherName

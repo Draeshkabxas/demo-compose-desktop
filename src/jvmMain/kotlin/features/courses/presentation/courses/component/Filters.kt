@@ -78,7 +78,7 @@ fun Filters(
                 errorMessage = "",
                 onValueChange = { onFilterName(it) },
                 onNextChange = { onFilterName(it) },
-                width = 190.dp,
+                width = 250.dp,
                 inputType = InputType.TEXT
 
             )

@@ -82,8 +82,46 @@ fun PaginatedTable(
                 val showDialog = remember { mutableStateOf(false) }
 
                 var popupPosition by remember { mutableStateOf(IntOffset.Zero) }
-                if (superAdmin) {
-                    ItemMenu(
+//                if (superAdmin) {
+//                    ItemMenu(
+//                        showMenu = showPopup,
+//                        onEdit = {
+//
+//                            navController.navigate(Screens.AddCoursesScreen(
+//                                mode = EDIT,
+//                                course = person))
+//
+//                        },
+//                        onRemove = {
+//                            onRemoveCourse(person)
+//                        },
+//                        showDialog = showDialog,
+//                        alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
+//                    )
+//                }
+
+                Row(
+                    modifier = Modifier.background(
+                        if (person.procedures["لائق صحيا"] == true) Color.Green.copy(alpha = 0.20f) else
+                            if (person.procedures["غير لائق صحيا"] == true) Color.Red.copy(alpha = 0.20f) else
+                                if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
+                                    (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
+                                )
+                                    Color.White else Color.White
+                    )
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = { _ ->
+                                    showPopup.value = true
+                                },
+                                onLongPress = { _ ->
+                                    showPopup.value = true
+                                }
+                            )
+                        }
+                ) {
+                    if (superAdmin){
+                        ItemMenu(
                         showMenu = showPopup,
                         onEdit = {
 
@@ -98,31 +136,7 @@ fun PaginatedTable(
                         showDialog = showDialog,
                         alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                     )
-                }
-
-                Row(
-                    modifier = Modifier.background(
-                        if (person.procedures["لائق صحيا"] == true) Color.Green.copy(alpha = 0.20f) else
-                            if (person.procedures["غير لائق صحيا"] == true) Color.Red.copy(alpha = 0.20f) else
-                                if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
-                                    (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
-                                )
-                                    Color.White else Color.White
-                    )
-                        .pointerInput(Unit) {
-                            detectTapGestures(
-                                onPress = { offset ->
-                                    showPopup.value = true
-
-                                    popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
-                                },
-                                onLongPress  = { offset ->
-                                    showPopup.value = true
-                                    popupPosition = IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
-                                }
-                            )
-                        }
-                ) {
+                    }
                     Text(
                         text = (personList.indexOf(person) + 1).toString(), // display counter value as text
                         maxLines = 1,

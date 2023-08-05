@@ -40,7 +40,7 @@ class AppLicenseViewModel(
                     message.value = it.message.toString()
                 }
                 is Resource.Loading -> {
-                    message.value = "رجى الانتظار يتم الان فك تشفير الملف"
+                    message.value = "يرجى الانتظار يتم الان فك تشفير الملف"
                 }
                 is Resource.Success -> {
                     message.value = it.data.toString()

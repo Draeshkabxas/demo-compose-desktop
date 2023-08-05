@@ -125,7 +125,7 @@ fun AddSonsOfOfficersScreen(
                     value = state.recruiter,
                     onValueChange = { viewModel.onEvent(RecruiterChanged(it)) },
                     onNextChange = { viewModel.onEvent(RecruiterChanged(it)) },
-                    hint = personalInputsName[6],
+                    hint = personalInputsName[5],
                     isError = state.recruiterError!=null,
                     errorMessage = state.recruiterError.toString(),
                     inputType = InputType.TEXT

@@ -189,7 +189,7 @@ val appModule = module {
     single<SharedPreferencesRepository> { SharedPreferencesImpl() }
     single<ActivateLicense> { ActivateLicense(licenseRepo = get(), sharedPref = get()) }
     single<GetExpireDate> { GetExpireDate(sharedPref = get()) }
-    single<AppLicenseViewModel> { AppLicenseViewModel(activateLicense = get(), getExpireDate = get()) }
+    single<AppLicenseViewModel> { AppLicenseViewModel(getExpireDate = get(),activateLicense =get()) }
 
 }
 

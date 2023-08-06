@@ -61,8 +61,8 @@ import utils.getUserAuth
 
 
 val appModule = module {
-    single<RealmWrapper> {
-        val realm = Realm.open(
+    single<Realm> {
+         Realm.open(
             RealmConfiguration.Builder(
                 schema = setOf(
                     UsersRealm::class,
@@ -78,12 +78,9 @@ val appModule = module {
                 .migration(firstRealmMigrate())
                 .build()
         )
-        closeRealmWhenApplicationClose(realm)
-        RealmWrapper(realm = realm)
     }
-    factory<Realm> { get<RealmWrapper>().realm }
     single<AppCloseRepository> { AppCloseImpl() }
-    single<AuthenticationRepository> { MangodbAuthenticationImpl(get(), get()) }
+    single<AuthenticationRepository> { MangodbAuthenticationImpl(get()) }
 
     //UserPermission Di
     single<GetAllUsers> { GetAllUsers(get()) }
@@ -98,7 +95,10 @@ val appModule = module {
     }
 
     //Login
-    factory<LoginViewModel> { LoginViewModel(LoginUseCase(get())) }
+    factory<LoginViewModel> { LoginViewModel(
+        LoginUseCase( get()
+        )
+    ) }
 
     //UserAuthSystem
     single<UserAuthSystem> { UserAuthSystem() }
@@ -187,7 +187,12 @@ val appModule = module {
     //AppLicense Di
     single<LicenseRepository> { LicenseImpl() }
     single<SharedPreferencesRepository> { SharedPreferencesImpl() }
-    single<ActivateLicense> { ActivateLicense(licenseRepo = get(), sharedPref = get()) }
+    single<ActivateLicense> {
+        ActivateLicense(
+            licenseRepo = get(),
+            sharedPref = get()
+        )
+    }
     single<GetExpireDate> { GetExpireDate(sharedPref = get()) }
     single<AppLicenseViewModel> { AppLicenseViewModel(getExpireDate = get(),activateLicense =get()) }
 

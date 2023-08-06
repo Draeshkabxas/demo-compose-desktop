@@ -32,13 +32,14 @@ import io.realm.kotlin.Realm
 import license.presentation.AppLicensesScreen
 import org.koin.compose.getKoin
 import org.koin.core.context.GlobalContext.get
+import utils.clearFile
+import utils.filePrintLn
 
 
 @Composable
 @Preview
 fun App(appClose: AppCloseRepository = koinInject()) {
-    val navController by rememberNavController(AuthScreen.LoginAuthScreen.name)
-
+    val navController by rememberNavController(AuthScreen.AppLicenseScreen.name)
     val windowState = rememberWindowState(
         size = DpSize(1000.dp,700.dp),
         placement = WindowPlacement.Floating,

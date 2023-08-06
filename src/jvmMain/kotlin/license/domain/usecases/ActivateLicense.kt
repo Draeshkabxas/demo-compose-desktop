@@ -34,7 +34,7 @@ class ActivateLicense(
                     emit(Resource.Error(message = resultMessage))
                 }
             }
-            emit(Resource.Success(data = resultMessage))
+            emit(Resource.Success(data = ""))
         }.catch { emit(Resource.Error(message = "لا يوجد مفتاح تشغيل في هذا الملف")) }
 
     private fun activateTenDays() {

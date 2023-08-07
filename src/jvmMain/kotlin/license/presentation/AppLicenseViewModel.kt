@@ -16,7 +16,7 @@ class AppLicenseViewModel(
 ) {
 
 
-    val showAppLicense = mutableStateOf(false)
+    val showAppLicense = mutableStateOf(true)
     val message = mutableStateOf("")
     val showOpenSystem = mutableStateOf(false)
     init {
@@ -26,7 +26,7 @@ class AppLicenseViewModel(
     private fun checkExpireDate(){
         val today = Date(System.currentTimeMillis())
         showAppLicense.value =  today > getExpireDate()
-        println(today < getExpireDate())
+        println(today > getExpireDate())
     }
 
     fun openSystem(){

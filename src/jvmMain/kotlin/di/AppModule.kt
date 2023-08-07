@@ -80,7 +80,7 @@ val appModule = module {
         )
     }
     single<AppCloseRepository> { AppCloseImpl() }
-    single<AuthenticationRepository> { MangodbAuthenticationImpl(get()) }
+    single<AuthenticationRepository> { MangodbAuthenticationImpl(realm =get(),app = get()) }
 
     //UserPermission Di
     single<GetAllUsers> { GetAllUsers(get()) }

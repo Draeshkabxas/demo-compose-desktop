@@ -194,7 +194,7 @@ val appModule = module {
         )
     }
     single<GetExpireDate> { GetExpireDate(sharedPref = get()) }
-    single<AppLicenseViewModel> { AppLicenseViewModel(activateLicense = get(), getExpireDate = get()) }
+    single<AppLicenseViewModel> { AppLicenseViewModel(getExpireDate = get(),activateLicense =get()) }
 
 }
 

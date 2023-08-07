@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 28">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/Filters.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/component/Filters.kt" afterDir="false" />
-    </list>
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 30" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -201,22 +197,6 @@
       <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
-    </task>
-    <task id="LOCAL-00016" summary="add test table&#10;4">
-      <option name="closed" value="true" />
-      <created>1688465606343</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1688465606343</updated>
-    </task>
-    <task id="LOCAL-00017" summary="add test table&#10;4">
-      <option name="closed" value="true" />
-      <created>1688470929091</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1688470929091</updated>
     </task>
     <task id="LOCAL-00018" summary="add test table&#10;4">
       <option name="closed" value="true" />
@@ -562,7 +542,23 @@
       <option name="project" value="LOCAL" />
       <updated>1690759851056</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="add edite 29">
+      <option name="closed" value="true" />
+      <created>1691193775327</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1691193775327</updated>
+    </task>
+    <task id="LOCAL-00062" summary="add edite 30">
+      <option name="closed" value="true" />
+      <created>1691363192226</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1691363192227</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -577,8 +573,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add edite 5" />
-    <MESSAGE value="add edite 6" />
     <MESSAGE value="add edite 7" />
     <MESSAGE value="add edite 8" />
     <MESSAGE value="add edite 9" />
@@ -602,7 +596,9 @@
     <MESSAGE value="add edite 26" />
     <MESSAGE value="add edite 27" />
     <MESSAGE value="add edite 28" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 28" />
+    <MESSAGE value="add edite 29" />
+    <MESSAGE value="add edite 30" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 30" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

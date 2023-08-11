@@ -1,8 +1,8 @@
 package features.results.domain.usecases
 
 import utils.Resource
-import features.contracts.domain.repository.ResultsXlsxRepository
 import features.results.domain.model.Results
+import features.results.domain.repository.ResultsXlsxRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

@@ -1,7 +1,7 @@
 package features.results.data.repository
 
-import features.contracts.domain.repository.ResultsXlsxRepository
 import features.results.domain.model.Results
+import features.results.domain.repository.ResultsXlsxRepository
 
 //import features.contracts.domain.model.result
 import kotlinx.coroutines.Dispatchers
@@ -38,27 +38,29 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
 //                        "المؤهل العلمي" -> {
 //                            row.createCell(cellIndex).setCellValue(result.educationLevel)
 //                        }
-                        "تاريخ التحليل" -> {
-                            row.createCell(cellIndex).setCellValue(result.date)
-                        }
                         "رقم الهاتف" -> {
                             row.createCell(cellIndex).setCellValue(result.phoneNumber)
                         }
+                        "نتيجة التحاليل" -> {
+                            row.createCell(cellIndex).setCellValue(result.result)
+                        }
+                        "تاريخ التحليل" -> {
+                            row.createCell(cellIndex).setCellValue(result.date)
+                        }
+
 //                        "جنسية الام" -> {
 //                            row.createCell(cellIndex).setCellValue(result.motherNationality)
 //                        }
-                         "نتيجة التحاليل" -> {
-                            row.createCell(cellIndex).setCellValue(result.result)
-                        }
+
 //                        "اسم المصرف"-> {
 //                            row.createCell(cellIndex).setCellValue(result.bankName)
 //                        }
 //                        "رقم الحساب"-> {
 //                            row.createCell(cellIndex).setCellValue(result.accountNumber)
 //                        }
-//                        "الرقم الوطني"-> {
-//                            row.createCell(cellIndex).setCellValue(result.libyaId)
-//                        }
+                        "الملاحظات"-> {
+                            row.createCell(cellIndex).setCellValue(result.notes)
+                        }
                         else -> {}
                     }
                 }

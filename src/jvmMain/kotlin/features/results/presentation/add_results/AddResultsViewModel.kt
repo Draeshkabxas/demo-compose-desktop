@@ -117,6 +117,7 @@ class AddResultsViewModel(
 //        val educationLevelResult = validateTextInputs.execute(state.educationLevel, "المؤهل العلمي")
         val dateResult = validateTextInputs.execute(state.date, "تاريخ التحاليل ",true)
 
+
         val hasError = listOf(
             nameResult,
 //            motherResult,

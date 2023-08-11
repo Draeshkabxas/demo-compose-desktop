@@ -8,19 +8,19 @@ import utils.fromArabicNameToAgeGroup
 fun RealmResults.toResultsDto(): Results {
     val realmResults = this
     return Results(
-        id = this.id,
-        name = this.name,
+        id = realmResults.id,
+        name = realmResults.name,
 //        motherName = this.motherName,
 //        motherNationality = this.motherNationality,
 //        fileNumber = this.fileNumber,
 //        libyaId = this.libyaId,
-        phoneNumber = this.phoneNumber,
-        result = this.result,
+        phoneNumber = realmResults.phoneNumber,
+        result = realmResults.result,
 //        bankName = this.bankName,
 //        accountNumber = this.accountNumber,
 //        educationLevel = this.educationLevel,
-        date = this.date,
+        date = realmResults.date,
 //        ageGroup=this.ageGroup.fromArabicNameToAgeGroup(),
-        notes = this.notes
+        notes = realmResults.notes
     )
 }

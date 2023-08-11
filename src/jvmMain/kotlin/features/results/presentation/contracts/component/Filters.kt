@@ -84,6 +84,16 @@ fun Filters(
 //                inputType = InputType.NUMBER,
 //                maxLength = 12 // Set the maximum length to N characters
 //            )
+            CustomOutlinedTextField(
+                valueState = personNameState,
+                hint = "إبحث بالإسم",
+                errorMessage = "",
+                onValueChange = { onFilterName(it) },
+                onNextChange = { onFilterName(it) },
+                width = 300.dp,
+                inputType = InputType.TEXT
+
+            )
             GradientButton(
                 text = "إبحث",
                 icon = Icons.Default.Search,
@@ -107,13 +117,13 @@ fun Filters(
                 )
 
             }
-            GradientButton(
-                text = "فلتره البحث ",
-                icon = Icons.Default.FilterList,
-                onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
-                cornerRadius = 30.dp,
-                colors = blueGradient
-            )
+//            GradientButton(
+//                text = "فلتره البحث ",
+//                icon = Icons.Default.FilterList,
+//                onClick = { isMoreFiltersVisible = !isMoreFiltersVisible },
+//                cornerRadius = 30.dp,
+//                colors = blueGradient
+//            )
             Spacer(modifier = Modifier.width(4.dp))
             IconButton(
                 Icons.Default.RestartAlt,
@@ -148,16 +158,7 @@ fun Filters(
 //                    )
                     Spacer(modifier = Modifier.width(10.dp))
 
-                    CustomOutlinedTextField(
-                        valueState = personNameState,
-                        hint = "إبحث بالإسم",
-                        errorMessage = "",
-                        onValueChange = { onFilterName(it) },
-                        onNextChange = { onFilterName(it) },
-                        width = 190.dp,
-                        inputType = InputType.TEXT
 
-                    )
                     Spacer(modifier = Modifier.width(10.dp))
 //                    CustomOutlinedTextField(
 //                        valueState = motherNameState,

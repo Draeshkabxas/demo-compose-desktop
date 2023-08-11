@@ -1,6 +1,7 @@
 package features.results.presentation.add_results
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
 
 
 import androidx.compose.material.icons.Icons
@@ -8,12 +9,14 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
 import features.results.domain.model.Results
 import navcontroller.NavController
 import org.koin.compose.koinInject
 import styles.AppColors.blueGradient
+import styles.CairoTypography
 
 @Composable
 fun AddResultsScreen(
@@ -53,12 +56,12 @@ fun AddResultsScreen(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        var selectededucation by remember { mutableStateOf(" إختر المؤهل ") }
+        var selectedresults by remember { mutableStateOf(" إختر النتيجة ") }
 //        var selectedCity by remember { mutableStateOf("إختر المدينة") }
         var isFirstRender by remember { mutableStateOf(true) }
         if (isFirstRender){
             viewModel.setupMode(mode,results)
-//            selectededucation = viewModel.state.educationLevel
+            selectedresults = viewModel.state.result
 //            selectedCity = viewModel.state.city
             isFirstRender = false
         }
@@ -146,24 +149,7 @@ fun AddResultsScreen(
             }
 
 
-//            val educationLevel = listOf("ماجستير","بكالوريوس", "ليسنس", "معهد عالي", "معهد متوسط", "شهادة ثانوية", "شهادة اعدادية", "إبتدائية")
-//            item {
-//                Column {
-//                    SelectorWithLabel(
-//                        label = "المؤهل العلمي : ",
-//                        items = Education.values().map { it.arabicName },
-//                        selectedItem = if (selectededucation.isEmpty()) "إختر المؤهل " else selectededucation ,
-//                        onItemSelected = {
-//                            selectededucation = it
-//                            viewModel.onEvent(ResultsInfoFormEvent.EducationLevelChanged(it))}
-//                    )
-//
-//                    if (state.educationLevelError != null)
-//                        Text(state.educationLevelError.toString()
-//                            ,color = Color.Red,
-//                            style = CairoTypography.body2)
-//                }
-//            }
+
 
 //            item{
 //                Column {
@@ -188,17 +174,35 @@ fun AddResultsScreen(
         Section("بيانات التحاليل",
             3){
             val state = viewModel.state
+//            item {
+//                CustomOutlinedTextField(
+//                    value = state.result,
+//                    onValueChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
+//                    onNextChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
+//                    hint = personalInputsNameAndValue[2],
+//                    isError = state.resultError!=null,
+//                    errorMessage = state.resultError.toString(),
+//                    width = 150.dp,
+//                    inputType = InputType.TEXT
+//                )
+//            }
+            val testsResult = listOf("لائق","غير لائق")
             item {
-                CustomOutlinedTextField(
-                    value = state.result,
-                    onValueChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
-                    onNextChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
-                    hint = personalInputsNameAndValue[2],
-                    isError = state.resultError!=null,
-                    errorMessage = state.resultError.toString(),
-                    width = 150.dp,
-                    inputType = InputType.TEXT
-                )
+                Column {
+                    SelectorWithLabel(
+                        label = "نتيجة التحاليل : ",
+                        items = testsResult,
+                        selectedItem = if (selectedresults.isEmpty()) "إختر النتيجة " else selectedresults ,
+                        onItemSelected = {
+                            selectedresults = it
+                            viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it))}
+                    )
+
+                    if (state.resultError != null){
+                        Text(state.resultError.toString()
+                            ,color = Color.Red,
+                            style = CairoTypography.body2)}
+                }
             }
 //            item {
 //                CustomOutlinedTextField(

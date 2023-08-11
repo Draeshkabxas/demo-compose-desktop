@@ -19,7 +19,6 @@ import features.contracts.data.repository.RealmContractImpl
 import features.contracts.domain.repository.ContractRepository
 import features.contracts.domain.repository.ContractXlsxRepository
 
-import features.contracts.domain.repository.ResultsXlsxRepository
 import features.contracts.domain.usecases.*
 import features.contracts.presentation.add_contracts.AddContractViewModel
 import features.contracts.presentation.contracts.ContractsScreenViewModel
@@ -42,6 +41,7 @@ import features.results.data.model.RealmResults
 import features.results.data.repository.RealmResultsImpl
 import features.results.data.repository.ResultsXlsxImpl
 import features.results.domain.repository.ResultsRepository
+import features.results.domain.repository.ResultsXlsxRepository
 import features.results.domain.usecases.*
 import features.results.presentation.add_results.AddResultsViewModel
 import features.results.presentation.results.ResultsScreenViewModel

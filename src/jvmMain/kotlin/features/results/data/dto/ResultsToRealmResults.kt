@@ -8,19 +8,19 @@ import org.mongodb.kbson.ObjectId
 fun Results.toRealmResultsDto(): RealmResults {
     val results = this
     return RealmResults().apply {
-        id = this.id.ifEmpty { ObjectId().toHexString() }
-        name = this.name
+        id = results.id.ifEmpty { ObjectId().toHexString() }
+        name = results.name
 //        motherName = contract.motherName
 //        motherNationality = contract.motherNationality
 //        fileNumber = contract.fileNumber
 //        libyaId = contract.libyaId
-        phoneNumber = this.phoneNumber
-        result = this.result
+        phoneNumber = results.phoneNumber
+        result = results.result
 //        bankName = contract.bankName
 //        accountNumber = contract.accountNumber
 //        educationLevel = contract.educationLevel
-        date = this.date
+        date = results.date
 //        ageGroup = contract.ageGroup.arabicName
-        notes = this.notes
+        notes = results.notes
     }
 }

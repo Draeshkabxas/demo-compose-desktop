@@ -13,12 +13,12 @@ class ValidateTextInputs {
             )
         }
         val containsJustDigits = text.all { it ==' ' || if(canHaveNumbers)  it.isLetterOrDigit() else it.isLetter()  }
-        if(!containsJustDigits) {
-            return ValidationResult(
-                successful = false,
-                errorMessage = " $name يجب ان يحتوي على حروف فقط "
-            )
-        }
+//        if(!containsJustDigits) {
+//            return ValidationResult(
+//                successful = false,
+//                errorMessage = " $name يجب ان يحتوي على حروف فقط "
+//            )
+//        }
         return ValidationResult(
             successful = true
         )

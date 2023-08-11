@@ -37,10 +37,10 @@ fun ResultsScreen(
     viewModel: ResultsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(100.dp, 250.dp, 160.dp, 150.dp, 160.dp, 120.dp, 250.dp)
+        listOf(100.dp, 300.dp, 160.dp, 150.dp, 160.dp, 85.dp, 400.dp)
     val headers = listOf(
         "التسلسل" ,"الإسم رباعي",
-        "نتائج التحاليل", "تاريخ التحاليل", "رقم الهاتف",
+        "رقم الهاتف","نتائج التحاليل", "تاريخ التحاليل",
         "تعديل", "الملاحظات"
     )
     val userAuthSystem = getUserAuth()
@@ -81,7 +81,7 @@ fun ResultsScreen(
             ) {
                 if (canEditPermission) {
                     GradientButton(
-                        text = "إضافة ملف",
+                        text = "إضافة نتيجة",
                         icon = Icons.Default.AddTask,
                         onClick = {
                             navController.navigate(Screens.AddResultsScreen())
@@ -147,17 +147,11 @@ fun ResultsScreen(
                     if (showPrintListDialog) {
                         PrintDialog(
                             columns = listOf(
-                                "رقم الملف",
                                 "الاسم رباعي",
-                                "اسم الام",
-                                "جنسية الام",
-                                "المؤهل العلمي",
-                                "المدينة",
                                 "رقم الهاتف",
-                                " التبعية",
-                                "اسم المصرف",
-                                "رقم الحساب",
-                                "الرقم الوطني"
+                                "نتائج التحاليل",
+                                "تاريخ التحاليل",
+                                "الملاحطات"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintEvent.PrintList(it))
@@ -196,7 +190,7 @@ fun ResultsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, resultsData, 13, widths,
+                            PaginatedTable(navController, headers, resultsData, 15, widths,
                                 onRemoveResults  = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
                                 })

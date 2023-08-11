@@ -82,10 +82,12 @@ fun PaginatedTable(
 
                     Row(
                         modifier = Modifier.background(
+                            if (results.result =="لائق"||results.result =="لايق") Color.Green.copy(alpha = 0.20f) else
+                                if (results.result=="غير لائق" ||results.result =="غيرلائق" || results.result=="غير لايق" ||results.result =="غيرلايق") Color.Red.copy(alpha = 0.20f) else
                             if ((currentPage % 2 == 0 && resultsList.indexOf(results) % 2 == 0) ||
                                 (currentPage % 2 != 0 && resultsList.indexOf(results) % 2 != 0)
                             )
-                                Color.LightGray else Color.White
+                                Color.White else Color.White
                         )
                             .pointerInput(Unit) {
                                 detectTapGestures(
@@ -139,9 +141,9 @@ fun PaginatedTable(
 //                        )
                         Text(
                             text = results.name,
-                            style = CairoTypography.h4,
+                            style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.,
                             modifier = Modifier
                                 .width(columnWidths[1])
                                 .padding(8.dp)
@@ -193,31 +195,31 @@ fun PaginatedTable(
 //                        )
                         Text(
                             text = results.phoneNumber,
-                            style = CairoTypography.h4,
+                            style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
                         )
                         Text(
                             text = results.result,
-                            style = CairoTypography.h4,
+                            style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[3])
                                 .padding(8.dp)
                         )
-//                        Text(
-//                            text = contract.bankName,
-//                            style = CairoTypography.h4,
-//                            fontWeight = FontWeight.Bold,
+                        Text(
+                            text = results.date,
+                            style = CairoTypography.h3,
+                            fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
-//                            modifier = Modifier
-//                                .width(columnWidths[10])
-//                                .padding(8.dp)
-//                        )
+                            modifier = Modifier
+                                .width(columnWidths[4])
+                                .padding(8.dp)
+                        )
 //                        Text(
 //                            text = contract.accountNumber,
 //                            style = CairoTypography.h4,
@@ -227,16 +229,7 @@ fun PaginatedTable(
 //                                .width(columnWidths[11])
 //                                .padding(8.dp)
 //                        )
-                        Text(
-                            text = results.notes,
-                            style = CairoTypography.h4,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .width(columnWidths[4])
-                                .padding(8.dp),
-                            maxLines = 2
-                        )
+
                         if (canEditPermission) {
                             Spacer(modifier = Modifier.size(0.dp, 20.dp))
 
@@ -256,6 +249,16 @@ fun PaginatedTable(
                                 colors = AppColors.GreenGradient, cornerRadius = 30.dp
                             )
                         }
+                        Text(
+                            text = results.notes,
+                            style = CairoTypography.h3,
+                            fontWeight = FontWeight.Bold,
+//                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .width(columnWidths[6])
+                                .padding(8.dp),
+                            maxLines = 2
+                        )
 
                     }
                 }

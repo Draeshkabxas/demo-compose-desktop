@@ -209,6 +209,7 @@ enum class SystemScreen(
     val label: String,
     val icon: ImageVector
 ) {
+
     HomeScreen(
         label = "الصفحة الرئيسية",
         icon = Icons.Filled.Home

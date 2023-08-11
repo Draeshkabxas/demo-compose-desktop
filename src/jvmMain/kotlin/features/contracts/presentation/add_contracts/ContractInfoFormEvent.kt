@@ -2,7 +2,6 @@ package features.contracts.presentation.add_contracts
 
 
 import common.component.ScreenMode
-import features.courses.presentation.add_courses.CourseInfoFormEvent
 
 sealed class ContractInfoFormEvent {
     data class NameChanged(val name: String) : ContractInfoFormEvent()

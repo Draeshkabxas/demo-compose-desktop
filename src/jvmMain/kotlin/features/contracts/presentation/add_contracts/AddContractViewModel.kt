@@ -7,9 +7,6 @@ import common.component.ScreenMode
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.AddContract
 import features.contracts.domain.usecases.UpdateContract
-import features.courses.domain.usecases.UpdateCourse
-import features.courses.presentation.add_courses.AddCourseViewModel
-import features.courses.presentation.add_courses.CourseInfoFormState
 import features.sons_of_officers.domain.usecases.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

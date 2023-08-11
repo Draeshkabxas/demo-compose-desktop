@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import common.component.ScreenMode
 import common.component.ScreenMode.ADD
 import common.component.ScreenMode.EDIT
-import features.contracts.domain.usecases.RemoveAllContracts
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*

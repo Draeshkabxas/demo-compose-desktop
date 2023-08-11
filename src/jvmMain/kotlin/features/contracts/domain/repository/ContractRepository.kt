@@ -1,7 +1,6 @@
 package features.contracts.domain.repository
 
 import features.contracts.domain.model.Contract
-import features.courses.domain.model.Course
 import kotlinx.coroutines.flow.Flow
 
 interface ContractRepository {

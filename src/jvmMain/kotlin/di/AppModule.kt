@@ -13,12 +13,13 @@ import authorization.domain.usecase.*
 import authorization.presentation.accountsPermissions.AccountPermissionViewModel
 import authorization.presentation.login.LoginViewModel
 import authorization.presentation.register.RegisterViewModel
-import closeRealmWhenApplicationClose
 import features.contracts.data.model.RealmContract
 import features.contracts.data.repository.ContractXlsxImpl
 import features.contracts.data.repository.RealmContractImpl
 import features.contracts.domain.repository.ContractRepository
 import features.contracts.domain.repository.ContractXlsxRepository
+
+import features.contracts.domain.repository.ResultsXlsxRepository
 import features.contracts.domain.usecases.*
 import features.contracts.presentation.add_contracts.AddContractViewModel
 import features.contracts.presentation.contracts.ContractsScreenViewModel
@@ -37,6 +38,13 @@ import features.home.domain.repository.BackupRepository
 import features.home.domain.usecases.GetBackupFromLocalRealmDB
 import features.home.domain.usecases.SaveBackupOfRealmInDirectory
 import features.home.presentation.HomeViewModel
+import features.results.data.model.RealmResults
+import features.results.data.repository.RealmResultsImpl
+import features.results.data.repository.ResultsXlsxImpl
+import features.results.domain.repository.ResultsRepository
+import features.results.domain.usecases.*
+import features.results.presentation.add_results.AddResultsViewModel
+import features.results.presentation.results.ResultsScreenViewModel
 import features.sons_of_officers.data.model.Justification
 import features.sons_of_officers.data.model.Procedure
 import features.sons_of_officers.data.model.RealmPerson
@@ -55,7 +63,6 @@ import license.domain.usecases.ActivateLicense
 import license.domain.usecases.GetExpireDate
 import license.presentation.AppLicenseViewModel
 import org.koin.core.context.GlobalContext.get
-import realmdb.RealmWrapper
 import utils.UserAuthSystem
 import utils.getUserAuth
 
@@ -69,12 +76,13 @@ val appModule = module {
                     RealmPerson::class,
                     Justification::class,
                     Procedure::class,
+                    RealmResults::class,
                     RealmContract::class,
                     RealmCourse::class,
                     JustificationCourse::class,
                     ProcedureCourse::class
                 )
-            ).schemaVersion(6)
+            ).schemaVersion(7)
                 .migration(firstRealmMigrate())
                 .build()
         )
@@ -175,6 +183,26 @@ val appModule = module {
     single<AddCourse> { AddCourse(get()) }
     single<UpdateCourse> { UpdateCourse(get()) }
     factory<AddCourseViewModel> { AddCourseViewModel(addCourse = get(), updateCourse = get()) }
+
+    //Results Di
+    single<ResultsRepository> { RealmResultsImpl(get()) }
+    single<GetAllResults> { GetAllResults(get()) }
+    single<ResultsXlsxRepository> { ResultsXlsxImpl() }
+    single<PrintResultsListToXlsxFile> { PrintResultsListToXlsxFile(get()) }
+    single<RemoveAllResults> { RemoveAllResults(get()) }
+    single<RemoveResults> { RemoveResults(get()) }
+    factory<ResultsScreenViewModel> {
+        ResultsScreenViewModel(
+            allResults = get(),
+            printResultsListToXlsxFile = get(),
+            removeAllResults = get(),
+            removeResultsUseCase = get()
+        )
+    }
+    //Add Results Di
+    single<AddResults> { AddResults(get()) }
+    single<UpdateResults> { UpdateResults(get()) }
+    factory<AddResultsViewModel> { AddResultsViewModel(addResults = get(), updateResults = get()) }
 
 
     //Realm Backup Di

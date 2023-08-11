@@ -1,8 +1,6 @@
 package features.sons_of_officers.domain.usecases
 
 import utils.Resource
-import features.contracts.domain.repository.ContractRepository
-import features.courses.domain.repository.CoursesRepository
 import features.sons_of_officers.domain.repository.PersonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

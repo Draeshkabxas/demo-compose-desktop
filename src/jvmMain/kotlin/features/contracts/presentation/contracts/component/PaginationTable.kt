@@ -28,7 +28,6 @@ import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 import utils.getUserAuth
-import kotlin.math.roundToInt
 
 @Composable
 fun PaginatedTable(

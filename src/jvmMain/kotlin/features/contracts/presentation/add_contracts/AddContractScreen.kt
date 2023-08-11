@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
 import features.contracts.domain.model.Contract
-import features.courses.presentation.add_courses.AddCourseViewModel
 import navcontroller.NavController
 import org.koin.compose.koinInject
 import styles.AppColors.blueGradient

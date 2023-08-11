@@ -1,7 +1,7 @@
 package features.contracts.domain.usecases
 
-import utils.Resource
 import features.contracts.domain.repository.ContractRepository
+import utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

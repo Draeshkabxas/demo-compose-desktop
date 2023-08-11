@@ -1,7 +1,5 @@
 package features.sons_of_officers.data.repository
 
-import features.contracts.data.model.RealmContract
-import features.courses.data.model.RealmCourse
 import features.sons_of_officers.data.dto.toPersonDTO
 import features.sons_of_officers.data.dto.toRealmPerson
 import features.sons_of_officers.data.model.RealmPerson
@@ -9,7 +7,6 @@ import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.repository.PersonRepository
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.query.Sort
 import kotlinx.coroutines.flow.*
 
 class RealmPersonImpl(private val realm: Realm) :

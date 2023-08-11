@@ -1,12 +1,8 @@
 package features.contracts.presentation.contracts
 
-import utils.Resource
 import features.contracts.domain.model.Contract
-import features.contracts.domain.usecases.GetAllContracts;
-import features.contracts.domain.usecases.PrintContractsListToXlsxFile
-import features.contracts.domain.usecases.RemoveAllContracts
-import features.contracts.domain.usecases.RemoveContract
-import features.courses.domain.model.Course
+import utils.Resource
+import features.contracts.domain.usecases.*
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -76,7 +72,7 @@ class ContractsScreenViewModel (
     }
 
     fun removeContract(
-       contract: Contract,
+        contract: Contract,
         onLoading: () -> Unit = {},
         onError: (String) -> Unit = {},
         onSuccess: (Boolean) -> Unit

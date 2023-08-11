@@ -5,14 +5,9 @@ import features.contracts.data.dto.toRealmContractDto
 import features.contracts.data.model.RealmContract
 import features.contracts.domain.model.Contract
 import features.contracts.domain.repository.ContractRepository
-import features.courses.data.dto.toCourseDTO
-import features.courses.data.dto.toRealmCourse
-import features.courses.data.model.RealmCourse
-import features.courses.domain.model.Course
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 

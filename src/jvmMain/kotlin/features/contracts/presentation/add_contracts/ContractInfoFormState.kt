@@ -2,6 +2,7 @@ package features.contracts.presentation.add_contracts
 
 import features.contracts.domain.model.Contract
 
+
 data class ContractInfoFormState(
     val id:String ="",
     val name: String = "",

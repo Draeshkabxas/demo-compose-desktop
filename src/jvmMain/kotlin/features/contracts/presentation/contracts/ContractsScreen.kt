@@ -1,6 +1,7 @@
 package features.contracts.presentation.contracts
 
 
+import ImportXlsxDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -98,6 +99,57 @@ fun ContractsScreen(
                         },
                         colors = blueGradient, cornerRadius = 30.dp
                     )
+                    var showImportDialog by remember { mutableStateOf(false) }
+                    var contracts by remember { mutableStateOf<Map<String,List<Contract>>>(emptyMap()) }
+                    GradientButton(
+                        text = "استيراد عقود من ملف",
+                        icon = Icons.Default.FileUpload,
+                        onClick = {
+                            var xlsxFilePath = ""
+                            GetFilePathDialog(
+                                onError = {},
+                                onSuccess = {xlsxFilePath = it}
+                            )
+                            viewModel.importContracts(xlsxFilePath, {}, { println("error") }, {
+                                contracts = it
+                                showImportDialog = true
+                            })
+                        },
+                        colors = blueGradient, cornerRadius = 30.dp
+                    )
+                    if (showImportDialog) {
+                        var success by remember { mutableStateOf(false) }
+                        ImportXlsxDialog(
+                           contracts = contracts,
+                            onDismiss = {
+                                showImportDialog = false
+                            },
+                            onError = { println("dailog error $it")},
+                            onModify = {contracts,convertMap->
+                                var contractsAfterModified:List<Contract>? = emptyList<Contract>()
+
+                                       viewModel.changeContractEducationLevelType(
+                                           contracts= contracts,
+                                           convertedMap = convertMap,
+                                           onError = {},
+                                           onSuccess = {
+                                               contractsAfterModified = it
+                                           }
+                                       )
+                                contractsAfterModified
+                            },
+                            onAdd = {
+                                viewModel.addAllImportedContracts(it,
+                                    onLoading = {},
+                                    onError={},
+                                    onSuccess={
+                                        success = it
+                                        showImportDialog = false
+                                    })
+                                success
+                            }
+                        )
+                    }
                     GradientButton(
                         text = "طباعة",
                         icon = Icons.Default.Print,

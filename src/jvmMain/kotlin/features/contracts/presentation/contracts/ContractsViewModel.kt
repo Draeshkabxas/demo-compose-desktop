@@ -2,11 +2,7 @@ package features.contracts.presentation.contracts
 
 import utils.Resource
 import features.contracts.domain.model.Contract
-import features.contracts.domain.usecases.GetAllContracts;
-import features.contracts.domain.usecases.PrintContractsListToXlsxFile
-import features.contracts.domain.usecases.RemoveAllContracts
-import features.contracts.domain.usecases.RemoveContract
-import features.courses.domain.model.Course
+import features.contracts.domain.usecases.*
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +16,9 @@ class ContractsScreenViewModel (
     private val allContracts:GetAllContracts,
     private val printContractsListToXlsxFile: PrintContractsListToXlsxFile,
     private val removeAllContracts: RemoveAllContracts,
+    private val importContractsFromXlsx: ImportContractsFromXlsx,
+    private val changeContractsEducationLevel: ChangeAllContractsEducationLevel,
+    private val addAllContract: AddAllContract,
     private val removeContractUseCase: RemoveContract
 ) {
     private var state  = FilterState()
@@ -35,6 +34,63 @@ class ContractsScreenViewModel (
     init {
         getFilterData()
     }
+
+
+    fun importContracts(
+        filePath: String,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (Map<String,List<Contract>>) -> Unit
+    ) {
+        importContractsFromXlsx(filePath).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    val contracts = getContractsGroupedByEducationLevel(it.data ?: emptyList())
+                    onSuccess(contracts)
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+    fun changeContractEducationLevelType(
+        contracts:Map<String,List<Contract>>,
+        convertedMap: Map<String,String>,
+        onError: (String) -> Unit = {},
+        onSuccess: (List<Contract>?) -> Unit
+    ) {
+        if (convertedMap.values.any { it.isEmpty() }){
+            onError("من فضلك حدد المؤهل العلمي لجميع الفئاة")
+            onSuccess(null)
+        }else{
+            val contracts = changeContractsEducationLevel(contracts,convertedMap)
+            onSuccess(contracts)
+        }
+    }
+
+    fun addAllImportedContracts(
+        contracts: List<Contract>,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (Boolean) -> Unit
+    ){
+        addAllContract(contracts).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: true)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+
+    private fun getContractsGroupedByEducationLevel(contracts: List<Contract>): Map<String, List<Contract>> {
+        return contracts.groupBy { it.educationLevel }
+    }
+
     fun onEvent(event: FilterEvent) {
         when (event) {
             is FilterEvent.FilterLibyaId -> {

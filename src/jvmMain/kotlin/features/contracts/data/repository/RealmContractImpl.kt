@@ -11,6 +11,9 @@ import features.courses.data.model.RealmCourse
 import features.courses.domain.model.Course
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query
+import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.ext.toRealmList
+import io.realm.kotlin.types.RealmList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -40,6 +43,20 @@ class RealmContractImpl(private val realm: Realm) :
         emit(result)
     }
 
+    override fun addAllContract(contracts: List<Contract>): Flow<Boolean> = flow{
+           var result = true
+        realm.writeBlocking {
+            try {
+                contracts.forEach {contract->
+                    copyToRealm(contract.toRealmContractDto())
+                }
+            } catch (e: Exception) {
+                println(e.localizedMessage)
+                result = false
+            }
+        }
+        emit(result)
+    }
 
 
     override fun getContract(id: String): Flow<Contract?> = flow{

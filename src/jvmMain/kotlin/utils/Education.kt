@@ -11,3 +11,8 @@ enum class Education(var arabicName: String) {
     PRIMARY("إبتدائية");
 }
 
+
+
+fun getAllEducationArabicNames(): List<String> =
+    Education.values().map { it.arabicName }
+

@@ -3,6 +3,7 @@ package utils
 import java.util.*
 
 enum class AgeGroup(val arabicName:String) {
+    None("غير معروف"),
     UnderEightTeen("قل من 18"),
     BetweenEightTeenAndThirty("من 18 الى 30"),
     AboveThirty("أعلى من 30");

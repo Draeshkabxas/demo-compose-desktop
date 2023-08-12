@@ -80,7 +80,7 @@ val appModule = module {
         )
     }
     single<AppCloseRepository> { AppCloseImpl() }
-    single<AuthenticationRepository> { MangodbAuthenticationImpl(get()) }
+    single<AuthenticationRepository> { MangodbAuthenticationImpl(get(),get()) }
 
     //UserPermission Di
     single<GetAllUsers> { GetAllUsers(get()) }
@@ -142,12 +142,18 @@ val appModule = module {
     single<PrintContractsListToXlsxFile> { PrintContractsListToXlsxFile(get()) }
     single<RemoveAllContracts> { RemoveAllContracts(get()) }
     single<RemoveContract> { RemoveContract(get()) }
+    single<ImportContractsFromXlsx> { ImportContractsFromXlsx(get()) }
+    single<ChangeAllContractsEducationLevel> { ChangeAllContractsEducationLevel() }
+    single<AddAllContract> { AddAllContract(get()) }
     factory<ContractsScreenViewModel> {
         ContractsScreenViewModel(
             allContracts = get(),
             printContractsListToXlsxFile = get(),
             removeAllContracts = get(),
-            removeContractUseCase = get()
+            removeContractUseCase = get(),
+            importContractsFromXlsx = get(),
+            changeContractsEducationLevel = get(),
+            addAllContract = get()
         )
     }
     //Add Contract Di

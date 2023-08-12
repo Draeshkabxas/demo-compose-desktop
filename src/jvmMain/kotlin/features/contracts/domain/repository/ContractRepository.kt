@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ContractRepository {
     fun addContract(contract: Contract): Flow<Boolean>
+    fun addAllContract(contracts: List<Contract>): Flow<Boolean>
     fun getAllContracts(filterQuery:String):Flow<List<Contract>>
     fun getContract(id: String): Flow<Contract?>
     fun updateContract(contract: Contract): Flow<Boolean>

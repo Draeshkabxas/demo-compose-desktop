@@ -260,7 +260,7 @@ sealed class Screens(val label: String, val icon: ImageVector, val type: Int) {
     data class AddResultsScreen(val mode: ScreenMode = ADD, val results: Results? = null) :
         Screens(label = "منظومة  نتائج التحاليل/إضافه", icon = Icons.Filled.PersonAdd, 8)
 
-    class ResultsScreen : Screens(label = "منظومة  نتائج التحاليل", icon = Icons.Filled.FilePresent, 9)
+    class ResultsScreen : Screens(label = "منظومة  نتائج التحاليل", icon = Icons.Filled.Notes, 9)
 
 }
 

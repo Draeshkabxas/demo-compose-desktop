@@ -187,7 +187,19 @@ fun AccountsPermissionsScreen(
                                     checkboxColor = blue
                                 )
                             }
+                            var isResultsChecked by remember { mutableStateOf(user.canAccessScreen(Results)) }
 
+                            CustomCheckboxWithLabel(
+                                label = "منظومة نتائج التحاليل",
+                                checked = isResultsChecked,
+                                onCheckedChange = {
+                                    isResultsChecked = it
+                                    user.addOrRemoveScreenFromSystem(Results, it)
+                                },
+                                modifier = Modifier.padding(vertical = 0.dp),
+                                labelColor = Color.Black,
+                                checkboxColor = blue
+                            )
                             var showDialogConfirm by remember { mutableStateOf(false) }
 
                             if (showDialogConfirm) {

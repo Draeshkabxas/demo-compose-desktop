@@ -27,6 +27,7 @@ class MangodbAuthenticationImpl(private val realm: Realm, private val app: AppCl
     override suspend fun add(user: User): User {
         if (getAllUsers().first().isEmpty()){
             user.job = SuperAdmin
+            user.addOrRemoveScreenFromSystem(Results,true)
             user.addOrRemoveScreenFromSystem(SonsOfOfficers,true)
             user.addOrRemoveScreenFromSystem(Contracts,true)
             user.addOrRemoveScreenFromSystem(Courses,true)

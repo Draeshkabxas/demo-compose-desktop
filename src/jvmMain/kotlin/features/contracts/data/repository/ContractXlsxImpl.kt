@@ -79,15 +79,15 @@ class ContractXlsxImpl: ContractXlsxRepository {
 
     override fun getContractsFromXlsxFile(filePath: String): Flow<List<Contract>> = flow{
         val map: Map<String, (Contract, String) -> Contract> = mapOf(
-            "رقم الملف" to { contract: Contract, value: String -> contract.copy(fileNumber = value) },
-            "الاسم" to { contract: Contract, value: String -> contract.copy(name = value) },
-            "عمود1" to { contract: Contract, value: String -> contract.copy(motherName = value) },
-            "عمود18" to { contract: Contract, value: String -> contract.copy(motherNationality = value) },
-            "رقم الوطني" to { contract: Contract, value: String -> contract.copy(libyaId = value) },
-            "رقم الهاتف" to { contract: Contract, value: String -> contract.copy(phoneNumber = value) },
-            "التبعية" to { contract: Contract, value: String -> contract.copy(dependency = value) },
-            "ملاحظات2" to { contract: Contract, value: String -> contract.copy(notes = value) },
-            "المؤهل العلمي" to { contract: Contract, value: String -> contract.copy(educationLevel = value) }
+   "رقم الملف" to { contract: Contract, value: String -> contract.copy(fileNumber = value) },
+        "الاسم" to { contract: Contract, value: String -> contract.copy(name = value) },
+        "اسم الام" to { contract: Contract, value: String -> contract.copy(motherName = value) },
+        "جنسية الام" to { contract: Contract, value: String -> contract.copy(motherNationality = value) },
+        "الرقم الوطني" to { contract: Contract, value: String -> contract.copy(libyaId = value) },
+        "رقم الهاتف" to { contract: Contract, value: String -> contract.copy(phoneNumber = value) },
+        "التبعية" to { contract: Contract, value: String -> contract.copy(dependency = value) },
+        "الملاحظات" to { contract: Contract, value: String -> contract.copy(notes = value) },
+        "المؤهل العلمي" to { contract: Contract, value: String -> contract.copy(educationLevel = value) }
         )
         val contracts = xlsxToListOf(filePath, {
             Contract("", "", "", "", "", "", "", "", "", "", "", "", AgeGroup.UnderEightTeen, "")

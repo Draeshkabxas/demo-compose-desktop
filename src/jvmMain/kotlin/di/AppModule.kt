@@ -76,6 +76,7 @@ val appModule = module {
                 )
             ).schemaVersion(6)
                 .migration(firstRealmMigrate())
+                .deleteRealmIfMigrationNeeded()
                 .build()
         )
     }

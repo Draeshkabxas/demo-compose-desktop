@@ -61,6 +61,14 @@ fun firstRealmMigrate(): AutomaticSchemaMigration = AutomaticSchemaMigration { c
                 }
             }
         }
+        6L -> {
+            if (oldRealm.schema()["RealmResults"]?.isEmbedded == true) {
+                context.enumerate("RealmResults") { oldObject: DynamicRealmObject, newObject: DynamicMutableRealmObject? ->
+                    val oldId = oldObject.getValue("id", ObjectId::class)
+                    newObject?.set("id", oldId.toHexString())
+                }
+            }
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package common.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -24,14 +23,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowState
-import authorization.domain.model.Jobs
 import authorization.domain.model.Systems
-import authorization.domain.model.User
-import authorization.domain.repository.AuthenticationRepository
-import authorization.domain.usecase.GetUser
-import authorization.domain.usecase.LogoutUseCase
 import authorization.presentation.accountsPermissions.AccountsPermissionsScreen
-import authorization.presentation.login.LoginViewModel
 import common.component.ScreenMode.ADD
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.add_contracts.AddContractsScreen
@@ -45,14 +38,14 @@ import navcontroller.composable
 import navcontroller.rememberNavController
 import styles.AppColors.background
 import features.home.presentation.HomeScreen
+import features.results.domain.model.Results
+import features.results.presentation.add_results.AddResultsScreen
+import features.results.presentation.results.ResultsScreen
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreen
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersScreen
-import org.koin.compose.koinInject
 import styles.AppColors.blue
 import styles.CairoTypography
-import utils.Resource
-import utils.UserAuthSystem
 import utils.getUserAuth
 import kotlin.system.exitProcess
 
@@ -60,7 +53,7 @@ import kotlin.system.exitProcess
 fun NavigationWindow(
     authNavController: NavController<String>,
     windowState: WindowState,
-    ) {
+) {
 //    val screens = listOf<Screens>(
 //        Screens.HomeScreen(),
 //        Screens.ContractsScreen(),
@@ -87,6 +80,7 @@ fun NavigationWindow(
         Screens.ContractsScreen() to userAuthSystem.canAccessScreen(Systems.Contracts),
         Screens.SonsOfOfficersScreen() to userAuthSystem.canAccessScreen(Systems.SonsOfOfficers),
         Screens.CoursesScreen() to userAuthSystem.canAccessScreen(Systems.Courses),
+        Screens.ResultsScreen() to userAuthSystem.canAccessScreen(Systems.Results),
         Screens.AccountsPermissionsScreen() to superAdminPermission
     )
 
@@ -215,6 +209,7 @@ enum class SystemScreen(
     val label: String,
     val icon: ImageVector
 ) {
+
     HomeScreen(
         label = "الصفحة الرئيسية",
         icon = Icons.Filled.Home
@@ -260,7 +255,12 @@ sealed class Screens(val label: String, val icon: ImageVector, val type: Int) {
         Screens(label = "منظومة  الدورات-إضافة", icon = Icons.Filled.PersonAdd, 5)
 
     class CoursesScreen : Screens(label = "منظومة  الدورات", icon = Icons.Filled.PersonAdd, 6)
-    class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance, 6)
+    class AccountsPermissionsScreen : Screens(label = "الحسابات", icon = Icons.Filled.AccountBalance, 7)
+
+    data class AddResultsScreen(val mode: ScreenMode = ADD, val results: Results? = null) :
+        Screens(label = "منظومة  نتائج التحاليل/إضافه", icon = Icons.Filled.PersonAdd, 8)
+
+    class ResultsScreen : Screens(label = "منظومة  نتائج التحاليل", icon = Icons.Filled.Notes, 9)
 
 }
 
@@ -313,6 +313,15 @@ fun SystemNavigationHost(
         composable(Screens.AccountsPermissionsScreen()) {
             windowState.placement = WindowPlacement.Fullscreen
             AccountsPermissionsScreen(navController)
+        }
+        composable(Screens.ResultsScreen()) {
+            windowState.placement = WindowPlacement.Fullscreen
+            ResultsScreen(navController)
+        }
+        composable(Screens.AddResultsScreen()) {
+            windowState.placement = WindowPlacement.Fullscreen
+            val screenDetails = navController.currentScreen.value as Screens.AddResultsScreen
+            AddResultsScreen(navController, screenDetails.results, mode = screenDetails.mode)
         }
     }.build()
 }

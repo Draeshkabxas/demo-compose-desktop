@@ -100,7 +100,8 @@ fun ContractsScreen(
                         colors = blueGradient, cornerRadius = 30.dp
                     )
                     var showImportDialog by remember { mutableStateOf(false) }
-                    var contracts by remember { mutableStateOf<Map<String,List<Contract>>>(emptyMap()) }
+                    var contracts by remember { mutableStateOf<Map<String, List<Contract>>>(emptyMap()) }
+                    if (superAdminPermission) {
                     GradientButton(
                         text = "استيراد عقود من ملف",
                         icon = Icons.Default.FileUpload,
@@ -108,7 +109,7 @@ fun ContractsScreen(
                             var xlsxFilePath = ""
                             GetFilePathDialog(
                                 onError = {},
-                                onSuccess = {xlsxFilePath = it}
+                                onSuccess = { xlsxFilePath = it }
                             )
                             viewModel.importContracts(xlsxFilePath, {}, { println("error") }, {
                                 contracts = it
@@ -117,6 +118,7 @@ fun ContractsScreen(
                         },
                         colors = blueGradient, cornerRadius = 30.dp
                     )
+                }
                     if (showImportDialog) {
                         var success by remember { mutableStateOf(false) }
                         ImportXlsxDialog(

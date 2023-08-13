@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -39,12 +40,12 @@ fun CustomDialogWindow(
     showErrorMessage: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val state by remember { (mutableStateOf(state)) }
+    val state by remember { mutableStateOf(state) }
     Window(
         title = title,
         onCloseRequest = {
             onDismiss()
-                         },
+        },
         state = rememberWindowState(placement = state.placement, position = state.position, size = state.size),
         icon = painterResource(icon),
         undecorated = false,
@@ -61,51 +62,45 @@ fun CustomDialogWindow(
                 shape = RoundedCornerShape(20.dp), //window has round corners now
                 elevation = 40.dp
             ) {
-
                 Box {
-
                     Box(
                         modifier = Modifier.align(Alignment.TopEnd),
                     ) {
-//                        Row(
-//                            modifier = Modifier.align(Alignment.TopEnd),
-//                        ) {
-//                            IconButton(onClick = { state.isMinimized = true }) {
-//                                Icon(
-//                                    painter = painterResource("images/minimize.svg"),
-//                                    contentDescription = "Minimize Application",
-//                                    tint = Color.Gray.copy(alpha = 0.4f),
-//                                    modifier = Modifier.size(18.dp)
-//                                )
-//                            }
-//                            val isWindowInFullScreen = state.placement == WindowPlacement.Fullscreen
-//                            IconButton(
-//                                onClick = {
-//                                    if (isWindowInFullScreen)
-//                                        state.placement = WindowPlacement.Floating
-//                                    else
-//                                        state.placement = WindowPlacement.Fullscreen
-//                                }
-//
-//                            ) {
-//                                val iconPath = if (isWindowInFullScreen) "floating.svg" else "maximize.svg"
-//                                Icon(
-//                                    painter = painterResource("images/$iconPath"),
-//                                    contentDescription = "Full Screen Application",
-//                                    tint = Color.Gray.copy(alpha = 0.6f),
-//                                    modifier = Modifier.size(22.dp)
-//                                )
-//                            }
-//                            IconButton(onClick = {
-//                                //onDismiss()
-//                                closeWindow()
-//                            }) {
-//                                Image(
-//                                    painter = painterResource("images/exit.svg"),
-//                                    contentDescription = "Exit Application",
-//                                    modifier = Modifier.size(22.dp)
-//                                )
-//                            }
+                        IconButton(onClick = { state.isMinimized = true }) {
+                            Icon(
+                                painter = painterResource("images/minimize.svg"),
+                                contentDescription = "Minimize Application",
+                                tint = Color.Gray.copy(alpha = 0.4f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                        val isWindowInFullScreen = state.placement == WindowPlacement.Fullscreen
+                        IconButton(
+                            onClick = {
+                                if (isWindowInFullScreen)
+                                    state.placement = WindowPlacement.Floating
+                                else
+                                    state.placement = WindowPlacement.Fullscreen
+                            }
+
+                        ) {
+                            val iconPath = if (isWindowInFullScreen) "floating.svg" else "maximize.svg"
+                            Icon(
+                                painter = painterResource("images/$iconPath"),
+                                contentDescription = "Full Screen Application",
+                                tint = Color.Gray.copy(alpha = 0.6f),
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+//                        IconButton(onClick = {
+//                            //onDismiss()
+//                            closeWindow()
+//                        }) {
+//                            Image(
+//                                painter = painterResource("images/exit.svg"),
+//                                contentDescription = "Exit Application",
+//                                modifier = Modifier.size(22.dp)
+//                            )
 //                        }
                     }
                     Box(
@@ -124,12 +119,11 @@ fun CustomDialogWindow(
                         Box(
                             modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth(),
                         ) {
-                            Column {
+                            Column(horizontalAlignment = Alignment.Start) { // Align buttons and error message to the right
                                 buttons()
-                                if(showErrorMessage)
+                                if (showErrorMessage)
                                     errorMessage()
                             }
-
                         }
                     }
                 }

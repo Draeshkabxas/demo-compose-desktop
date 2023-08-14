@@ -1,6 +1,8 @@
 package features.results.presentation.results
 
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -98,13 +100,19 @@ fun ResultsScreen(
                                 viewModel.importResults(
                                     filePath = filePath,
                                     onLoading = {},
-                                    onError = {},
+                                    onError = {
+                                        ("الملف الذي قمت بتحميله تالف الرجاء اختيار ملف اخر").showErrorMessage()
+
+                                    },
                                     onSuccess = {
                                         viewModel.addAllImportedResults(
                                             results = it,
                                             onLoading = {},
                                             onError = {},
-                                            onSuccess = {}
+                                            onSuccess = {
+                                                ("تم إضاقة نتائج التحاليل من الملف بنجاح" ).showSuccessMessage()
+
+                                            }
                                         )
                                     }
                                 )
@@ -141,7 +149,12 @@ fun ResultsScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
-                                        viewModel.removeAllResults(onLoading = {}, onError = {}, onSuccess = {})
+                                        viewModel.removeAllResults(onLoading = {}, onError = {
+                                            it.showErrorMessage()
+                                        }, onSuccess = {
+                                            "تمت عملية المسح بنجاح".showSuccessMessage()
+
+                                        })
                                     },
                                     colors = RedGradient, cornerRadius = 30.dp
                                 )
@@ -191,13 +204,14 @@ fun ResultsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
+                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false
-                                println("on canceled")
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             },
                             onError = {
-                                println("on onError")
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             }
                         )
                     }

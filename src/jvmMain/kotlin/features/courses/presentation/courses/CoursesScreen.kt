@@ -1,6 +1,8 @@
 package features.courses.presentation.courses
 
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -120,7 +122,11 @@ fun CoursesScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
-                                        viewModel.removeAllCourses(onLoading = {}, onError = {}, onSuccess = {})
+                                        viewModel.removeAllCourses(onLoading = {}, onError = {
+                                            it.showErrorMessage()
+                                        }, onSuccess = {
+                                            "تمت عملية المسح بنجاح".showSuccessMessage()
+                                        })
                                     },
                                     colors =   AppColors.RedGradient, cornerRadius = 30.dp
                                 )
@@ -175,13 +181,14 @@ fun CoursesScreen(
                             viewModel.onPrintEvent(PrintToDirectory(filePath))
                             viewModel.onPrintEvent(PrintEvent.Submit)
                             showPrintDirectoryPathDialog = false
+                            ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
                         },
                         onCanceled = {
                             showPrintDirectoryPathDialog = false
-                            println("on canceled")
+                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                         },
                         onError = {
-                            println("on onError")
+                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                         }
                     )
                 }

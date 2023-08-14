@@ -243,7 +243,8 @@ fun ContractsScreen(
                                 "اسم المصرف",
                                 "رقم الحساب",
                                 "الرقم الوطني",
-                                "الرقم الاشاري"
+                                "الرقم الاشاري",
+                                "الملاحظات"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintEvent.PrintList(it))

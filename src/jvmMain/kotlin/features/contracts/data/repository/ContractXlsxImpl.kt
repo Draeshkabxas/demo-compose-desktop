@@ -79,6 +79,9 @@ class ContractXlsxImpl : ContractXlsxRepository {
                         "الرقم الاشاري" -> {
                             row.createCell(cellIndex).setCellValue(contract.reference)
                         }
+                        "الملاحظات" -> {
+                            row.createCell(cellIndex).setCellValue(contract.notes)
+                        }
                         else -> {}
                     }
                 }
@@ -116,6 +119,7 @@ class ContractXlsxImpl : ContractXlsxRepository {
             "اسم المصرف" to { contract: Contract, value: String -> contract.copy(bankName = value) },
             "رقم الحساب" to { contract: Contract, value: String -> contract.copy(accountNumber = value) },
             "الرقم الاشاري" to { contract: Contract, value: String -> contract.copy(reference = value) },
+            "الملاحظات" to { contract: Contract, value: String -> contract.copy(notes = value) },
 
 
 

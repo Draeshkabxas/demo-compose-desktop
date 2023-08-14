@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 52">
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 557">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/repository/ContractXlsxImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/data/repository/ContractXlsxImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/home/presentation/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/data/repository/ResultsXlsxImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/data/repository/ResultsXlsxImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/presentation/contracts/ResultsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/presentation/contracts/ResultsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,30 +201,6 @@
       <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
-    </task>
-    <task id="LOCAL-00025" summary="add edits">
-      <option name="closed" value="true" />
-      <created>1688831848975</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1688831848975</updated>
-    </task>
-    <task id="LOCAL-00026" summary="add edits">
-      <option name="closed" value="true" />
-      <created>1688831885568</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1688831885568</updated>
-    </task>
-    <task id="LOCAL-00027" summary="add edits">
-      <option name="closed" value="true" />
-      <created>1688834512588</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1688834512588</updated>
     </task>
     <task id="LOCAL-00028" summary="add btn">
       <option name="closed" value="true" />
@@ -563,7 +538,31 @@
       <option name="project" value="LOCAL" />
       <updated>1692045412923</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="add edite 555">
+      <option name="closed" value="true" />
+      <created>1692047390088</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1692047390088</updated>
+    </task>
+    <task id="LOCAL-00071" summary="add edite 556">
+      <option name="closed" value="true" />
+      <created>1692047680362</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1692047680362</updated>
+    </task>
+    <task id="LOCAL-00072" summary="add edite 557">
+      <option name="closed" value="true" />
+      <created>1692048556766</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1692048556766</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -578,9 +577,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add edite 11" />
-    <MESSAGE value="add edite 12" />
-    <MESSAGE value="add edite 13" />
     <MESSAGE value="add edite 14" />
     <MESSAGE value="add edite 15" />
     <MESSAGE value="add edite 16" />
@@ -603,7 +599,10 @@
     <MESSAGE value="add edite 51" />
     <MESSAGE value="add edite 52" />
     <MESSAGE value="add edite 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 5" />
+    <MESSAGE value="add edite 555" />
+    <MESSAGE value="add edite 556" />
+    <MESSAGE value="add edite 557" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 557" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

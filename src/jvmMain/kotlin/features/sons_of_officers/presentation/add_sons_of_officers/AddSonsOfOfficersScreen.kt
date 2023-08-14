@@ -1,5 +1,6 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
+import common.component.ScreenMode.EDIT
 import features.courses.presentation.add_courses.CourseInfoFormEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
@@ -37,6 +39,11 @@ fun AddSonsOfOfficersScreen(
         viewModel.validationEvents.collect { event ->
             when (event) {
                 ValidationEvent.Success -> {
+                    if(mode == EDIT){
+                        "تمت عملية التعديل بنجاح".showSuccessMessage()
+                    }else{
+                        "تمت عملية الاضافة بنجاح".showSuccessMessage()
+                    }
                     navController.navigateReplacement(Screens.SonsOfOfficersScreen())
                 }
                 else -> {}

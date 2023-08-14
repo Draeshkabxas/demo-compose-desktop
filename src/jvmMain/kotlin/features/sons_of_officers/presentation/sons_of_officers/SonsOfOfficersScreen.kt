@@ -1,5 +1,7 @@
 package features.sons_of_officers.presentation.sons_of_officers
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -119,7 +121,10 @@ fun SonsOfOfficersScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelete = false
-                                        viewModel.removeAllPeople(onLoading = {}, onError = {}, onSuccess = {})
+                                        viewModel.removeAllPeople(
+                                            onLoading = {},
+                                            onError = {it.showErrorMessage()},
+                                            onSuccess = {"تمت عملية مسح كل ابناء الضباط بنجاح".showSuccessMessage()})
                                     },
                                     colors = RedGradient, cornerRadius = 30.dp
                                 )
@@ -178,18 +183,17 @@ fun SonsOfOfficersScreen(
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false
-                                println("on canceled")
+
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             },
                             onError = {
-                                println("on onError")
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             }
                         )
                     }
                 }
             }
         }
-//        table
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
@@ -200,7 +204,11 @@ fun SonsOfOfficersScreen(
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
                             PaginatedTable(navController, headers, peopleData, 13, widths,
-                                onRemovePerson = {person ->  viewModel.removePerson(person, onSuccess = {})})
+                                onRemovePerson = {person ->
+                                    viewModel.removePerson(
+                                        person = person,
+                                        onError = { it.showErrorMessage()},
+                                        onSuccess = {"تم عملية المسح بنجاح".showSuccessMessage()})})
                         }
                     }
                 }

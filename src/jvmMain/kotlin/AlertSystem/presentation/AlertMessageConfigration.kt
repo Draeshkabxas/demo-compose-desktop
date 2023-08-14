@@ -12,11 +12,9 @@ private var successMessage by  mutableStateOf("")
 fun AlertMessagesConfig(){
 
     if (showErrorMessage) {
-        AlertDialogSimple(
-            message = errorMessage
-        ) {
-            showErrorMessage = false
-        }
+    ErrorMessage(errorMessage){
+        showErrorMessage = false
+    }
     }
 
     if (showSuccessMessage) {

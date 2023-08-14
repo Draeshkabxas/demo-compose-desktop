@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import features.sons_of_officers.domain.model.Person
 import styles.AppColors
 import styles.CairoTypography
+import utils.getUserAuth
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -27,7 +28,13 @@ fun ItemMenu(
 //    onCancel: () -> Unit,
     alertText:String
 ) {
+    val userAuthSystem = getUserAuth()
+    var canEditPermission = userAuthSystem.canEdit()
+    var superAdmin = userAuthSystem.canChangeAccountsPermission()
+
     if (showMenu.value) {
+        if (canEditPermission) {
+
         DropdownMenu(
             expanded = showMenu.value,
             onDismissRequest = { showMenu.value = false },
@@ -40,6 +47,8 @@ fun ItemMenu(
             }) {
                 Text("تعديل", style = CairoTypography.h4)
             }
+            if (superAdmin) {
+
             DropdownMenuItem(onClick = {
                 // Show AlertDialog
                 showDialog.value = true
@@ -47,6 +56,8 @@ fun ItemMenu(
                 Text("مسح", style = CairoTypography.h4)
             }
         }
+        }
+    }
     }
 
     if (showDialog.value) {

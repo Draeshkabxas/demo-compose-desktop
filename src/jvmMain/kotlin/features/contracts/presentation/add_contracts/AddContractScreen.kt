@@ -51,7 +51,8 @@ fun AddContractsScreen(
         "التبعية",
         "إسم المصرف",
         "رقم الحساب",
-        "ملاحظات"
+        "ملاحظات",
+        "الرقم الاشاري"
         )
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -240,6 +241,18 @@ fun AddContractsScreen(
                     errorMessage = state.notesError.toString(),
                     width = 50.dp,
                     inputType = InputType.TEXT
+                )
+            }
+            item {
+                CustomOutlinedTextField(
+                    value = state.reference,
+                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.ReferenceChanged(it)) },
+                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.ReferenceChanged(it)) },
+                    hint = personalInputsNameAndValue[10],
+                    isError = state.referenceError!=null,
+                    errorMessage = state.referenceError.toString(),
+                    width = 50.dp,
+                    inputType = InputType.All
                 )
             }
         }

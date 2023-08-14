@@ -21,4 +21,5 @@ open class RealmContract : RealmObject{
     var educationLevel: String = ""
     var city: String = ""
     var notes: String = ""
+    var reference :String = ""
 }

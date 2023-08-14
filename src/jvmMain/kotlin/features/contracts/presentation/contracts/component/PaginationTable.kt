@@ -100,7 +100,7 @@ fun PaginatedTable(
                             }
                     ) {
 
-                        if (superAdmin) {
+//                        if (canEditPermission) {
                             ItemMenu(
                                 showMenu = showPopup,
                                 onEdit = {
@@ -111,13 +111,17 @@ fun PaginatedTable(
                                         )
                                     )
 
-                                }, onRemove = {
+                                },
+
+                                onRemove = {
+
                                     onRemoveContract(contract)
                                 },
+
                                 showDialog = showDialog,
                                 alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                             )
-                        }
+//                        }
 
                         Text(
                             text = (contractList.indexOf(contract) + 1).toString(), // display counter value as text
@@ -238,25 +242,36 @@ fun PaginatedTable(
                                 .padding(8.dp),
                             maxLines = 2
                         )
-                        if (canEditPermission) {
-                            Spacer(modifier = Modifier.size(0.dp, 20.dp))
+                        Text(
+                            text = contract.reference,
+                            style = CairoTypography.h5,
+//                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .width(columnWidths[13])
+                                .padding(8.dp),
+                            maxLines = 2
+                        )
 
-                            common.component.TextButton(
-                                width = columnWidths[13],
-                                textSize = 10.sp,
-                                text = "إضافة",
-                                onClick = {
-                                    navController.navigate(
-                                        Screens.AddContractsScreen(
-                                            mode = ScreenMode.EDIT,
-                                            contract = contract
-                                        )
-                                    )
-
-                                },
-                                colors = AppColors.GreenGradient, cornerRadius = 30.dp
-                            )
-                        }
+//                        if (canEditPermission) {
+//                            Spacer(modifier = Modifier.size(0.dp, 20.dp))
+//
+//                            common.component.TextButton(
+//                                width = columnWidths[13],
+//                                textSize = 10.sp,
+//                                text = "إضافة",
+//                                onClick = {
+//                                    navController.navigate(
+//                                        Screens.AddContractsScreen(
+//                                            mode = ScreenMode.EDIT,
+//                                            contract = contract
+//                                        )
+//                                    )
+//
+//                                },
+//                                colors = AppColors.GreenGradient, cornerRadius = 30.dp
+//                            )
+//                        }
 
                     }
                 }

@@ -20,6 +20,7 @@ fun RealmContract.toContractDto(): Contract {
         educationLevel = this.educationLevel,
         city = this.city,
         ageGroup=this.ageGroup.fromArabicNameToAgeGroup(),
-        notes = this.notes
+        notes = this.notes,
+        reference =this.reference
     )
 }

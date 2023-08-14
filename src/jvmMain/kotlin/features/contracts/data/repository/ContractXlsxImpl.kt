@@ -76,6 +76,9 @@ class ContractXlsxImpl : ContractXlsxRepository {
                             row.createCell(cellIndex).setCellValue(contract.libyaId)
                         }
 
+                        "الرقم الإشاري" -> {
+                            row.createCell(cellIndex).setCellValue(contract.reference)
+                        }
                         else -> {}
                     }
                 }
@@ -109,10 +112,16 @@ class ContractXlsxImpl : ContractXlsxRepository {
             "رقم الهاتف" to { contract: Contract, value: String -> contract.copy(phoneNumber = value) },
             "التبعية" to { contract: Contract, value: String -> contract.copy(dependency = value) },
             "الملاحظات" to { contract: Contract, value: String -> contract.copy(notes = value) },
-            "المؤهل العلمي" to { contract: Contract, value: String -> contract.copy(educationLevel = value) }
-        )
+            "المؤهل العلمي" to { contract: Contract, value: String -> contract.copy(educationLevel = value) },
+            "اسم المصرف" to { contract: Contract, value: String -> contract.copy(bankName = value) },
+            "رقم الحساب" to { contract: Contract, value: String -> contract.copy(accountNumber = value) },
+            "الرقم الاشاري" to { contract: Contract, value: String -> contract.copy(reference = value) },
+
+
+
+            )
         val contracts = xlsxToListOf(filePath, {
-            Contract("", "", "", "", "", "", "", "", "", "", "", "", AgeGroup.UnderEightTeen, "")
+            Contract("", "", "", "", "", "", "", "", "", "", "", "", AgeGroup.UnderEightTeen, "","")
         }, map)
         emit(contracts)
     }

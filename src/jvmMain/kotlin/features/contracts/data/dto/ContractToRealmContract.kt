@@ -22,5 +22,6 @@ fun Contract.toRealmContractDto(): RealmContract {
         city = contract.city
         ageGroup = contract.ageGroup.arabicName
         notes = contract.notes
+        reference =contract.reference
     }
 }

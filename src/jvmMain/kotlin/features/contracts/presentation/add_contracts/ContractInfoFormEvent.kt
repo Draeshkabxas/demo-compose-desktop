@@ -21,6 +21,8 @@ sealed class ContractInfoFormEvent {
     data class DependencyChanged(val dependency: String) : ContractInfoFormEvent()
     data class CityChanged(val city: String) : ContractInfoFormEvent()
     data class NotesChanged(val notes: String) : ContractInfoFormEvent()
+    data class ReferenceChanged(val reference: String) : ContractInfoFormEvent()
+
 
 
     data class Submit(val mode: ScreenMode = ScreenMode.ADD): ContractInfoFormEvent()

@@ -52,7 +52,7 @@ fun ContractsScreen(
         "الرقم الوطني", "إسم الأم", "جنسية الأم",
         "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "التبعية", "إسم المصرف", "رقم الحساب",
-        "الملاحظات", "تعديل"
+        "الملاحظات", "الاشاري"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -221,7 +221,8 @@ fun ContractsScreen(
                                 " التبعية",
                                 "اسم المصرف",
                                 "رقم الحساب",
-                                "الرقم الوطني"
+                                "الرقم الوطني",
+                                "الرقم الاشاري"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintEvent.PrintList(it))

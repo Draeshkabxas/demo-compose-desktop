@@ -100,6 +100,9 @@ class AddContractViewModel(
                 state = state.copy(notes = event.notes)
             }
 
+            is ContractInfoFormEvent.ReferenceChanged -> {
+                state = state.copy(reference = event.reference)
+            }
             is ContractInfoFormEvent.Submit -> {
                 submitData(event.mode)
             }
@@ -119,6 +122,7 @@ class AddContractViewModel(
         val accountNumberResult = validateTextInputs.execute(state.accountNumber, "رقم الحساب",true)
         val educationLevelResult = validateTextInputs.execute(state.educationLevel, "المؤهل العلمي")
         val cityResult = validateTextInputs.execute(state.city, "المدينة ")
+        val referenceResult = validateTextInputs.execute(state.reference, "الرقم الاشاري",true)
 
         val hasError = listOf(
             nameResult,
@@ -131,7 +135,8 @@ class AddContractViewModel(
             bankNameResult,
             accountNumberResult,
             educationLevelResult,
-            cityResult
+            cityResult,
+            referenceResult
         ).any { !it.successful }
 
         if (hasError) {
@@ -146,7 +151,8 @@ class AddContractViewModel(
                 bankNameError = bankNameResult.errorMessage,
                 accountNumberError = accountNumberResult.errorMessage,
                 educationLevelError = educationLevelResult.errorMessage,
-                cityError = cityResult.errorMessage
+                cityError = cityResult.errorMessage,
+                referenceError = referenceResult.errorMessage
             )
             return
         }
@@ -165,6 +171,7 @@ class AddContractViewModel(
             city = state.city,
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             notes = state.notes,
+            reference = state.reference
         )
 
         if (mode == ScreenMode.ADD) {

@@ -16,5 +16,6 @@ data class Contract(
     val educationLevel:String,
     val city:String,
     val ageGroup: AgeGroup,
-    val notes:String
+    val notes:String,
+    val reference:String
 )

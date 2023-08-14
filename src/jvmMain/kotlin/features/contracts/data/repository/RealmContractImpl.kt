@@ -96,6 +96,7 @@ class RealmContractImpl(private val realm: Realm) :
                             educationLevel = updatedContract.educationLevel
                             city = updatedContract.city
                             notes = updatedContract.notes
+                            reference = updatedContract.reference
                         })
                     }
                 result = true

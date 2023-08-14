@@ -28,6 +28,8 @@ data class ContractInfoFormState(
     val cityError: String? = null,
     val notes: String = "",
     val notesError: String? = null,
+    val reference: String = "",
+    val referenceError: String? = null,
 )
 fun Contract.toContractInfoFormState(): ContractInfoFormState =
     ContractInfoFormState(
@@ -43,5 +45,6 @@ fun Contract.toContractInfoFormState(): ContractInfoFormState =
         accountNumber = this.accountNumber,
         dependency = this.dependency,
         city = this.city,
-        notes =this.notes
+        notes =this.notes,
+        reference = this.reference
     )

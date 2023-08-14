@@ -151,7 +151,7 @@ fun ResultsScreen(
                                 "رقم الهاتف",
                                 "نتائج التحاليل",
                                 "تاريخ التحاليل",
-                                "الملاحطات"
+                                "الملاحظات"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintEvent.PrintList(it))

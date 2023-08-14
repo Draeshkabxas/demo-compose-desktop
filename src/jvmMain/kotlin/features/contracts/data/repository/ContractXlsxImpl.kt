@@ -76,7 +76,7 @@ class ContractXlsxImpl : ContractXlsxRepository {
                             row.createCell(cellIndex).setCellValue(contract.libyaId)
                         }
 
-                        "الرقم الإشاري" -> {
+                        "الرقم الاشاري" -> {
                             row.createCell(cellIndex).setCellValue(contract.reference)
                         }
                         else -> {}

@@ -41,10 +41,10 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
                         "رقم الهاتف" -> {
                             row.createCell(cellIndex).setCellValue(result.phoneNumber)
                         }
-                        "نتيجة التحاليل" -> {
+                        "نتائج التحاليل" -> {
                             row.createCell(cellIndex).setCellValue(result.result)
                         }
-                        "تاريخ التحليل" -> {
+                        "تاريخ التحاليل" -> {
                             row.createCell(cellIndex).setCellValue(result.date)
                         }
 

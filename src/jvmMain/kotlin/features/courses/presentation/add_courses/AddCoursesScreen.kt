@@ -164,8 +164,7 @@ fun AddCoursesScreen(
                         }
                     )
                     if (state.cityError!=null)
-                        Text(state.cityError.toString()
-                            ,
+                        Text(state.cityError.toString(),
                             color = Color.Red,
                             style = CairoTypography.body2
                         )

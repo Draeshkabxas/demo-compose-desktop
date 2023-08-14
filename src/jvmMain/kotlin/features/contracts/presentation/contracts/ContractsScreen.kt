@@ -239,11 +239,12 @@ fun ContractsScreen(
                                 "المؤهل العلمي",
                                 "المدينة",
                                 "رقم الهاتف",
-                                " التبعية",
+                                "التبعية",
                                 "اسم المصرف",
                                 "رقم الحساب",
                                 "الرقم الوطني",
-                                "الرقم الاشاري"
+                                "الرقم الاشاري",
+                                "الملاحظات"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintEvent.PrintList(it))
@@ -259,7 +260,8 @@ fun ContractsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                "تمت عملية الطباعة بنجاح".showSuccessMessage()
+                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false

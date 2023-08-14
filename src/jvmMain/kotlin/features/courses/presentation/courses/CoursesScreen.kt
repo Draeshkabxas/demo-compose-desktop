@@ -88,54 +88,47 @@ fun CoursesScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                if (canEditPermission) {
-                    GradientButton(
-                        text = "إضافة ملف",
-                        icon = Icons.Default.AddTask,
-                        onClick = {
-                            navController.navigate(Screens.AddCoursesScreen())
-                        },
-                        colors = blueGradient,
-                        cornerRadius = 30.dp
-                    )
+                if(canEditPermission){
+                GradientButton(
+                    text = "إضافة ملف",
+                    icon = Icons.Default.AddTask,
+                    onClick = {
+                        navController.navigate(Screens.AddCoursesScreen())
+                    },
+                    colors =  blueGradient,
+                    cornerRadius = 30.dp
+                )
 
-                    GradientButton(
-                        text = "طباعة",
-                        icon = Icons.Default.Print,
-                        onClick = {
-                            showPrintListDialog = true
-                        },
+                GradientButton(
+                    text = "طباعة",
+                    icon = Icons.Default.Print,
+                    onClick = {
+                        showPrintListDialog = true
+                    },
 
-                        colors = GreenGradient,
-                        cornerRadius = 30.dp
-                    )
+                    colors = GreenGradient,
+                    cornerRadius = 30.dp
+                )
                     var showDialogDelet by remember { mutableStateOf(false) }
 
                     if (showDialogDelet) {
                         AlertDialog(
                             onDismissRequest = { showDialogDelet = false },
                             title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
-                            text = {
-                                Text(
-                                    "هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟",
-                                    textAlign = TextAlign.End,
-                                    style = CairoTypography.h3
-                                )
-                            },
+                            text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
                             confirmButton = {
                                 GradientButton(
                                     text = "مسح",
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
-                                        viewModel.removeAllCourses(
-                                            onLoading = {},
-                                            onError = {it.showErrorMessage()},
-                                            onSuccess = {
-                                                "تمت عملية مسح جميع الدورات بنجاح".showSuccessMessage()
-                                            })
+                                        viewModel.removeAllCourses(onLoading = {}, onError = {
+                                            it.showErrorMessage()
+                                        }, onSuccess = {
+                                            "تمت عملية المسح بنجاح".showSuccessMessage()
+                                        })
                                     },
-                                    colors = AppColors.RedGradient, cornerRadius = 30.dp
+                                    colors =   AppColors.RedGradient, cornerRadius = 30.dp
                                 )
                             },
                             dismissButton = {
@@ -150,7 +143,7 @@ fun CoursesScreen(
                             }
                         )
                     }
-                    if (superAdminPermission) {
+                    if (superAdminPermission){
                         GradientButton(
                             text = "مسح الكل",
                             icon = Icons.Default.DeleteForever,
@@ -160,46 +153,46 @@ fun CoursesScreen(
                             colors = AppColors.RedGradient, cornerRadius = 30.dp
                         )
                     }
-                    if (showPrintListDialog) {
-                        PrintDialog(
-                            columns = listOf(
-                                "رقم الملف",
-                                "الاسم رباعي",
-                                "الرقم الوطني",
-                                "اسم الام",
-                                "المؤهل العلمي",
-                                "المدينة",
-                                "رقم الهاتف",
-                                "القائم بالتجنيد",
-                                "النتيجة",
-                                "اللجنة"
-                            ),
-                            onPrintColumnsChanged = {
-                                viewModel.onPrintEvent(PrintList(it))
-                                showPrintDirectoryPathDialog = true
-                            },
-                            onDismiss = { showPrintListDialog = false }
-                        )
-                    }
-
-                    if (showPrintDirectoryPathDialog) {
-                        DirectoryDialog(
-                            onApproved = { filePath ->
-                                viewModel.onPrintEvent(PrintToDirectory(filePath))
-                                viewModel.onPrintEvent(PrintEvent.Submit)
-                                showPrintDirectoryPathDialog = false
-                                "تمت عملية الطباعة بنجاح".showSuccessMessage()
-                            },
-                            onCanceled = {
-                                showPrintDirectoryPathDialog = false
-                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
-                            },
-                            onError = {
-                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
-                            }
-                        )
-                    }
+                if (showPrintListDialog) {
+                    PrintDialog(
+                        columns = listOf(
+                            "رقم الملف",
+                            "الاسم رباعي",
+                            "الرقم الوطني",
+                            "اسم الام",
+                            "المؤهل العلمي",
+                            "المدينة",
+                            "رقم الهاتف",
+                            "القائم بالتجنيد",
+                            "النتيجة",
+                            "اللجنة"
+                        ),
+                        onPrintColumnsChanged = {
+                            viewModel.onPrintEvent(PrintList(it))
+                            showPrintDirectoryPathDialog = true
+                        },
+                        onDismiss = { showPrintListDialog = false }
+                    )
                 }
+
+                if (showPrintDirectoryPathDialog) {
+                    DirectoryDialog(
+                        onApproved = { filePath ->
+                            viewModel.onPrintEvent(PrintToDirectory(filePath))
+                            viewModel.onPrintEvent(PrintEvent.Submit)
+                            showPrintDirectoryPathDialog = false
+                            ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+                        },
+                        onCanceled = {
+                            showPrintDirectoryPathDialog = false
+                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
+                        },
+                        onError = {
+                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
+                        }
+                    )
+                }
+            }
             }
         }
 //        table
@@ -214,15 +207,8 @@ fun CoursesScreen(
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
                             PaginatedTable(navController, headers, coursesData, 13, widths,
-                                onRemoveCourse = { course ->
-                                    viewModel.removeCourse(
-                                        course,
-                                        onError = {
-                                            it.showErrorMessage()
-                                        },
-                                        onSuccess = {
-                                            "تمت عملية المسح بنجاح".showSuccessMessage()
-                                        })
+                                onRemoveCourse = {course->
+                                    viewModel.removeCourse(course, onSuccess = {})
                                 })
                         }
                     }

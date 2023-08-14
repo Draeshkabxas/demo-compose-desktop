@@ -61,11 +61,11 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
 
     override fun getResultsFromXlsxFile(path: String): Flow<List<Results>> = flow {
         val map: Map<String, (Results, String) -> Results> = mapOf(
-            "الاسم" to { result:Results, value: String -> result.copy(name = value) },
+            "الاسم رباعي" to { result:Results, value: String -> result.copy(name = value) },
             "رقم الهاتف" to { result:Results, value: String -> result.copy(phoneNumber = value) },
-            "التاريخ" to { result:Results, value: String -> result.copy(date = value) },
+            "تاريخ التحاليل" to { result:Results, value: String -> result.copy(date = value) },
             "الملاحظات" to { result:Results, value: String -> result.copy(notes = value) },
-            "النتيجة" to { result:Results, value: String -> result.copy(result = value) },
+            "نتائج التحاليل" to { result:Results, value: String -> result.copy(result = value) },
             )
         val results = xlsxToListOf(path, {
             Results(id = "", name = "", phoneNumber = "", result = "", date = "", notes = "")

@@ -87,11 +87,11 @@ fun ResultsScreen(
                     )
                     GradientButton(
                         text = "استيراد النتائج من ملف",
-                        icon = Icons.Default.AddTask,
+                        icon = Icons.Default.FileUpload,
                         onClick = {
                             var filePath = ""
                             GetFilePathDialog(
-                                onError = { it.showErrorMessage()},
+                                onError = {},
                                 onSuccess = {
                                     filePath = it
                                 },
@@ -100,14 +100,18 @@ fun ResultsScreen(
                                 viewModel.importResults(
                                     filePath = filePath,
                                     onLoading = {},
-                                    onError = {it.showErrorMessage()},
+                                    onError = {
+                                        ("الملف الذي قمت بتحميله تالف الرجاء اختيار ملف اخر").showErrorMessage()
+
+                                    },
                                     onSuccess = {
                                         viewModel.addAllImportedResults(
                                             results = it,
                                             onLoading = {},
-                                            onError = {it.showErrorMessage()},
+                                            onError = {},
                                             onSuccess = {
-                                                "تمت عملية إضافة النتائج من الملف بنجاح".showSuccessMessage()
+                                                ("تم إضاقة نتائج التحاليل من الملف بنجاح" ).showSuccessMessage()
+
                                             }
                                         )
                                     }
@@ -145,12 +149,12 @@ fun ResultsScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
-                                        viewModel.removeAllResults(
-                                            onLoading = {},
-                                            onError = {it.showErrorMessage()},
-                                            onSuccess = {
-                                                "تمت عملية مسح جميع النتائج بنجاح".showSuccessMessage()
-                                            })
+                                        viewModel.removeAllResults(onLoading = {}, onError = {
+                                            it.showErrorMessage()
+                                        }, onSuccess = {
+                                            "تمت عملية المسح بنجاح".showSuccessMessage()
+
+                                        })
                                     },
                                     colors = RedGradient, cornerRadius = 30.dp
                                 )
@@ -200,7 +204,7 @@ fun ResultsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                "تمت عملية الطباعة بنجاح".showSuccessMessage()
+                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false

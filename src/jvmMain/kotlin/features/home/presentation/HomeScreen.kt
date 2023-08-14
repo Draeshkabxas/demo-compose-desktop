@@ -75,7 +75,7 @@ fun HomeScreen(
                                         },
                                         onLoading = {},
                                         onSuccess = {
-                                            "تمت عملية النسخ الاحطياطي بنجاح".showSuccessMessage()
+                                            "تمت عملية النسخ الاحتياطي بنجاح".showSuccessMessage()
                                         })
                                     showSaveBackupDirectoryPathDialog = false
                                 },
@@ -103,7 +103,7 @@ fun HomeScreen(
                                 onApproved = { filePath ->
                                     viewModel.getBackup(dirPath = filePath)
                                     showGetBackupDirectoryPathDialog = false
-                                    ("تمت عملية تحميل النسخة الاحطياطية بنجاح").showSuccessMessage()
+                                    ("تمت عملية تحميل النسخة الاحتياطية بنجاح").showSuccessMessage()
                                 },
                                 onCanceled = {
                                     showGetBackupDirectoryPathDialog = false

@@ -11,6 +11,10 @@ class LoginUseCase(private val auth: AuthenticationRepository){
         println("login state is  loading..")
         val result=auth.isUser(user).first()
         println("login state is  $result")
-        emit(Resource.Success(result))
+        if (result != null){
+            emit(Resource.Success(result))
+        }else{
+            emit(Resource.Error(message = "اسم المستخدم او كلمة المرور خاطئة"))
+        }
     }.catch { emit(Resource.Error("Cloud Not login")) }
 }

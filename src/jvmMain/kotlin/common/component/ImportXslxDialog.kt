@@ -31,7 +31,9 @@ fun ImportXlsxDialog(
 ) {
     val convertMap by remember { mutableStateOf(mutableMapOf<String, String>())}
     //Fill the convert map with contracts types
-    contracts.forEach { convertMap[it.key] = ""}
+    if (convertMap.isEmpty()){
+        contracts.forEach { convertMap[it.key] = ""}
+    }
 
     var showErrorMessage by remember { mutableStateOf(false) }
     CustomDialogWindow(
@@ -48,6 +50,7 @@ fun ImportXlsxDialog(
             Button({
                 val contractAfterModified = onModify(contracts, convertMap)
                 if (contractAfterModified.isNullOrEmpty()) {
+                    println("I'm happening")
                     showErrorMessage = true
                 } else {
                     onAdd(contractAfterModified)

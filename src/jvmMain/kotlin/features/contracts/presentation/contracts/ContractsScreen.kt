@@ -114,7 +114,7 @@ fun ContractsScreen(
                                     filePath = xlsxFilePath,
                                     onLoading = {},
                                     onError = {
-                                        ("الملف الذي قمت بتحميله تالف الرجاء اختيار ملف اخر").showErrorMessage()
+                                              it.showErrorMessage()
                                     },
                                     onSuccess = {
                                         contracts = it
@@ -259,7 +259,6 @@ fun ContractsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false
@@ -267,7 +266,7 @@ fun ContractsScreen(
                             },
                             onError = {
                                 ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
-                            },
+                            }
                         )
                     }
                 }

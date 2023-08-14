@@ -1,5 +1,7 @@
 package features.home.presentation
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -53,21 +55,8 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.padding( start = 16.dp)
                 ) {
-
-//                    Text(
-//                        "صممة المنظومة لإدارة عقاراتك من تنظيم لعمليات البيع مع الزبائن ومتابعة وحساب تكاليف البناء وايضا حصر العمال ومتابعة تكاليف خدماتهم  ",
-//                        modifier = Modifier.padding(top = 32.dp, start = 16.dp),
-//                        style = CairoTypography.h3,
-////                    color = Color.White
-//                    )
                     if (canEditPermission){
-//                        Button(
-//                            onClick = {
-//                                showSaveBackupDirectoryPathDialog = true
-//                            }
-//                        ) {
-//                            Text("حفظ نسخة احتياطية لنظام", style = CairoTypography.body1)
-//                        }
+
                         GradientButton(
                             text = "حفظ نسخة احتياطية للنظام",
                             icon = Icons.Default.Save,
@@ -81,30 +70,26 @@ fun HomeScreen(
                                 onApproved = { filePath ->
                                     viewModel.saveBackupTheDB(
                                         dirPath = filePath,
-                                        onError = {},
+                                        onError = {
+                                                it.showErrorMessage()
+                                        },
                                         onLoading = {},
-                                        onSuccess = {})
+                                        onSuccess = {
+                                            "تمت عملية النسخ الاحطياطي بنجاح".showSuccessMessage()
+                                        })
                                     showSaveBackupDirectoryPathDialog = false
                                 },
                                 onCanceled = {
                                     showSaveBackupDirectoryPathDialog = false
-                                    println("on canceled")
+                                    ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                                 },
                                 onError = {
-                                    println("on onError")
+                                    ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                                 }
                             )
                         }
                     }
                     if (superAdminPermission){
-//                        Button(
-//                            onClick = {
-//                                showGetBackupDirectoryPathDialog = true
-//                            },
-//                            modifier = Modifier.padding(start = 8.dp)
-//                        ) {
-//                            Text("إسترداد نسخة احتياطية لنظام", style = CairoTypography.body1)
-//                        }
                         GradientButton(
                             text = "إسترداد نسخة احتياطية للنظام",
                             icon = Icons.Default.UploadFile,
@@ -118,13 +103,14 @@ fun HomeScreen(
                                 onApproved = { filePath ->
                                     viewModel.getBackup(dirPath = filePath)
                                     showGetBackupDirectoryPathDialog = false
+                                    ("تمت عملية تحميل النسخة الاحطياطية بنجاح").showSuccessMessage()
                                 },
                                 onCanceled = {
                                     showGetBackupDirectoryPathDialog = false
-                                    println("on canceled")
+                                    ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                                 },
                                 onError = {
-                                    println("on onError")
+                                    ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                                 }
                             )
                         }
@@ -142,19 +128,10 @@ fun HomeScreen(
                         "images/bg.jpg",
                         modifier = Modifier.padding(horizontal = 10.dp),
                         size = DpSize(1000.dp, 600.dp),
-//                    text =                         "صممة المنظومة لإدارة عقاراتك من تنظيم لعمليات البيع مع الزبائن ومتابعة وحساب تكاليف البناء وايضا حصر العمال ومتابعة تكاليف خدماتهم  ",
-//                    textStyle = CairoTypography.h3,
                     )
                 }
                 Spacer(modifier = Modifier.size(0.dp,10.dp))
-
-
-
             }
         }
-
-
-
-
     }
 }

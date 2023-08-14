@@ -180,6 +180,7 @@ fun SonsOfOfficersScreen(
                                 viewModel.onPrintEvent(PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(Submit)
                                 showPrintDirectoryPathDialog = false
+                                "تمت عملية الطباعة بنجاح".showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false

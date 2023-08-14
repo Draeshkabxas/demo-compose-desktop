@@ -99,7 +99,7 @@ class ContractXlsxImpl : ContractXlsxRepository {
     override fun getContractsFromXlsxFile(filePath: String): Flow<List<Contract>> = flow {
         val map: Map<String, (Contract, String) -> Contract> = mapOf(
             "رقم الملف" to { contract: Contract, value: String -> contract.copy(fileNumber = value) },
-            "الاسم" to { contract: Contract, value: String -> contract.copy(name = value) },
+            "الاسم رباعي" to { contract: Contract, value: String -> contract.copy(name = value) },
             "اسم الام" to { contract: Contract, value: String -> contract.copy(motherName = value) },
             "المدينة" to { contract: Contract, value: String -> contract.copy(city = value.filter { it.isLetter() }) },
             "جنسية الام" to { contract: Contract, value: String -> contract.copy(motherNationality = value) },

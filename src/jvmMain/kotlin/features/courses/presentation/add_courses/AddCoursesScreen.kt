@@ -1,5 +1,6 @@
 package features.courses.presentation.add_courses
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import common.component.*
+import common.component.ScreenMode.EDIT
 import features.courses.domain.model.Course
 import features.courses.presentation.add_courses.AddCourseViewModel.ValidationEvent
 import features.courses.presentation.add_courses.CourseInfoFormEvent.*
@@ -35,7 +37,11 @@ fun AddCoursesScreen(
             println("event : $event")
             when (event) {
                 ValidationEvent.Success -> {
-                    println("Success event : $event")
+                    if(mode == EDIT){
+                        "تمت عملية التعديل بنجاح".showSuccessMessage()
+                    }else{
+                        "تمت عملية الاضافة بنجاح".showSuccessMessage()
+                    }
                     navController.navigateReplacement(Screens.CoursesScreen())
                 }
                 else -> {}

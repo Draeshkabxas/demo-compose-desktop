@@ -1,5 +1,6 @@
 package features.results.presentation.add_results
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import common.component.*
+import common.component.ScreenMode.EDIT
 import features.results.domain.model.Results
 import navcontroller.NavController
 import org.koin.compose.koinInject
@@ -31,7 +33,11 @@ fun AddResultsScreen(
             println("event : $event")
             when (event) {
                 AddResultsViewModel.ValidationEvent.Success -> {
-                    println("Success event : $event")
+                    if(mode == EDIT){
+                        "تمت عملية التعديل بنجاح".showSuccessMessage()
+                    }else{
+                        "تمت عملية الاضافة بنجاح".showSuccessMessage()
+                    }
                     navController.navigateReplacement(Screens.ResultsScreen())
                 }
                 else -> {}

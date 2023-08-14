@@ -106,7 +106,7 @@ fun ContractsScreen(
                                 var xlsxFilePath = ""
                                 GetFilePathDialog(
                                     onError = {
-                                              it.showErrorMessage()
+                                        it.showErrorMessage()
                                     },
                                     onSuccess = { xlsxFilePath = it }
                                 )
@@ -114,7 +114,7 @@ fun ContractsScreen(
                                     filePath = xlsxFilePath,
                                     onLoading = {},
                                     onError = {
-                                              it.showErrorMessage()
+                                        it.showErrorMessage()
                                     },
                                     onSuccess = {
                                         contracts = it
@@ -133,7 +133,7 @@ fun ContractsScreen(
                                 showImportDialog = false
                             },
                             onError = {
-                                      it.showErrorMessage()
+                                it.showErrorMessage()
                             },
                             onModify = { contracts, convertMap ->
                                 var contractsAfterModified: List<Contract>? = emptyList<Contract>()
@@ -142,7 +142,7 @@ fun ContractsScreen(
                                     contracts = contracts,
                                     convertedMap = convertMap,
                                     onError = {
-                                              it.showErrorMessage()
+                                        it.showErrorMessage()
                                     },
                                     onSuccess = {
                                         contractsAfterModified = it
@@ -154,12 +154,12 @@ fun ContractsScreen(
                                 viewModel.addAllImportedContracts(it,
                                     onLoading = {},
                                     onError = {
-                                              it.showErrorMessage()
+                                        it.showErrorMessage()
                                     },
                                     onSuccess = {
                                         success = it
                                         showImportDialog = false
-                                        ("تم إضاقة العقود من الملف بنجاح" ).showSuccessMessage()
+                                        ("تم إضاقة العقود من الملف بنجاح").showSuccessMessage()
                                     })
                                 success
                             }
@@ -198,7 +198,7 @@ fun ContractsScreen(
                                         viewModel.removeAllContracts(
                                             onLoading = {},
                                             onError = {
-                                                      it.showErrorMessage()
+                                                it.showErrorMessage()
                                             },
                                             onSuccess = {
                                                 "تمت عملية المسح بنجاح".showSuccessMessage()

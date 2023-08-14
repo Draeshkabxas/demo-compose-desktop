@@ -1,6 +1,8 @@
 package features.contracts.presentation.contracts
 
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import ImportXlsxDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,6 +50,7 @@ fun ContractsScreen(
         "التبعية", "إسم المصرف", "رقم الحساب",
         "الملاحظات", "الاشاري"
     )
+
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
     var superAdminPermission = userAuthSystem.canChangeAccountsPermission()
@@ -96,56 +99,73 @@ fun ContractsScreen(
                     var showImportDialog by remember { mutableStateOf(false) }
                     var contracts by remember { mutableStateOf<Map<String, List<Contract>>>(emptyMap()) }
                     if (superAdminPermission) {
-                    GradientButton(
-                        text = "استيراد عقود من ملف",
-                        icon = Icons.Default.FileUpload,
-                        onClick = {
-                            var xlsxFilePath = ""
-                            GetFilePathDialog(
-                                onError = {},
-                                onSuccess = { xlsxFilePath = it }
-                            )
-                            viewModel.importContracts(xlsxFilePath, {}, { println("error") }, {
-                                contracts = it
-                                showImportDialog = true
-                            })
-                        },
-                        colors = blueGradient, cornerRadius = 30.dp
-                    )
-                }
+                        GradientButton(
+                            text = "استيراد عقود من ملف",
+                            icon = Icons.Default.FileUpload,
+                            onClick = {
+                                var xlsxFilePath = ""
+                                GetFilePathDialog(
+                                    onError = {
+                                              it.showErrorMessage()
+                                    },
+                                    onSuccess = { xlsxFilePath = it }
+                                )
+                                viewModel.importContracts(
+                                    filePath = xlsxFilePath,
+                                    onLoading = {},
+                                    onError = {
+                                              it.showErrorMessage()
+                                    },
+                                    onSuccess = {
+                                        contracts = it
+                                        showImportDialog = true
+                                    })
+                            },
+                            colors = blueGradient, cornerRadius = 30.dp
+                        )
+
+                    }
                     if (showImportDialog) {
                         var success by remember { mutableStateOf(false) }
                         ImportXlsxDialog(
-                           contracts = contracts,
+                            contracts = contracts,
                             onDismiss = {
                                 showImportDialog = false
                             },
-                            onError = { println("dailog error $it")},
-                            onModify = {contracts,convertMap->
-                                var contractsAfterModified:List<Contract>? = emptyList<Contract>()
+                            onError = {
+                                      it.showErrorMessage()
+                            },
+                            onModify = { contracts, convertMap ->
+                                var contractsAfterModified: List<Contract>? = emptyList<Contract>()
 
-                                       viewModel.changeContractEducationLevelType(
-                                           contracts= contracts,
-                                           convertedMap = convertMap,
-                                           onError = {},
-                                           onSuccess = {
-                                               contractsAfterModified = it
-                                           }
-                                       )
+                                viewModel.changeContractEducationLevelType(
+                                    contracts = contracts,
+                                    convertedMap = convertMap,
+                                    onError = {
+                                              it.showErrorMessage()
+                                    },
+                                    onSuccess = {
+                                        contractsAfterModified = it
+                                    }
+                                )
                                 contractsAfterModified
                             },
                             onAdd = {
                                 viewModel.addAllImportedContracts(it,
                                     onLoading = {},
-                                    onError={},
-                                    onSuccess={
+                                    onError = {
+                                              it.showErrorMessage()
+                                    },
+                                    onSuccess = {
                                         success = it
                                         showImportDialog = false
+                                        ("تم إضاقة العقود من الملف بنجاح" ).showSuccessMessage()
                                     })
                                 success
                             }
                         )
                     }
+
                     GradientButton(
                         text = "طباعة",
                         icon = Icons.Default.Print,
@@ -175,7 +195,14 @@ fun ContractsScreen(
                                     icon = Icons.Default.DeleteForever,
                                     onClick = {
                                         showDialogDelet = false
-                                        viewModel.removeAllContracts(onLoading = {}, onError = {}, onSuccess = {})
+                                        viewModel.removeAllContracts(
+                                            onLoading = {},
+                                            onError = {
+                                                      it.showErrorMessage()
+                                            },
+                                            onSuccess = {
+                                                "تمت عملية المسح بنجاح".showSuccessMessage()
+                                            })
                                     },
                                     colors = RedGradient, cornerRadius = 30.dp
                                 )
@@ -235,10 +262,10 @@ fun ContractsScreen(
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false
-                                println("on canceled")
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             },
                             onError = {
-                                println("on onError")
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
                             }
                         )
                     }

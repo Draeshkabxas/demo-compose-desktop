@@ -1,3 +1,4 @@
+import AlertSystem.presentation.AlertMessagesConfig
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -59,6 +60,7 @@ fun App(appClose: AppCloseRepository = koinInject()) {
             onClose = {appClose.close()},
                     icon = "images/icon.png",
         ){
+            AlertMessagesConfig()
             AuthNavigationHost(navController = navController,windowState)
         }
     }

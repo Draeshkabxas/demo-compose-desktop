@@ -59,13 +59,14 @@ fun LoginScreen(
         when (state) {
             is Resource.Error -> {
                 state.message?.let {
+
                     if (showDialog){
                         AlertDialogSimple(
                             message = state.message.toString()
                         ) {
                             showDialog=false
                         }
-                }
+                    }
                 }
             }
 
@@ -79,7 +80,6 @@ fun LoginScreen(
 
             is Resource.Success -> {
                 if (state.data != null && state.data.job != None) {
-
                     AlertDialogSimple(
                         message = "تم تسجيل دخولك بنجاح"
                     ) {

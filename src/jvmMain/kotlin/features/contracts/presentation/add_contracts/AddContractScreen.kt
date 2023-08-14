@@ -1,5 +1,6 @@
 package features.contracts.presentation.add_contracts
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
 
 
@@ -26,14 +27,13 @@ fun AddContractsScreen(
     contract: Contract? = null,
     mode:ScreenMode,
     viewModel: AddContractViewModel = koinInject(),
-
     ) {
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
             println("event : $event")
             when (event) {
                 AddContractViewModel.ValidationEvent.Success -> {
-                    println("Success event : $event")
+                    "تمت عملية إضافة العقد بنجاح".showSuccessMessage()
                     navController.navigateReplacement(Screens.ContractsScreen())
                 }
                 else -> {}

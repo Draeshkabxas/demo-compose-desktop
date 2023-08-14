@@ -18,13 +18,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import authorization.domain.model.Jobs
-import common.component.OutlineRoundedButton
-import common.component.RoundedButton
-import common.component.RoundedImage
 import authorization.presentation.component.PasswordTextField
 import authorization.presentation.component.UserNameTextField
+import common.component.*
 import org.koin.compose.koinInject
-import common.component.RoundedDropdownMenu
 import navcontroller.NavController
 import styles.CairoTypography
 import styles.AppColors.background
@@ -34,11 +31,20 @@ fun RegisterScreen(
     navController: NavController<String>,
     viewModel: RegisterViewModel = koinInject(),
 ) {
+    var showDialog by remember { mutableStateOf(false) }
+    if (showDialog) {
+        AlertDialogSimple(
+            message = "تم انشاء حساب جديد بنجاح"
+        ) {
+            showDialog = true
+        }
+    }
     val state = viewModel.state
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
             when (event) {
                 RegisterViewModel.ValidationEvent.Success -> {
+                    showDialog = true
                     navController.navigate(AuthScreen.LoginAuthScreen.name)
                 }
             }
@@ -51,9 +57,11 @@ fun RegisterScreen(
         color = background,
         shape = RoundedCornerShape(20.dp) //window has round corners now
     ) {
+
         CompositionLocalProvider(
             LocalLayoutDirection provides LayoutDirection.Rtl // Set layout direction to RTL
         ) {
+
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceAround,

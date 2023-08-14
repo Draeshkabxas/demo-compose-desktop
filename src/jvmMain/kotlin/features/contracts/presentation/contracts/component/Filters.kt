@@ -84,6 +84,7 @@ fun Filters(
                 inputType = InputType.NUMBER,
                 maxLength = 12 // Set the maximum length to N characters
             )
+
             GradientButton(
                 text = "إبحث",
                 icon = Icons.Default.Search,
@@ -94,6 +95,7 @@ fun Filters(
                 colors = blueGradient
 
             )
+
             if (isCancelVisible) {
                 IconButton(
                     imageVector = Icons.Default.Cancel,

@@ -17,9 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import common.component.OutlineRoundedButton
-import common.component.RoundedButton
-import common.component.RoundedImage
 import authorization.presentation.component.PasswordTextField
 import authorization.presentation.component.UserNameTextField
 import authorization.domain.model.Jobs.None
@@ -27,7 +24,7 @@ import authorization.domain.model.Jobs.Viewer
 import authorization.domain.model.User
 import org.koin.compose.koinInject
 import authorization.domain.repository.AppCloseRepository
-import common.component.CustomAlertDialog
+import common.component.*
 import utils.Resource
 import navcontroller.NavController
 import styles.CairoTypography
@@ -57,17 +54,28 @@ fun LoginScreen(
         elevation = 40.dp
     ) {
         val state = viewModel.loginState.value
+        var showDialog by remember { mutableStateOf(false) }
+
         when (state) {
 //            is Resource.Error -> {
 //                println("error: ${state.message}")
 //            }
+
             is Resource.Error -> {
                 state.message?.let {
-                    CustomAlertDialog(
-                        title = "حدث خطا عند محاولة تسجيل دخولك",
-                        message = it,
-                        onDismiss = { /* Do something when the dialog is dismissed */ }
-                    )
+                    if (showDialog) {
+                        AlertDialogSimple(
+                            message = "the login eroor"
+                        ) {
+//                            showDialog = false
+                        }
+                    }
+
+//                    CustomAlertDialog(
+//                        title = "حدث خطا عند محاولة تسجيل دخولك",
+//                        message = it,
+//                        onDismiss = { /* Do something when the dialog is dismissed */ }
+//                    )
                 }
             }
 
@@ -81,6 +89,13 @@ fun LoginScreen(
 
             is Resource.Success -> {
                 if (state.data != null && state.data.job != None){
+                    if (showDialog) {
+                        AlertDialogSimple(
+                            message = "تم تسجيل دخولك بنجاح"
+                        ) {
+//                            showDialog = true
+                        }
+                    }
                     userAuthSystem.currentUser=state.data
                     navController.navigate(AuthScreen.SystemScreen.name)
 
@@ -138,6 +153,8 @@ fun LoginScreen(
                 ) {
                     RoundedButton({
                         viewModel.login(User("", userName.value, password.value, Viewer, listOf()))
+                        showDialog = true
+
                     }, "تسجيل الدخول")
                     OutlineRoundedButton({
                         navController.navigate(AuthScreen.SignupAuthScreen.name)

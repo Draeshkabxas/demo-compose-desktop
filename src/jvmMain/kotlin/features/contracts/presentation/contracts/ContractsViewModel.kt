@@ -60,6 +60,7 @@ class ContractsScreenViewModel (
         onSuccess: (List<Contract>?) -> Unit
     ) {
         if (convertedMap.values.any { it.isEmpty() }){
+            println("converted map = $convertedMap")
             onError("من فضلك حدد المؤهل العلمي لجميع الفئاة")
             onSuccess(null)
         }else{

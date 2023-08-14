@@ -26,7 +26,9 @@ class ChangeAllContractsEducationLevel() {
 
 fun Map<String,List<Contract>>.changeContractsEducationLevel(fromEducationLevel :String, toEducationLevel :String): Map<String, List<Contract>> {
     val contractsGroupedByEducationLevel = this.toMutableMap()
-
+    if (fromEducationLevel  == toEducationLevel){
+        return contractsGroupedByEducationLevel.toMap()
+    }
     val contractsList = this[fromEducationLevel]?.toList() ?: emptyList()
     if (contractsGroupedByEducationLevel.containsKey(toEducationLevel)){
         val addedList = contractsGroupedByEducationLevel[toEducationLevel]?.toMutableList() ?: emptyList<Contract>().toMutableList()

@@ -1,11 +1,9 @@
 package features.results.presentation.results
 
-import features.results.domain.usecases.PrintResultsListToXlsxFile
+import features.contracts.domain.model.Contract
 import utils.Resource
 import features.results.domain.model.Results
-import features.results.domain.usecases.GetAllResults
-import features.results.domain.usecases.RemoveAllResults
-import features.results.domain.usecases.RemoveResults
+import features.results.domain.usecases.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -17,6 +15,8 @@ class ResultsScreenViewModel (
     private val allResults: GetAllResults,
     private val printResultsListToXlsxFile: PrintResultsListToXlsxFile,
     private val removeAllResults: RemoveAllResults,
+    private val importResultsFromXlsx: ImportResultsFromXlsx,
+    private val addAllResults: AddAllResults,
     private val removeResultsUseCase: RemoveResults
 ) {
     private var state  = FilterState()
@@ -34,43 +34,57 @@ class ResultsScreenViewModel (
     }
     fun onEvent(event: FilterEvent) {
         when (event) {
-//            is FilterEvent.FilterLibyaId -> {
-//                state = state.copy(libyaId = event.libyaId)
-//            }
-//
-//            is FilterEvent.FilterFileNumber -> {
-//                state = state.copy(fileNumber = event.fileNumber)
-//            }
-//
-//            is FilterEvent.FilterEducationLevel -> {
-//                state = state.copy(educationLevel = event.educationLevel)
-//            }
-
             is FilterEvent.FilterDate -> {
                 state = state.copy(date = event.date)
             }
-
             is FilterEvent.FilterName -> {
                 state = state.copy(personName = event.personName)
             }
-
-//            is FilterEvent.FilterMotherName -> {
-//                state = state.copy(motherName = event.motherName)
-//            }
-//            is FilterEvent.FilterAgeGroup -> {
-//                state = state.copy(ageGroup = event.ageGroup.fromArabicNameToAgeGroup())
-//            }
-
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()
             }
-
             is FilterEvent.Submit -> {
                 getFilterData()
             }
         }
     }
+
+    fun importResults(
+        filePath: String,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (List<Results>) -> Unit
+    ) {
+        importResultsFromXlsx(filePath).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: emptyList<Results>())
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
+    fun addAllImportedResults(
+        results: List<Results>,
+        onLoading: () -> Unit = {},
+        onError: (String) -> Unit = {},
+        onSuccess: (Boolean) -> Unit
+    ){
+        addAllResults(results).onEach {
+            when (it) {
+                is Resource.Error -> onError(it.message.toString())
+                is Resource.Loading -> onLoading()
+                is Resource.Success -> {
+                    onSuccess(it.data ?: false)
+                    getFilterData()
+                }
+            }
+        }.launchIn(CoroutineScope(Dispatchers.IO))
+    }
+
 
     fun removeResults(
         results: Results,

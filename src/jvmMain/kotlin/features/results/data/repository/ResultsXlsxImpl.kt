@@ -1,5 +1,6 @@
 package features.results.data.repository
 
+import common.domain.xlsxToListOf
 import features.results.domain.model.Results
 import features.results.domain.repository.ResultsXlsxRepository
 
@@ -26,18 +27,9 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
                 val row = sheet.createRow(index + 1)
                 headers.forEachIndexed { cellIndex: Int, headerName: String ->
                     when(headerName.trim()){
-//                        "رقم الملف" -> {
-//                            row.createCell(cellIndex).setCellValue(result.fileNumber)
-//                        }
                         "الاسم رباعي" -> {
                             row.createCell(cellIndex).setCellValue(result.name)
                         }
-//                        "اسم الام" -> {
-//                            row.createCell(cellIndex).setCellValue(result.motherName)
-//                        }
-//                        "المؤهل العلمي" -> {
-//                            row.createCell(cellIndex).setCellValue(result.educationLevel)
-//                        }
                         "رقم الهاتف" -> {
                             row.createCell(cellIndex).setCellValue(result.phoneNumber)
                         }
@@ -47,17 +39,6 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
                         "تاريخ التحاليل" -> {
                             row.createCell(cellIndex).setCellValue(result.date)
                         }
-
-//                        "جنسية الام" -> {
-//                            row.createCell(cellIndex).setCellValue(result.motherNationality)
-//                        }
-
-//                        "اسم المصرف"-> {
-//                            row.createCell(cellIndex).setCellValue(result.bankName)
-//                        }
-//                        "رقم الحساب"-> {
-//                            row.createCell(cellIndex).setCellValue(result.accountNumber)
-//                        }
                         "الملاحظات"-> {
                             row.createCell(cellIndex).setCellValue(result.notes)
                         }
@@ -78,7 +59,17 @@ class ResultsXlsxImpl: ResultsXlsxRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    override fun getResultsFromXlsxFile(path: String): Flow<List<Results>> {
-        TODO("Not yet implemented")
+    override fun getResultsFromXlsxFile(path: String): Flow<List<Results>> = flow {
+        val map: Map<String, (Results, String) -> Results> = mapOf(
+            "الاسم" to { result:Results, value: String -> result.copy(name = value) },
+            "رقم الهاتف" to { result:Results, value: String -> result.copy(phoneNumber = value) },
+            "التاريخ" to { result:Results, value: String -> result.copy(date = value) },
+            "الملاحظات" to { result:Results, value: String -> result.copy(notes = value) },
+            "النتيجة" to { result:Results, value: String -> result.copy(result = value) },
+            )
+        val results = xlsxToListOf(path, {
+            Results(id = "", name = "", phoneNumber = "", result = "", date = "", notes = "")
+        }, map)
+        emit(results)
     }
 }

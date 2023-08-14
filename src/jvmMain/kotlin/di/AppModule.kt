@@ -197,13 +197,17 @@ val appModule = module {
     single<ResultsXlsxRepository> { ResultsXlsxImpl() }
     single<PrintResultsListToXlsxFile> { PrintResultsListToXlsxFile(get()) }
     single<RemoveAllResults> { RemoveAllResults(get()) }
+    single { ImportResultsFromXlsx(resultsXlsxRepository = get()) }
+    single { AddAllResults(resultsRepository = get()) }
     single<RemoveResults> { RemoveResults(get()) }
     factory<ResultsScreenViewModel> {
         ResultsScreenViewModel(
             allResults = get(),
             printResultsListToXlsxFile = get(),
             removeAllResults = get(),
-            removeResultsUseCase = get()
+            removeResultsUseCase = get(),
+            importResultsFromXlsx =  get(),
+            addAllResults =  get()
         )
     }
     //Add Results Di

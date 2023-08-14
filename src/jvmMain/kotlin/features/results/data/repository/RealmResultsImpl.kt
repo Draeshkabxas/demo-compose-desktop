@@ -37,6 +37,20 @@ class RealmResultsImpl(private val realm: Realm) :
         emit(result)
     }
 
+    override fun addAllResults(results: List<Results>): Flow<Boolean> = flow{
+           var result = true
+        realm.writeBlocking {
+            try {
+                results.forEach {results->
+                    copyToRealm(results.toRealmResultsDto())
+                }
+            } catch (e: Exception) {
+                println(e.localizedMessage)
+                result = false
+            }
+        }
+        emit(result)
+    }
 
 
     override fun getResults(id: String): Flow<Results?> = flow{

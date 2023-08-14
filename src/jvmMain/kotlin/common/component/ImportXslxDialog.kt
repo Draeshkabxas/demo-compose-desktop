@@ -9,16 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.BeyondBoundsLayout
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import common.component.SelectorWithLabel
 import features.contracts.domain.model.Contract
-import utils.Education
 import utils.getAllEducationArabicNames
-import java.awt.FileDialog
-import java.awt.Frame
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

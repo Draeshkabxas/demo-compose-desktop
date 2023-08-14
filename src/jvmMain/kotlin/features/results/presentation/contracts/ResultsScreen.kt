@@ -39,8 +39,8 @@ fun ResultsScreen(
     val widths =
         listOf(100.dp, 300.dp, 160.dp, 150.dp, 160.dp, 85.dp, 400.dp)
     val headers = listOf(
-        "التسلسل" ,"الإسم رباعي",
-        "رقم الهاتف","نتائج التحاليل", "تاريخ التحاليل",
+        "التسلسل", "الإسم رباعي",
+        "رقم الهاتف", "نتائج التحاليل", "تاريخ التحاليل",
         "تعديل", "الملاحظات"
     )
     val userAuthSystem = getUserAuth()
@@ -64,13 +64,8 @@ fun ResultsScreen(
         HeadLineWithDate(text = "منظومة نتائج التحاليل ", date = "1/7/2023  1:30:36 PM")
         Box {
             Filters(
-//                onFilterLibyaId = { viewModel.onEvent(FilterLibyaId(it)) },
-//                onFilterFileNumber = { viewModel.onEvent(FilterFileNumber(it)) },
-//                onFilterEducationLevel = { viewModel.onEvent(FilterEducationLevel(it)) },
                 onFilterDate = { viewModel.onEvent(FilterEvent.FilterDate(it)) },
-//                onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
                 onFilterName = { viewModel.onEvent(FilterEvent.FilterName(it)) },
-//                onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
                 onReset = { viewModel.onEvent(FilterEvent.Reset) },
                 onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
             )
@@ -85,6 +80,35 @@ fun ResultsScreen(
                         icon = Icons.Default.AddTask,
                         onClick = {
                             navController.navigate(Screens.AddResultsScreen())
+                        },
+                        colors = blueGradient, cornerRadius = 30.dp
+                    )
+                    GradientButton(
+                        text = "استيراد النتائج من ملف",
+                        icon = Icons.Default.AddTask,
+                        onClick = {
+                            var filePath = ""
+                            GetFilePathDialog(
+                                onError = {},
+                                onSuccess = {
+                                    filePath = it
+                                },
+                            )
+                            if (filePath.isNotEmpty()) {
+                                viewModel.importResults(
+                                    filePath = filePath,
+                                    onLoading = {},
+                                    onError = {},
+                                    onSuccess = {
+                                        viewModel.addAllImportedResults(
+                                            results = it,
+                                            onLoading = {},
+                                            onError = {},
+                                            onSuccess = {}
+                                        )
+                                    }
+                                )
+                            }
                         },
                         colors = blueGradient, cornerRadius = 30.dp
                     )
@@ -191,7 +215,7 @@ fun ResultsScreen(
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
                             PaginatedTable(navController, headers, resultsData, 15, widths,
-                                onRemoveResults  = { results ->
+                                onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
                                 })
                         }

@@ -24,11 +24,9 @@ import common.component.ScreenMode
 import common.component.Screens
 import features.contracts.domain.model.Contract
 import navcontroller.NavController
-import styles.AppColors
 import styles.AppColors.blue
 import styles.CairoTypography
 import utils.getUserAuth
-import kotlin.math.roundToInt
 
 @Composable
 fun PaginatedTable(

@@ -16,9 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.text.style.TextAlign
 import common.component.*
 
@@ -29,12 +26,9 @@ import features.contracts.presentation.contracts.component.Filters
 import features.contracts.presentation.contracts.component.PaginatedTable
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import org.koin.compose.koinInject
-import styles.AppColors
 import styles.AppColors.GreenGradient
 import styles.AppColors.RedGradient
-import styles.AppColors.blue
 import styles.AppColors.blueGradient
-import styles.AppColors.green
 import styles.CairoTypography
 import utils.getUserAuth
 

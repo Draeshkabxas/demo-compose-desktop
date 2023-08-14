@@ -1,5 +1,6 @@
 package features.contracts.presentation.add_contracts
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -178,6 +179,7 @@ class AddContractViewModel(
                     println("submitData add is getting data")
                     state = ContractInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية الأضافة بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }else{
@@ -187,6 +189,7 @@ class AddContractViewModel(
                     println("submitData update is getting data")
                     state = ContractInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية التعديل بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }

@@ -1,5 +1,6 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -187,6 +188,7 @@ class AddSonsOfOfficersViewModel(
                     println("submitData add is getting data")
                     state = PersonalInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية الأضافة بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }else{
@@ -196,6 +198,7 @@ class AddSonsOfOfficersViewModel(
                     println("submitData update is getting data")
                     state = PersonalInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية التعديل بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }

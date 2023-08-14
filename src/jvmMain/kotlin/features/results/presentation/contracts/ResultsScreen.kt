@@ -87,7 +87,7 @@ fun ResultsScreen(
                     )
                     GradientButton(
                         text = "استيراد النتائج من ملف",
-                        icon = Icons.Default.AddTask,
+                        icon = Icons.Default.FileUpload,
                         onClick = {
                             var filePath = ""
                             GetFilePathDialog(

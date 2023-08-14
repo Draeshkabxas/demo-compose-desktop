@@ -259,6 +259,7 @@ fun ContractsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
+                                "تمت عملية الطباعة بنجاح".showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false

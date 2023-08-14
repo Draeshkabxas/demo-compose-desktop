@@ -20,6 +20,8 @@ data class CourseInfoFormState(
     val recruiterError: String? = null,
     val city: String = "",
     val cityError: String? = null,
+    val commission: String = "",
+    val commissionError: String? = null,
 )
 fun Course.toCourseInfoFormState(): CourseInfoFormState =
     CourseInfoFormState(
@@ -31,5 +33,6 @@ fun Course.toCourseInfoFormState(): CourseInfoFormState =
         phoneNumber = this.phoneNumber,
         educationLevel = this.educationLevel,
         recruiter = this.recruiter,
-        city = this.city
+        city = this.city ,
+        commission=this.commission
     )

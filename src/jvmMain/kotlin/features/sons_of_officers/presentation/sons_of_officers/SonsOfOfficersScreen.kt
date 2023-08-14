@@ -39,7 +39,7 @@ fun SonsOfOfficersScreen(
     val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp, 85.dp, 65.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "النواقص", "النتيجة", "إحالة لتدريب"
+        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة", "إحالة لتدريب"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -158,7 +158,8 @@ fun SonsOfOfficersScreen(
                                 "المدينة",
                                 "رقم الهاتف",
                                 "القائم بالتجنيد",
-                                "النتيجة"
+                                "النتيجة",
+                                "اللجنة"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintList(it))

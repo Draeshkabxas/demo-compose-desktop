@@ -16,7 +16,8 @@ data class Course(
     val ageGroup: AgeGroup,
     val justificationsRequire: Map<String, Boolean>,
     val procedures: Map<String, Boolean>,
-)
+    val commission:String,
+    )
 fun Course.hasShortfalls():Boolean =
     justificationsRequire.values.any { !it } || procedures.values.any { !it }
 

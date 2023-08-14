@@ -10,6 +10,7 @@ import features.courses.domain.usecases.UpdateCourse
 import features.courses.presentation.add_courses.CourseInfoFormEvent.*
 import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel
+import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormState
 import features.sons_of_officers.presentation.add_sons_of_officers.toPersonalInfoFormState
 import kotlinx.coroutines.CoroutineScope
@@ -51,9 +52,8 @@ class AddCourseViewModel(
         "رقم الملف",
         "الرقم الوطني",
         "رقم الهاتف",
-        "المؤهل العلمي",
         "القائم بالتجنيد",
-        "المدينة",
+        "اللجنة"
     )
 
     var justificationsRequiredInputsNameAndValue = mapOf(
@@ -109,6 +109,9 @@ class AddCourseViewModel(
             is CityChanged ->{
                 state = state.copy(city = event.city)
             }
+            is CommissionChanged ->{
+                state = state.copy(commission = event.commission)
+            }
             is Submit -> {
                 submitData(event.mode)
             }
@@ -125,6 +128,7 @@ class AddCourseViewModel(
         val phoneNumberResult = validatePhoneNumber.execute(state.phoneNumber)
         val educationLevelResult= validateTextInputs.execute(state.educationLevel,"المؤهل العلمي")
         val recruiterResult = validateTextInputs.execute(state.recruiter,"القائم بالتجنيد")
+//        val commissionResult = validateTextInputs.execute(state.commission,"اللجنة",true)
         val cityResult = validateTextInputs.execute(state.city,"المدينة ")
 
         val hasError = listOf(
@@ -135,7 +139,8 @@ class AddCourseViewModel(
             phoneNumberResult,
             educationLevelResult,
             recruiterResult,
-            cityResult
+            cityResult,
+//            commissionResult,
         ).any { !it.successful }
 
         if(hasError) {
@@ -147,7 +152,9 @@ class AddCourseViewModel(
                 phoneNumberError = phoneNumberResult.errorMessage,
                 educationLevelError = educationLevelResult.errorMessage,
                 recruiterError = recruiterResult.errorMessage,
-                cityError = cityResult.errorMessage
+                cityError = cityResult.errorMessage,
+//                commissionError = commissionResult.errorMessage,
+
             )
             return
         }
@@ -170,7 +177,8 @@ class AddCourseViewModel(
             city = state.city,
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
-            procedures = procedures
+            procedures = procedures,
+            commission =state.commission
         )
         println("submitData is running")
         if (mode == ScreenMode.ADD) {

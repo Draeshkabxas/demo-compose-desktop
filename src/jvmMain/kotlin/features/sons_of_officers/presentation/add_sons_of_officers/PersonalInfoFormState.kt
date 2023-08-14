@@ -1,5 +1,6 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
+import features.courses.presentation.add_courses.toCourseInfoFormState
 import features.sons_of_officers.domain.model.Person
 
 data class PersonalInfoFormState(
@@ -20,6 +21,8 @@ data class PersonalInfoFormState(
     val recruiterError: String? = null,
     val city: String = "",
     val cityError: String? = null,
+    val commission: String = "",
+    val commissionError: String? = null,
 )
 
 fun Person.toPersonalInfoFormState(): PersonalInfoFormState =
@@ -32,7 +35,8 @@ fun Person.toPersonalInfoFormState(): PersonalInfoFormState =
         phoneNumber = this.phoneNumber,
         educationLevel = this.educationLevel,
         recruiter = this.recruiter,
-        city = this.city
+        city = this.city,
+        commission=this.commission
     )
 
 

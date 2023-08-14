@@ -171,6 +171,19 @@ fun AddCoursesScreen(
                         )
                 }
             }
+
+            item {
+                CustomOutlinedTextField(
+                    value = state.commission,
+                    onValueChange = { viewModel.onEvent(CommissionChanged(it)) },
+                    onNextChange = { viewModel.onEvent(CommissionChanged(it)) },
+                    hint = personalInputsName[6],
+                    isError = state.commissionError!=null,
+                    errorMessage = state.commissionError.toString(),
+                    inputType = InputType.All
+
+                )
+            }
         }
         Section("المصوغات المطلوبة",4){
             viewModel.justificationsRequiredInputsNameAndValue.forEach{ name,valueState ->

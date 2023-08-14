@@ -35,6 +35,7 @@ fun Course.toRealmCourse(): RealmCourse {
         ageGroup = person.ageGroup.arabicName
         justificationsRequire = justifications
         procedures=proceduresRealm
+        commission =person.commission
     }
 
 }

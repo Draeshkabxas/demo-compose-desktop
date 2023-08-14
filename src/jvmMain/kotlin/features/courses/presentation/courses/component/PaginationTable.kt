@@ -120,23 +120,40 @@ fun PaginatedTable(
                             )
                         }
                 ) {
-                    if (superAdmin){
-                        ItemMenu(
+//                    if (superAdmin){
+//                        ItemMenu(
+//                        showMenu = showPopup,
+//                        onEdit = {
+//
+//                            navController.navigate(Screens.AddCoursesScreen(
+//                                mode = EDIT,
+//                                course = person))
+//
+//                        },
+//                        onRemove = {
+//                            onRemoveCourse(person)
+//                        },
+//                        showDialog = showDialog,
+//                        alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
+//                    )
+//                    }
+                    ItemMenu(
                         showMenu = showPopup,
                         onEdit = {
-
                             navController.navigate(Screens.AddCoursesScreen(
                                 mode = EDIT,
                                 course = person))
 
                         },
+
                         onRemove = {
+
                             onRemoveCourse(person)
                         },
+
                         showDialog = showDialog,
                         alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                     )
-                    }
                     Text(
                         text = (personList.indexOf(person) + 1).toString(), // display counter value as text
                         maxLines = 1,
@@ -237,36 +254,45 @@ fun PaginatedTable(
                     val valueToCheck = person.procedures.get("إحالة لتدريب")
 
 //                    isButtonVisible = person.hasShortfalls()
-                    if (canEditPermission){
-                    if (valueToCheck == false) {
-
-                        Spacer(modifier = Modifier.size(0.dp, 20.dp))
-
-                        common.component.TextButton(
-                            width = columnWidths[10],
-                            text = "إضافة",
-                            onClick = {
-                                navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
-                            },
-                            colors = AppColors.GreenGradient, cornerRadius = 30.dp
-                        )
-                    }
-                }
-                    else{
-                        Text(
-                            text = "",
-                            modifier = Modifier
-                                .width(columnWidths[10])
-                                .padding(8.dp)
-                        )
-                    }
+//                    if (canEditPermission){
+//                    if (valueToCheck == false) {
+//
+//                        Spacer(modifier = Modifier.size(0.dp, 20.dp))
+//
+//                        common.component.TextButton(
+//                            width = columnWidths[10],
+//                            text = "إضافة",
+//                            onClick = {
+//                                navController.navigate(Screens.AddCoursesScreen(mode = EDIT, course = person))
+//                            },
+//                            colors = AppColors.GreenGradient, cornerRadius = 30.dp
+//                        )
+//                    }
+//                }
+//                    else{
+//                        Text(
+//                            text = "",
+//                            modifier = Modifier
+//                                .width(columnWidths[10])
+//                                .padding(8.dp)
+//                        )
+//                    }
+                    Text(
+                        text = person.commission,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .width(columnWidths[10])
+                            .padding(8.dp)
+                    )
                     Text(
                         text = if (person.procedures["لائق صحيا"] == true) "لائق" else if (person.procedures["غير لائق صحيا"] == true) "غير لائق" else "",
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .width(columnWidths[10])
+                            .width(columnWidths[11])
                             .padding(8.dp)
                     )
                     Text(

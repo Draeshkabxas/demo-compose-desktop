@@ -57,6 +57,9 @@ class CoursesXlsxImpl: CourseXlsxRepository {
                         "النتيجة" -> {
                             row.createCell(cellIndex).setCellValue(testResult.toString())
                         }
+                        "اللجنة" -> {
+                            row.createCell(cellIndex).setCellValue(course.commission)
+                        }
                         else -> {}
                     }
                 }

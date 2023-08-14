@@ -31,7 +31,7 @@ fun Section(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             columns = GridCells.Fixed(columns),
-            contentPadding = PaddingValues(horizontal = 12.dp)
+            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp)
         ){
             gridContent()
         }

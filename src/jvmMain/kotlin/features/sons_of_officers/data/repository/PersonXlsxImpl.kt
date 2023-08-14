@@ -55,6 +55,9 @@ class PersonXlsxImpl: PersonXlsxRepository {
                         "النتيجة" -> {
                             row.createCell(cellIndex).setCellValue(testResult.toString())
                         }
+                        "اللجنة" -> {
+                            row.createCell(cellIndex).setCellValue(person.commission)
+                        }
                         else -> {}
                     }
                 }

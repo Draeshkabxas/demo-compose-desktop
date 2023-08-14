@@ -1,7 +1,9 @@
 package features.sons_of_officers.presentation.add_sons_of_officers
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
@@ -9,7 +11,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import common.component.*
+import features.courses.presentation.add_courses.CourseInfoFormEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.add_sons_of_officers.AddSonsOfOfficersViewModel.ValidationEvent
 import navcontroller.NavController
@@ -65,9 +69,10 @@ fun AddSonsOfOfficersScreen(
                             isError = state.nameError!=null,
                             hint = personalInputsName[0],
                             errorMessage = state.nameError.toString(),
-                            inputType = InputType.TEXT
-
+                            inputType = InputType.TEXT,
+                            width =50.dp
                         )
+//                        Spacer(modifier = Modifier.width(10.dp))
                     }
             item {
                 CustomOutlinedTextField(
@@ -169,6 +174,18 @@ fun AddSonsOfOfficersScreen(
                         style = CairoTypography.body2
                     )
                 }
+            }
+            item {
+                CustomOutlinedTextField(
+                    value = state.commission,
+                    onValueChange = { viewModel.onEvent(CommissionChanged(it)) },
+                    onNextChange = { viewModel.onEvent(CommissionChanged(it)) },
+                    hint = personalInputsName[6],
+                    isError = state.commissionError!=null,
+                    errorMessage = state.commissionError.toString(),
+                    inputType = InputType.All
+
+                )
             }
         }
         Section("المصوغات المطلوبة",4){

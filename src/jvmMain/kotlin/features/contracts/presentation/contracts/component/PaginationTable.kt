@@ -244,7 +244,7 @@ fun PaginatedTable(
                         )
                         Text(
                             text = contract.reference,
-                            style = CairoTypography.h5,
+                            style = CairoTypography.body2,
 //                            fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier

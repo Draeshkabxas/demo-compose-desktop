@@ -50,9 +50,8 @@ class AddSonsOfOfficersViewModel(
         "رقم الملف",
         "الرقم الوطني",
         "رقم الهاتف",
-        "المؤهل العلمي",
         "القائم بالتجنيد",
-        "المدينة",
+        "اللجنة"
     )
 
     var justificationsRequiredInputsNameAndValue = mapOf(
@@ -109,6 +108,9 @@ class AddSonsOfOfficersViewModel(
             is CityChanged ->{
                 state = state.copy(city = event.city)
             }
+            is CommissionChanged ->{
+                state = state.copy(commission = event.commission)
+            }
             is Submit -> {
                 submitData(event.mode)
             }
@@ -125,6 +127,7 @@ class AddSonsOfOfficersViewModel(
         val educationLevelResult= validateTextInputs.execute(state.educationLevel,"المؤهل العلمي")
         val recruiterResult = validateTextInputs.execute(state.recruiter,"القائم بالتجنيد")
         val cityResult = validateTextInputs.execute(state.city,"المدينة ")
+//        val commissionResult = validateTextInputs.execute(state.commission,"اللجنة",true)
 
         val hasError = listOf(
             nameResult,
@@ -134,6 +137,7 @@ class AddSonsOfOfficersViewModel(
             phoneNumberResult,
             educationLevelResult,
             recruiterResult,
+//            commissionResult,
             cityResult
         ).any { !it.successful }
 
@@ -146,7 +150,9 @@ class AddSonsOfOfficersViewModel(
                 phoneNumberError = phoneNumberResult.errorMessage,
                 educationLevelError = educationLevelResult.errorMessage,
                 recruiterError = recruiterResult.errorMessage,
-                cityError = cityResult.errorMessage
+                cityError = cityResult.errorMessage,
+//                commissionError = commissionResult.errorMessage
+
             )
             return
         }
@@ -170,7 +176,8 @@ class AddSonsOfOfficersViewModel(
             city = state.city,
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
-            procedures = procedures
+            procedures = procedures,
+            commission =state.commission
         )
         println("submitData is running")
         if (mode == ADD) {

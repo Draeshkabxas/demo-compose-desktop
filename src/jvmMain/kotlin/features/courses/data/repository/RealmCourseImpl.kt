@@ -76,6 +76,8 @@ class RealmCourseImpl(private val realm: Realm) :
                             ageGroup = updatedPerson.ageGroup
                             justificationsRequire = updatedPerson.justificationsRequire
                             procedures = updatedPerson.procedures
+                            commission = updatedPerson.commission
+
                         })
                     }
                 result = true

@@ -59,10 +59,13 @@ fun LoginScreen(
         when (state) {
             is Resource.Error -> {
                 state.message?.let {
-                    AlertDialogSimple(
-                        message = "the login eroor"
-                    ) {
-                    }
+                    if (showDialog){
+                        AlertDialogSimple(
+                            message = state.message.toString()
+                        ) {
+                            showDialog=false
+                        }
+                }
                 }
             }
 

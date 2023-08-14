@@ -1,5 +1,6 @@
 package features.results.presentation.add_results
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -172,6 +173,7 @@ class AddResultsViewModel(
                     println("submitData add is getting data")
                     state = ResultsInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية الأضافة بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }else{
@@ -181,6 +183,7 @@ class AddResultsViewModel(
                     println("submitData update is getting data")
                     state = ResultsInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية التعديل بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }

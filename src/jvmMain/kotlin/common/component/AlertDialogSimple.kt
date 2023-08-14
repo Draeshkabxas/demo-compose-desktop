@@ -23,7 +23,7 @@ fun AlertDialogSimple(message: String,
             }
         },
         title = {
-            Text(text = "رسالة تنبيه!")
+            Text(text = "رسالة تنبيه!",)
         },
         text = {
             Text(text = message)

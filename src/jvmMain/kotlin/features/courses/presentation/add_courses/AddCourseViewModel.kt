@@ -1,5 +1,6 @@
 package features.courses.presentation.add_courses
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -188,6 +189,7 @@ class AddCourseViewModel(
                     println("submitData add is getting data")
                     state = CourseInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية الأضافة بنجاح".showSuccessMessage()
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }else{
@@ -197,6 +199,8 @@ class AddCourseViewModel(
                     println("submitData update is getting data")
                     state = CourseInfoFormState()
                     validationEventChannel.send(ValidationEvent.New)
+                    "تمت عملية التعديل بنجاح".showSuccessMessage()
+
                 }
             }.launchIn(CoroutineScope(Dispatchers.IO))
         }

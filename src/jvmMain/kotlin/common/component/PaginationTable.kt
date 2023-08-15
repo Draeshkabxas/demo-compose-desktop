@@ -1,5 +1,6 @@
 package common.component
 
+import AlertSystem.presentation.showErrorMessage
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -46,6 +47,7 @@ fun PaginatedTable(
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
     var superAdmin = userAuthSystem.canChangeAccountsPermission()
+    val scrollState = rememberScrollState()
 
     Column() {
         Row {
@@ -123,6 +125,8 @@ fun PaginatedTable(
                             onRemove = {
 
                                 onRemovePerson(person)
+                                ("تمت عملية مسح الملف بنجاح").showErrorMessage()
+
                             },
 
                             showDialog = showDialog,

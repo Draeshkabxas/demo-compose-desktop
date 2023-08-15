@@ -1,5 +1,6 @@
 package features.contracts.presentation.contracts
 
+import androidx.compose.runtime.*
 import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.*
@@ -33,9 +34,13 @@ class ContractsScreenViewModel (
 
     init {
         getFilterData()
+
     }
 
-
+    @Composable
+    fun currentPageReset() {
+        var currentPage by remember { mutableStateOf(0) }
+    }
     fun importContracts(
         filePath: String,
         onLoading: () -> Unit = {},

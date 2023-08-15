@@ -1,5 +1,6 @@
 package features.results.presentation.results.component
 
+import AlertSystem.presentation.showErrorMessage
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -114,6 +115,7 @@ fun PaginatedTable(
 
                                 }, onRemove = {
                                     onRemoveResults(results)
+                                    ("تمت عملية مسح الملف بنجاح").showErrorMessage()
                                 },
                                 showDialog = showDialog,
                                 alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"

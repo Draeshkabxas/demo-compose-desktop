@@ -181,7 +181,7 @@ fun CoursesScreen(
                             viewModel.onPrintEvent(PrintToDirectory(filePath))
                             viewModel.onPrintEvent(PrintEvent.Submit)
                             showPrintDirectoryPathDialog = false
-                            ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+                            ("تمت عملية الطباعة بنجاح" ).showSuccessMessage()
                         },
                         onCanceled = {
                             showPrintDirectoryPathDialog = false

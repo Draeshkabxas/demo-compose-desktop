@@ -14,9 +14,9 @@ class LoginUseCase(private val auth: AuthenticationRepository) {
         val result = auth.isUser(user).first()
         println("login state is  $result")
         if (result == null) {
-            emit(Resource.Error(message = "اسم المستخدم او كلمة المرور خاطئة"))
+            emit(Resource.Error(message = "اسم المستخدم أو كلمة المرور خاطئة"))
         } else if (result.job == None) {
-            emit(Resource.Error(message = "يرجى الاتصال بمديرك ليعطيك صلاحية الدخول"))
+            emit(Resource.Error(message = " يرجى التواصل مع مديرك لإعطائك صلاحية الدخول للنظام"))
         }else {
             emit(Resource.Success(result))
         }

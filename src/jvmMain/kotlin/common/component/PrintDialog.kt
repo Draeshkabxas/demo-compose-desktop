@@ -24,7 +24,7 @@ import kotlin.math.ceil
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun PrintDialog(
-    size: DpSize = DpSize(400.dp, 500.dp),
+    size: DpSize = DpSize(400.dp, 550.dp),
     columns: List<String>,
     onPrintColumnsChanged: (List<String>) -> Unit,
     onDismiss: () -> Unit,

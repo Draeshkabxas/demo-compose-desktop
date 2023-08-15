@@ -1,10 +1,12 @@
 package features.contracts.presentation.contracts.component
 
+import AlertSystem.presentation.showErrorMessage
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
@@ -15,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,7 +30,13 @@ import navcontroller.NavController
 import styles.AppColors.blue
 import styles.CairoTypography
 import utils.getUserAuth
+import androidx.compose.foundation.ScrollbarStyle
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalDensity
 
+import androidx.compose.ui.unit.dp
 @Composable
 fun PaginatedTable(
     navController: NavController<Screens>,
@@ -35,7 +44,7 @@ fun PaginatedTable(
     contractList: List<Contract>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
-    onRemoveContract: (Contract) -> Unit
+    onRemoveContract: (Contract) -> Unit,
 ) {
 //    if (contractList.isEmpty()) return
     val pageCount = (contractList.size + itemsPerPage - 1) / itemsPerPage
@@ -44,9 +53,13 @@ fun PaginatedTable(
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
-    var superAdmin = userAuthSystem.canChangeAccountsPermission()
+    val scrollState = rememberScrollState()
+    val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
 
-    Column() {
+
+    Column(
+
+    ) {
         Row {
             headers.forEachIndexed { index, header ->
                 Text(
@@ -99,26 +112,27 @@ fun PaginatedTable(
                     ) {
 
 //                        if (canEditPermission) {
-                            ItemMenu(
-                                showMenu = showPopup,
-                                onEdit = {
-                                    navController.navigate(
-                                        Screens.AddContractsScreen(
-                                            mode = ScreenMode.EDIT,
-                                            contract = contract
-                                        )
+                        ItemMenu(
+                            showMenu = showPopup,
+                            onEdit = {
+                                navController.navigate(
+                                    Screens.AddContractsScreen(
+                                        mode = ScreenMode.EDIT,
+                                        contract = contract
                                     )
+                                )
 
-                                },
+                            },
 
-                                onRemove = {
+                            onRemove = {
+                                onRemoveContract(contract)
+                                ("تمت عملية مسح الملف بنجاح").showErrorMessage()
 
-                                    onRemoveContract(contract)
-                                },
+                            },
 
-                                showDialog = showDialog,
-                                alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
-                            )
+                            showDialog = showDialog,
+                            alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
+                        )
 //                        }
 
                         Text(
@@ -308,5 +322,12 @@ fun PaginatedTable(
                 )
             }
         }
+        // Add the horizontal scrollbar below the Column
+
     }
+
+
+
+
 }
+

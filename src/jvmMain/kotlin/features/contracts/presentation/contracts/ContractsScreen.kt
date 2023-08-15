@@ -21,7 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import common.component.*
 
-
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import features.contracts.domain.model.Contract
 import features.contracts.presentation.contracts.FilterEvent.*
 import features.contracts.presentation.contracts.component.Filters
@@ -57,6 +59,7 @@ fun ContractsScreen(
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+    var currentPage by remember { mutableStateOf(0) }
 
 
     LaunchedEffect(key1 = true) {
@@ -162,7 +165,7 @@ fun ContractsScreen(
                                     onSuccess = {
                                         success = it
                                         showImportDialog = false
-                                        ("تم إضاقة العقود من الملف بنجاح").showSuccessMessage()
+                                        ("تم إضافة العقود من الملف بنجاح").showSuccessMessage()
                                     })
                                 success
                             }
@@ -263,7 +266,7 @@ fun ContractsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+                                ("تمت عملية الطباعة بنجاح" ).showSuccessMessage()
 
                             },
                             onCanceled = {

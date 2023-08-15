@@ -1,5 +1,6 @@
 package features.courses.presentation.courses.component
 
+import AlertSystem.presentation.showErrorMessage
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -149,6 +150,8 @@ fun PaginatedTable(
                         onRemove = {
 
                             onRemoveCourse(person)
+                            ("تمت عملية مسح الملف بنجاح").showErrorMessage()
+
                         },
 
                         showDialog = showDialog,

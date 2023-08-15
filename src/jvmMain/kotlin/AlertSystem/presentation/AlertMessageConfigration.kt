@@ -2,11 +2,12 @@ package AlertSystem.presentation
 
 import androidx.compose.runtime.*
 import common.component.AlertDialogSimple
+import common.component.MessageType
 
 
-private var showErrorMessage by mutableStateOf(false)
+var showErrorMessage by mutableStateOf(false)
 private var errorMessage by  mutableStateOf("")
-private var showSuccessMessage by mutableStateOf(false)
+var showSuccessMessage by mutableStateOf(false)
 private var successMessage by  mutableStateOf("")
 @Composable
 fun AlertMessagesConfig(){
@@ -19,10 +20,9 @@ fun AlertMessagesConfig(){
 
     if (showSuccessMessage) {
         AlertDialogSimple(
-            message = successMessage
-        ) {
-            showSuccessMessage = false
-        }
+            message = successMessage, messageType = MessageType.SUCCESS,    onDismiss = { showSuccessMessage = false }
+
+        )
     }
 }
 

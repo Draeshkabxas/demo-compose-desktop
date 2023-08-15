@@ -309,8 +309,8 @@ fun PaginatedTable(
                 "الصفحة ${currentPage + 1} من $pageCount",
                 style = CairoTypography.h4,
                 fontWeight = FontWeight.Bold,
-
                 modifier = Modifier.padding(8.dp)
+
             )
             Button(
                 shape = RoundedCornerShape(20.dp),

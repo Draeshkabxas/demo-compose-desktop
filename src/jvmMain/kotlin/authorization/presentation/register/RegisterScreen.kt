@@ -1,5 +1,7 @@
 package authorization.presentation.register
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -32,13 +34,7 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = koinInject(),
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    if (showDialog) {
-        AlertDialogSimple(
-            message = "تم انشاء حساب جديد بنجاح"
-        ) {
-            showDialog = true
-        }
-    }
+    ("تم انشاء حساب جديد بنجاح").showSuccessMessage()
     val state = viewModel.state
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->

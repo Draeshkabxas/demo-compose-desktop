@@ -129,6 +129,7 @@ class ContractsScreenViewModel (
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()
+
             }
 
             is FilterEvent.Submit -> {

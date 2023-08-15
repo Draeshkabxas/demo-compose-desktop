@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 557">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 558">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/AlertMessageConfigration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/AlertMessageConfigration.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/ErrorMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/ErrorMessage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/SuccessMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/AlertSystem/presentation/SuccessMessage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/login/LoginScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/authorization/presentation/register/RegisterScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/AlertDialogSimple.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/AlertDialogSimple.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PrintDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PrintDialog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,22 +209,6 @@
       <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
-    </task>
-    <task id="LOCAL-00028" summary="add btn">
-      <option name="closed" value="true" />
-      <created>1689169185654</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1689169185655</updated>
-    </task>
-    <task id="LOCAL-00029" summary="add edite 5">
-      <option name="closed" value="true" />
-      <created>1689184316178</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1689184316178</updated>
     </task>
     <task id="LOCAL-00030" summary="add edite 6">
       <option name="closed" value="true" />
@@ -564,7 +554,23 @@
       <option name="project" value="LOCAL" />
       <updated>1692048556766</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="add edite 557">
+      <option name="closed" value="true" />
+      <created>1692058807510</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1692058807511</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add edite 558">
+      <option name="closed" value="true" />
+      <created>1692104939778</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1692104939778</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -579,7 +585,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add edite 14" />
     <MESSAGE value="add edite 15" />
     <MESSAGE value="add edite 16" />
     <MESSAGE value="add edite 17" />
@@ -604,7 +609,8 @@
     <MESSAGE value="add edite 555" />
     <MESSAGE value="add edite 556" />
     <MESSAGE value="add edite 557" />
-    <option name="LAST_COMMIT_MESSAGE" value="add edite 557" />
+    <MESSAGE value="add edite 558" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 558" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

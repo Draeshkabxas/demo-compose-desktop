@@ -132,6 +132,9 @@ fun ContractsScreen(
                         var success by remember { mutableStateOf(false) }
                         ImportXlsxDialog(
                             contracts = contracts,
+                            onFilter = { educationLevel, _ ->
+                                !viewModel.checkIfEducationLevelIsCorrect(educationLevel)
+                            },
                             onDismiss = {
                                 showImportDialog = false
                             },

@@ -21,17 +21,18 @@ import utils.getAllEducationArabicNames
 fun ImportXlsxDialog(
     contracts:Map<String,List<Contract>>,
     onError: @Composable() (String) -> Unit,
+    onFilter:(String,List<Contract>) -> Boolean,
     onDismiss:()->Unit,
     onModify: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
     onAdd: (List<Contract>) -> Boolean,
 ) {
+    var showErrorMessage by remember { mutableStateOf(false) }
     val convertMap by remember { mutableStateOf(mutableMapOf<String, String>())}
     //Fill the convert map with contracts types
     if (convertMap.isEmpty()){
-        contracts.forEach { convertMap[it.key] = ""}
+        contracts.filter { onFilter(it.key,it.value) }.forEach { convertMap[it.key] = ""}
     }
 
-    var showErrorMessage by remember { mutableStateOf(false) }
     CustomDialogWindow(
         onDismiss = {
             showErrorMessage = false
@@ -46,7 +47,6 @@ fun ImportXlsxDialog(
             Button({
                 val contractAfterModified = onModify(contracts, convertMap)
                 if (contractAfterModified.isNullOrEmpty()) {
-                    println("I'm happening")
                     showErrorMessage = true
                 } else {
                     onAdd(contractAfterModified)
@@ -62,7 +62,7 @@ fun ImportXlsxDialog(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(contracts.keys.toList()) { key ->
+                items(convertMap.keys.toList()) { key ->
                     var selectedItem by remember { mutableStateOf(convertMap[key] ?: "") }
                     SelectorWithLabel(
                         "إختر المؤهل العلمي لهذه الفئة ($key) ",
@@ -73,6 +73,11 @@ fun ImportXlsxDialog(
                             convertMap[key] = selected
                         }
                     )
+                }
+                item{
+                    if (convertMap.keys.isEmpty()){
+                        Text("لا يوجد عناصر لتحويلها يرجى الضغط على اضافة لإتمام العملية")
+                    }
                 }
             }
         }

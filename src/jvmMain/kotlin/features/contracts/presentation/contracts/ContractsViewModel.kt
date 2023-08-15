@@ -10,7 +10,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import utils.Education
 import utils.fromArabicNameToAgeGroup
+import utils.getAllEducationArabicNames
 
 class ContractsScreenViewModel (
     private val allContracts:GetAllContracts,
@@ -53,6 +55,11 @@ class ContractsScreenViewModel (
             }
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }
+
+    fun checkIfEducationLevelIsCorrect(educationLevel: String): Boolean {
+        return getAllEducationArabicNames().contains(educationLevel)
+    }
+
     fun changeContractEducationLevelType(
         contracts:Map<String,List<Contract>>,
         convertedMap: Map<String,String>,

@@ -62,6 +62,7 @@ fun AddSonsOfOfficersScreen(
         isFirstRender = false
     }
     val state = viewModel.state
+
         Column(
             modifier = Modifier
                 .fillMaxSize()

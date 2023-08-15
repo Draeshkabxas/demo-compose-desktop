@@ -34,7 +34,6 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = koinInject(),
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    ("تم انشاء حساب جديد بنجاح").showSuccessMessage()
     val state = viewModel.state
     LaunchedEffect(key1 = true) {
         viewModel.validationEvents.collect { event ->
@@ -135,6 +134,7 @@ fun RegisterScreen(
                             RoundedButton({
                                 viewModel.onEvent(RegistrationFormEvent.AcceptTerms(true))
                                 viewModel.onEvent(RegistrationFormEvent.Submit)
+
                             }, "إنشاء حساب")
                             OutlineRoundedButton({ viewModel.closeApp() }, "خروج")
                         }

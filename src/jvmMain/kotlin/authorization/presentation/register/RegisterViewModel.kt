@@ -1,5 +1,6 @@
 package authorization.presentation.register
 
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -76,6 +77,7 @@ class RegisterViewModel(
         }
         signupUseCase.invoke(User("", state.username, state.password, Jobs.None, listOf())).onEach {
             validationEventChannel.send(ValidationEvent.Success)
+            ("تم انشاء حساب جديد بنجاح").showSuccessMessage()
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }
 

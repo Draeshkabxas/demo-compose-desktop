@@ -314,7 +314,7 @@ fun PaginatedTable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.width(650.dp))
+            Spacer(modifier = Modifier.width(700.dp))
 
             Button(elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,

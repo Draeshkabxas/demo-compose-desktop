@@ -77,8 +77,11 @@ fun PaginatedTable(
         }
         if (personList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
+
                 Column(modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp), horizontalAlignment = Alignment.CenterHorizontally
                 , verticalArrangement = Arrangement.Center) {
+                    Spacer(modifier = Modifier.width(700.dp))
+
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text="يمكنك فلترة بحثك للحصول على نتائج اكثر دقة",style = CairoTypography.h3)
                 }

@@ -92,7 +92,8 @@ fun AddCoursesScreen(
                                             isError = state.nameError != null,
                                             hint = personalInputsName[0],
                                             errorMessage = state.nameError.toString(),
-                                            inputType = InputType.TEXT
+                                            inputType = InputType.TEXT,
+                                            maxLength = 35 // Set the maximum length to N characters
 
                                         )
                                     }
@@ -104,7 +105,8 @@ fun AddCoursesScreen(
                                             hint = personalInputsName[1],
                                             isError = state.motherNameError != null,
                                             errorMessage = state.motherNameError.toString(),
-                                            inputType = InputType.TEXT
+                                            inputType = InputType.TEXT,
+                                                    maxLength = 28 // Set the maximum length to N characters
 
                                         )
                                     }
@@ -117,7 +119,7 @@ fun AddCoursesScreen(
                                             isError = state.fileNumberError != null,
                                             errorMessage = state.fileNumberError.toString(),
                                             inputType = InputType.All,
-                                            maxLength = 8 // Set the maximum length to N characters
+                                            maxLength = 6 // Set the maximum length to N characters
 
 
                                         )
@@ -155,8 +157,8 @@ fun AddCoursesScreen(
                                             hint = personalInputsName[5],
                                             isError = state.recruiterError != null,
                                             errorMessage = state.recruiterError.toString(),
-                                            inputType = InputType.TEXT
-
+                                            inputType = InputType.TEXT,
+                                            maxLength = 25 // Set the maximum length to N characters
                                         )
                                     }
                                     item {
@@ -208,7 +210,8 @@ fun AddCoursesScreen(
                                             hint = personalInputsName[6],
                                             isError = state.commissionError != null,
                                             errorMessage = state.commissionError.toString(),
-                                            inputType = InputType.All
+                                            inputType = InputType.All,
+                                                    maxLength = 8 // Set the maximum length to N characters
 
                                         )
                                     }
@@ -220,7 +223,8 @@ fun AddCoursesScreen(
                                             hint = personalInputsName[7],
                                             isError = state.notesError!=null,
                                             errorMessage = state.notesError.toString(),
-                                            inputType = InputType.All
+                                            inputType = InputType.All,
+                                                    maxLength = 28 // Set the maximum length to N characters
 
                                         )
                                     }

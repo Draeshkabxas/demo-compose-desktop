@@ -98,7 +98,8 @@ fun AddContractsScreen(
                     hint = personalInputsNameAndValue[0],
                     errorMessage = state.nameError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 30 // Set the maximum length to N characters
                 )
             }
             item {
@@ -110,7 +111,8 @@ fun AddContractsScreen(
                     isError = state.motherNameError!=null,
                     errorMessage = state.motherNameError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                            maxLength = 23 // Set the maximum length to N characters
 
                 )
             }
@@ -123,7 +125,9 @@ fun AddContractsScreen(
                     isError = state.motherNationalityError!=null,
                     errorMessage = state.motherNationalityError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 8 // Set the maximum length to N characters
+
                 )
             }
             item {
@@ -136,7 +140,7 @@ fun AddContractsScreen(
                     errorMessage = state.fileNumberError.toString(),
                     width = 150.dp,
                     inputType = InputType.All,
-                    maxLength = 8 // Set the maximum length to N characters
+                    maxLength = 6 // Set the maximum length to N characters
 
                 )
             }
@@ -176,7 +180,9 @@ fun AddContractsScreen(
                     isError = state.dependencyError!=null,
                     errorMessage = state.dependencyError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 15 // Set the maximum length to N characters
+
                 )
             }
 
@@ -231,7 +237,9 @@ fun AddContractsScreen(
                     isError = state.bankNameError!=null,
                     errorMessage = state.bankNameError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 12 // Set the maximum length to N characters
+
 
                 )
             }
@@ -244,7 +252,9 @@ fun AddContractsScreen(
                     isError = state.accountNumberError!=null,
                     errorMessage = state.accountNumberError.toString(),
                     width = 150.dp,
-                    inputType = InputType.NUMBER
+                    inputType = InputType.NUMBER,
+                    maxLength = 14 // Set the maximum length to N characters
+
 
                 )
             }
@@ -257,7 +267,9 @@ fun AddContractsScreen(
                     isError = state.notesError!=null,
                     errorMessage = state.notesError.toString(),
                     width = 50.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 35 // Set the maximum length to N characters
+
                 )
             }
             item {
@@ -269,7 +281,9 @@ fun AddContractsScreen(
                     isError = state.referenceError!=null,
                     errorMessage = state.referenceError.toString(),
                     width = 50.dp,
-                    inputType = InputType.All
+                    inputType = InputType.All,
+                    maxLength = 28 // Set the maximum length to N characters
+
                 )
             }
         }

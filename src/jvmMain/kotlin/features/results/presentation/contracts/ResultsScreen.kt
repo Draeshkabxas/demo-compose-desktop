@@ -110,7 +110,7 @@ fun ResultsScreen(
                                             onLoading = {},
                                             onError = {},
                                             onSuccess = {
-                                                ("تم إضاقة نتائج التحاليل من الملف بنجاح" ).showSuccessMessage()
+                                                ("تم إضافة نتائج التحاليل من الملف بنجاح" ).showSuccessMessage()
 
                                             }
                                         )
@@ -204,7 +204,7 @@ fun ResultsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+                                ("تمت عملية الطباعة بنجاح" ).showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false
@@ -228,7 +228,7 @@ fun ResultsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, resultsData, 20, widths,
+                            PaginatedTable(navController, headers, resultsData, 25, widths,
                                 onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
                                 })

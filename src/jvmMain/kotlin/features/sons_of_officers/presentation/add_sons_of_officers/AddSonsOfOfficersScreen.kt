@@ -94,7 +94,9 @@ fun AddSonsOfOfficersScreen(
                                 hint = personalInputsName[0],
                                 errorMessage = state.nameError.toString(),
                                 inputType = InputType.TEXT,
-                                width =50.dp
+                                width =50.dp,
+                                maxLength = 30 // Set the maximum length to N characters
+
                             )
 //                        Spacer(modifier = Modifier.width(10.dp))
                         }
@@ -106,7 +108,8 @@ fun AddSonsOfOfficersScreen(
                                 hint = personalInputsName[1],
                                 isError = state.motherNameError!=null,
                                 errorMessage = state.motherNameError.toString(),
-                                inputType = InputType.TEXT
+                                inputType = InputType.TEXT,
+                                maxLength = 23 // Set the maximum length to N characters
 
                             )
                         }
@@ -119,7 +122,7 @@ fun AddSonsOfOfficersScreen(
                                 isError = state.fileNumberError!=null,
                                 errorMessage = state.fileNumberError.toString(),
                                 inputType = InputType.All,
-                                maxLength = 8 // Set the maximum length to N characters
+                                maxLength = 6 // Set the maximum length to N characters
 
 
                             )
@@ -157,8 +160,8 @@ fun AddSonsOfOfficersScreen(
                                 hint = personalInputsName[5],
                                 isError = state.recruiterError!=null,
                                 errorMessage = state.recruiterError.toString(),
-                                inputType = InputType.TEXT
-
+                                inputType = InputType.TEXT,
+                                maxLength = 20 // Set the maximum length to N characters
                             )
                         }
                         item {
@@ -207,8 +210,8 @@ fun AddSonsOfOfficersScreen(
                                 hint = personalInputsName[6],
                                 isError = state.commissionError!=null,
                                 errorMessage = state.commissionError.toString(),
-                                inputType = InputType.All
-
+                                inputType = InputType.All,
+                                        maxLength = 8 // Set the maximum length to N characters
                             )
                         }
                                 item {
@@ -219,7 +222,8 @@ fun AddSonsOfOfficersScreen(
                                         hint = personalInputsName[7],
                                         isError = state.notesError!=null,
                                         errorMessage = state.notesError.toString(),
-                                        inputType = InputType.All
+                                        inputType = InputType.All,
+                                                maxLength = 25 // Set the maximum length to N characters
 
                                     )
                                 }

@@ -14,6 +14,7 @@ data class Person(
     val city: String,
     val ageGroup: AgeGroup,
     val commission:String,
+    val notes:String,
     val justificationsRequire: Map<String, Boolean>,
     val procedures: Map<String, Boolean>,
 )

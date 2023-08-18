@@ -58,6 +58,9 @@ class PersonXlsxImpl: PersonXlsxRepository {
                         "اللجنة" -> {
                             row.createCell(cellIndex).setCellValue(person.commission)
                         }
+                        "الملاحظات" -> {
+                            row.createCell(cellIndex).setCellValue(person.notes)
+                        }
                         else -> {}
                     }
                 }

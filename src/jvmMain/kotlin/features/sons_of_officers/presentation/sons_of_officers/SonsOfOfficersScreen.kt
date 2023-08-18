@@ -38,10 +38,10 @@ fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 65.dp, 95.dp)
+    val widths = listOf(70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 65.dp,250.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة", "إحالة لتدريب"
+        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة","الملاحظات",  "إحالة لتدريب"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -203,8 +203,8 @@ fun SonsOfOfficersScreen(
             LazyColumn(Modifier.padding(10.dp)) {
                 item {
                     MaterialTheme {
-                        Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, peopleData, 13, widths,
+                        Surface(modifier = Modifier.size(1600.dp)) {
+                            PaginatedTable(navController, headers, peopleData, 20, widths,
                                 onRemovePerson = {person ->
                                     viewModel.removePerson(
                                         person = person,

@@ -35,6 +35,7 @@ fun Person.toRealmPerson(): RealmPerson {
         commission =person.commission
         justificationsRequire = justifications
         procedures=proceduresRealm
+        notes=person.notes
     }
 
 }

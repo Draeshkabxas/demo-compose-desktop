@@ -17,7 +17,9 @@ fun RealmCourse.toCourseDTO(): Course {
         recruiter = this.recruiter,
         city = this.city,
          commission = this.commission,
-    ageGroup=this.ageGroup.fromArabicNameToAgeGroup(),
+        notes=this.notes,
+
+                ageGroup=this.ageGroup.fromArabicNameToAgeGroup(),
         justificationsRequire = this.justificationsRequire.associate { it.name to it.value },
         procedures = this.procedures.associate { it.name to it.value }
     )

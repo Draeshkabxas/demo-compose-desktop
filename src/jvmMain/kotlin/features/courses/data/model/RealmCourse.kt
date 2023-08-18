@@ -19,6 +19,7 @@ open class RealmCourse: RealmObject{
     var recruiter: String = ""
     var city: String = ""
     var commission :String =""
+    var notes : String =""
     var ageGroup:String = AgeGroup.UnderEightTeen.arabicName
     var justificationsRequire: RealmList<JustificationCourse> = realmListOf()
     var procedures: RealmList<ProcedureCourse> = realmListOf()

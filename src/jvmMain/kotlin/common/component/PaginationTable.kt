@@ -269,6 +269,7 @@ fun PaginatedTable(
                                 .width(columnWidths[10])
                                 .padding(8.dp)
                         )
+
                         Text(
                             text = if (person.procedures["لائق صحيا"] == true) "لائق" else if (person.procedures["غير لائق صحيا"] == true) "غير لائق" else "",
                             style = CairoTypography.h4,
@@ -276,6 +277,15 @@ fun PaginatedTable(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[11])
+                                .padding(8.dp)
+                        )
+                        Text(
+                            text = person.notes,
+                            style = CairoTypography.h4,
+                            fontWeight = FontWeight.Bold,
+//                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .width(columnWidths[12])
                                 .padding(8.dp)
                         )
                         Text(
@@ -290,7 +300,7 @@ fun PaginatedTable(
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[12])
+                                .width(columnWidths[13])
                                 .padding(8.dp)
                         )
 //                    counter++
@@ -304,7 +314,7 @@ fun PaginatedTable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.width(500.dp))
+            Spacer(modifier = Modifier.width(650.dp))
 
             Button(elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,

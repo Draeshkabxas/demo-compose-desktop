@@ -16,6 +16,8 @@ sealed class CourseInfoFormEvent {
     data class RecruiterChanged(val recruiter: String) : CourseInfoFormEvent()
     data class CityChanged(val city: String) : CourseInfoFormEvent()
     data class CommissionChanged(val commission: String) : CourseInfoFormEvent()
+    data class NotesChanged(val notes: String) : CourseInfoFormEvent()
+
 
 
     data class Submit(val mode: ScreenMode = ScreenMode.ADD): CourseInfoFormEvent()

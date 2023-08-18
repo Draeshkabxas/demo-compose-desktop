@@ -17,6 +17,8 @@ data class Course(
     val justificationsRequire: Map<String, Boolean>,
     val procedures: Map<String, Boolean>,
     val commission:String,
+    val notes:String,
+
     )
 fun Course.hasShortfalls():Boolean =
     justificationsRequire.values.any { !it } || procedures.values.any { !it }

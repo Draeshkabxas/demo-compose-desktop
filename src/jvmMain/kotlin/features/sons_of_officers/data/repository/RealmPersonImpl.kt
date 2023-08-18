@@ -76,6 +76,7 @@ class RealmPersonImpl(private val realm: Realm) :
                             justificationsRequire = updatedPerson.justificationsRequire
                             procedures = updatedPerson.procedures
                             commission = updatedPerson.commission
+                            notes = updatedPerson.notes
 
                         })
                     }

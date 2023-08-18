@@ -17,6 +17,7 @@ sealed class PersonalInfoFormEvent {
     data class RecruiterChanged(val recruiter: String) : PersonalInfoFormEvent()
     data class CityChanged(val city: String) : PersonalInfoFormEvent()
     data class CommissionChanged(val commission: String) : PersonalInfoFormEvent()
+    data class NotesChanged(val notes: String) : PersonalInfoFormEvent()
 
 
     data class Submit(val mode:ScreenMode = ScreenMode.ADD): PersonalInfoFormEvent()

@@ -232,32 +232,32 @@ fun PaginatedTable(
 //                                .padding(8.dp)
 //                        )
 
-                        if (canEditPermission) {
-                            Spacer(modifier = Modifier.size(0.dp, 20.dp))
-
-                            common.component.TextButton(
-                                width = columnWidths[5],
-                                textSize = 10.sp,
-                                text = "إضافة",
-                                onClick = {
-                                    navController.navigate(
-                                        Screens.AddResultsScreen(
-                                            mode = ScreenMode.EDIT,
-                                            results = results
-                                        )
-                                    )
-
-                                },
-                                colors = AppColors.GreenGradient, cornerRadius = 30.dp
-                            )
-                        }
+//                        if (canEditPermission) {
+//                            Spacer(modifier = Modifier.size(0.dp, 20.dp))
+//
+//                            common.component.TextButton(
+//                                width = columnWidths[5],
+//                                textSize = 10.sp,
+//                                text = "إضافة",
+//                                onClick = {
+//                                    navController.navigate(
+//                                        Screens.AddResultsScreen(
+//                                            mode = ScreenMode.EDIT,
+//                                            results = results
+//                                        )
+//                                    )
+//
+//                                },
+//                                colors = AppColors.GreenGradient, cornerRadius = 30.dp
+//                            )
+//                        }
                         Text(
                             text = results.notes,
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[6])
+                                .width(columnWidths[5])
                                 .padding(8.dp),
                             maxLines = 2
                         )

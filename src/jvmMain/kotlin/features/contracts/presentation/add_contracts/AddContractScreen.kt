@@ -2,6 +2,9 @@ package features.contracts.presentation.add_contracts
 
 import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 
 
 import androidx.compose.material.Text
@@ -53,21 +56,36 @@ fun AddContractsScreen(
         "ملاحظات",
         "الرقم الاشاري"
         )
+    var selectededucation by remember { mutableStateOf(" إختر المؤهل ") }
+    var selectedCity by remember { mutableStateOf("إختر المدينة") }
+    var isFirstRender by remember { mutableStateOf(true) }
+    if (isFirstRender){
+        viewModel.setupMode(mode,contract)
+        selectededucation = viewModel.state.educationLevel
+        selectedCity = viewModel.state.city
+        isFirstRender = false
+    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var selectededucation by remember { mutableStateOf(" إختر المؤهل ") }
-        var selectedCity by remember { mutableStateOf("إختر المدينة") }
-        var isFirstRender by remember { mutableStateOf(true) }
-        if (isFirstRender){
-            viewModel.setupMode(mode,contract)
-            selectededucation = viewModel.state.educationLevel
-            selectedCity = viewModel.state.city
-            isFirstRender = false
-        }
+
 
         HeadLineWithDate(text = "منظومة العقود / إضافة ملف ", date ="1/7/2023  1:30:36 PM" )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Top,
+        ) {
+            LazyColumn(Modifier.padding(10.dp)) {
+
+                item {
+                    MaterialTheme {
+                        Surface(modifier = Modifier.height(800.dp)) {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
         Section("البيانات الشخصية",
             3){
             val state = viewModel.state
@@ -255,7 +273,7 @@ fun AddContractsScreen(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         GradientButton(
             text = "حفظ",
             icon = Icons.Default.Save,
@@ -265,4 +283,4 @@ fun AddContractsScreen(
         )
 
     }
-}
+}}}}}}}

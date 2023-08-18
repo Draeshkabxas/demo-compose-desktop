@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 557">
-      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/domain/usecases/ChangeContractsCity.kt" afterDir="false" />
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="add edite 561">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/ImportXslxDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/ImportXslxDialog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/component/PaginationTable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/component/PaginationTable.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/sabar/IdeaProjects/demox/src/jvmMain/kotlin/features/contracts/domain/usecases",
+    "last_opened_file_path": "C:/Users/HP/Desktop/desktop-app/demo-compose-",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -93,11 +92,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\sabar\IdeaProjects\demox\src\jvmMain\kotlin\features\contracts\domain\usecases" />
       <recent name="C:\Users\HP\Desktop\desktop-app\demo\src\jvmMain\kotlin" />
       <recent name="C:\Users\HP\Desktop\desktop-app\demo\src\jvmMain\kotlin\authorization" />
       <recent name="C:\Users\HP\Desktop\desktop-app\demo\src\jvmMain\kotlin\features" />
       <recent name="C:\Users\HP\Desktop\desktop-app\demo-compose-desktop\src\jvmMain\kotlin\features\sons_of_officers\domain\usecases" />
+      <recent name="C:\Users\HP\Desktop\newderar\src\jvmMain\kotlin\common\component" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\HP\Desktop\desktop-app\demo-compose-desktop\src\jvmMain\resources\images" />
@@ -149,7 +148,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -203,46 +202,6 @@
       <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
-    </task>
-    <task id="LOCAL-00028" summary="add btn">
-      <option name="closed" value="true" />
-      <created>1689169185654</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1689169185655</updated>
-    </task>
-    <task id="LOCAL-00029" summary="add edite 5">
-      <option name="closed" value="true" />
-      <created>1689184316178</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1689184316178</updated>
-    </task>
-    <task id="LOCAL-00030" summary="add edite 6">
-      <option name="closed" value="true" />
-      <created>1689189856217</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1689189856217</updated>
-    </task>
-    <task id="LOCAL-00031" summary="add edite 6">
-      <option name="closed" value="true" />
-      <created>1689193145236</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1689193145236</updated>
-    </task>
-    <task id="LOCAL-00032" summary="add edite 7">
-      <option name="closed" value="true" />
-      <created>1689205775454</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1689205775454</updated>
     </task>
     <task id="LOCAL-00033" summary="add edite 8">
       <option name="closed" value="true" />
@@ -564,7 +523,47 @@
       <option name="project" value="LOCAL" />
       <updated>1692048556766</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="add edite 557">
+      <option name="closed" value="true" />
+      <created>1692058807510</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1692058807511</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add edite 558">
+      <option name="closed" value="true" />
+      <created>1692104939778</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1692104939778</updated>
+    </task>
+    <task id="LOCAL-00075" summary="add edite 559+">
+      <option name="closed" value="true" />
+      <created>1692109509456</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1692109509456</updated>
+    </task>
+    <task id="LOCAL-00076" summary="add edite 560">
+      <option name="closed" value="true" />
+      <created>1692358870053</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1692358870054</updated>
+    </task>
+    <task id="LOCAL-00077" summary="add edite 561">
+      <option name="closed" value="true" />
+      <created>1692365301080</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1692365301080</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -579,9 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add edite 15" />
-    <MESSAGE value="add edite 16" />
-    <MESSAGE value="add edite 17" />
     <MESSAGE value="add edite 18" />
     <MESSAGE value="add edite 19" />
     <MESSAGE value="add edite 20" />
@@ -603,21 +599,10 @@
     <MESSAGE value="add edite 555" />
     <MESSAGE value="add edite 556" />
     <MESSAGE value="add edite 557" />
-    <MESSAGE value="fix when importing the same education level the import dialog say show should choose it again" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix when importing the same education level the import dialog say show should choose it again" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/add_sons_of_officers/AddSonsOfOfficersViewModel.kt</url>
-          <line>192</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="add edite 558" />
+    <MESSAGE value="add edite 559+" />
+    <MESSAGE value="add edite 560" />
+    <MESSAGE value="add edite 561" />
+    <option name="LAST_COMMIT_MESSAGE" value="add edite 561" />
   </component>
 </project>

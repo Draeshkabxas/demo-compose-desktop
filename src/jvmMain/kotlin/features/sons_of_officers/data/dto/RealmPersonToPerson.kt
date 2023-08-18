@@ -17,6 +17,7 @@ fun RealmPerson.toPersonDTO(): Person {
         recruiter = this.recruiter,
         city = this.city,
         commission = this.commission,
+        notes=this.notes,
         ageGroup=this.ageGroup.fromArabicNameToAgeGroup(),
         justificationsRequire = this.justificationsRequire.associate { it.name to it.value },
         procedures = this.procedures.associate { it.name to it.value }

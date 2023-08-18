@@ -23,6 +23,8 @@ data class PersonalInfoFormState(
     val cityError: String? = null,
     val commission: String = "",
     val commissionError: String? = null,
+    val notes: String = "",
+    val notesError: String? = null,
 )
 
 fun Person.toPersonalInfoFormState(): PersonalInfoFormState =
@@ -36,7 +38,8 @@ fun Person.toPersonalInfoFormState(): PersonalInfoFormState =
         educationLevel = this.educationLevel,
         recruiter = this.recruiter,
         city = this.city,
-        commission=this.commission
+        commission=this.commission,
+        notes = this.notes
     )
 
 

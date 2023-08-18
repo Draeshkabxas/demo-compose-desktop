@@ -60,6 +60,9 @@ class CoursesXlsxImpl: CourseXlsxRepository {
                         "اللجنة" -> {
                             row.createCell(cellIndex).setCellValue(course.commission)
                         }
+                        "الملاحظات" -> {
+                            row.createCell(cellIndex).setCellValue(course.notes)
+                        }
                         else -> {}
                     }
                 }

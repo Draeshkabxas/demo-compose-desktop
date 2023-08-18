@@ -36,6 +36,7 @@ fun Course.toRealmCourse(): RealmCourse {
         justificationsRequire = justifications
         procedures=proceduresRealm
         commission =person.commission
+        notes=person.notes
     }
 
 }

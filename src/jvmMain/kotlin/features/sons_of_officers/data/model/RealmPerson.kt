@@ -19,6 +19,8 @@ open class RealmPerson: RealmObject{
     var recruiter: String = ""
     var city: String = ""
     var commission :String =""
+    var notes : String =""
+
     var ageGroup:String = AgeGroup.UnderEightTeen.arabicName
     var justificationsRequire: RealmList<Justification> = realmListOf()
     var procedures: RealmList<Procedure> = realmListOf()

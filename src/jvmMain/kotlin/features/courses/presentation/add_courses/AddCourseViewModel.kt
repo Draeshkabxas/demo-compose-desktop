@@ -54,7 +54,8 @@ class AddCourseViewModel(
         "الرقم الوطني",
         "رقم الهاتف",
         "القائم بالتجنيد",
-        "اللجنة"
+        "اللجنة",
+        "الملاحظات"
     )
 
     var justificationsRequiredInputsNameAndValue = mapOf(
@@ -112,6 +113,9 @@ class AddCourseViewModel(
             }
             is CommissionChanged ->{
                 state = state.copy(commission = event.commission)
+            }
+            is NotesChanged ->{
+                state = state.copy(notes = event.notes)
             }
             is Submit -> {
                 submitData(event.mode)
@@ -179,7 +183,9 @@ class AddCourseViewModel(
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
             procedures = procedures,
-            commission =state.commission
+            commission =state.commission,
+            notes=state.notes
+
         )
         println("submitData is running")
         if (mode == ScreenMode.ADD) {

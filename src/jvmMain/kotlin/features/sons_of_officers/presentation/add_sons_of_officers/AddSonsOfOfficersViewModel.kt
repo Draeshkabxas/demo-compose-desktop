@@ -8,6 +8,7 @@ import common.component.ScreenMode
 import common.component.ScreenMode.ADD
 import common.component.ScreenMode.EDIT
 import features.contracts.domain.usecases.RemoveAllContracts
+import features.results.presentation.add_results.ResultsInfoFormEvent
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.domain.usecases.*
 import features.sons_of_officers.presentation.add_sons_of_officers.PersonalInfoFormEvent.*
@@ -52,7 +53,9 @@ class AddSonsOfOfficersViewModel(
         "الرقم الوطني",
         "رقم الهاتف",
         "القائم بالتجنيد",
-        "اللجنة"
+        "اللجنة",
+        "الملاحظات"
+
     )
 
     var justificationsRequiredInputsNameAndValue = mapOf(
@@ -111,6 +114,9 @@ class AddSonsOfOfficersViewModel(
             }
             is CommissionChanged ->{
                 state = state.copy(commission = event.commission)
+            }
+            is NotesChanged ->{
+                state = state.copy(notes = event.notes)
             }
             is Submit -> {
                 submitData(event.mode)
@@ -178,7 +184,9 @@ class AddSonsOfOfficersViewModel(
             ageGroup = getAgeGroupFromLibyaId(state.libyaId),
             justificationsRequire = justification,
             procedures = procedures,
-            commission =state.commission
+            commission =state.commission,
+            notes=state.notes
+
         )
         println("submitData is running")
         if (mode == ADD) {

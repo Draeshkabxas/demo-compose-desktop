@@ -1,5 +1,7 @@
 package authorization.presentation.login
 
+import AlertSystem.presentation.showErrorMessage
+import AlertSystem.presentation.showSuccessMessage
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -59,14 +61,7 @@ fun LoginScreen(
         when (state) {
             is Resource.Error -> {
                 state.message?.let {
-
-                    if (showDialog){
-                        AlertDialogSimple(
-                            message = state.message.toString()
-                        ) {
-                            showDialog=false
-                        }
-                    }
+                    it.showErrorMessage()
                 }
             }
 
@@ -80,11 +75,7 @@ fun LoginScreen(
 
             is Resource.Success -> {
                 if (state.data != null && state.data.job != None) {
-                    AlertDialogSimple(
-                        message = "تم تسجيل دخولك بنجاح"
-                    ) {
-//                            showDialog = true
-                    }
+                    ( "تم تسجيل دخولك بنجاح").showSuccessMessage()
                     userAuthSystem.currentUser = state.data
                     navController.navigate(AuthScreen.SystemScreen.name)
 

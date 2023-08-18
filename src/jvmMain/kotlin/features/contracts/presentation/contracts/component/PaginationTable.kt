@@ -37,6 +37,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
 
 import androidx.compose.ui.unit.dp
+import features.contracts.presentation.contracts.FilterEvent
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 @Composable
 fun PaginatedTable(
     navController: NavController<Screens>,
@@ -45,7 +48,10 @@ fun PaginatedTable(
     itemsPerPage: Int,
     columnWidths: List<Dp>,
     onRemoveContract: (Contract) -> Unit,
+    currentPage: Int,
+    setCurrentPage: (Int) -> Unit
 ) {
+
 //    if (contractList.isEmpty()) return
     val pageCount = (contractList.size + itemsPerPage - 1) / itemsPerPage
     var currentPage by remember { mutableStateOf(0) }
@@ -56,8 +62,10 @@ fun PaginatedTable(
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
 
-
-    Column(
+    Box(
+        modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
+    ) {
+    Column(        modifier = Modifier.fillMaxWidth()
 
     ) {
         Row {
@@ -81,13 +89,20 @@ fun PaginatedTable(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Spacer(modifier = Modifier.width(700.dp))
+
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text = "يمكنك فلترة بحثك للحصول على نتائج اكثر دقة", style = CairoTypography.h3)
                 }
             }
         } else {
             var counter = 0 // initialize counter based on current page and items per page
-            LazyColumn {
+            // Calculate the current page's contracts
+            val contractsOnPage = contractList.chunked(itemsPerPage)[currentPage]
+
+            // Create a horizontal scrollbar state
+            LazyColumn(
+            ) {
                 items(contractList.chunked(itemsPerPage)[currentPage]) { contract ->
                     val showPopup = remember { mutableStateOf(false) }
                     val showDialog = remember { mutableStateOf(false) }
@@ -158,7 +173,7 @@ fun PaginatedTable(
                             text = contract.name,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
@@ -176,7 +191,7 @@ fun PaginatedTable(
                             text = contract.motherName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[4])
                                 .padding(8.dp)
@@ -221,7 +236,7 @@ fun PaginatedTable(
                             text = contract.dependency,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[9])
                                 .padding(8.dp)
@@ -230,7 +245,7 @@ fun PaginatedTable(
                             text = contract.bankName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[10])
                                 .padding(8.dp)
@@ -239,7 +254,7 @@ fun PaginatedTable(
                             text = contract.accountNumber,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[11])
                                 .padding(8.dp)
@@ -248,7 +263,7 @@ fun PaginatedTable(
                             text = contract.notes,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[12])
                                 .padding(8.dp),
@@ -258,7 +273,7 @@ fun PaginatedTable(
                             text = contract.reference,
                             style = CairoTypography.body2,
 //                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[13])
                                 .padding(8.dp),
@@ -288,13 +303,18 @@ fun PaginatedTable(
                     }
                 }
             }
+
+
         }
+
         Spacer(modifier = Modifier.height(10.dp))
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.width(800.dp))
+
             Button(
                 shape = RoundedCornerShape(20.dp),
                 onClick = { if (currentPage > 0) currentPage-- }) {
@@ -309,8 +329,8 @@ fun PaginatedTable(
                 "الصفحة ${currentPage + 1} من $pageCount",
                 style = CairoTypography.h4,
                 fontWeight = FontWeight.Bold,
-
                 modifier = Modifier.padding(8.dp)
+
             )
             Button(
                 shape = RoundedCornerShape(20.dp),
@@ -325,8 +345,10 @@ fun PaginatedTable(
         // Add the horizontal scrollbar below the Column
 
     }
+// Horizontal scrollbar
 
 
+}
 
 
 }

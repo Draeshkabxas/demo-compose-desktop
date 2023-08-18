@@ -52,7 +52,15 @@ fun PaginatedTable(
     val canEditPermission = userAuthSystem.canEdit()
     val superAdmin = userAuthSystem.canChangeAccountsPermission()
 
-    Column() {
+    val scrollState = rememberScrollState()
+    val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+
+    Box(
+        modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
+    ) {
+        Column(        modifier = Modifier.fillMaxWidth()
+
+        ) {
         Row {
             headers.forEachIndexed { index, header ->
                 Text(
@@ -69,8 +77,11 @@ fun PaginatedTable(
         }
         if (personList.isNullOrEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopEnd) {
+
                 Column(modifier = Modifier.fillMaxWidth().sizeIn(maxHeight = 200.dp), horizontalAlignment = Alignment.CenterHorizontally
                 , verticalArrangement = Arrangement.Center) {
+                    Spacer(modifier = Modifier.width(700.dp))
+
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text="يمكنك فلترة بحثك للحصول على نتائج اكثر دقة",style = CairoTypography.h3)
                 }
@@ -180,7 +191,7 @@ fun PaginatedTable(
                         text = person.name,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+//                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[2])
                             .padding(8.dp)
@@ -198,7 +209,7 @@ fun PaginatedTable(
                         text = person.motherName,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+//                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[4])
                             .padding(8.dp)
@@ -234,7 +245,7 @@ fun PaginatedTable(
                         text = person.recruiter,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+//                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[8])
                             .padding(8.dp)
@@ -289,6 +300,7 @@ fun PaginatedTable(
                             .width(columnWidths[10])
                             .padding(8.dp)
                     )
+
                     Text(
                         text = if (person.procedures["لائق صحيا"] == true) "لائق" else if (person.procedures["غير لائق صحيا"] == true) "غير لائق" else "",
                         style = CairoTypography.h4,
@@ -296,6 +308,15 @@ fun PaginatedTable(
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[11])
+                            .padding(8.dp)
+                    )
+                    Text(
+                        text = person.notes,
+                        style = CairoTypography.h4,
+                        fontWeight = FontWeight.Bold,
+//                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .width(columnWidths[12])
                             .padding(8.dp)
                     )
                     Text(
@@ -309,7 +330,7 @@ fun PaginatedTable(
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .width(columnWidths[12])
+                            .width(columnWidths[13])
                             .padding(8.dp)
                     )
 //                    counter++
@@ -323,6 +344,8 @@ fun PaginatedTable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.width(650.dp))
+
             Button(
                 shape = RoundedCornerShape(20.dp),
                 onClick = { if (currentPage > 0) currentPage-- }) {
@@ -347,4 +370,4 @@ fun PaginatedTable(
             }
         }
     }
-}
+}}

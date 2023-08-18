@@ -56,7 +56,9 @@ fun CoursesScreen(
     var coursesData by remember { mutableStateOf<List<Course>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+    val currentDataTablePage = mutableStateOf(0)
 
+    val resetDataTablePage: () -> Unit = { currentDataTablePage.value = 0 }
 
 
     LaunchedEffect(key1 = true) {
@@ -80,8 +82,12 @@ fun CoursesScreen(
                 onFilterReferralForTraining = { viewModel.onEvent(FilterReferralForTraining(it)) },
                 onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
                 onFilterHealthStatus = { viewModel.onEvent(FilterHealthStatus(it)) },
-                onReset = { viewModel.onEvent(Reset) },
-                onSubmit = { viewModel.onEvent(Submit) },
+                onReset = {
+                    resetDataTablePage()
+                    viewModel.onEvent(Reset) },
+                onSubmit = {
+                    resetDataTablePage()
+                    viewModel.onEvent(Submit) },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
@@ -209,7 +215,9 @@ fun CoursesScreen(
                             PaginatedTable(navController, headers, coursesData, 18, widths,
                                 onRemoveCourse = {course->
                                     viewModel.removeCourse(course, onSuccess = {})
-                                })
+                                },
+                                currentPage = currentDataTablePage
+                            )
                         }
                     }
                 }

@@ -41,11 +41,11 @@ fun PaginatedTable(
     personList: List<Course>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
-    onRemoveCourse: (Course) -> Unit
+    onRemoveCourse: (Course) -> Unit,
+    currentPage:MutableState<Int> = mutableStateOf(0)
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
-    var currentPage by remember { mutableStateOf(0) }
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
@@ -89,7 +89,7 @@ fun PaginatedTable(
         } else {
         LazyColumn {
 
-            items(personList.chunked(itemsPerPage)[currentPage]) { person ->
+            items(personList.chunked(itemsPerPage)[currentPage.value]) { person ->
                 var showPopup = remember { mutableStateOf(false) }
                 val showDialog = remember { mutableStateOf(false) }
 
@@ -116,8 +116,8 @@ fun PaginatedTable(
                     modifier = Modifier.background(
                         if (person.procedures["لائق صحيا"] == true) Color.Green.copy(alpha = 0.20f) else
                             if (person.procedures["غير لائق صحيا"] == true) Color.Red.copy(alpha = 0.20f) else
-                                if ((currentPage % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
-                                    (currentPage % 2 != 0 && personList.indexOf(person) % 2 != 0)
+                                if ((currentPage.value % 2 == 0 && personList.indexOf(person) % 2 == 0) ||
+                                    (currentPage.value % 2 != 0 && personList.indexOf(person) % 2 != 0)
                                 )
                                     Color.White else Color.White
                     )
@@ -348,21 +348,21 @@ fun PaginatedTable(
 
             Button(
                 shape = RoundedCornerShape(20.dp),
-                onClick = { if (currentPage > 0) currentPage-- }) {
+                onClick = { if (currentPage.value > 0) currentPage.value-- }) {
                 Text("السابقة",
                     style = CairoTypography.h4,
                     fontWeight = FontWeight.Bold
 
                 )
             }
-            Text("الصفحة ${currentPage + 1} من $pageCount",
+            Text("الصفحة ${currentPage.value + 1} من $pageCount",
                 style = CairoTypography.h4,
                 fontWeight = FontWeight.Bold,
 
                 modifier = Modifier.padding(8.dp))
             Button(
                 shape = RoundedCornerShape(20.dp),
-                onClick = { if (currentPage < pageCount - 1) currentPage++ }) {
+                onClick = { if (currentPage.value < pageCount - 1) currentPage.value++ }) {
                 Text("التالية",
                     style = CairoTypography.h4,
                     fontWeight = FontWeight.Bold

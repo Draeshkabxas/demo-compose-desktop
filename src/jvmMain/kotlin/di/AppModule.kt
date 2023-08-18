@@ -152,6 +152,7 @@ val appModule = module {
     single<RemoveContract> { RemoveContract(get()) }
     single<ImportContractsFromXlsx> { ImportContractsFromXlsx(get()) }
     single<ChangeAllContractsEducationLevel> { ChangeAllContractsEducationLevel() }
+    single{ChangeAllContractsCity()}
     single<AddAllContract> { AddAllContract(get()) }
     factory<ContractsScreenViewModel> {
         ContractsScreenViewModel(
@@ -161,7 +162,8 @@ val appModule = module {
             removeContractUseCase = get(),
             importContractsFromXlsx = get(),
             changeContractsEducationLevel = get(),
-            addAllContract = get()
+            addAllContract = get(),
+            changeAllContractsCity = get()
         )
     }
 

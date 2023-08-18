@@ -38,10 +38,11 @@ fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 65.dp,250.dp, 95.dp)
+    val widths =
+        listOf(70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 65.dp, 250.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة","الملاحظات",  "إحالة لتدريب"
+        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة", "الملاحظات", "إحالة لتدريب"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -50,7 +51,9 @@ fun SonsOfOfficersScreen(
     var peopleData by remember { mutableStateOf<List<Person>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+    val currentDataTablePage = mutableStateOf(0)
 
+    val resetDataTablePage: () -> Unit = { currentDataTablePage.value = 0 }
     LaunchedEffect(key1 = true) {
         viewModel.peopleDataFlow.collect { people ->
             peopleData = people
@@ -73,8 +76,14 @@ fun SonsOfOfficersScreen(
                 onFilterReferralForTraining = { viewModel.onEvent(FilterEvent.FilterReferralForTraining(it)) },
                 onFilterAgeGroup = { viewModel.onEvent(FilterEvent.FilterAgeGroup(it)) },
                 onFilterHealthStatus = { viewModel.onEvent(FilterEvent.FilterHealthStatus(it)) },
-                onReset = { viewModel.onEvent(FilterEvent.Reset) },
-                onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
+                onReset = {
+                    resetDataTablePage()
+                    viewModel.onEvent(FilterEvent.Reset)
+                },
+                onSubmit = {
+                    resetDataTablePage()
+                    viewModel.onEvent(FilterEvent.Submit)
+                },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
@@ -123,8 +132,8 @@ fun SonsOfOfficersScreen(
                                         showDialogDelete = false
                                         viewModel.removeAllPeople(
                                             onLoading = {},
-                                            onError = {it.showErrorMessage()},
-                                            onSuccess = {"تمت عملية مسح كل ابناء الضباط بنجاح".showSuccessMessage()})
+                                            onError = { it.showErrorMessage() },
+                                            onSuccess = { "تمت عملية مسح كل ابناء الضباط بنجاح".showSuccessMessage() })
                                     },
                                     colors = RedGradient, cornerRadius = 30.dp
                                 )
@@ -205,11 +214,12 @@ fun SonsOfOfficersScreen(
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1600.dp)) {
                             PaginatedTable(navController, headers, peopleData, 20, widths,
-                                onRemovePerson = {person ->
+                                onRemovePerson = { person ->
                                     viewModel.removePerson(
                                         person = person,
-                                        onError = { it.showErrorMessage()},
-                                        onSuccess = {"تم عملية المسح بنجاح".showSuccessMessage()})})
+                                        onError = { it.showErrorMessage() },
+                                        onSuccess = { "تم عملية المسح بنجاح".showSuccessMessage() })
+                                })
                         }
                     }
                 }

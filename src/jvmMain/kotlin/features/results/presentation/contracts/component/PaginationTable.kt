@@ -37,11 +37,11 @@ fun PaginatedTable(
     resultsList: List<Results>,
     itemsPerPage: Int,
     columnWidths: List<Dp>,
-    onRemoveResults: (Results) -> Unit
+    onRemoveResults: (Results) -> Unit,
+    currentPage:MutableState<Int> = mutableStateOf(0)
 ) {
 //    if (contractList.isEmpty()) return
     val pageCount = (resultsList.size + itemsPerPage - 1) / itemsPerPage
-    var currentPage by remember { mutableStateOf(0) }
     //btn check
     var isButtonVisible by remember { mutableStateOf(false) }
     val userAuthSystem = getUserAuth()
@@ -77,7 +77,7 @@ fun PaginatedTable(
         } else {
             var counter = 0 // initialize counter based on current page and items per page
             LazyColumn {
-                items(resultsList.chunked(itemsPerPage)[currentPage]) { results ->
+                items(resultsList.chunked(itemsPerPage)[currentPage.value]) { results ->
                     val showPopup = remember { mutableStateOf(false) }
                     val showDialog = remember { mutableStateOf(false) }
 
@@ -85,8 +85,8 @@ fun PaginatedTable(
                         modifier = Modifier.background(
                             if (results.result =="لائق"||results.result =="لايق") Color.Green.copy(alpha = 0.20f) else
                                 if (results.result=="غير لائق" ||results.result =="غيرلائق" || results.result=="غير لايق" ||results.result =="غيرلايق") Color.Red.copy(alpha = 0.20f) else
-                            if ((currentPage % 2 == 0 && resultsList.indexOf(results) % 2 == 0) ||
-                                (currentPage % 2 != 0 && resultsList.indexOf(results) % 2 != 0)
+                            if ((currentPage.value % 2 == 0 && resultsList.indexOf(results) % 2 == 0) ||
+                                (currentPage.value % 2 != 0 && resultsList.indexOf(results) % 2 != 0)
                             )
                                 Color.White else Color.White
                         )
@@ -274,7 +274,7 @@ fun PaginatedTable(
         ) {
             Button(
                 shape = RoundedCornerShape(20.dp),
-                onClick = { if (currentPage > 0) currentPage-- }) {
+                onClick = { if (currentPage.value > 0) currentPage.value-- }) {
                 Text(
                     "السابقة",
                     style = CairoTypography.h4,
@@ -283,7 +283,7 @@ fun PaginatedTable(
                 )
             }
             Text(
-                "الصفحة ${currentPage + 1} من $pageCount",
+                "الصفحة ${currentPage.value + 1} من $pageCount",
                 style = CairoTypography.h4,
                 fontWeight = FontWeight.Bold,
 
@@ -291,7 +291,7 @@ fun PaginatedTable(
             )
             Button(
                 shape = RoundedCornerShape(20.dp),
-                onClick = { if (currentPage < pageCount - 1) currentPage++ }) {
+                onClick = { if (currentPage.value < pageCount - 1) currentPage.value++ }) {
                 Text(
                     "التالية",
                     style = CairoTypography.h4,

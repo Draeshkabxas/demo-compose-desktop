@@ -20,12 +20,12 @@ import utils.getAllEducationArabicNames
 @Composable
 fun ImportXlsxDialog(
     contractsByEducationLevel:Map<String,List<Contract>>,
-    contractsByCity:Map<String,List<Contract>>,
+    //contractsByCity:Map<String,List<Contract>> = emptyMap(),
     onError: @Composable() (String) -> Unit,
     onFilterEducationLevel:(String, List<Contract>) -> Boolean,
     onModifyEducationLevel: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
-    onFilterCity:(String, List<Contract>) -> Boolean,
-    onModifyCity: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
+    //onFilterCity:(String, List<Contract>) -> Boolean = {_,_-> true},
+    //onModifyCity: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>? = {_,_->emptyList()},
     onDismiss:()->Unit,
     onAdd: (List<Contract>) -> Boolean,
 ) {
@@ -36,11 +36,11 @@ fun ImportXlsxDialog(
         contractsByEducationLevel.filter { onFilterEducationLevel(it.key,it.value) }.forEach { convertMapOfEducationLevel[it.key] = ""}
     }
 
-    val convertMapOfCity by remember { mutableStateOf(mutableMapOf<String, String>())}
-    //Fill the convert map with contracts types
-    if (convertMapOfCity.isEmpty()){
-        contractsByCity.filter { onFilterCity(it.key,it.value) }.forEach { convertMapOfCity[it.key] = ""}
-    }
+//    val convertMapOfCity by remember { mutableStateOf(mutableMapOf<String, String>())}
+//    //Fill the convert map with contracts types
+//    if (convertMapOfCity.isEmpty()){
+//        contractsByCity.filter { onFilterCity(it.key,it.value) }.forEach { convertMapOfCity[it.key] = ""}
+//    }
 
     CustomDialogWindow(
         onDismiss = {
@@ -55,12 +55,10 @@ fun ImportXlsxDialog(
         buttons = {
             Button({
                 val contractAfterModifiedEducationLevel = onModifyEducationLevel(contractsByEducationLevel, convertMapOfEducationLevel)
-                val contractAfterModifiedCity = onModifyCity(contractsByCity, convertMapOfCity)
-                if (contractAfterModifiedEducationLevel.isNullOrEmpty() || contractAfterModifiedCity.isNullOrEmpty()) {
+                if (contractAfterModifiedEducationLevel.isNullOrEmpty()) {
                     showErrorMessage = true
                 } else {
                     val contracts = mutableListOf<Contract>()
-                    contracts.addAll(contractAfterModifiedCity)
                     contracts.addAll(contractAfterModifiedEducationLevel)
                     onAdd(contracts)
                 }

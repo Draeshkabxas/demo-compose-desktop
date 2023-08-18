@@ -44,7 +44,22 @@ fun ContractsScreen(
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(40.dp, 82.dp, 280.dp, 120.dp, 180.dp, 115.dp, 115.dp, 150.dp, 110.dp, 120.dp, 140.dp, 160.dp, 200.dp, 200.dp)
+        listOf(
+            40.dp,
+            82.dp,
+            280.dp,
+            120.dp,
+            180.dp,
+            115.dp,
+            115.dp,
+            150.dp,
+            110.dp,
+            120.dp,
+            140.dp,
+            160.dp,
+            200.dp,
+            200.dp
+        )
     val headers = listOf(
         "رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم", "جنسية الأم",
@@ -59,7 +74,9 @@ fun ContractsScreen(
     var contractsData by remember { mutableStateOf<List<Contract>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
-    var currentPage by remember { mutableStateOf(0) }
+    val currentDataTablePage = mutableStateOf(0)
+
+    val resetDataTablePage: () -> Unit = { currentDataTablePage.value = 0 }
 
 
     LaunchedEffect(key1 = true) {
@@ -82,8 +99,14 @@ fun ContractsScreen(
                 onFilterMotherName = { viewModel.onEvent(FilterMotherName(it)) },
                 onFilterName = { viewModel.onEvent(FilterName(it)) },
                 onFilterAgeGroup = { viewModel.onEvent(FilterAgeGroup(it)) },
-                onReset = { viewModel.onEvent(Reset) },
-                onSubmit = { viewModel.onEvent(Submit) },
+                onReset = {
+                    resetDataTablePage()
+                    viewModel.onEvent(Reset)
+                },
+                onSubmit = {
+                    resetDataTablePage()
+                    viewModel.onEvent(Submit)
+                },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
@@ -166,6 +189,7 @@ fun ContractsScreen(
                                         success = it
                                         showImportDialog = false
                                         ("تم إضافة العقود من الملف بنجاح").showSuccessMessage()
+                                        resetDataTablePage()
                                     })
                                 success
                             }
@@ -266,7 +290,7 @@ fun ContractsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                ("تمت عملية الطباعة بنجاح" ).showSuccessMessage()
+                                ("تمت عملية الطباعة بنجاح").showSuccessMessage()
 
                             },
                             onCanceled = {
@@ -291,12 +315,13 @@ fun ContractsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, contractsData, 18, widths,
+                            PaginatedTable(
+                                navController, headers, contractsData, 18, widths,
                                 onRemoveContract = { contract ->
                                     viewModel.removeContract(contract, onSuccess = {})
                                 },
-                                currentPage = viewModel.currentPage.value, // Pass the currentPage value from ViewModel
-                                setCurrentPage = { updatedPage -> viewModel.currentPage.value = updatedPage } )// Pass the setter function to update the currentPage value                                )
+                                currentPage = currentDataTablePage,
+                            ) // Pass the currentPage value from ViewModel
                         }
                     }
                 }

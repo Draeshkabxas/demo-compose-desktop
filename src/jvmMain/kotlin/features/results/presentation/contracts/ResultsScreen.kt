@@ -43,7 +43,7 @@ fun ResultsScreen(
     val headers = listOf(
         "التسلسل", "الإسم رباعي",
         "رقم الهاتف", "نتائج التحاليل", "تاريخ التحاليل",
-         "الملاحظات"
+        "الملاحظات"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -51,7 +51,9 @@ fun ResultsScreen(
     var resultsData by remember { mutableStateOf<List<Results>>(emptyList()) }
     var showPrintListDialog by remember { mutableStateOf(false) }
     var showPrintDirectoryPathDialog by remember { mutableStateOf(false) }
+    val currentDataTablePage = mutableStateOf(0)
 
+    val resetDataTablePage: () -> Unit = { currentDataTablePage.value = 0 }
 
     LaunchedEffect(key1 = true) {
         viewModel.resultsDataFlow.collect { people ->
@@ -68,8 +70,14 @@ fun ResultsScreen(
             Filters(
                 onFilterDate = { viewModel.onEvent(FilterEvent.FilterDate(it)) },
                 onFilterName = { viewModel.onEvent(FilterEvent.FilterName(it)) },
-                onReset = { viewModel.onEvent(FilterEvent.Reset) },
-                onSubmit = { viewModel.onEvent(FilterEvent.Submit) },
+                onReset = {
+                    resetDataTablePage()
+                    viewModel.onEvent(FilterEvent.Reset)
+                },
+                onSubmit = {
+                    resetDataTablePage()
+                    viewModel.onEvent(FilterEvent.Submit)
+                },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
@@ -110,8 +118,8 @@ fun ResultsScreen(
                                             onLoading = {},
                                             onError = {},
                                             onSuccess = {
-                                                ("تم إضاقة نتائج التحاليل من الملف بنجاح" ).showSuccessMessage()
-
+                                                resetDataTablePage()
+                                                ("تم إضاقة نتائج التحاليل من الملف بنجاح").showSuccessMessage()
                                             }
                                         )
                                     }
@@ -204,7 +212,7 @@ fun ResultsScreen(
                                 viewModel.onPrintEvent(PrintEvent.PrintToDirectory(filePath))
                                 viewModel.onPrintEvent(PrintEvent.Submit)
                                 showPrintDirectoryPathDialog = false
-                                ("تم عملية الطباعة بنجاح" ).showSuccessMessage()
+                                ("تم عملية الطباعة بنجاح").showSuccessMessage()
                             },
                             onCanceled = {
                                 showPrintDirectoryPathDialog = false

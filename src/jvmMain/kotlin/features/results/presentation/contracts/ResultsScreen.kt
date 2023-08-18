@@ -239,7 +239,9 @@ fun ResultsScreen(
                             PaginatedTable(navController, headers, resultsData, 25, widths,
                                 onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
-                                })
+                                },
+                                currentPage = currentDataTablePage,
+                            )
                         }
                     }
                 }

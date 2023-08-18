@@ -63,6 +63,7 @@ fun PaginatedTable(
                     text = header,
                     style = CairoTypography.h3,
                     color = Color.White,
+                    maxLines = 1,
                     modifier = Modifier
                         .width(columnWidths[index])
                         .background(blue)
@@ -153,8 +154,11 @@ fun PaginatedTable(
                         Text(
                             text = results.name,
                             style = CairoTypography.h3,
+
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[1])
                                 .padding(8.dp)
@@ -209,6 +213,7 @@ fun PaginatedTable(
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
+                            maxLines = 1,
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
@@ -217,6 +222,7 @@ fun PaginatedTable(
                             text = results.result,
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[3])
@@ -226,6 +232,7 @@ fun PaginatedTable(
                             text = results.date,
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[4])
@@ -268,7 +275,7 @@ fun PaginatedTable(
                             modifier = Modifier
                                 .width(columnWidths[5])
                                 .padding(8.dp),
-                            maxLines = 2
+                            maxLines = 1
                         )
 
                     }

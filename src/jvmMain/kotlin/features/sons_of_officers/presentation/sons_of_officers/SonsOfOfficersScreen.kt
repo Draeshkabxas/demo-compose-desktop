@@ -172,7 +172,8 @@ fun SonsOfOfficersScreen(
                                 "رقم الهاتف",
                                 "القائم بالتجنيد",
                                 "النتيجة",
-                                "اللجنة"
+                                "اللجنة",
+                                "الملاحظات"
                             ),
                             onPrintColumnsChanged = {
                                 viewModel.onPrintEvent(PrintList(it))
@@ -217,8 +218,10 @@ fun SonsOfOfficersScreen(
                                     viewModel.removePerson(
                                         person = person,
                                         onError = { it.showErrorMessage() },
-                                        onSuccess = { "تم عملية المسح بنجاح".showSuccessMessage() })
-                                })
+                                        onSuccess = { "تمت عملية المسح بنجاح".showSuccessMessage() })
+                                },
+                                currentPage = currentDataTablePage,
+                            )
                         }
                     }
                 }

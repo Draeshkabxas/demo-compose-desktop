@@ -183,6 +183,8 @@ fun PaginatedTable(
                         style = CairoTypography.h3,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[1])
                             .padding(8.dp)
@@ -191,6 +193,8 @@ fun PaginatedTable(
                         text = person.name,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+
 //                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[2])
@@ -201,6 +205,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[3])
                             .padding(8.dp)
@@ -209,6 +215,8 @@ fun PaginatedTable(
                         text = person.motherName,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+
 //                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[4])
@@ -219,6 +227,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[5])
                             .padding(8.dp)
@@ -228,6 +238,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[6])
                             .padding(8.dp)
@@ -237,6 +249,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[7])
                             .padding(8.dp)
@@ -245,6 +259,8 @@ fun PaginatedTable(
                         text = person.recruiter,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+
 //                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[8])
@@ -260,6 +276,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[9])
                             .padding(8.dp)
@@ -296,6 +314,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[10])
                             .padding(8.dp)
@@ -306,6 +326,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[11])
                             .padding(8.dp)
@@ -314,6 +336,7 @@ fun PaginatedTable(
                         text = person.notes,
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
 //                        textAlign = TextAlign.Center,
                         modifier = Modifier
                             .width(columnWidths[12])
@@ -329,6 +352,8 @@ fun PaginatedTable(
                         style = CairoTypography.h4,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+
                         modifier = Modifier
                             .width(columnWidths[13])
                             .padding(8.dp)

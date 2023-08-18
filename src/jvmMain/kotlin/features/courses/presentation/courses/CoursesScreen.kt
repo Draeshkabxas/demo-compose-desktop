@@ -171,7 +171,8 @@ fun CoursesScreen(
                             "رقم الهاتف",
                             "القائم بالتجنيد",
                             "النتيجة",
-                            "اللجنة"
+                            "اللجنة",
+                            "الملاحظات"
                         ),
                         onPrintColumnsChanged = {
                             viewModel.onPrintEvent(PrintList(it))

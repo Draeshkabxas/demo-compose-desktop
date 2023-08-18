@@ -47,9 +47,16 @@ fun PaginatedTable(
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
     var superAdmin = userAuthSystem.canChangeAccountsPermission()
-    val scrollState = rememberScrollState()
 
-    Column() {
+    val scrollState = rememberScrollState()
+    val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+
+    Box(
+        modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
+    ) {
+        Column(        modifier = Modifier.fillMaxWidth()
+
+        ) {
         Row {
             headers.forEachIndexed { index, header ->
                 Text(
@@ -155,7 +162,7 @@ fun PaginatedTable(
                             text = person.name,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
@@ -173,7 +180,7 @@ fun PaginatedTable(
                             text = person.motherName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[4])
                                 .padding(8.dp)
@@ -209,7 +216,7 @@ fun PaginatedTable(
                             text = person.recruiter,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center,
+//                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[8])
                                 .padding(8.dp)
@@ -297,6 +304,8 @@ fun PaginatedTable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.width(500.dp))
+
             Button(elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,
                 hoveredElevation = 15.dp,
@@ -329,4 +338,4 @@ fun PaginatedTable(
             }
         }
     }
-}
+}}

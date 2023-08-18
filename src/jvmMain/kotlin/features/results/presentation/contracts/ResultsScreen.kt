@@ -39,11 +39,11 @@ fun ResultsScreen(
     viewModel: ResultsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(100.dp, 300.dp, 160.dp, 150.dp, 160.dp, 85.dp, 400.dp)
+        listOf(100.dp, 450.dp, 160.dp, 150.dp, 160.dp, 400.dp)
     val headers = listOf(
         "التسلسل", "الإسم رباعي",
         "رقم الهاتف", "نتائج التحاليل", "تاريخ التحاليل",
-        "تعديل", "الملاحظات"
+         "الملاحظات"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -228,7 +228,7 @@ fun ResultsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, resultsData, 15, widths,
+                            PaginatedTable(navController, headers, resultsData, 20, widths,
                                 onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
                                 })

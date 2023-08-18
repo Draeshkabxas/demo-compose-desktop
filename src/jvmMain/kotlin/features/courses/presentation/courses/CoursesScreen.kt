@@ -44,7 +44,7 @@ fun CoursesScreen(
     navController: NavController<Screens>,
     viewModel: CoursesScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp, 82.dp, 150.dp, 130.dp, 150.dp, 115.dp, 85.dp, 110.dp, 140.dp, 85.dp, 85.dp, 65.dp, 95.dp)
+    val widths = listOf(70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 90.dp, 95.dp)
     val headers = listOf(
         "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة", "إحالة لتدريب"
@@ -206,7 +206,7 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, coursesData, 13, widths,
+                            PaginatedTable(navController, headers, coursesData, 18, widths,
                                 onRemoveCourse = {course->
                                     viewModel.removeCourse(course, onSuccess = {})
                                 })

@@ -39,10 +39,7 @@ class ContractsScreenViewModel (
 
     }
 
-    @Composable
-    fun currentPageReset() {
-        var currentPage by remember { mutableStateOf(0) }
-    }
+
     fun importContracts(
         filePath: String,
         onLoading: () -> Unit = {},
@@ -103,8 +100,10 @@ class ContractsScreenViewModel (
     private fun getContractsGroupedByEducationLevel(contracts: List<Contract>): Map<String, List<Contract>> {
         return contracts.groupBy { it.educationLevel }
     }
+    val currentPage = mutableStateOf(0)
 
     fun onEvent(event: FilterEvent) {
+
         when (event) {
             is FilterEvent.FilterLibyaId -> {
                 state = state.copy(libyaId = event.libyaId)
@@ -136,7 +135,7 @@ class ContractsScreenViewModel (
             is FilterEvent.Reset -> {
                 state = FilterState()
                 getFilterData()
-
+                currentPage.value = 0
             }
 
             is FilterEvent.Submit -> {

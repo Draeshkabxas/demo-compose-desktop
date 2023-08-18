@@ -85,61 +85,11 @@ fun AddResultsScreen(
                     hint = personalInputsNameAndValue[0],
                     errorMessage = state.nameError.toString(),
                     width = 150.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 35 // Set the maximum length to N characters
+
                 )
             }
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.motherName,
-//                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNameChanged(it)) },
-//                    hint = personalInputsNameAndValue[1],
-//                    isError = state.motherNameError!=null,
-//                    errorMessage = state.motherNameError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.TEXT
-//
-//                )
-//            }
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.motherNationality,
-//                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.MotherNationalityChanged(it)) },
-//                    hint = personalInputsNameAndValue[2],
-//                    isError = state.motherNationalityError!=null,
-//                    errorMessage = state.motherNationalityError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.TEXT
-//                )
-//            }
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.fileNumber,
-//                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.FileNumberChanged(it)) },
-//                    hint = personalInputsNameAndValue[3],
-//                    isError = state.fileNumberError!=null,
-//                    errorMessage = state.fileNumberError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.All,
-//                    maxLength = 8 // Set the maximum length to N characters
-//
-//                )
-//            }
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.libyaId,
-//                    onValueChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ContractInfoFormEvent.LibyaIdChanged(it)) },
-//                    hint = personalInputsNameAndValue[4],
-//                    isError = state.libyaIdError!=null,
-//                    errorMessage = state.libyaIdError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.NUMBER,
-//                    maxLength = 12 // Set the maximum length to N characters
-//                )
-//            }
             item {
                 CustomOutlinedTextField(
                     value = state.phoneNumber,
@@ -153,45 +103,11 @@ fun AddResultsScreen(
                     maxLength = 10 // Set the maximum length to N characters
                 )
             }
-
-
-
-
-//            item{
-//                Column {
-//                    SelectorWithLabel(
-//                        label = "المدينة : ",
-//                        items = LibyanCities.values().map { it.arabicName },
-//                        selectedItem = if (selectedCity.isEmpty()) "إختر المدينة " else selectedCity ,
-//                        onItemSelected = {
-//                            selectedCity= it
-//                            viewModel.onEvent(ResultsInfoFormEvent.CityChanged(it)) }
-//                    )
-//                    if (state.cityError!=null)
-//                        Text(state.cityError.toString(),
-//                            color = Color.Red,
-//                            style = CairoTypography.body2
-//                        )
-//                }
-//            }
-
         }
 
         Section("بيانات التحاليل",
             3){
             val state = viewModel.state
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.result,
-//                    onValueChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ResultsInfoFormEvent.ResultChanged(it)) },
-//                    hint = personalInputsNameAndValue[2],
-//                    isError = state.resultError!=null,
-//                    errorMessage = state.resultError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.TEXT
-//                )
-//            }
             val testsResult = listOf("لائق","غير لائق")
             item {
                 Column {
@@ -210,19 +126,6 @@ fun AddResultsScreen(
                             style = CairoTypography.body2)}
                 }
             }
-//            item {
-//                CustomOutlinedTextField(
-//                    value = state.bankName,
-//                    onValueChange = { viewModel.onEvent(ResultsInfoFormEvent.BankNameChanged(it)) },
-//                    onNextChange = { viewModel.onEvent(ResultsInfoFormEvent.BankNameChanged(it)) },
-//                    hint = personalInputsNameAndValue[7],
-//                    isError = state.bankNameError!=null,
-//                    errorMessage = state.bankNameError.toString(),
-//                    width = 150.dp,
-//                    inputType = InputType.TEXT
-//
-//                )
-//            }
             item {
                 CustomOutlinedTextField(
                     value = state.date,
@@ -232,7 +135,8 @@ fun AddResultsScreen(
                     isError = state.dateError!=null,
                     errorMessage = state.dateError.toString(),
                     width = 150.dp,
-                    inputType = InputType.All
+                    inputType = InputType.All,
+                    maxLength = 10 // Set the maximum length to N characters
 
                 )
             }
@@ -245,7 +149,8 @@ fun AddResultsScreen(
                     isError = state.notesError!=null,
                     errorMessage = state.notesError.toString(),
                     width = 50.dp,
-                    inputType = InputType.TEXT
+                    inputType = InputType.TEXT,
+                    maxLength = 25 // Set the maximum length to N characters
                 )
             }
         }

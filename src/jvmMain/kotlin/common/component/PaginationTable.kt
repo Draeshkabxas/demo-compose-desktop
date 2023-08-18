@@ -78,6 +78,7 @@ fun PaginatedTable(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Spacer(modifier = Modifier.width(1200.dp))
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text = "يمكنك فلترة بحثك للحصول على نتائج اكثر دقة", style = CairoTypography.h3)
                 }

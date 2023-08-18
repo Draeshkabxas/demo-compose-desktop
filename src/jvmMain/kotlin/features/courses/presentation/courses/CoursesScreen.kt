@@ -212,7 +212,7 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.size(1400.dp)) {
-                            PaginatedTable(navController, headers, coursesData, 18, widths,
+                            PaginatedTable(navController, headers, coursesData, 25, widths,
                                 onRemoveCourse = {course->
                                     viewModel.removeCourse(course, onSuccess = {})
                                 },

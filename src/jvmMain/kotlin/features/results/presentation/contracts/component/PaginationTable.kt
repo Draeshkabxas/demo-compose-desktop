@@ -48,7 +48,15 @@ fun PaginatedTable(
     var canEditPermission = userAuthSystem.canEdit()
     var superAdmin = userAuthSystem.canChangeAccountsPermission()
 
-    Column() {
+    val scrollState = rememberScrollState()
+    val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+
+    Box(
+        modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
+    ) {
+        Column(        modifier = Modifier.fillMaxWidth()
+
+        ) {
         Row {
             headers.forEachIndexed { index, header ->
                 Text(
@@ -70,6 +78,7 @@ fun PaginatedTable(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
+                    Spacer(modifier = Modifier.width(1200.dp))
                     Text(text = "لاتوجد نتائج للبحث  ", style = CairoTypography.h3)
                     Text(text = "يمكنك فلترة بحثك للحصول على نتائج اكثر دقة", style = CairoTypography.h3)
                 }
@@ -272,6 +281,7 @@ fun PaginatedTable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(modifier = Modifier.width(500.dp))
             Button(
                 shape = RoundedCornerShape(20.dp),
                 onClick = { if (currentPage.value > 0) currentPage.value-- }) {
@@ -300,4 +310,4 @@ fun PaginatedTable(
             }
         }
     }
-}
+}}

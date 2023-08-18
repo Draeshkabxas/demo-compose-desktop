@@ -131,8 +131,8 @@ fun ContractsScreen(
                     if (showImportDialog) {
                         var success by remember { mutableStateOf(false) }
                         ImportXlsxDialog(
-                            contracts = contracts,
-                            onFilter = { educationLevel, _ ->
+                            contractsByEducationLevel = contracts,
+                            onFilterEducationLevel = { educationLevel, _ ->
                                 !viewModel.checkIfEducationLevelIsCorrect(educationLevel)
                             },
                             onDismiss = {
@@ -141,7 +141,7 @@ fun ContractsScreen(
                             onError = {
                                 it.showErrorMessage()
                             },
-                            onModify = { contracts, convertMap ->
+                            onModifyEducationLevel = { contracts, convertMap ->
                                 var contractsAfterModified: List<Contract>? = emptyList<Contract>()
 
                                 viewModel.changeContractEducationLevelType(

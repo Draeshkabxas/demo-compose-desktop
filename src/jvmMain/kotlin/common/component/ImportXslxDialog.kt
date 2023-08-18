@@ -19,18 +19,27 @@ import utils.getAllEducationArabicNames
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ImportXlsxDialog(
-    contracts:Map<String,List<Contract>>,
+    contractsByEducationLevel:Map<String,List<Contract>>,
+    contractsByCity:Map<String,List<Contract>>,
     onError: @Composable() (String) -> Unit,
-    onFilter:(String,List<Contract>) -> Boolean,
+    onFilterEducationLevel:(String, List<Contract>) -> Boolean,
+    onModifyEducationLevel: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
+    onFilterCity:(String, List<Contract>) -> Boolean,
+    onModifyCity: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
     onDismiss:()->Unit,
-    onModify: (Map<String, List<Contract>>, Map<String, String>) -> List<Contract>?,
     onAdd: (List<Contract>) -> Boolean,
 ) {
     var showErrorMessage by remember { mutableStateOf(false) }
-    val convertMap by remember { mutableStateOf(mutableMapOf<String, String>())}
+    val convertMapOfEducationLevel by remember { mutableStateOf(mutableMapOf<String, String>())}
     //Fill the convert map with contracts types
-    if (convertMap.isEmpty()){
-        contracts.filter { onFilter(it.key,it.value) }.forEach { convertMap[it.key] = ""}
+    if (convertMapOfEducationLevel.isEmpty()){
+        contractsByEducationLevel.filter { onFilterEducationLevel(it.key,it.value) }.forEach { convertMapOfEducationLevel[it.key] = ""}
+    }
+
+    val convertMapOfCity by remember { mutableStateOf(mutableMapOf<String, String>())}
+    //Fill the convert map with contracts types
+    if (convertMapOfCity.isEmpty()){
+        contractsByCity.filter { onFilterCity(it.key,it.value) }.forEach { convertMapOfCity[it.key] = ""}
     }
 
     CustomDialogWindow(
@@ -45,11 +54,15 @@ fun ImportXlsxDialog(
         },
         buttons = {
             Button({
-                val contractAfterModified = onModify(contracts, convertMap)
-                if (contractAfterModified.isNullOrEmpty()) {
+                val contractAfterModifiedEducationLevel = onModifyEducationLevel(contractsByEducationLevel, convertMapOfEducationLevel)
+                val contractAfterModifiedCity = onModifyCity(contractsByCity, convertMapOfCity)
+                if (contractAfterModifiedEducationLevel.isNullOrEmpty() || contractAfterModifiedCity.isNullOrEmpty()) {
                     showErrorMessage = true
                 } else {
-                    onAdd(contractAfterModified)
+                    val contracts = mutableListOf<Contract>()
+                    contracts.addAll(contractAfterModifiedCity)
+                    contracts.addAll(contractAfterModifiedEducationLevel)
+                    onAdd(contracts)
                 }
             }) {
                 Text("اضافة")
@@ -62,22 +75,25 @@ fun ImportXlsxDialog(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(convertMap.keys.toList()) { key ->
-                    var selectedItem by remember { mutableStateOf(convertMap[key] ?: "") }
+                items(convertMapOfEducationLevel.keys.toList()) { key ->
+                    var selectedItem by remember { mutableStateOf(convertMapOfEducationLevel[key] ?: "") }
                     SelectorWithLabel(
                         "إختر المؤهل العلمي لهذه الفئة ($key) ",
                         items = getAllEducationArabicNames(),
                         selectedItem = selectedItem,
                         onItemSelected = { selected ->
                             selectedItem = selected
-                            convertMap[key] = selected
+                            convertMapOfEducationLevel[key] = selected
                         }
                     )
                 }
                 item{
-                    if (convertMap.keys.isEmpty()){
+                    if (convertMapOfEducationLevel.keys.isEmpty()){
                         Text("لا يوجد عناصر لتحويلها يرجى الضغط على اضافة لإتمام العملية")
                     }
+                }
+                items(convertMapOfEducationLevel.keys.toList()){
+
                 }
             }
         }

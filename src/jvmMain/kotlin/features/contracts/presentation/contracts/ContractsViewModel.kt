@@ -21,6 +21,7 @@ class ContractsScreenViewModel (
     private val removeAllContracts: RemoveAllContracts,
     private val importContractsFromXlsx: ImportContractsFromXlsx,
     private val changeContractsEducationLevel: ChangeAllContractsEducationLevel,
+    private val changeAllContractsCity: ChangeAllContractsCity,
     private val addAllContract: AddAllContract,
     private val removeContractUseCase: RemoveContract
 ) {
@@ -65,6 +66,21 @@ class ContractsScreenViewModel (
         return getAllEducationArabicNames().contains(educationLevel)
     }
 
+    fun changeContractCityType(
+        contracts:Map<String,List<Contract>>,
+        convertedMap: Map<String,String>,
+        onError: (String) -> Unit = {},
+        onSuccess: (List<Contract>?) -> Unit
+    ) {
+        if (convertedMap.values.any { it.isEmpty() }){
+            println("converted map = $convertedMap")
+            onError("من فضلك حدد المدينة لجميع الفئاة")
+            onSuccess(null)
+        }else{
+            val contracts = changeAllContractsCity(contracts,convertedMap)
+            onSuccess(contracts)
+        }
+    }
     fun changeContractEducationLevelType(
         contracts:Map<String,List<Contract>>,
         convertedMap: Map<String,String>,

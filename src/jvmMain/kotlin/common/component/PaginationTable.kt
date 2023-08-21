@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.*
 import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
-import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
@@ -51,6 +50,7 @@ fun PaginatedTable(
 
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+    val checkedPersons = mutableStateOf<List<Person>>(emptyList())
 
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
@@ -142,12 +142,12 @@ fun PaginatedTable(
                             alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                         )
                         Checkbox(
-                            checked = SonsOfOfficersScreenViewModel.checkedPersons.value.contains(person),
+                            checked = checkedPersons.contains(person),
                             onCheckedChange = { isChecked ->
                                 if (isChecked) {
-                                    SonsOfOfficersScreenViewModelcheckedPersons.add(person)
+                                    checkedPersons.add(person)
                                 } else {
-                                    SonsOfOfficersScreenViewModelcheckedPersons.remove(person)
+                                    checkedPersons.remove(person)
                                 }
                             },
                             modifier = Modifier.padding(8.dp)
@@ -179,7 +179,6 @@ fun PaginatedTable(
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
                             maxLines = 1,
-
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)

@@ -29,7 +29,7 @@ fun clearFile(fileName: String = "error.text") {
 }
 
 
-fun filePrintLn(line: String, fileName: String = "error.text") {
+fun filePrintLn(line: String, fileName: String = "errorx.text") {
     val desktopPath = "C:/Users/sabar/OneDrive/Desktop/" // System.getProperty("user.home") + File.separator + "Desktop"
     val file = File(desktopPath + fileName)
 

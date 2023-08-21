@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.*
 import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
@@ -38,7 +39,8 @@ fun PaginatedTable(
     itemsPerPage: Int,
     columnWidths: List<Dp>,
     onRemovePerson: (Person) -> Unit,
-    currentPage:MutableState<Int> = mutableStateOf(0)
+    currentPage:MutableState<Int> = mutableStateOf(0),
+    onSelectedListChange:(MutableList<Person>) -> Unit ,
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -50,7 +52,7 @@ fun PaginatedTable(
 
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
-    val checkedPersons = mutableStateOf<List<Person>>(emptyList())
+    val selectedList  = mutableStateListOf<Person>()
 
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
@@ -142,13 +144,14 @@ fun PaginatedTable(
                             alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                         )
                         Checkbox(
-                            checked = checkedPersons.contains(person),
+                            checked = selectedList.contains(person),
                             onCheckedChange = { isChecked ->
                                 if (isChecked) {
-                                    checkedPersons.add(person)
+                                    selectedList.add(person)
                                 } else {
-                                    checkedPersons.remove(person)
+                                    selectedList.remove(person)
                                 }
+                                onSelectedListChange(selectedList)
                             },
                             modifier = Modifier.padding(8.dp)
                         )
@@ -179,6 +182,7 @@ fun PaginatedTable(
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
                             maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)

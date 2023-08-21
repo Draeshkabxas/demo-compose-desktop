@@ -9,16 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="finish it tooooooo2">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/contracts/presentation/contracts/ContractsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/courses/presentation/courses/CoursesScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/presentation/contracts/ResultsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/results/presentation/contracts/ResultsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/features/sons_of_officers/presentation/sons_of_officers/SonsOfOfficersScreenViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/LibyanCities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/utils/LibyanCities.kt" afterDir="false" />
-    </list>
+    <list default="true" id="c6736f7d-985e-4736-82d6-9d867ca65fb9" name="Changes" comment="finish it tooooooo4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -211,22 +202,6 @@
       <option name="presentableId" value="LOCAL؜-٠٠٠٠٤" />
       <option name="project" value="LOCAL؜" />
       <updated>1687765134659</updated>
-    </task>
-    <task id="LOCAL-00037" summary="add edite 10">
-      <option name="closed" value="true" />
-      <created>1689277686893</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1689277686893</updated>
-    </task>
-    <task id="LOCAL-00038" summary="add edite 10">
-      <option name="closed" value="true" />
-      <created>1689277972599</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1689277972599</updated>
     </task>
     <task id="LOCAL-00039" summary="add edite 11">
       <option name="closed" value="true" />
@@ -572,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1692488221625</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="finish it tooooooo3">
+      <option name="closed" value="true" />
+      <created>1692606760618</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1692606760618</updated>
+    </task>
+    <task id="LOCAL-00083" summary="finish it tooooooo4">
+      <option name="closed" value="true" />
+      <created>1692609551099</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1692609551099</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -587,8 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'master' of https://github.com/Draeshkabxas/demo-compose-desktop" />
-    <MESSAGE value="add edite 22" />
     <MESSAGE value="add edite 23" />
     <MESSAGE value="add edite 24" />
     <MESSAGE value="add edite 25" />
@@ -612,17 +601,8 @@
     <MESSAGE value="add edite 563" />
     <MESSAGE value="finish it tooooooo" />
     <MESSAGE value="finish it tooooooo2" />
-    <option name="LAST_COMMIT_MESSAGE" value="finish it tooooooo2" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/jvmMain/kotlin/common/component/PaginationTable.kt</url>
-          <line>149</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="finish it tooooooo3" />
+    <MESSAGE value="finish it tooooooo4" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish it tooooooo4" />
   </component>
 </project>

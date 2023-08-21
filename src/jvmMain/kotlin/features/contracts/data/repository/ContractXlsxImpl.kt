@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import utils.AgeGroup
+import utils.filePrintLn
 import utils.getAgeGroupFromLibyaId
 import java.io.FileOutputStream
 
@@ -86,13 +87,13 @@ class ContractXlsxImpl : ContractXlsxRepository {
                     }
                 }
             }
-
             FileOutputStream("$filePath/العقود.xlsx").use { outputStream ->
                 workbook.write(outputStream)
                 workbook.close()
             }
             emit(true)
         } catch (e: Exception) {
+            filePrintLn(e.localizedMessage)
             workbook.close()
             emit(false)
         }
@@ -120,13 +121,16 @@ class ContractXlsxImpl : ContractXlsxRepository {
             "رقم الحساب" to { contract: Contract, value: String -> contract.copy(accountNumber = value) },
             "الرقم الاشاري" to { contract: Contract, value: String -> contract.copy(reference = value) },
             "الملاحظات" to { contract: Contract, value: String -> contract.copy(notes = value) },
-
-
-
             )
-        val contracts = xlsxToListOf(filePath, {
-            Contract("", "", "", "", "", "", "", "", "", "", "", "", AgeGroup.UnderEightTeen, "","")
-        }, map)
+        var contracts = emptyList<Contract>()
+        try {
+            contracts = xlsxToListOf(filePath, {
+                Contract("", "", "", "", "", "", "", "", "", "", "", "", AgeGroup.UnderEightTeen, "","")
+            }, map)
+            filePrintLn(contracts.toString())
+        }catch (e:Exception){
+            filePrintLn("error import ${e.localizedMessage}")
+        }
         emit(contracts)
     }
 }

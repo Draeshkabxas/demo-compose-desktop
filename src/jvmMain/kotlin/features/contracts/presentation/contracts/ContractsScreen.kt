@@ -44,9 +44,9 @@ fun ContractsScreen(
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(40.dp, 82.dp, 280.dp, 120.dp, 180.dp, 115.dp, 115.dp, 150.dp, 110.dp, 120.dp, 140.dp, 160.dp, 300.dp, 200.dp)
+        listOf(70.dp,40.dp, 82.dp, 280.dp, 120.dp, 180.dp, 115.dp, 115.dp, 150.dp, 110.dp, 120.dp, 140.dp, 160.dp, 300.dp, 200.dp)
     val headers = listOf(
-        "رقم", "رقم الملف", "الإسم رباعي",
+        "تحديد","رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم", "جنسية الأم",
         "المؤهل العلمي", "المدينة", "رقم الهاتف",
         "التبعية", "إسم المصرف", "رقم الحساب",
@@ -306,6 +306,10 @@ fun ContractsScreen(
                                     viewModel.removeContract(contract, onSuccess = {})
                                 },
                                 currentPage = currentDataTablePage,
+                                onSelectedListChange = { value ->
+                                    println("on Selected $value")
+                                    viewModel.checkedPersons.value = value
+                                }
                             ) // Pass the currentPage value from ViewModel
                         }
                     }

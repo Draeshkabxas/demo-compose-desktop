@@ -39,9 +39,9 @@ fun ResultsScreen(
     viewModel: ResultsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(100.dp, 450.dp, 160.dp, 150.dp, 160.dp, 400.dp)
+        listOf(70.dp,100.dp, 450.dp, 160.dp, 150.dp, 160.dp, 400.dp)
     val headers = listOf(
-        "التسلسل", "الإسم رباعي",
+       "تحديد", "التسلسل", "الإسم رباعي",
         "رقم الهاتف", "نتائج التحاليل", "تاريخ التحاليل",
         "الملاحظات"
     )
@@ -236,12 +236,16 @@ fun ResultsScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.height(1400.dp).fillMaxWidth()) {
-                            PaginatedTable(navController, headers, resultsData, 25, widths,
+                            PaginatedTable(navController, headers, resultsData, 20, widths,
                                 onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
                                 },
                                 currentPage = currentDataTablePage,
-                            )
+                                onSelectedListChange = { value ->
+                                    println("on Selected $value")
+                                    viewModel.checkedPersons.value = value
+                                })
+
                         }
                     }
                 }

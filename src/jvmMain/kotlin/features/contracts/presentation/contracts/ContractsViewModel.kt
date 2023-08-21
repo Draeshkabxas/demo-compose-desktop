@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import utils.Resource
 import features.contracts.domain.model.Contract
 import features.contracts.domain.usecases.*
+import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.PrintEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +29,14 @@ class ContractsScreenViewModel (
     private var state  = FilterState()
 
     private val contractsDataChannel = Channel<List<Contract>>()
+    private var peopleData: List<Contract> = emptyList()
 
     private var contractsData:List<Contract> = emptyList()
     val contractsDataFlow = contractsDataChannel.receiveAsFlow()
 
     private var printList = listOf<String>()
     private var printPath = ""
+    val checkedPersons = mutableStateOf<MutableList<Contract>>(mutableListOf())
 
     init {
         getFilterData()
@@ -207,7 +210,9 @@ class ContractsScreenViewModel (
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printContractsListToXlsxFile.invoke(contractsData, filePath,printList).onEach {
+        val printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+
+        printContractsListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()

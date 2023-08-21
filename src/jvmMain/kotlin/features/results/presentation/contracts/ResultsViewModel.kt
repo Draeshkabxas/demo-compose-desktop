@@ -1,9 +1,11 @@
 package features.results.presentation.results
 
+import androidx.compose.runtime.mutableStateOf
 import features.contracts.domain.model.Contract
 import utils.Resource
 import features.results.domain.model.Results
 import features.results.domain.usecases.*
+import features.sons_of_officers.domain.model.Person
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -22,12 +24,14 @@ class ResultsScreenViewModel (
     private var state  = FilterState()
 
     private val resultsDataChannel = Channel<List<Results>>()
+    private var peopleData: List<Results> = emptyList()
 
     private var resultsData:List<Results> = emptyList()
     val resultsDataFlow = resultsDataChannel.receiveAsFlow()
 
     private var printList = listOf<String>()
     private var printPath = ""
+    val checkedPersons = mutableStateOf<MutableList<Results>>(mutableListOf())
 
     init {
         getFilterData()
@@ -133,11 +137,16 @@ class ResultsScreenViewModel (
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printResultsListToXlsxFile.invoke(resultsData, filePath,printList).onEach {
+        var printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+
+        printResultsListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()
-                is Resource.Success -> it.data?.let(onSuccess)
+                is Resource.Success -> {
+                    printData=peopleData
+                    it.data?.let(onSuccess)
+                }
             }
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }

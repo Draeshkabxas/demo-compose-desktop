@@ -40,6 +40,9 @@ import androidx.compose.ui.unit.dp
 import features.contracts.presentation.contracts.FilterEvent
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
+import features.results.domain.model.Results
+import features.sons_of_officers.domain.model.Person
+
 @Composable
 fun PaginatedTable(
     navController: NavController<Screens>,
@@ -49,7 +52,8 @@ fun PaginatedTable(
     columnWidths: List<Dp>,
     onRemoveContract: (Contract) -> Unit,
     currentPage:MutableState<Int> = mutableStateOf(0),
-) {
+    onSelectedListChange:(MutableList<Contract>) -> Unit,
+    ) {
 
 //    if (contractList.isEmpty()) return
     val pageCount = (contractList.size + itemsPerPage - 1) / itemsPerPage
@@ -59,6 +63,7 @@ fun PaginatedTable(
     var canEditPermission = userAuthSystem.canEdit()
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+    val selectedList  = mutableStateListOf<Contract>()
 
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
@@ -148,6 +153,26 @@ fun PaginatedTable(
                         )
 //                        }
 
+                        Checkbox(
+                            checked = selectedList.contains(contract),
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = blue,
+                                uncheckedColor = Color.Gray,
+                                checkmarkColor = Color.White,
+                                disabledColor = Color.LightGray,
+                            ),
+                            onCheckedChange = { isChecked ->
+                                if (isChecked) {
+                                    selectedList.add(contract)
+                                } else {
+                                    selectedList.remove(contract)
+                                }
+                                onSelectedListChange(selectedList)
+                            },
+                            modifier = Modifier
+                                .width(columnWidths[0])
+                                .padding(8.dp)
+                        )
                         Text(
                             text = (contractList.indexOf(contract) + 1).toString(), // display counter value as text
                             maxLines = 1,
@@ -155,7 +180,7 @@ fun PaginatedTable(
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[0])
+                                .width(columnWidths[1])
                                 .padding(8.dp)
                         )
                         Text(
@@ -166,7 +191,7 @@ fun PaginatedTable(
 
                             textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[1])
+                                .width(columnWidths[2])
                                 .padding(8.dp)
                         )
                         Text(
@@ -177,7 +202,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[2])
+                                .width(columnWidths[3])
                                 .padding(8.dp)
                         )
                         Text(
@@ -188,7 +213,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[3])
+                                .width(columnWidths[4])
                                 .padding(8.dp)
                         )
                         Text(
@@ -199,7 +224,7 @@ fun PaginatedTable(
 
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[4])
+                                .width(columnWidths[5])
                                 .padding(8.dp)
                         )
                         Text(
@@ -210,7 +235,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[5])
+                                .width(columnWidths[6])
                                 .padding(8.dp)
                         )
                         Text(
@@ -221,7 +246,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[6])
+                                .width(columnWidths[7])
                                 .padding(8.dp)
                         )
                         Text(
@@ -232,7 +257,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[7])
+                                .width(columnWidths[8])
                                 .padding(8.dp)
                         )
                         Text(
@@ -243,7 +268,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[8])
+                                .width(columnWidths[9])
                                 .padding(8.dp)
                         )
                         Text(
@@ -253,7 +278,7 @@ fun PaginatedTable(
                             maxLines = 1,
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[9])
+                                .width(columnWidths[10])
                                 .padding(8.dp)
                         )
                         Text(
@@ -264,7 +289,7 @@ fun PaginatedTable(
 
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[10])
+                                .width(columnWidths[11])
                                 .padding(8.dp)
                         )
                         Text(
@@ -275,7 +300,7 @@ fun PaginatedTable(
 
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[11])
+                                .width(columnWidths[12])
                                 .padding(8.dp)
                         )
                         Text(
@@ -286,7 +311,7 @@ fun PaginatedTable(
 
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .width(columnWidths[12])
+                                .width(columnWidths[13])
                                 .padding(8.dp),
                         )
                         Text(
@@ -297,7 +322,7 @@ fun PaginatedTable(
                             maxLines = 1,
 
                             modifier = Modifier
-                                .width(columnWidths[13])
+                                .width(columnWidths[14])
                                 .padding(8.dp),
                         )
 

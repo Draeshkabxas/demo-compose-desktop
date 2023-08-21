@@ -1,11 +1,13 @@
 package features.courses.presentation.courses
 
+import androidx.compose.runtime.mutableStateOf
 import utils.Resource
 import features.courses.domain.model.Course
 import features.courses.domain.usecases.GetAllCourses
 import features.courses.domain.usecases.PrintCoursesListToXlsxFile
 import features.courses.domain.usecases.RemoveAllCourses
 import features.courses.domain.usecases.RemoveCourse
+import features.sons_of_officers.domain.model.Person
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
@@ -25,9 +27,12 @@ class CoursesScreenViewModel(
 
     private var coursesData:List<Course> = emptyList()
     val coursesDataFlow = coursesDataChannel.receiveAsFlow()
+    private var peopleData: List<Course> = emptyList()
 
     private var printList = listOf<String>()
     private var printPath = ""
+    val checkedPersons = mutableStateOf<MutableList<Course>>(mutableListOf())
+
     init {
         getFilterData()
     }
@@ -124,7 +129,9 @@ class CoursesScreenViewModel(
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printCoursesListToXlsxFile.invoke(coursesData, filePath,printList).onEach {
+        val printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+
+        printCoursesListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()

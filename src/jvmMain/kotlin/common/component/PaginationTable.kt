@@ -145,6 +145,12 @@ fun PaginatedTable(
                         )
                         Checkbox(
                             checked = selectedList.contains(person),
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = blue,
+                                uncheckedColor = Color.Gray,
+                                checkmarkColor = Color.White,
+                                disabledColor = Color.LightGray,
+                            ),
                             onCheckedChange = { isChecked ->
                                 if (isChecked) {
                                     selectedList.add(person)

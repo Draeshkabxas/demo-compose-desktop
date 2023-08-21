@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.*
 import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
@@ -140,6 +141,17 @@ fun PaginatedTable(
                             showDialog = showDialog,
                             alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                         )
+                        Checkbox(
+                            checked = SonsOfOfficersScreenViewModel.checkedPersons.value.contains(person),
+                            onCheckedChange = { isChecked ->
+                                if (isChecked) {
+                                    SonsOfOfficersScreenViewModelcheckedPersons.add(person)
+                                } else {
+                                    SonsOfOfficersScreenViewModelcheckedPersons.remove(person)
+                                }
+                            },
+                            modifier = Modifier.padding(8.dp)
+                        )
                         Text(
                             text = (personList.indexOf(person) + 1).toString(), // display counter value as text
                             maxLines = 1,
@@ -155,6 +167,8 @@ fun PaginatedTable(
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[1])
                                 .padding(8.dp)
@@ -164,6 +178,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
@@ -181,6 +197,8 @@ fun PaginatedTable(
                             text = person.motherName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[4])
@@ -191,6 +209,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[5])
                                 .padding(8.dp)
@@ -200,6 +220,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[6])
                                 .padding(8.dp)
@@ -209,6 +231,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[7])
                                 .padding(8.dp)
@@ -217,6 +241,8 @@ fun PaginatedTable(
                             text = person.recruiter,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[8])
@@ -232,6 +258,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[9])
                                 .padding(8.dp)
@@ -266,6 +294,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[10])
                                 .padding(8.dp)
@@ -276,6 +306,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[11])
                                 .padding(8.dp)
@@ -284,6 +316,8 @@ fun PaginatedTable(
                             text = person.notes,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[12])
@@ -300,6 +334,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[13])
                                 .padding(8.dp)

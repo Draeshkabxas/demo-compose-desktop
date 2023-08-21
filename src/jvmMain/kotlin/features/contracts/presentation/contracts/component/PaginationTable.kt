@@ -162,6 +162,8 @@ fun PaginatedTable(
                             text = contract.fileNumber,
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[1])
@@ -172,6 +174,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[2])
                                 .padding(8.dp)
@@ -181,6 +185,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[3])
                                 .padding(8.dp)
@@ -189,6 +195,8 @@ fun PaginatedTable(
                             text = contract.motherName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[4])
@@ -199,6 +207,8 @@ fun PaginatedTable(
                             style = CairoTypography.h3,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[5])
                                 .padding(8.dp)
@@ -208,6 +218,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[6])
                                 .padding(8.dp)
@@ -217,6 +229,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[7])
                                 .padding(8.dp)
@@ -226,6 +240,8 @@ fun PaginatedTable(
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[8])
                                 .padding(8.dp)
@@ -234,6 +250,7 @@ fun PaginatedTable(
                             text = contract.dependency,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[9])
@@ -243,6 +260,8 @@ fun PaginatedTable(
                             text = contract.bankName,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[10])
@@ -252,6 +271,8 @@ fun PaginatedTable(
                             text = contract.accountNumber,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[11])
@@ -261,21 +282,23 @@ fun PaginatedTable(
                             text = contract.notes,
                             style = CairoTypography.h4,
                             fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+
 //                            textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .width(columnWidths[12])
                                 .padding(8.dp),
-                            maxLines = 2
                         )
                         Text(
                             text = contract.reference,
                             style = CairoTypography.body2,
 //                            fontWeight = FontWeight.Bold,
 //                            textAlign = TextAlign.Center,
+                            maxLines = 1,
+
                             modifier = Modifier
                                 .width(columnWidths[13])
                                 .padding(8.dp),
-                            maxLines = 2
                         )
 
 //                        if (canEditPermission) {

@@ -1,5 +1,8 @@
 package features.sons_of_officers.presentation.sons_of_officers
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import utils.Resource
 import features.courses.presentation.courses.FilterEvent
 import features.sons_of_officers.domain.model.Person
@@ -29,6 +32,7 @@ class SonsOfOfficersScreenViewModel(
 
     private var printList = listOf<String>()
     private var printPath = ""
+    val checkedPersons = mutableStateOf<List<Person>>(emptyList())
 
     init {
         getFilterData()
@@ -133,7 +137,8 @@ class SonsOfOfficersScreenViewModel(
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        printPersonsListToXlsxFile.invoke(peopleData, filePath, printList).onEach {
+        val printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+        printPersonsListToXlsxFile.invoke(printData, filePath, printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()

@@ -44,7 +44,7 @@ fun ContractsScreen(
     viewModel: ContractsScreenViewModel = koinInject()
 ) {
     val widths =
-        listOf(40.dp, 82.dp, 280.dp, 120.dp, 180.dp, 115.dp, 115.dp, 150.dp, 110.dp, 120.dp, 140.dp, 160.dp, 200.dp, 200.dp)
+        listOf(40.dp, 82.dp, 280.dp, 120.dp, 180.dp, 115.dp, 115.dp, 150.dp, 110.dp, 120.dp, 140.dp, 160.dp, 300.dp, 200.dp)
     val headers = listOf(
         "رقم", "رقم الملف", "الإسم رباعي",
         "الرقم الوطني", "إسم الأم", "جنسية الأم",
@@ -299,9 +299,9 @@ fun ContractsScreen(
             LazyColumn(Modifier.padding(5.dp)) {
                 item {
                     MaterialTheme {
-                        Surface(modifier = Modifier.size(1400.dp)) {
+                        Surface(modifier = Modifier.height(1400.dp).fillMaxWidth()) {
                             PaginatedTable(
-                                navController, headers, contractsData, 18, widths,
+                                navController, headers, contractsData, 25, widths,
                                 onRemoveContract = { contract ->
                                     viewModel.removeContract(contract, onSuccess = {})
                                 },

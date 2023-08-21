@@ -19,6 +19,7 @@ class CoursesXlsxImpl: CourseXlsxRepository {
         val workbook = XSSFWorkbook()
         try {
             val sheet = workbook.createSheet("Persons")
+            val headers = headers.reversed()
             val headerRow = sheet.createRow(0)
             headers.forEachIndexed{ index: Int, headerName: String ->
                 headerRow.createCell(index).setCellValue(headerName)

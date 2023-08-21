@@ -22,6 +22,7 @@ class ContractXlsxImpl : ContractXlsxRepository {
         headers: List<String>
     ): Flow<Boolean> = flow {
         val workbook = XSSFWorkbook()
+        val headers = headers.reversed()
         try {
             val sheet = workbook.createSheet("Persons")
             val headerRow = sheet.createRow(0)

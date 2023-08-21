@@ -29,7 +29,6 @@ class ContractsScreenViewModel (
     private var state  = FilterState()
 
     private val contractsDataChannel = Channel<List<Contract>>()
-    private var peopleData: List<Contract> = emptyList()
 
     private var contractsData:List<Contract> = emptyList()
     val contractsDataFlow = contractsDataChannel.receiveAsFlow()
@@ -210,8 +209,12 @@ class ContractsScreenViewModel (
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        val printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+        val printData = if ( checkedPersons.value.isEmpty() ) {
+            println("all contracts")
+            contractsData
+        } else checkedPersons.value
 
+        println("printed data = $printData :: ${checkedPersons.value}")
         printContractsListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())

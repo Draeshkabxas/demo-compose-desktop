@@ -38,10 +38,39 @@ fun SonsOfOfficersScreen(
     navController: NavController<Screens>,
     viewModel: SonsOfOfficersScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp,70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 250.dp, 85.dp, 85.dp, 65.dp,250.dp, 95.dp)
+    val widths = listOf(
+        70.dp,
+        70.dp,
+        82.dp,
+        300.dp,
+        130.dp,
+        250.dp,
+        115.dp,
+        150.dp,
+        110.dp,
+        250.dp,
+        85.dp,
+        85.dp,
+        65.dp,
+        250.dp,
+        95.dp
+    )
     val headers = listOf(
-        "تحديد","التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة", "الملاحظات", "إحالة لتدريب"
+        "تحديد",
+        "التسلسل",
+        "رقم الملف",
+        "الإسم رباعي",
+        "الرقم الوطني",
+        "إسم الأم",
+        "المؤهل العلمي",
+        "المدينة",
+        "رقم الهاتف",
+        "القائم بالتجنيد",
+        "حالة الملف",
+        "اللجنة",
+        "النتيجة",
+        "الملاحظات",
+        "إحالة لتدريب"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -213,15 +242,19 @@ fun SonsOfOfficersScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.height(1600.dp).fillMaxWidth()) {
-                            PaginatedTable(navController, headers, peopleData, 25, widths,
-                                onRemovePerson = {person ->
+                            PaginatedTable(
+                                navController, headers, peopleData, 25, widths,
+                                onRemovePerson = { person ->
                                     viewModel.removePerson(
                                         person = person,
                                         onError = { it.showErrorMessage() },
                                         onSuccess = { "تمت عملية المسح بنجاح".showSuccessMessage() })
                                 },
                                 currentPage = currentDataTablePage,
-                            )
+                                onSelectedListChange = { value ->
+                                    println("on Selected $value")
+                                    viewModel.checkedPersons.value = value
+                                })
                         }
                     }
                 }

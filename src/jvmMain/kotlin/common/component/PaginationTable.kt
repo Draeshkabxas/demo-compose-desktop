@@ -39,7 +39,8 @@ fun PaginatedTable(
     itemsPerPage: Int,
     columnWidths: List<Dp>,
     onRemovePerson: (Person) -> Unit,
-    currentPage:MutableState<Int> = mutableStateOf(0)
+    currentPage:MutableState<Int> = mutableStateOf(0),
+    onSelectedListChange:(MutableList<Person>) -> Unit ,
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -51,6 +52,7 @@ fun PaginatedTable(
 
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
+    val selectedList  = mutableStateListOf<Person>()
 
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
@@ -142,13 +144,14 @@ fun PaginatedTable(
                             alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
                         )
                         Checkbox(
-                            checked = SonsOfOfficersScreenViewModel.checkedPersons.value.contains(person),
+                            checked = selectedList.contains(person),
                             onCheckedChange = { isChecked ->
                                 if (isChecked) {
-                                    SonsOfOfficersScreenViewModelcheckedPersons.add(person)
+                                    selectedList.add(person)
                                 } else {
-                                    SonsOfOfficersScreenViewModelcheckedPersons.remove(person)
+                                    selectedList.remove(person)
                                 }
+                                onSelectedListChange(selectedList)
                             },
                             modifier = Modifier.padding(8.dp)
                         )

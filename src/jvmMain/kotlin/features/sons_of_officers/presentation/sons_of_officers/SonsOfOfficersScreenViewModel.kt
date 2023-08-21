@@ -32,7 +32,7 @@ class SonsOfOfficersScreenViewModel(
 
     private var printList = listOf<String>()
     private var printPath = ""
-    val checkedPersons = mutableStateOf<List<Person>>(emptyList())
+    val checkedPersons = mutableStateOf<MutableList<Person>>(mutableListOf())
 
     init {
         getFilterData()

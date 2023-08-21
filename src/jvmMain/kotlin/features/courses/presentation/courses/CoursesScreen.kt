@@ -44,10 +44,39 @@ fun CoursesScreen(
     navController: NavController<Screens>,
     viewModel: CoursesScreenViewModel = koinInject()
 ) {
-    val widths = listOf(70.dp,70.dp, 82.dp, 300.dp, 130.dp, 250.dp, 115.dp, 150.dp, 110.dp, 200.dp, 85.dp, 85.dp, 90.dp,250.dp, 95.dp)
+    val widths = listOf(
+        70.dp,
+        70.dp,
+        82.dp,
+        300.dp,
+        130.dp,
+        250.dp,
+        115.dp,
+        150.dp,
+        110.dp,
+        200.dp,
+        85.dp,
+        85.dp,
+        90.dp,
+        250.dp,
+        95.dp
+    )
     val headers = listOf(
-       "تحديد", "التسلسل", "رقم الملف", "الإسم رباعي", "الرقم الوطني", "إسم الأم", "المؤهل العلمي", "المدينة", "رقم الهاتف",
-        "القائم بالتجنيد", "حالة الملف", "اللجنة", "النتيجة","الملاحظات", "إحالة لتدريب"
+        "تحديد",
+        "التسلسل",
+        "رقم الملف",
+        "الإسم رباعي",
+        "الرقم الوطني",
+        "إسم الأم",
+        "المؤهل العلمي",
+        "المدينة",
+        "رقم الهاتف",
+        "القائم بالتجنيد",
+        "حالة الملف",
+        "اللجنة",
+        "النتيجة",
+        "الملاحظات",
+        "إحالة لتدريب"
     )
     val userAuthSystem = getUserAuth()
     var canEditPermission = userAuthSystem.canEdit()
@@ -84,44 +113,52 @@ fun CoursesScreen(
                 onFilterHealthStatus = { viewModel.onEvent(FilterHealthStatus(it)) },
                 onReset = {
                     resetDataTablePage()
-                    viewModel.onEvent(Reset) },
+                    viewModel.onEvent(Reset)
+                },
                 onSubmit = {
                     resetDataTablePage()
-                    viewModel.onEvent(Submit) },
+                    viewModel.onEvent(Submit)
+                },
             )
             Row(
                 modifier = Modifier.align(Alignment.TopEnd).padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                if(canEditPermission){
-                GradientButton(
-                    text = "إضافة ملف",
-                    icon = Icons.Default.AddTask,
-                    onClick = {
-                        navController.navigate(Screens.AddCoursesScreen())
-                    },
-                    colors =  blueGradient,
-                    cornerRadius = 30.dp
-                )
+                if (canEditPermission) {
+                    GradientButton(
+                        text = "إضافة ملف",
+                        icon = Icons.Default.AddTask,
+                        onClick = {
+                            navController.navigate(Screens.AddCoursesScreen())
+                        },
+                        colors = blueGradient,
+                        cornerRadius = 30.dp
+                    )
 
-                GradientButton(
-                    text = "طباعة",
-                    icon = Icons.Default.Print,
-                    onClick = {
-                        showPrintListDialog = true
-                    },
+                    GradientButton(
+                        text = "طباعة",
+                        icon = Icons.Default.Print,
+                        onClick = {
+                            showPrintListDialog = true
+                        },
 
-                    colors = GreenGradient,
-                    cornerRadius = 30.dp
-                )
+                        colors = GreenGradient,
+                        cornerRadius = 30.dp
+                    )
                     var showDialogDelet by remember { mutableStateOf(false) }
 
                     if (showDialogDelet) {
                         AlertDialog(
                             onDismissRequest = { showDialogDelet = false },
                             title = { Text(" ", textAlign = TextAlign.Start, style = CairoTypography.h3) },
-                            text = { Text("هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟", textAlign = TextAlign.End, style = CairoTypography.h3) },
+                            text = {
+                                Text(
+                                    "هل أنت متأكد من أنك تريد مسح كافة البيانات ف المنظومة ؟",
+                                    textAlign = TextAlign.End,
+                                    style = CairoTypography.h3
+                                )
+                            },
                             confirmButton = {
                                 GradientButton(
                                     text = "مسح",
@@ -134,7 +171,7 @@ fun CoursesScreen(
                                             "تمت عملية المسح بنجاح".showSuccessMessage()
                                         })
                                     },
-                                    colors =   AppColors.RedGradient, cornerRadius = 30.dp
+                                    colors = AppColors.RedGradient, cornerRadius = 30.dp
                                 )
                             },
                             dismissButton = {
@@ -149,7 +186,7 @@ fun CoursesScreen(
                             }
                         )
                     }
-                    if (superAdminPermission){
+                    if (superAdminPermission) {
                         GradientButton(
                             text = "مسح الكل",
                             icon = Icons.Default.DeleteForever,
@@ -159,47 +196,47 @@ fun CoursesScreen(
                             colors = AppColors.RedGradient, cornerRadius = 30.dp
                         )
                     }
-                if (showPrintListDialog) {
-                    PrintDialog(
-                        columns = listOf(
-                            "رقم الملف",
-                            "الاسم رباعي",
-                            "الرقم الوطني",
-                            "اسم الام",
-                            "المؤهل العلمي",
-                            "المدينة",
-                            "رقم الهاتف",
-                            "القائم بالتجنيد",
-                            "النتيجة",
-                            "اللجنة",
-                            "الملاحظات"
-                        ),
-                        onPrintColumnsChanged = {
-                            viewModel.onPrintEvent(PrintList(it))
-                            showPrintDirectoryPathDialog = true
-                        },
-                        onDismiss = { showPrintListDialog = false }
-                    )
-                }
+                    if (showPrintListDialog) {
+                        PrintDialog(
+                            columns = listOf(
+                                "رقم الملف",
+                                "الاسم رباعي",
+                                "الرقم الوطني",
+                                "اسم الام",
+                                "المؤهل العلمي",
+                                "المدينة",
+                                "رقم الهاتف",
+                                "القائم بالتجنيد",
+                                "النتيجة",
+                                "اللجنة",
+                                "الملاحظات"
+                            ),
+                            onPrintColumnsChanged = {
+                                viewModel.onPrintEvent(PrintList(it))
+                                showPrintDirectoryPathDialog = true
+                            },
+                            onDismiss = { showPrintListDialog = false }
+                        )
+                    }
 
-                if (showPrintDirectoryPathDialog) {
-                    DirectoryDialog(
-                        onApproved = { filePath ->
-                            viewModel.onPrintEvent(PrintToDirectory(filePath))
-                            viewModel.onPrintEvent(PrintEvent.Submit)
-                            showPrintDirectoryPathDialog = false
-                            ("تمت عملية الطباعة بنجاح" ).showSuccessMessage()
-                        },
-                        onCanceled = {
-                            showPrintDirectoryPathDialog = false
-                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
-                        },
-                        onError = {
-                            ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
-                        }
-                    )
+                    if (showPrintDirectoryPathDialog) {
+                        DirectoryDialog(
+                            onApproved = { filePath ->
+                                viewModel.onPrintEvent(PrintToDirectory(filePath))
+                                viewModel.onPrintEvent(PrintEvent.Submit)
+                                showPrintDirectoryPathDialog = false
+                                ("تمت عملية الطباعة بنجاح").showSuccessMessage()
+                            },
+                            onCanceled = {
+                                showPrintDirectoryPathDialog = false
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
+                            },
+                            onError = {
+                                ("لم يتم الحصول على مسار الذي تريد الطباعة فيه").showErrorMessage()
+                            }
+                        )
+                    }
                 }
-            }
             }
         }
 //        table
@@ -213,15 +250,18 @@ fun CoursesScreen(
                 item {
                     MaterialTheme {
                         Surface(modifier = Modifier.height(1600.dp).fillMaxWidth()) {
-                            PaginatedTable(navController, headers, coursesData, 20, widths,
-                                onRemoveCourse = {course->
+                            PaginatedTable(
+                                navController, headers, coursesData, 20, widths,
+                                onRemoveCourse = { course ->
                                     viewModel.removeCourse(course, onSuccess = {})
                                 },
                                 currentPage = currentDataTablePage,
                                 onSelectedListChange = { value ->
                                     println("on Selected $value")
                                     viewModel.checkedPersons.value = value
-                                })
+                                },
+                                checkedList = viewModel.checkedPersons.value
+                            )
 
                         }
                     }

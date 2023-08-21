@@ -45,6 +45,7 @@ fun PaginatedTable(
     onRemoveCourse: (Course) -> Unit,
     currentPage:MutableState<Int> = mutableStateOf(0),
     onSelectedListChange:(MutableList<Course>) -> Unit ,
+    checkedList: List<Course>
     ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -54,6 +55,7 @@ fun PaginatedTable(
     val canEditPermission = userAuthSystem.canEdit()
     val superAdmin = userAuthSystem.canChangeAccountsPermission()
     val selectedList  = mutableStateListOf<Course>()
+    selectedList.addAll(checkedList)
 
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)

@@ -41,6 +41,7 @@ fun PaginatedTable(
     onRemoveResults: (Results) -> Unit,
     currentPage:MutableState<Int> = mutableStateOf(0),
     onSelectedListChange:(MutableList<Results>) -> Unit,
+    checkedList: List<Results>
     ) {
 //    if (contractList.isEmpty()) return
     val pageCount = (resultsList.size + itemsPerPage - 1) / itemsPerPage
@@ -53,7 +54,7 @@ fun PaginatedTable(
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
     val selectedList  = mutableStateListOf<Results>()
-
+    selectedList.addAll(checkedList)
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()
     ) {

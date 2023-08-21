@@ -244,7 +244,9 @@ fun ResultsScreen(
                                 onSelectedListChange = { value ->
                                     println("on Selected $value")
                                     viewModel.checkedPersons.value = value
-                                })
+                                },
+                                checkedList = viewModel.checkedPersons.value
+                            )
 
                         }
                     }

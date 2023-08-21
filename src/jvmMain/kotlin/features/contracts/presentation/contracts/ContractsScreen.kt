@@ -309,7 +309,8 @@ fun ContractsScreen(
                                 onSelectedListChange = { value ->
                                     println("on Selected $value")
                                     viewModel.checkedPersons.value = value
-                                }
+                                },
+                                checkedList = viewModel.checkedPersons.value
                             ) // Pass the currentPage value from ViewModel
                         }
                     }

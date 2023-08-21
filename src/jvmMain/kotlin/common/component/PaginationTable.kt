@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
+import features.courses.domain.model.Course
 import features.sons_of_officers.domain.model.Person
 import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import navcontroller.NavController
@@ -41,6 +42,7 @@ fun PaginatedTable(
     onRemovePerson: (Person) -> Unit,
     currentPage:MutableState<Int> = mutableStateOf(0),
     onSelectedListChange:(MutableList<Person>) -> Unit ,
+    checkedList: List<Person>
 ) {
 //    if (personList.isEmpty()) return
     val pageCount = (personList.size + itemsPerPage - 1) / itemsPerPage
@@ -53,6 +55,7 @@ fun PaginatedTable(
     val scrollState = rememberScrollState()
     val scrollBarAdapter = rememberScrollbarAdapter(scrollState)
     val selectedList  = mutableStateListOf<Person>()
+    selectedList.addAll(checkedList)
 
     Box(
         modifier = Modifier.horizontalScroll(scrollState)  .fillMaxWidth()

@@ -24,7 +24,6 @@ class ResultsScreenViewModel (
     private var state  = FilterState()
 
     private val resultsDataChannel = Channel<List<Results>>()
-    private var peopleData: List<Results> = emptyList()
 
     private var resultsData:List<Results> = emptyList()
     val resultsDataFlow = resultsDataChannel.receiveAsFlow()
@@ -137,14 +136,14 @@ class ResultsScreenViewModel (
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        var printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+        var printData = if (checkedPersons.value.isEmpty()) resultsData else checkedPersons.value
 
         printResultsListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()
                 is Resource.Success -> {
-                    printData=peopleData
+//                    printData=peopleData
                     it.data?.let(onSuccess)
                 }
             }

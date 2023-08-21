@@ -27,7 +27,6 @@ class CoursesScreenViewModel(
 
     private var coursesData:List<Course> = emptyList()
     val coursesDataFlow = coursesDataChannel.receiveAsFlow()
-    private var peopleData: List<Course> = emptyList()
 
     private var printList = listOf<String>()
     private var printPath = ""
@@ -129,7 +128,7 @@ class CoursesScreenViewModel(
         onLoading: () -> Unit,
         onSuccess: (Boolean) -> Unit
     ) {
-        val printData = if (checkedPersons.value.isEmpty()) peopleData else checkedPersons.value
+        val printData = if (checkedPersons.value.isEmpty()) coursesData else checkedPersons.value
 
         printCoursesListToXlsxFile.invoke(printData, filePath,printList).onEach {
             when (it) {

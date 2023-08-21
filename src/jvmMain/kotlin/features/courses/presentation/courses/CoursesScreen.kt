@@ -212,8 +212,8 @@ fun CoursesScreen(
             LazyColumn(Modifier.padding(10.dp)) {
                 item {
                     MaterialTheme {
-                        Surface(modifier = Modifier.height(1400.dp).fillMaxWidth()) {
-                            PaginatedTable(navController, headers, coursesData, 25, widths,
+                        Surface(modifier = Modifier.height(1600.dp).fillMaxWidth()) {
+                            PaginatedTable(navController, headers, coursesData, 20, widths,
                                 onRemoveCourse = {course->
                                     viewModel.removeCourse(course, onSuccess = {})
                                 },

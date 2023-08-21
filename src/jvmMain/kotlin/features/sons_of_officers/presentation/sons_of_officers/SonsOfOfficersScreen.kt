@@ -243,7 +243,7 @@ fun SonsOfOfficersScreen(
                     MaterialTheme {
                         Surface(modifier = Modifier.height(1600.dp).fillMaxWidth()) {
                             PaginatedTable(
-                                navController, headers, peopleData, 25, widths,
+                                navController, headers, peopleData, 20, widths,
                                 onRemovePerson = { person ->
                                     viewModel.removePerson(
                                         person = person,

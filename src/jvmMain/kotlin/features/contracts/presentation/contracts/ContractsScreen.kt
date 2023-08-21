@@ -299,9 +299,9 @@ fun ContractsScreen(
             LazyColumn(Modifier.padding(5.dp)) {
                 item {
                     MaterialTheme {
-                        Surface(modifier = Modifier.height(1400.dp).fillMaxWidth()) {
+                        Surface(modifier = Modifier.height(1600.dp).fillMaxWidth()) {
                             PaginatedTable(
-                                navController, headers, contractsData, 25, widths,
+                                navController, headers, contractsData, 20, widths,
                                 onRemoveContract = { contract ->
                                     viewModel.removeContract(contract, onSuccess = {})
                                 },

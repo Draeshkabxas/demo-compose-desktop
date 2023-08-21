@@ -142,7 +142,10 @@ class SonsOfOfficersScreenViewModel(
             when (it) {
                 is Resource.Error -> onError(it.message.toString())
                 is Resource.Loading -> onLoading()
-                is Resource.Success -> it.data?.let(onSuccess)
+                is Resource.Success -> {
+                    checkedPersons.value.clear()
+                    it.data?.let(onSuccess)
+                }
             }
         }.launchIn(CoroutineScope(Dispatchers.IO))
     }

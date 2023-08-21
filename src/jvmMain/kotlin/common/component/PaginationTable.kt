@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.*
 import common.component.ScreenMode.EDIT
 import common.component.Screens.AddSonsOfOfficersScreen
 import features.sons_of_officers.domain.model.Person
+import features.sons_of_officers.presentation.sons_of_officers.SonsOfOfficersScreenViewModel
 import navcontroller.NavController
 import styles.AppColors
 import styles.AppColors.blue
@@ -139,6 +140,17 @@ fun PaginatedTable(
 
                             showDialog = showDialog,
                             alertText = "هل انت متأكد من أنك تريد مسح هذا الملف ؟"
+                        )
+                        Checkbox(
+                            checked = SonsOfOfficersScreenViewModel.checkedPersons.value.contains(person),
+                            onCheckedChange = { isChecked ->
+                                if (isChecked) {
+                                    SonsOfOfficersScreenViewModelcheckedPersons.add(person)
+                                } else {
+                                    SonsOfOfficersScreenViewModelcheckedPersons.remove(person)
+                                }
+                            },
+                            modifier = Modifier.padding(8.dp)
                         )
                         Text(
                             text = (personList.indexOf(person) + 1).toString(), // display counter value as text

@@ -235,7 +235,7 @@ fun ResultsScreen(
             LazyColumn(Modifier.padding(5.dp)) {
                 item {
                     MaterialTheme {
-                        Surface(modifier = Modifier.size(1400.dp)) {
+                        Surface(modifier = Modifier.height(1400.dp).fillMaxWidth()) {
                             PaginatedTable(navController, headers, resultsData, 25, widths,
                                 onRemoveResults = { results ->
                                     viewModel.removeResults(results, onSuccess = {})
